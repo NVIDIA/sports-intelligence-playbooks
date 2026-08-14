@@ -2,8 +2,6 @@
 
 Source for **Sports Intelligence Cookbooks** documentation (Sphinx + **repo_docs** via `doc_build_toolchain/`).
 
-**GitLab:** [https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo](https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo)
-
 **Published documentation:** [https://nvidia.github.io/sports-intelligence-cookbooks/](https://nvidia.github.io/sports-intelligence-cookbooks/) (GitHub authentication required)
 
 The published site title and left-hand navigation are defined in **`docs_src/index.rst`**. The sidebar is grouped into:
@@ -80,14 +78,6 @@ nohup python -m http.server 8876 --bind 127.0.0.1 > ../_build/docs/server.log 2>
 Then open **[http://127.0.0.1:8876/](http://127.0.0.1:8876/)** in your browser.
 
 Use another port if **8876** is taken. To stop a background server, find its PID with `pgrep -f 'http.server 8876'` and run `kill <PID>`.
-
-## Publish to GitHub Pages
-
-```bash
-./publish-github-pages.sh
-```
-
-The script performs a clean documentation build and freshly clones the remote **`sports-intelligence-cookbooks`** repository's latest **`main`** into a temporary directory. It mirrors files tracked by Git exactly as they exist in the current local worktree, including staged and unstaged modifications, then adds the generated **`docs/`** payload. Untracked and ignored files are not copied, and **`publish-github-pages.sh`** itself is excluded from the destination. The script creates a branch named like **`publish-docs-20260814-095900`**, commits everything, pushes the branch, prints a GitHub compare URL for creating the pull request, and removes the temporary files. It never fetches or changes this repository's branches, changes an existing local clone, or pushes directly to destination **`main`**.
 
 ## Layout
 

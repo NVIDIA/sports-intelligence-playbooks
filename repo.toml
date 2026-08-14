@@ -31,7 +31,6 @@ files = [
     ["${root}/requirements.txt", ""],
     ["${root}/*.lock", ""],
     ["${root}/README.md", ""],
-    ["${root}/CHANGELOG.md", ""],
     ["${root}/VERSION", ""],
     ["${root}/LICENSE", ""],
     ["${root}/PACKAGE-INFO.yaml", ""],
