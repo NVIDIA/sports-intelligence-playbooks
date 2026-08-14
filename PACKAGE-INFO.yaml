@@ -1,0 +1,5 @@
+Package : repo_docs
+Description : Nvidia Sports Intelligence Stack documentation build (vendored repo_docs toolchain).
+Maintainers : ejahangiri@nvidia.com
+Repository : https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo
+License Type : NVIDIA
