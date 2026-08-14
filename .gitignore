@@ -1,0 +1,31 @@
+# Local Python environments
+.venv/
+venv/
+ENV/
+env/
+
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Packaging / install artifacts
+*.egg-info/
+.eggs/
+dist/
+
+# Repo tooling and transient doc build outputs (see README)
+_build/
+_repo/
+.pages-publish.*/
+/docs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors (local-only)
+.vscode/

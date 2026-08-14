@@ -1,0 +1,175 @@
+[repo]
+# "warn", "info", "debug"
+logging = "warn"
+
+[repo_pydeps]
+enabled = true
+
+[repo_lint]
+enabled = true
+flake8.enabled = false
+mypy.enabled = false
+gitlint.enabled = false
+ruff.enabled = true
+
+ruff.files.include = [
+    "**/*.py",
+]
+
+ruff.files.exclude."++" = [
+    "exhale/**",
+]
+
+[repo_package.packages.repo_docs]
+custom_platform = false
+warn_if_not_exists = true
+version = "${file:${config_root}/VERSION}"
+label_name = false
+files = [
+    ["${root}/doc_build_toolchain/repo/docs/**", "doc_build_toolchain/repo/docs"],
+    ["${root}/repo_tools.toml", ""],
+    ["${root}/requirements.txt", ""],
+    ["${root}/*.lock", ""],
+    ["${root}/README.md", ""],
+    ["${root}/CHANGELOG.md", ""],
+    ["${root}/VERSION", ""],
+    ["${root}/LICENSE", ""],
+    ["${root}/PACKAGE-INFO.yaml", ""],
+    ["${root}/LICENSE", "PACKAGE-LICENSES/repo_docs"],
+    ["${root}/licenses/**", "PACKAGE-LICENSES"],
+    ["${root}/doc_build_toolchain/repo/docs/include/repo_docs/ext/enhanced_search/js/lunr/LICENSE", "PACKAGE-LICENSES/lunr"],
+    ["${root}/doc_build_toolchain/repo/docs/include/repo_docs/ext/mermaid/mermaid/LICENSE", "PACKAGE-LICENSES/mermaid"],
+]
+
+[repo_publish]
+enabled = true
+packages = ["repo_docs"]
+
+[repo_docs]
+parallel_project_builds = false
+enabled = true
+docs_root = "${root}/docs_src"
+docs_dst = "${root}/docs"
+docs_tmp = "${root}/_build/docs/tmp"
+output_path_template = "latest${dash_build}"
+sphinx_warnings_path = "${root}/_build/docs/sphinx_warnings.txt"
+copyright_start = 2021
+version = "${file:${config_root}/VERSION}"
+# Base URL for “view source” / repo-link resolution (GitLab blob view on default branch).
+repo_url = "https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo/-/blob/main"
+# Empty string disables the default Omniverse social icon set from repo_tools.toml.
+social_media_set = ""
+social_media = []
+sphinx_exclude_patterns = [
+    "PACKAGE-LICENSES",
+]
+copybutton_enabled = true
+
+api_output_directory = "api"
+api_item_filters = [
+    { rule = "include", attribute = "kind", matching = "dir", group = "kind-dir" },
+    { rule = "include", attribute = "kind", matching = "file", group = "kind-file" },
+]
+doxygen_typedef_hides_struct_enabled = true
+
+latex_font_directories.nvidia_sans = "${env:NVIDIA_FONT_DIRECTORY}"
+latex_font_directories.roboto_mono = "${env:ROBOTO_FONT_DIRECTORY}"
+
+only_preprocessor_enabled = true
+
+auto_number_figures_enabled = true
+
+metadata_global = { docs-version = "${version}", project-name = "Sports Intelligence Cookbooks" }
+
+source_substitutions = { nvidia_url = "http://www.nvidia.com" }
+
+default_footer_notice_links_enabled = true
+
+python_paths = []
+
+[repo_docs.projects.sports_intelligence_stack]
+name = "Sports Intelligence Cookbooks"
+doxygen_input = []
+doxygen_strip_from_path = []
+api_member_pages = "*"
+# example-begin deps
+deps = [
+    { name = "python", url = "https://docs.python.org/3" },
+    { name = "sphinx", url = "https://www.sphinx-doc.org/en/master" },
+    { name = "pydata", url = "https://pydata-sphinx-theme.readthedocs.io/en/stable" },
+]
+# example-end deps
+search_other_projects = []
+version_selector_notes = []
+redirects = []
+remapped_source_docs = []
+
+# Emit the GitHub Pages support files beside latest/.
+sphinx_conf_py_extra = '''
+import json
+from pathlib import Path
+
+html_extra_path = [str(Path(__file__).resolve().parent.parent / "assets")]
+
+def _write_pages_files(app, exception):
+    if exception:
+        return
+    root = Path(app.srcdir).parent
+    ver = (root / "VERSION").read_text(encoding="utf-8").strip()
+    parent = Path(app.outdir).parent
+    payload = [{"version": ver, "url": "./latest/", "preferred": True}]
+    (parent / "versions1.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    (parent / ".nojekyll").touch()
+    (parent / "index.html").write_text(
+        """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=latest/">
+  <link rel="canonical" href="latest/">
+  <title>Sports Intelligence Cookbooks</title>
+</head>
+<body>
+  <p><a href="latest/">Open the latest documentation</a>.</p>
+</body>
+</html>
+""",
+        encoding="utf-8",
+    )
+
+sphinx_event_handlers.append(("build-finished", _write_pages_files))
+'''
+
+#####################
+# Formatter
+#####################
+
+[repo_format.python]
+files.include = [
+    "doc_build_toolchain/**/*",
+]
+
+#####################
+# Test Runner (disabled — tests removed from this documentation repo)
+#####################
+
+[repo_test]
+enabled = false
+default_suite = "unit"
+
+[repo_test.suites.unit]
+kind = "pytest"
+log_file = "_build/test/results.xml"
+discover_path = "${root}/tests/unit"
+python_source_path = "${root}/doc_build_toolchain/repo/docs/*"
+python_paths = [
+    "${root}/doc_build_toolchain/repo/docs/include",
+]
+
+[repo_test.suites.func]
+kind = "pytest"
+log_file = "_build/test/results.func.xml"
+discover_path = "${root}/tests/func"
+python_paths = [
+    "${root}/doc_build_toolchain/repo/docs/include",
+]
