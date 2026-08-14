@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Cookbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>Prefer Event-Based Video Chunking &#8212; Sports Intelligence Cookbooks</title>
   
@@ -434,7 +434,7 @@
 <li><p><strong>Prefer event-based chunking when reliable event boundaries are available, or achievable through low-cost boundary detection models.</strong> In a typical tennis match, for example, meaningful rally action is only ~27% of total duration, so uniform coverage processes about 3.7 times more frames than the points require. Aligning chunks to rallies, plays, possessions, or other meaningful units concentrates the relevant action and preserves its temporal context. Compared with processing uniform windows across the full video, event-based chunks can require fewer frames while improving prediction accuracy. In tennis, for example, point boundaries can be detected from ball and racket impact sounds using the zero-shot <a class="reference external" href="https://huggingface.co/docs/transformers/en/model_doc/clap">CLAP model</a>, combined with OCR of scoreboard changes.</p></li>
 </ul>
 <figure class="learning-page-figure align-default" id="id3">
-<a class="reference internal image-reference" href="../../_images/chunking_action_share.png"><img alt="Share of total match duration" src="../../_images/chunking_action_share.png" style="width: 33%;" />
+<a class="reference internal image-reference" href="../../_images/chunking_action_share.svg"><img alt="Share of total match duration" src="../../_images/chunking_action_share.svg" style="width: 33%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Figure 8 </span><span class="caption-text">Duration breakdown of a typical tennis match. Meaningful rally action only occupies about a quarter of the video.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
