@@ -3,7 +3,7 @@ name = "repo-docs"
 version = "1.0.0"
 description = "Documentation for Sports Intelligence Cookbooks."
 authors = [
-    { name = "Ehsan Jahangiri", email = "ejahangiri@nvidia.com" },
+    { name = "NVIDIA Corporation" },
 ]
 readme = "README.md"
 requires-python = ">=3.10,<4"
@@ -35,7 +35,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo"
+Repository = "https://github.com/NVIDIA/sports-intelligence-cookbooks"
 
 [tool.uv]
 managed = true

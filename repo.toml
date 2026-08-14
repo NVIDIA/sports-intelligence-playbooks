@@ -55,7 +55,7 @@ sphinx_warnings_path = "${root}/_build/docs/sphinx_warnings.txt"
 copyright_start = 2021
 version = "${file:${config_root}/VERSION}"
 # Base URL for “view source” / repo-link resolution (GitLab blob view on default branch).
-repo_url = "https://gitlab-master.nvidia.com/avlm/sports_intelligence_doc_repo/-/blob/main"
+repo_url = "https://github.com/NVIDIA/sports-intelligence-cookbooks/-/blob/main"
 # Empty string disables the default Omniverse social icon set from repo_tools.toml.
 social_media_set = ""
 social_media = []
