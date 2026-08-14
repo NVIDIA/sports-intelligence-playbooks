@@ -111,12 +111,16 @@ body.modal-open #pst-back-to-top {
 
 /* Learning-page headings and figure captions */
 .bd-article #small-training-datasets-amplify-boundary-sensitivity > h1,
-.bd-article #effective-resolution-s-impact-on-prediction-accuracy > h1 {
+.bd-article #effective-resolution-s-impact-on-prediction-accuracy > h1,
+.bd-article #training-data-bias-shapes-prediction-bias > h1,
+.bd-article #prefer-event-based-video-chunking > h1 {
     font-size: 1.75rem;
 }
 
 .bd-article #small-training-datasets-amplify-boundary-sensitivity h2,
-.bd-article #effective-resolution-s-impact-on-prediction-accuracy h2 {
+.bd-article #effective-resolution-s-impact-on-prediction-accuracy h2,
+.bd-article #training-data-bias-shapes-prediction-bias h2,
+.bd-article #prefer-event-based-video-chunking h2 {
     font-size: 1.5rem;
 }
 
@@ -127,5 +131,10 @@ body.modal-open #pst-back-to-top {
 }
 
 .bd-article .learning-page-figure figcaption .caption-number {
+    font-weight: 700;
+}
+
+.bd-article .learning-page-figure figcaption strong {
+    color: var(--pst-color-heading);
     font-weight: 700;
 }

@@ -11,7 +11,7 @@
 <meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Cookbooks" name="project-name" />
 
-    <title>Training &#8212; Sports Intelligence Cookbooks</title>
+    <title>Prefer Event-Based Video Chunking &#8212; Sports Intelligence Cookbooks</title>
   
   
   
@@ -54,7 +54,7 @@
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=65e89d2a"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/training/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/learnings/video_chunking';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
@@ -69,8 +69,8 @@
 
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Setup" href="setup.html" />
-    <link rel="prev" title="Data Curation" href="../data_curation.html" />
+    <link rel="next" title="Licenses" href="../../licenses.html" />
+    <link rel="prev" title="Training Data Bias Shapes Prediction Bias" href="training_data_and_prediction_bias.html" />
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -227,6 +227,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -327,19 +331,19 @@
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../data_curation.html">Data Curation</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Training</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sft.html">SFT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lora.html">LoRA</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/lora.html">LoRA</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../learnings/video_chunking.html">Video Chunking Impact</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Video Chunking Impact</a></li>
 </ul>
 </details></li>
 </ul>
@@ -380,7 +384,10 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Training</span></li>
+    
+    <li class="breadcrumb-item"><a href="../learnings.html" class="nav-link">Learnings</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Prefer Event-Based Video Chunking</span></li>
   </ul>
 </nav>
 </div>
@@ -397,18 +404,51 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="training">
-<h1>Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h1>
-<p>Sports intelligence depends on models that can reason in all of the visual, audio/speed, and text modalities. Fine-tuning multimodal language models on domain-specific data is one of the most effective ways to improve accuracy: sports analysis relies on fine-grained details such as player motion, ball trajectory, court geometry, and timing that general-purpose models often miss. Adequate spatial and temporal resolution in both data and model inputs is essential so the model can ground answers in what actually happened in the clip. Getting the most accurate results therefore requires more than tuning the weights of a fixed base model alone. It also depends on how multimodal data is curated, encoded, and aligned across the full fine-tuning pipeline.</p>
-<p>This training section covers supervised fine-tuning (SFT) and LoRA (Low-Rank Adaptation) for <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a>. Our recommended “Nemotron-3 Nano Omni” model is available for commercial use. Our cookbooks and launch scripts in the code repo are tested against this base model.</p>
-<p>See <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> for stack layout and prerequisites. SFT and LoRA link to full runbooks are in the code repo.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sft.html">SFT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lora.html">LoRA</a></li>
+  <section id="prefer-event-based-video-chunking">
+<h1>Prefer Event-Based Video Chunking<a class="headerlink" href="#prefer-event-based-video-chunking" title="Link to this heading">#</a></h1>
+<p>A full sports game can run for several hours, and processing such long videos in a single pass is impractical given the memory and compute constraints of even modern GPUs. Processing every frame is therefore infeasible. Chunking divides a long video into manageable training and inference inputs, allowing the pipeline to control temporal coverage and computate and memory cost. Recent work, such as <a class="reference external" href="https://arxiv.org/abs/2510.09608">StreamingVLM</a>, processes arbitrarily long videos by intelligently evicting older KV-cache tokens, but still assumes uniform chunking.</p>
+<p><strong>Chunking is not neutral:</strong> the chosen boundaries determine how much meaningful action the model sees, whether an event is split across inputs, or how much redundant video must be processed. Improper chunking can hurt model understanding. For example, splitting a coherent event across chunks can remove important context, while an excessively long chunking window can include redundant content that wastes computation or memory and distracts the model. We can chunk a long video in three ways: (1) uniform chunks without overlap, (2) uniform chunks with overlap, and (3) event-based chunks.</p>
+<section id="expectations">
+<h2>Expectations<a class="headerlink" href="#expectations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Uniform chunking without overlap is simple but can split meaningful events.</strong> Fixed windows cover the video once and keep computation predictable. However, their boundaries are unrelated to the action, so an event may be divided across chunks. When meaningful action is sparse within a long video, many chunks may contain mostly setup, downtime, or other low-value content. The window size also presents a direct tradeoff: windows that are too long waste memory and compute and overwhelm the model with irrelevant content, while windows that are too short may omit the context needed to understand an event.</p></li>
 </ul>
-</div>
+<figure class="learning-page-figure align-default" id="id1">
+<a class="reference internal image-reference" href="../../_images/sliding-window-wo-overlap.png"><img alt="A long video divided into fixed, non-overlapping temporal windows." src="../../_images/sliding-window-wo-overlap.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 6 </span><span class="caption-text">Uniform chunking without overlap. Fixed windows cover the video once, but an event can be split at a window boundary.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>Uniform chunking with overlap reduces chunk boundary misses at a higher cost.</strong> Overlap gives events near a window boundary another chance to appear with sufficient context. The tradeoff is repeated frames and duplicated non-action content, which increase inference costs across long videos.</p></li>
+</ul>
+<figure class="learning-page-figure align-default" id="id2">
+<a class="reference internal image-reference" href="../../_images/sliding-window-w-overlap.png"><img alt="A long video divided into overlapping temporal windows." src="../../_images/sliding-window-w-overlap.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7 </span><span class="caption-text">Uniform chunking with overlap. Repeated coverage protects boundary context but processes some frames more than once.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>Prefer event-based chunking when reliable event boundaries are available, or achievable through low-cost boundary detection models.</strong> In a typical tennis match, for example, meaningful rally action is only ~27% of total duration, so uniform coverage processes about 3.7 times more frames than the points require. Aligning chunks to rallies, plays, possessions, or other meaningful units concentrates the relevant action and preserves its temporal context. Compared with processing uniform windows across the full video, event-based chunks can require fewer frames while improving prediction accuracy. In tennis, for example, point boundaries can be detected from ball and racket impact sounds using the zero-shot <a class="reference external" href="https://huggingface.co/docs/transformers/en/model_doc/clap">CLAP model</a>, combined with OCR of scoreboard changes.</p></li>
+</ul>
+<figure class="learning-page-figure align-default" id="id3">
+<a class="reference internal image-reference" href="../../_images/chunking_action_share.png"><img alt="Share of total match duration" src="../../_images/chunking_action_share.png" style="width: 33%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 8 </span><span class="caption-text">Duration breakdown of a typical tennis match. Meaningful rally action only occupies about a quarter of the video.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="learning-page-figure align-default" id="id4">
+<a class="reference internal image-reference" href="../../_images/event-based-temporal-segmentation.png"><img alt="A long video divided into chunks aligned with meaningful sports events." src="../../_images/event-based-temporal-segmentation.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 9 </span><span class="caption-text">Event-based chunking. Chunks align with meaningful sports events, concentrating action and excluding more non-action video.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Evaluate chunking as part of the data curation and model pipeline rather than as preprocessing alone. Compare strategies on representative held-out videos while tracking both task quality and the amount of video processed, then choose the lowest-cost approach that preserves the events and context required by the use case.</p>
+</section>
 </section>
 
 
@@ -422,20 +462,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../data_curation.html"
+       href="training_data_and_prediction_bias.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Curation</p>
+        <p class="prev-next-title">Training Data Bias Shapes Prediction Bias</p>
       </div>
     </a>
     <a class="right-next"
-       href="setup.html"
+       href="../../licenses.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Setup</p>
+        <p class="prev-next-title">Licenses</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -446,9 +486,25 @@
             
             
 
-<div class="bd-sidebar-secondary"></div>
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations">Expectations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
 
