@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>LoRA &#8212; Sports Intelligence Playbooks</title>
   
@@ -412,7 +412,7 @@
 <section id="sft-vs-lora-compute-and-checkpoint-size">
 <span id="sft-lora-compute-ref"></span><h2>SFT vs. LoRA (compute and checkpoint size)<a class="headerlink" href="#sft-vs-lora-compute-and-checkpoint-size" title="Link to this heading">#</a></h2>
 <p>The table below is an approximate SFT vs. LoRA comparison for Nemotron-3 Nano Omni. Actual numbers depend on your recipe, sequence length, and hardware.</p>
-<p>GPU memory and throughput (tps/gpu) come from the <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/recipes-e2e-examples/nemotron-omni">Nemotron-Omni AutoModel cookbook</a> (8 GPUs, CORD-V2 recipe, frozen vision/audio towers).</p>
+<p>GPU memory and throughput (tps/gpu) come from the <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/recipes-e2e-examples/nemotron-omni">Nemotron-Omni AutoModel playbook</a> (8 GPUs, CORD-V2 recipe, frozen vision/audio towers).</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 28.0%" />
@@ -445,7 +445,7 @@
 </tbody>
 </table>
 </div>
-<p>Trainable LoRA parameters scale linearly with <code class="docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the Nemotron-Omni cookbook.</p>
+<p>Trainable LoRA parameters scale linearly with <code class="docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the Nemotron-Omni playbook.</p>
 <p>Step time is often similar between SFT and LoRA because throughput (tps/gpu) is in the same ballpark; the main SFT costs are higher per-GPU memory, optimizer state over far more trainable weights, and checkpoint I/O.</p>
 <p>Both stacks share the same high-level recipe layout under <code class="docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands, merge/export, smoke examples):</strong></p>
