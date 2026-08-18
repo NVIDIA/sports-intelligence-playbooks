@@ -8,10 +8,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Cookbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
-    <title>Data Curation &#8212; Sports Intelligence Cookbooks</title>
+    <title>Data Curation &#8212; Sports Intelligence Playbooks</title>
   
   
   
@@ -70,13 +70,13 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Training" href="training/index.html" />
-    <link rel="prev" title="Sports Intelligence Cookbooks" href="../index.html" />
+    <link rel="prev" title="Sports Intelligence Playbooks" href="../index.html" />
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 14, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -151,11 +151,11 @@
       
     
     
-    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Cookbooks - Home"/>
-    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Cookbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
   
   
-    <p class="title logo__title">Sports Intelligence Cookbooks</p>
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
   
 </a></div>
     
@@ -262,11 +262,11 @@
       
     
     
-    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Cookbooks - Home"/>
-    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Cookbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
   
   
-    <p class="title logo__title">Sports Intelligence Cookbooks</p>
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
   
 </a>
 
@@ -403,16 +403,16 @@
                   
   <section id="data-curation">
 <h1>Data Curation<a class="headerlink" href="#data-curation" title="Link to this heading">#</a></h1>
-<p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repository under <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm">avlm/</a>. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
+<p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repository. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
 <section id="example-tennis-annotation-guideline">
 <h2>Example Tennis Annotation Guideline<a class="headerlink" href="#example-tennis-annotation-guideline" title="Link to this heading">#</a></h2>
-<p>The following is a <strong>tennis-specific</strong> annotation guideline that we used for multimodal language models. Other sports will use different fields and taxonomies, but the overall approach—segmenting events, capturing outcomes and narratives, and enforcing quality control—carries over directly.</p>
-<p><a class="reference external" href="../Tennis_Annotation_Guideline.pdf">Tennis Annotation Guideline (PDF)</a> — a step-by-step guide for point-by-point annotation of full tennis match videos, including game context, segment timestamps, dense captions, and quality-control workflows.</p>
+<p>The following is a <strong>tennis-specific</strong> annotation guideline that we used for multimodal language models. Other sports will use different fields and taxonomies, but the overall approach—segmenting events and capturing outcomes and narratives—carries over directly.</p>
+<p><a class="reference external" href="../Tennis_Annotation_Guideline.pdf">Tennis Annotation Guideline (PDF)</a> — a step-by-step guide for point-by-point annotation of full tennis match videos, including game context, segment timestamps, and dense captions.</p>
 </section>
 <section id="from-tennis-annotation-to-training-data">
 <h2>From Tennis Annotation to Training Data<a class="headerlink" href="#from-tennis-annotation-to-training-data" title="Link to this heading">#</a></h2>
-<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/1D8sm1NCwUs.json">1D8sm1NCwUs.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
-<p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for supervised fine-tuning (SFT). The reference implementation lives in <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
+<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
+<p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
 <section id="pipeline-overview">
 <h3>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">#</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>raw_tennis_data_input/&lt;videoId&gt;.json
@@ -424,14 +424,15 @@ training_tennis_data_output/mcq_qa_per_video/&lt;videoId&gt;_derived_mcq_qa.json
 training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_seen_videos,test_unseen_videos}.jsonl
 </pre></div>
 </div>
-<p>Each annotated point becomes many training rows: one row per question template (20 templates in total — 17 MCQ and 3 open-ended QA).</p>
+<p>Each annotated point becomes many training rows: one row per question template.</p>
 </section>
-<section id="what-the-generator-does">
-<h3>What the Generator Does<a class="headerlink" href="#what-the-generator-does" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">generate_mcq_qa.py</span></code> walks every point in the raw JSON and applies <strong>named templates</strong> from <code class="docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
+<section id="what-the-generators-do">
+<h3>What the Generators Do<a class="headerlink" href="#what-the-generators-do" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">generate_mcq_qa.py</span></code> handles the default templates, while <code class="docutils literal notranslate"><span class="pre">generate_categorical_mcq_qa.py</span></code> handles categorical evaluation. Both walk every point in the raw JSON and apply <strong>named templates</strong> from <code class="docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tennis_mcq_config.json</span></code> — multiple-choice questions (server/winner, score, rally length, how the point ended, …)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tennis_qa_config.json</span></code> — open-ended QA (point caption, how the point ended, audio cues)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tennis_categorical_eval_config.json</span></code> — categorical MCQ/QA with evaluation metadata</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">question_types.json</span></code> — optional allow-list of template names (omit to generate all)</p></li>
 </ul>
 <p>Each template specifies which annotation <strong>field</strong> supplies the ground-truth answer, the <strong>question</strong> text (with placeholders such as <code class="docutils literal notranslate"><span class="pre">&lt;player1&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;score_before&gt;</span></code> filled from metadata), and a <strong>type</strong> that controls how options are built:</p>
@@ -441,8 +442,20 @@ training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_
 <li><p><strong>open_ended</strong> — assistant reply is the annotation field verbatim</p></li>
 <li><p><strong>llm_gen_distractor</strong> — MCQ where the correct option is still the annotated text, but three wrong options are written by an LLM (mcq_* templates only)</p></li>
 </ul>
-<p>For each point the generator: (1) resolves placeholders, (2) picks or derives the correct answer, (3) shuffles MCQ options, and (4) emits a HuggingFace <strong>conversation</strong> record with the point’s relative <code class="docutils literal notranslate"><span class="pre">video</span></code> path, question/answer text, and a <code class="docutils literal notranslate"><span class="pre">class</span></code> field set to the template name (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="docutils literal notranslate"><span class="pre">score_after</span></code>).</p>
-<p>Most templates are <strong>fully deterministic</strong> and need no LLM. Only the <code class="docutils literal notranslate"><span class="pre">mcq_*</span></code> distractor templates call an API (<code class="docutils literal notranslate"><span class="pre">openai</span></code> + <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code>; API key in a local <code class="docutils literal notranslate"><span class="pre">dev_local.env</span></code>).</p>
+<p>For each point the generators: (1) resolve placeholders, (2) pick or derive the correct answer, (3) shuffle MCQ options, and (4) emit a HuggingFace <strong>conversation</strong> record with the point’s relative <code class="docutils literal notranslate"><span class="pre">video</span></code> path, question/answer text, and a <code class="docutils literal notranslate"><span class="pre">class</span></code> field set to the template name (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="docutils literal notranslate"><span class="pre">score_after</span></code>).</p>
+<p>Most templates are <strong>fully deterministic</strong> and need no LLM. Only the legacy <code class="docutils literal notranslate"><span class="pre">mcq_*</span></code> distractor templates call an API (<code class="docutils literal notranslate"><span class="pre">openai</span></code> + <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code>; API key in a local <code class="docutils literal notranslate"><span class="pre">dev_local.env</span></code>); the current categorical config requires no LLM.</p>
+</section>
+<section id="categorical-evaluation-mode">
+<h3>Categorical Evaluation Mode<a class="headerlink" href="#categorical-evaluation-mode" title="Link to this heading">#</a></h3>
+<p>Categorical mode generates 39 templates (37 MCQ and 2 QA) across visual recognition, commentary, match facts, rules/reasoning, and audio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>prepare_training_data_pipeline.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>categorical<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-dir<span class="w"> </span>raw_tennis_data_input<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>training_tennis_data_output/categorical<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--video-root<span class="w"> </span><span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>It writes <code class="docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
 </section>
 <section id="train-validation-test-splits">
 <h3>Train / Validation / Test Splits<a class="headerlink" href="#train-validation-test-splits" title="Link to this heading">#</a></h3>
@@ -452,18 +465,22 @@ training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_
 <li><p><strong>test_seen_videos</strong> — held-out points from a seen match (generalization within a known game)</p></li>
 <li><p><strong>test_unseen_videos</strong> — points from a fully held-out match (generalization to new players/context)</p></li>
 </ul>
+<p>Point-level grouping also prevents leakage when the same annotation field is expressed through multiple templates: placing one version in training and another in evaluation could produce spuriously high accuracy for that field. More broadly, multiple forms of the same field are useful only when they test distinct capabilities; otherwise they are redundant and obscure what the measured accuracy represents.</p>
 </section>
 <section id="output-format">
 <h3>Output Format<a class="headerlink" href="#output-format" title="Link to this heading">#</a></h3>
 <p>Final artifacts are JSONL files under <code class="docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/</span></code>. Each line is one (video, question) pair. The <code class="docutils literal notranslate"><span class="pre">class</span></code> field carries the question-type / template name the row was generated from (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="docutils literal notranslate"><span class="pre">score_after</span></code>); eval tooling uses it to route MCQ vs descriptive scoring (see <a class="reference internal" href="evaluation.html"><span class="doc">Evaluation</span></a>).</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1D8sm1NCwUs_ServerWinner_09c90920-...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_video_001_ServerWinner_6f7b9d82-...&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;server_winner&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;evaluation_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcq&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;super_category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Match Facts&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fine_category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point Roles and Outcome&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;conversation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1D8sm1NCwUs/1D8sm1NCwUs_seg_01_13_19_timeoffset_end_3.mp4&quot;</span><span class="p">},</span>
+<span class="w">       </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_video_001/sample_video_001_seg_01_13_19_timeoffset_end_3.mp4&quot;</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Who served and who won...?\n(A) ...\n(B) ...\n(C) ...\n(D) ...&quot;</span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
@@ -503,7 +520,7 @@ training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_
 </tbody>
 </table>
 </div>
-<p>Full template names and descriptions are listed in the tennis README linked in the next section.</p>
+<p>Full examples are listed in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/TEMPLATE_EXAMPLES.MD">default template examples</a> and <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/categorical_data_samples/TEMPLATE_EXAMPLES_CATEGORICAL.MD">categorical template examples</a>.</p>
 </section>
 <section id="example-code-and-documentation">
 <h3>Example Code and Documentation<a class="headerlink" href="#example-code-and-documentation" title="Link to this heading">#</a></h3>
@@ -520,7 +537,7 @@ training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_
 <h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
 <p>From the tennis example directory in a clone of <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>avlm/data_prep_example/tennis
-uv<span class="w"> </span>sync<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">   </span><span class="c1"># only needed for mcq_* LLM distractors</span>
+uv<span class="w"> </span>sync<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 python<span class="w"> </span>prepare_training_data_pipeline.py
 </pre></div>
 </div>
@@ -545,7 +562,7 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sports Intelligence Cookbooks</p>
+        <p class="prev-next-title">Sports Intelligence Playbooks</p>
       </div>
     </a>
     <a class="right-next"
@@ -581,7 +598,8 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-tennis-annotation-guideline">Example Tennis Annotation Guideline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-tennis-annotation-to-training-data">From Tennis Annotation to Training Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-overview">Pipeline Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-generator-does">What the Generator Does</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-generators-do">What the Generators Do</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-evaluation-mode">Categorical Evaluation Mode</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-validation-test-splits">Train / Validation / Test Splits</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-format">Output Format</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-templates-summary">Question Templates (Summary)</a></li>
@@ -678,7 +696,7 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 14, 2026.
+  Last updated on Aug 18, 2026.
   <br/>
 </p></div>
       
