@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -405,28 +405,28 @@
 <h1>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h1>
 <a class="reference internal image-reference" href="../_images/Evaluation_Pipeline.png"><img alt="AVLM evaluation pipeline" class="align-center" src="../_images/Evaluation_Pipeline.png" style="width: 100%;" />
 </a>
-<p>The evaluation pipeline routes inference predictions by <code class="docutils literal notranslate"><span class="pre">evaluation_type</span></code>: MCQ answers use deterministic letter matching, while open-ended answers use an LLM judge. The resulting scores are aggregated into JSON metrics and an HTML report.</p>
+<p>The evaluation pipeline routes inference predictions by <code class="code docutils literal notranslate"><span class="pre">evaluation_type</span></code>: MCQ answers use deterministic letter matching, while open-ended answers use an LLM judge. The resulting scores are aggregated into JSON metrics and an HTML report.</p>
 <p>After inference writes predictions, we score them with two complementary methods:</p>
 <ul class="simple">
 <li><p><strong>MCQ accuracy</strong> — letter matching for multiple-choice questions (fast, deterministic)</p></li>
 <li><p><strong>LLM-as-judge</strong> — rubric scoring for open-ended captions and descriptions where wording varies but factual alignment matters</p></li>
 </ul>
-<p>Both approaches apply across sports. Code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository under <code class="docutils literal notranslate"><span class="pre">avlm/evals/</span></code>; the shipped tennis question classes and prompts are a reference implementation, and the same patterns extend to other domains with sport-specific templates, metadata schemas, and judge rubrics. Predictions must exist first at:</p>
+<p>Both approaches apply across sports. Code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository under <code class="code docutils literal notranslate"><span class="pre">avlm/evals/</span></code>; the shipped tennis question classes and prompts are a reference implementation, and the same patterns extend to other domains with sport-specific templates, metadata schemas, and judge rubrics. Predictions must exist first at:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.jsonl
 </pre></div>
 </div>
 <p>Each line is one (video, question) pair. See <a class="reference internal" href="inference/index.html"><span class="doc">Inference</span></a> for generating predictions.</p>
 <section id="two-evaluation-modes">
 <h2>Two Evaluation Modes<a class="headerlink" href="#two-evaluation-modes" title="Link to this heading">#</a></h2>
-<p>Routing uses the <code class="docutils literal notranslate"><span class="pre">evaluation_type</span></code> field on each row in <code class="docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>:</p>
+<p>Routing uses the <code class="code docutils literal notranslate"><span class="pre">evaluation_type</span></code> field on each row in <code class="code docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mcq</span></code> — scored locally by letter matching; no external API calls</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">open_ended</span></code> — scored by an LLM judge; requires a judge API key</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">mcq</span></code> — scored locally by letter matching; no external API calls</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">open_ended</span></code> — scored by an LLM judge; requires a judge API key</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">class</span></code> field stores the template name (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="docutils literal notranslate"><span class="pre">point_caption</span></code>). Set both fields during data preparation when defining templates (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>). MCQ answers use <code class="docutils literal notranslate"><span class="pre">(A)</span> <span class="pre">...</span></code> through <code class="docutils literal notranslate"><span class="pre">(D)</span> <span class="pre">...</span></code>; open-ended templates use free-text ground truth.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field stores the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>). Set both fields during data preparation when defining templates (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>). MCQ answers use <code class="code docutils literal notranslate"><span class="pre">(A)</span> <span class="pre">...</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span> <span class="pre">...</span></code>; open-ended templates use free-text ground truth.</p>
 <section id="tennis-reference-classes">
 <h3>Tennis reference classes<a class="headerlink" href="#tennis-reference-classes" title="Link to this heading">#</a></h3>
-<p>Tennis MCQ classes include match facts such as <code class="docutils literal notranslate"><span class="pre">score_after</span></code>, <code class="docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="docutils literal notranslate"><span class="pre">how_point_ended</span></code>, and <code class="docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, plus categorical visual and reasoning classes. Open-ended classes include <code class="docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, and <code class="docutils literal notranslate"><span class="pre">audio_cues</span></code>. Categorical rows also carry <code class="docutils literal notranslate"><span class="pre">super_category</span></code> and <code class="docutils literal notranslate"><span class="pre">fine_category</span></code> labels for breakdowns across visual recognition, commentary, match facts, rules/reasoning, and audio. See <code class="docutils literal notranslate"><span class="pre">avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD</span></code> for the current taxonomy.</p>
+<p>Tennis MCQ classes include match facts such as <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>, <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, and <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, plus categorical visual and reasoning classes. Open-ended classes include <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, and <code class="code docutils literal notranslate"><span class="pre">audio_cues</span></code>. Categorical rows also carry <code class="code docutils literal notranslate"><span class="pre">super_category</span></code> and <code class="code docutils literal notranslate"><span class="pre">fine_category</span></code> labels for breakdowns across visual recognition, commentary, match facts, rules/reasoning, and audio. See <code class="code docutils literal notranslate"><span class="pre">avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD</span></code> for the current taxonomy.</p>
 </section>
 </section>
 <section id="mcq-evaluation">
@@ -434,11 +434,11 @@
 <p>The MCQ scorer reads inference predictions and compares each model answer to the annotated correct letter. The headline metric is the <strong>percentage of correct answers</strong>.</p>
 <section id="answer-format">
 <h3>Answer format<a class="headerlink" href="#answer-format" title="Link to this heading">#</a></h3>
-<p>Answers must start with <code class="docutils literal notranslate"><span class="pre">(A)</span></code> through <code class="docutils literal notranslate"><span class="pre">(D)</span></code>; optional Markdown bold is accepted. The scorer extracts the leading letter from model output and ground truth. Malformed reference answers are skipped with a warning. Unparseable model outputs count as <code class="docutils literal notranslate"><span class="pre">num_parse_failed</span></code> and remain in the denominator, lowering accuracy.</p>
+<p>Answers must start with <code class="code docutils literal notranslate"><span class="pre">(A)</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span></code>; optional Markdown bold is accepted. The scorer extracts the leading letter from model output and ground truth. Malformed reference answers are skipped with a warning. Unparseable model outputs count as <code class="code docutils literal notranslate"><span class="pre">num_parse_failed</span></code> and remain in the denominator, lowering accuracy.</p>
 </section>
 <section id="results">
 <h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
-<p>Results are written to <code class="docutils literal notranslate"><span class="pre">mcq/mcq_results.json</span></code> under the inference output directory. It reports <code class="docutils literal notranslate"><span class="pre">pct_correct</span></code> (a 0–1 fraction), <code class="docutils literal notranslate"><span class="pre">total_mcq_questions</span></code>, correct/incorrect counts, parse and inference failures, and the same metrics under <code class="docutils literal notranslate"><span class="pre">per_class</span></code>.</p>
+<p>Results are written to <code class="code docutils literal notranslate"><span class="pre">mcq/mcq_results.json</span></code> under the inference output directory. It reports <code class="code docutils literal notranslate"><span class="pre">pct_correct</span></code> (a 0–1 fraction), <code class="code docutils literal notranslate"><span class="pre">total_mcq_questions</span></code>, correct/incorrect counts, parse and inference failures, and the same metrics under <code class="code docutils literal notranslate"><span class="pre">per_class</span></code>.</p>
 </section>
 <section id="run-mcq-eval">
 <h3>Run MCQ eval<a class="headerlink" href="#run-mcq-eval" title="Link to this heading">#</a></h3>
@@ -454,7 +454,7 @@ bash<span class="w"> </span>avlm/evals/scripts/run_mcq_eval.sh
 </section>
 <section id="llm-as-judge-evaluation">
 <h2>LLM-as-Judge Evaluation<a class="headerlink" href="#llm-as-judge-evaluation" title="Link to this heading">#</a></h2>
-<p>The LLM judge scores <code class="docutils literal notranslate"><span class="pre">open_ended</span></code> rows. A separate model rates each answer against the reference on a <strong>1–10</strong> scale and returns a short justification plus notes on factual alignment.</p>
+<p>The LLM judge scores <code class="code docutils literal notranslate"><span class="pre">open_ended</span></code> rows. A separate model rates each answer against the reference on a <strong>1–10</strong> scale and returns a short justification plus notes on factual alignment.</p>
 <p>Use LLM judging when there is no single letter or exact string to match — for example, event captions or play-by-play descriptions where phrasing can differ but facts must hold.</p>
 <section id="full-event-context-for-the-judge">
 <h3>Full event context for the judge<a class="headerlink" href="#full-event-context-for-the-judge" title="Link to this heading">#</a></h3>
@@ -474,9 +474,9 @@ bash<span class="w"> </span>avlm/evals/scripts/run_mcq_eval.sh
 <li><p><strong>Strict pred-vs-GT matching</strong> would unfairly penalize valid extra detail that the annotator simply did not repeat in the short reference string.</p></li>
 <li><p><strong>Lenient semantic matching</strong> would let plausible but wrong details slip through.</p></li>
 </ul>
-<p><strong>Event metadata</strong> breaks that tradeoff. It is the structured annotation row for that point — the same fields used during data curation (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>): server/receiver, scores, <code class="docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, rally length, captions, and related labels. The judge treats metadata as <strong>authoritative context</strong> to:</p>
+<p><strong>Event metadata</strong> breaks that tradeoff. It is the structured annotation row for that point — the same fields used during data curation (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>): server/receiver, scores, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, rally length, captions, and related labels. The judge treats metadata as <strong>authoritative context</strong> to:</p>
 <ul class="simple">
-<li><p><strong>Verify</strong> specific claims in the prediction (for example, cross-check serve-related statements against <code class="docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>).</p></li>
+<li><p><strong>Verify</strong> specific claims in the prediction (for example, cross-check serve-related statements against <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>).</p></li>
 <li><p><strong>Disambiguate</strong> point-ending categories (ace, double fault, winner, unforced error, and so on) when the reference caption is vague or abbreviated.</p></li>
 <li><p><strong>Avoid false hallucination penalties</strong> when the model adds a detail that ground truth omitted but metadata supports.</p></li>
 <li><p><strong>Penalize contradictions</strong> when the prediction conflicts with structured fields, even if the wording sounds plausible.</p></li>
@@ -485,12 +485,12 @@ bash<span class="w"> </span>avlm/evals/scripts/run_mcq_eval.sh
 </section>
 <section id="how-metadata-is-attached">
 <h4>How metadata is attached<a class="headerlink" href="#how-metadata-is-attached" title="Link to this heading">#</a></h4>
-<p>During data preparation, open-ended rows can be augmented with structured point metadata. Inference copies that <code class="docutils literal notranslate"><span class="pre">metadata</span></code> field into <code class="docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>; the judge does not load a separate annotation directory. <code class="docutils literal notranslate"><span class="pre">metadata_mode</span></code> in <code class="docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> controls whether metadata is placed in the user or system message, selected automatically, or omitted. The shipped config uses the user message.</p>
+<p>During data preparation, open-ended rows can be augmented with structured point metadata. Inference copies that <code class="code docutils literal notranslate"><span class="pre">metadata</span></code> field into <code class="code docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>; the judge does not load a separate annotation directory. <code class="code docutils literal notranslate"><span class="pre">metadata_mode</span></code> in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> controls whether metadata is placed in the user or system message, selected automatically, or omitted. The shipped config uses the user message.</p>
 </section>
 </section>
 <section id="judge-prompt">
 <h3>Judge prompt<a class="headerlink" href="#judge-prompt" title="Link to this heading">#</a></h3>
-<p>The rubric lives in <code class="docutils literal notranslate"><span class="pre">avlm/evals/utils/prompt.py</span></code>. At runtime the scorer fills in the reference answer, original prompt, model answer, and event metadata. An optional domain-specific paragraph from <code class="docutils literal notranslate"><span class="pre">system_prompt</span></code> in <code class="docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> is appended to the system message.</p>
+<p>The rubric lives in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/utils/prompt.py</span></code>. At runtime the scorer fills in the reference answer, original prompt, model answer, and event metadata. An optional domain-specific paragraph from <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> is appended to the system message.</p>
 <p><strong>System message</strong> (default):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>You are an expert VLM evaluator. Provide accurate, fair, and detailed scoring
 based on the given criteria.
@@ -502,7 +502,7 @@ do not overrule matching GT/pred serve-sequence descriptions from ambiguous atte
 Prefer concise, technical justifications.
 </pre></div>
 </div>
-<p><strong>User message</strong> (template; <code class="docutils literal notranslate"><span class="pre">REPLACE_*</span></code> slots are filled per example):</p>
+<p><strong>User message</strong> (template; <code class="code docutils literal notranslate"><span class="pre">REPLACE_*</span></code> slots are filled per example):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Your task is to compare the model prediction directly against the conversation
 and ground truth, and use the provided metadata as authoritative context for
 verification and disambiguation. Prioritize agreement with gt, and use metadata
@@ -580,11 +580,11 @@ Respond ONLY with a JSON object of the form:
 }
 </pre></div>
 </div>
-<p>The tennis examples in the prompt (serve attempts, point-ending categories) illustrate how metadata cross-check works; adapt <code class="docutils literal notranslate"><span class="pre">prompt.py</span></code> and the config <code class="docutils literal notranslate"><span class="pre">system_prompt</span></code> for other sports.</p>
+<p>The tennis examples in the prompt (serve attempts, point-ending categories) illustrate how metadata cross-check works; adapt <code class="code docutils literal notranslate"><span class="pre">prompt.py</span></code> and the config <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> for other sports.</p>
 </section>
 <section id="judge-configuration">
 <h3>Judge configuration<a class="headerlink" href="#judge-configuration" title="Link to this heading">#</a></h3>
-<p>Copy and edit <code class="docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code>. You need:</p>
+<p>Copy and edit <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code>. You need:</p>
 <ul class="simple">
 <li><p>An OpenAI-compatible <strong>API base URL</strong> and <strong>judge model</strong> name</p></li>
 </ul>
@@ -593,7 +593,7 @@ Respond ONLY with a JSON object of the form:
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CLIENT_API_KEY</span><span class="o">=</span>&lt;YOUR_CLIENT_API_KEY&gt;
 </pre></div>
 </div>
-<p>LLM judge requires <code class="docutils literal notranslate"><span class="pre">openai</span></code>, <code class="docutils literal notranslate"><span class="pre">pyyaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>. Install them in base Python or a venv; if using a venv, set <code class="docutils literal notranslate"><span class="pre">JUDGE_VENV_PATH</span></code> to its root. Run eval commands from the repository root; the shell wrappers accept configuration through environment variables rather than positional arguments.</p>
+<p>LLM judge requires <code class="code docutils literal notranslate"><span class="pre">openai</span></code>, <code class="code docutils literal notranslate"><span class="pre">pyyaml</span></code>, and <code class="code docutils literal notranslate"><span class="pre">tqdm</span></code>. Install them in base Python or a venv; if using a venv, set <code class="code docutils literal notranslate"><span class="pre">JUDGE_VENV_PATH</span></code> to its root. Run eval commands from the repository root; the shell wrappers accept configuration through environment variables rather than positional arguments.</p>
 </section>
 <section id="run-llm-judge">
 <h3>Run LLM judge<a class="headerlink" href="#run-llm-judge" title="Link to this heading">#</a></h3>
@@ -612,7 +612,7 @@ bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge.sh
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/llm_judge/llm_judge_predictions.json
 </pre></div>
 </div>
-<p>This file contains <code class="docutils literal notranslate"><span class="pre">statistics</span></code>, per-example <code class="docutils literal notranslate"><span class="pre">results</span></code>, <code class="docutils literal notranslate"><span class="pre">failures</span></code>, error counts, and run metadata.</p>
+<p>This file contains <code class="code docutils literal notranslate"><span class="pre">statistics</span></code>, per-example <code class="code docutils literal notranslate"><span class="pre">results</span></code>, <code class="code docutils literal notranslate"><span class="pre">failures</span></code>, error counts, and run metadata.</p>
 </section>
 <section id="llm-judge-aggregation">
 <h3>LLM judge aggregation<a class="headerlink" href="#llm-judge-aggregation" title="Link to this heading">#</a></h3>
@@ -625,7 +625,7 @@ bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge_eval.sh
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/llm_judge/llm_judge_results.json
 </pre></div>
 </div>
-<p>The result includes success/failure counts, mean and median scores, range, score distribution, and <code class="docutils literal notranslate"><span class="pre">per_class</span></code> metrics.</p>
+<p>The result includes success/failure counts, mean and median scores, range, score distribution, and <code class="code docutils literal notranslate"><span class="pre">per_class</span></code> metrics.</p>
 </section>
 <section id="llm-judge-html-summary">
 <h3>LLM judge HTML summary<a class="headerlink" href="#llm-judge-html-summary" title="Link to this heading">#</a></h3>
@@ -655,7 +655,7 @@ bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge_summary.sh
 </section>
 <section id="inference-eval-pipeline">
 <h2>Inference + Eval Pipeline<a class="headerlink" href="#inference-eval-pipeline" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">avlm/inference/common/scripts/run_inference_eval_pipeline.sh</span></code> runs inference and evaluation end to end. The default stages are <code class="docutils literal notranslate"><span class="pre">inference,mcq,judge,judge_eval,judge_summary</span></code>. Set <code class="docutils literal notranslate"><span class="pre">INFERENCE_BACKEND</span></code> to <code class="docutils literal notranslate"><span class="pre">automodel</span></code>, <code class="docutils literal notranslate"><span class="pre">megatron_bridge</span></code>, or <code class="docutils literal notranslate"><span class="pre">megatron_core</span></code>.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/common/scripts/run_inference_eval_pipeline.sh</span></code> runs inference and evaluation end to end. The default stages are <code class="code docutils literal notranslate"><span class="pre">inference,mcq,judge,judge_eval,judge_summary</span></code>. Set <code class="code docutils literal notranslate"><span class="pre">INFERENCE_BACKEND</span></code> to <code class="code docutils literal notranslate"><span class="pre">automodel</span></code>, <code class="code docutils literal notranslate"><span class="pre">megatron_bridge</span></code>, or <code class="code docutils literal notranslate"><span class="pre">megatron_core</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_BACKEND</span><span class="o">=</span>automodel<span class="w"> </span><span class="se">\</span>
 <span class="nv">INFERENCE_CONFIG</span><span class="o">=</span>avlm/inference/automodel/configs/default_sft.yaml<span class="w"> </span><span class="se">\</span>
 bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pipeline.sh
@@ -670,7 +670,7 @@ bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pip
 </section>
 <section id="evaluation-figures">
 <h2>Evaluation Figures<a class="headerlink" href="#evaluation-figures" title="Link to this heading">#</a></h2>
-<p>Scripts under <code class="docutils literal notranslate"><span class="pre">avlm/evals/figures/</span></code> generate comparison, category, radar, and accuracy-versus-cost PNGs from evaluation outputs. Run the scripts listed in <code class="docutils literal notranslate"><span class="pre">avlm/evals/figures/README.md</span></code>; figures are written to <code class="docutils literal notranslate"><span class="pre">avlm/evals/figures/outputs/</span></code>. Judge figures use the share of scores at least 9/10 as the headline pass metric.</p>
+<p>Scripts under <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/</span></code> generate comparison, category, radar, and accuracy-versus-cost PNGs from evaluation outputs. Run the scripts listed in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/README.md</span></code>; figures are written to <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/outputs/</span></code>. Judge figures use the share of scores at least 9/10 as the headline pass metric.</p>
 <p>See <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a> for pipeline overrides and eval-suite examples, and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/evals/README.MD">avlm/evals/README.MD</a> for script-level reference.</p>
 </section>
 </section>
@@ -839,7 +839,7 @@ bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pip
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 18, 2026.
+  Last updated on Aug 19, 2026.
   <br/>
 </p></div>
       
