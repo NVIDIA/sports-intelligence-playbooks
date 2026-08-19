@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=774667a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9625c932" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -407,7 +407,7 @@
   <section id="small-training-datasets-amplify-boundary-sensitivity">
 <h1>Small Training Datasets Amplify Boundary Sensitivity<a class="headerlink" href="#small-training-datasets-amplify-boundary-sensitivity" title="Link to this heading">#</a></h1>
 <p>Long sports videos typically need to be divided into shorter temporal chunks before a multimodal model can process them. Those chunks may be produced by uniform, overlapping, or event-based segmentation. The temporal segmentation isn’t always perfectly aligned with every event. Shifting a chunk’s start or end can cause the model to sample a different set of frames, even though the underlying sequence of actions remains the same.</p>
-<p><strong>If the fine-tuning dataset is not large and varied enough, expect inconsistent predictions under these boundary shifts.</strong> With limited examples, the model can become overly dependent on the temporal alignment seen during training. Broader training data exposes the model to more variation in action timing, surrounding context, and clip boundaries, reducing unexpected sensitivity at inference. The practical impact still depends on the task.</p>
+<p><strong>Expect inconsistent predictions under these boundary shifts if the fine-tuning dataset is not large and varied enough.</strong> With limited examples, the model can become overly dependent on the temporal alignment seen during training. Broader training data exposes the model to more variation in action timing, surrounding context, and clip boundaries, reducing unexpected sensitivity at inference. The practical impact still depends on the task.</p>
 <section id="expectations">
 <h2>Expectations<a class="headerlink" href="#expectations" title="Link to this heading">#</a></h2>
 <p>When possible, fine-tune with broader video coverage and more samples. This generally improves performance on held-out test videos from unseen matches and reduces sensitivity to the exact video temporal boundaries used to extract training video clips. However, the amount of data needed and the effect of a boundary shift depend on the difficulty and format of the target questions.</p>

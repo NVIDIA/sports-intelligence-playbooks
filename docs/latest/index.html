@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=774667a4" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9625c932" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -378,7 +378,10 @@
                   
   <section id="sports-intelligence-playbooks">
 <h1>Sports Intelligence Playbooks<a class="headerlink" href="#sports-intelligence-playbooks" title="Link to this heading">#</a></h1>
+<a class="index-hero reference internal image-reference" href="_images/sports_intelligence_bright_canvas.jpg"><img alt="Sports Intelligence" class="index-hero align-center" src="_images/sports_intelligence_bright_canvas.jpg" style="width: 100%;" />
+</a>
 <p>These playbooks document how to build, train, evaluate, and run <strong>multimodal language models</strong> for sports—models that take video, audio, and text together and answer questions about what happened in a game.</p>
+<p><a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">Sports Intelligence GitHub repository</a></p>
 <section id="what-the-playbooks-provide">
 <h2>What the Playbooks Provide<a class="headerlink" href="#what-the-playbooks-provide" title="Link to this heading">#</a></h2>
 <p>NVIDIA’s public recipes provide generic paths for fine-tuning Nemotron Omni, but they are not tested and verified specifically for analyzing sports feeds. These playbooks provide a reproducible multimodal language model baseline for sports intelligence, with sports-specific data, evaluation, and distributed operational training and inference workflows already integrated.</p>
@@ -390,7 +393,10 @@
 <li><p><strong>Informed choice of training method and framework.</strong> Supports and compares full SFT and LoRA across NeMo AutoModel and Megatron-Bridge, helping users balance quality, memory, iteration speed, and checkpoint size. When properly tuned, Megatron-Bridge can deliver up to <strong>3x higher training throughput</strong> than AutoModel.</p></li>
 <li><p><strong>Last but not least: shared practical learnings.</strong> Shares lessons from building, debugging, optimizing, and validating multimodal training workflows that can help others fine-tune multimodal language models for sports intelligence.</p></li>
 </ol>
-<p>Implementation, launch scripts, and runbooks live in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> code repo under <code class="docutils literal notranslate"><span class="pre">avlm/training/</span></code>, <code class="docutils literal notranslate"><span class="pre">avlm/inference/</span></code>, and <code class="docutils literal notranslate"><span class="pre">avlm/evals/</span></code>.</p>
+<p>The playbooks cover the complete AVLM lifecycle—from collecting and annotating multimodal sports data through train/eval preparation, SFT/LoRA training, inference, evaluation, and deployment. Evaluation findings feed back into data and training choices for continuous improvement.</p>
+<a class="reference internal image-reference" href="_images/AVLM_training_lifecycle.png"><img alt="AVLM training lifecycle" class="align-center" src="_images/AVLM_training_lifecycle.png" style="width: 75%;" />
+</a>
+<p><strong>Playbook Scripts:</strong> Implementation, launch scripts, and runbooks live in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> code repo under <code class="docutils literal notranslate"><span class="pre">avlm/training/</span></code>, <code class="docutils literal notranslate"><span class="pre">avlm/inference/</span></code>, and <code class="docutils literal notranslate"><span class="pre">avlm/evals/</span></code>.</p>
 <p>Use the navigation on the left to browse by section.</p>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
@@ -498,11 +504,13 @@
 <li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#judge-prompt">Judge prompt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#judge-configuration">Judge configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#run-llm-judge">Run LLM judge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#llm-judge-summary">LLM judge summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#llm-judge-aggregation">LLM judge aggregation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#llm-judge-html-summary">LLM judge HTML summary</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#outputs-layout">Outputs Layout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#inference-eval-pipeline">Inference + Eval Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#evaluation-figures">Evaluation Figures</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="multimodal/learnings.html">Learnings</a><ul>

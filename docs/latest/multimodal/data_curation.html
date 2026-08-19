@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=774667a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=9625c932" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -413,18 +413,12 @@
 <h2>From Tennis Annotation to Training Data<a class="headerlink" href="#from-tennis-annotation-to-training-data" title="Link to this heading">#</a></h2>
 <p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
 <p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
+<p>Each annotated point becomes many training rows: one row per question template.</p>
 <section id="pipeline-overview">
 <h3>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">#</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>raw_tennis_data_input/&lt;videoId&gt;.json
-      │  generate_mcq_qa.py   (templates in configs/)
-      ▼
-training_tennis_data_output/mcq_qa_per_video/&lt;videoId&gt;_derived_mcq_qa.json
-      │  split_dataset.py     (point-level split)
-      ▼
-training_tennis_data_output/data_splits_hf/tennis_mcq_qa_{train,validation,test_seen_videos,test_unseen_videos}.jsonl
-</pre></div>
-</div>
-<p>Each annotated point becomes many training rows: one row per question template.</p>
+<p>The figure shows how source annotations and video clips become template-based QA/MCQ records, point-level splits, metadata-enriched and paraphrased evaluation data, and final training and evaluation JSONL.</p>
+<a class="reference internal image-reference" href="../_images/AVLM_Training_Eval_Data_Generation.png"><img alt="AVLM training and evaluation data generation" class="align-center" src="../_images/AVLM_Training_Eval_Data_Generation.png" style="width: 100%;" />
+</a>
 </section>
 <section id="what-the-generators-do">
 <h3>What the Generators Do<a class="headerlink" href="#what-the-generators-do" title="Link to this heading">#</a></h3>

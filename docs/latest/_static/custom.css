@@ -138,3 +138,32 @@ body.modal-open #pst-back-to-top {
     color: var(--pst-color-heading);
     font-weight: 700;
 }
+
+/* Vertical breathing room between block images/figures and adjacent text */
+.bd-article img.align-center,
+.bd-article img.align-left,
+.bd-article img.align-right,
+.bd-article figure {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+}
+
+/* Keep the index hero full-width while reducing its vertical footprint. */
+@media (min-width: 768px) {
+    .bd-article img.index-hero {
+        aspect-ratio: 7 / 3;
+        object-fit: fill;
+        width: 100%;
+    }
+}
+
+/* Use more horizontal space for diagrams and other wide content. */
+@media (min-width: 1200px) {
+    .bd-page-width {
+        max-width: 130rem;
+    }
+
+    .bd-main .bd-content .bd-article-container {
+        max-width: 100rem;
+    }
+}

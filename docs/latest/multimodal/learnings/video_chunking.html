@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=774667a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9625c932" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -407,14 +407,14 @@
   <section id="prefer-event-based-video-chunking">
 <h1>Prefer Event-Based Video Chunking<a class="headerlink" href="#prefer-event-based-video-chunking" title="Link to this heading">#</a></h1>
 <p>A full sports game can run for several hours, and processing such long videos in a single pass is impractical given the memory and compute constraints of even modern GPUs. Processing every frame is therefore infeasible. Chunking divides a long video into manageable training and inference inputs, allowing the pipeline to control temporal coverage and computate and memory cost. Recent work, such as <a class="reference external" href="https://arxiv.org/abs/2510.09608">StreamingVLM</a>, processes arbitrarily long videos by intelligently evicting older KV-cache tokens, but still assumes uniform chunking.</p>
-<p><strong>Chunking is not neutral:</strong> the chosen boundaries determine how much meaningful action the model sees, whether an event is split across inputs, or how much redundant video must be processed. Improper chunking can hurt model understanding. For example, splitting a coherent event across chunks can remove important context, while an excessively long chunking window can include redundant content that wastes computation or memory and distracts the model. We can chunk a long video in three ways: (1) uniform chunks without overlap, (2) uniform chunks with overlap, and (3) event-based chunks.</p>
+<p><strong>Chunk boundaries directly shape the model’s view of the video:</strong> they determine how much meaningful action the model sees, whether an event is split across inputs, or how much redundant video must be processed. Improper chunking can hurt model understanding. For example, splitting a coherent event across chunks can remove important context, while an excessively long chunking window can include redundant content that wastes computation or memory and distracts the model. We can chunk a long video in three ways: (1) uniform chunks without overlap, (2) uniform chunks with overlap, and (3) event-based chunks.</p>
 <section id="expectations">
 <h2>Expectations<a class="headerlink" href="#expectations" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Uniform chunking without overlap is simple but can split meaningful events.</strong> Fixed windows cover the video once and keep computation predictable. However, their boundaries are unrelated to the action, so an event may be divided across chunks. When meaningful action is sparse within a long video, many chunks may contain mostly setup, downtime, or other low-value content. The window size also presents a direct tradeoff: windows that are too long waste memory and compute and overwhelm the model with irrelevant content, while windows that are too short may omit the context needed to understand an event.</p></li>
 </ul>
 <figure class="learning-page-figure align-default" id="id1">
-<a class="reference internal image-reference" href="../../_images/sliding-window-wo-overlap.png"><img alt="A long video divided into fixed, non-overlapping temporal windows." src="../../_images/sliding-window-wo-overlap.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="../../_images/sliding-window-wo-overlap-optimized.png"><img alt="A long video divided into fixed, non-overlapping temporal windows." src="../../_images/sliding-window-wo-overlap-optimized.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Figure 6 </span><span class="caption-text">Uniform chunking without overlap. Fixed windows cover the video once, but an event can be split at a window boundary.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
@@ -424,7 +424,7 @@
 <li><p><strong>Uniform chunking with overlap reduces chunk boundary misses at a higher cost.</strong> Overlap gives events near a window boundary another chance to appear with sufficient context. The tradeoff is repeated frames and duplicated non-action content, which increase inference costs across long videos.</p></li>
 </ul>
 <figure class="learning-page-figure align-default" id="id2">
-<a class="reference internal image-reference" href="../../_images/sliding-window-w-overlap.png"><img alt="A long video divided into overlapping temporal windows." src="../../_images/sliding-window-w-overlap.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="../../_images/sliding-window-w-overlap-optimized.png"><img alt="A long video divided into overlapping temporal windows." src="../../_images/sliding-window-w-overlap-optimized.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Figure 7 </span><span class="caption-text">Uniform chunking with overlap. Repeated coverage protects boundary context but processes some frames more than once.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
@@ -441,7 +441,7 @@
 </figcaption>
 </figure>
 <figure class="learning-page-figure align-default" id="id4">
-<a class="reference internal image-reference" href="../../_images/event-based-temporal-segmentation.png"><img alt="A long video divided into chunks aligned with meaningful sports events." src="../../_images/event-based-temporal-segmentation.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="../../_images/event-based-temporal-segmentation-optimized.png"><img alt="A long video divided into chunks aligned with meaningful sports events." src="../../_images/event-based-temporal-segmentation-optimized.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Figure 9 </span><span class="caption-text">Event-based chunking. Chunks align with meaningful sports events, concentrating action and excluding more non-action video.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
