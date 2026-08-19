@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -403,20 +403,20 @@
                   
   <section id="inference">
 <h1>Inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h1>
-<p>After fine-tuning, we run inference to generate predictions and evaluate model quality. Keep the video preprocessing and text prompt style/template consistent with training: frame rate (<code class="docutils literal notranslate"><span class="pre">video_fps</span></code>) and resolution settings affect how much spatial and temporal detail the model sees, and mismatches in preprocessing or prompting can shift results on fine-grained sports QA.</p>
-<p>This section covers distributed inference (interactive and <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>) for our recommended base model <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for HuggingFace weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
+<p>After fine-tuning, we run inference to generate predictions and evaluate model quality. Keep the video preprocessing and text prompt style/template consistent with training: frame rate (<code class="code docutils literal notranslate"><span class="pre">video_fps</span></code>) and resolution settings affect how much spatial and temporal detail the model sees, and mismatches in preprocessing or prompting can shift results on fine-grained sports QA.</p>
+<p>This section covers distributed inference (interactive and <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code>) for our recommended base model <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for HuggingFace weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
 <p>Full command examples live in <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/inference/README.md">avlm/inference/README.md</a>.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>Inference code lives in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo at <code class="docutils literal notranslate"><span class="pre">avlm/inference/</span></code> (shared driver: <code class="docutils literal notranslate"><span class="pre">common/run_inference.py</span></code>). Clone the repo, <code class="docutils literal notranslate"><span class="pre">cd</span></code> to its root, and run all launch commands from there.</p>
+<p>Inference code lives in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo at <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code> (shared driver: <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code>). Clone the repo, <code class="code docutils literal notranslate"><span class="pre">cd</span></code> to its root, and run all launch commands from there.</p>
 <section id="containers">
 <h3>Containers<a class="headerlink" href="#containers" title="Link to this heading">#</a></h3>
-<p>Set <code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> in each backend’s <code class="docutils literal notranslate"><span class="pre">slurm/launch_local.yaml</span></code> (copy from <code class="docutils literal notranslate"><span class="pre">launch.yaml</span></code>).</p>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> in each backend’s <code class="code docutils literal notranslate"><span class="pre">slurm/launch_local.yaml</span></code> (copy from <code class="code docutils literal notranslate"><span class="pre">launch.yaml</span></code>).</p>
 <ul class="simple">
 <li><p><strong>AutoModel inference:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo-automodel/26.06">nemo-automodel:26.06</a></p></li>
 <li><p><strong>Megatron-Bridge inference:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo/26.06">nemo:26.06</a></p></li>
 </ul>
-<p>On Slurm with <strong>enroot</strong>, convert the NGC image once to <strong>``.sqsh``</strong> (see <a class="reference internal" href="../training/setup.html"><span class="doc">Setup</span></a>). Point <code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> at the resulting path.</p>
+<p>On Slurm with <strong>enroot</strong>, convert the NGC image once to <code class="code docutils literal notranslate"><span class="pre">.sqsh</span></code> (see <a class="reference internal" href="../training/setup.html"><span class="doc">Setup</span></a>). Point <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> at the resulting path.</p>
 </section>
 <section id="two-backends-pick-one">
 <h3>Two Backends (Pick One)<a class="headerlink" href="#two-backends-pick-one" title="Link to this heading">#</a></h3>
@@ -436,19 +436,19 @@
 <tbody>
 <tr class="row-even"><td><p>Checkpoint</p></td>
 <td><p>HF base, full SFT weights, or LoRA adapter + base</p></td>
-<td><p>Megatron <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> dir from Bridge SFT (or merged LoRA)</p></td>
+<td><p>Megatron <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> dir from Bridge SFT (or merged LoRA)</p></td>
 </tr>
 <tr class="row-odd"><td><p>Container</p></td>
 <td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo-automodel/26.06">nemo-automodel:26.06</a></p></td>
 <td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo/26.06">nemo:26.06</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Launcher path</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">avlm/inference/automodel/slurm/</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">avlm/inference/megatron-bridge/slurm/</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/automodel/slurm/</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/megatron-bridge/slurm/</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Example configs</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">default_lora.yaml</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_mbridge.yaml</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code>, <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_mbridge.yaml</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -462,26 +462,26 @@
 <li><p><strong>common/utils/_inference_lib.sh</strong> — CLI/env overrides for launch scripts</p></li>
 <li><p><strong>Per-backend configs/ + slurm/</strong> — launch_local.yaml, interactive + sbatch launchers</p></li>
 </ul>
-<p><strong>Outputs:</strong> <code class="docutils literal notranslate"><span class="pre">avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/</span></code>
-<strong>Logs (batch):</strong> <code class="docutils literal notranslate"><span class="pre">avlm/inference/logs/run_&lt;timestamp&gt;/</span></code></p>
+<p><strong>Outputs:</strong> <code class="code docutils literal notranslate"><span class="pre">avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/</span></code>
+<strong>Logs (batch):</strong> <code class="code docutils literal notranslate"><span class="pre">avlm/inference/logs/run_&lt;timestamp&gt;/</span></code></p>
 </section>
 <section id="interactive-vs-sbatch">
 <h3>Interactive vs. Sbatch<a class="headerlink" href="#interactive-vs-sbatch" title="Link to this heading">#</a></h3>
-<p>Start with <strong>interactive inference on 1 node</strong> and a small <code class="docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES</span></code> smoke before larger <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> jobs.</p>
+<p>Start with <strong>interactive inference on 1 node</strong> and a small <code class="code docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES</span></code> smoke before larger <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code> jobs.</p>
 </section>
 <section id="typical-workflow">
 <h3>Typical Workflow<a class="headerlink" href="#typical-workflow" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>Copy <code class="docutils literal notranslate"><span class="pre">launch.yaml</span></code> → <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code> under the backend’s <code class="docutils literal notranslate"><span class="pre">slurm/</span></code> dir; set <code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code>, <code class="docutils literal notranslate"><span class="pre">CACHE_DIR</span></code>, and Slurm accounts.</p></li>
-<li><p>Edit an inference YAML: eval JSONL <code class="docutils literal notranslate"><span class="pre">data_path</span></code>, <code class="docutils literal notranslate"><span class="pre">video_root</span></code>, and checkpoint path.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="docutils literal notranslate"><span class="pre">infer_interactive.sh</span></code> with <code class="docutils literal notranslate"><span class="pre">INFERENCE_CONFIG=...</span></code>.</p></li>
-<li><p>Scale with <code class="docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> when the smoke passes.</p></li>
+<li><p>Copy <code class="code docutils literal notranslate"><span class="pre">launch.yaml</span></code> → <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code> under the backend’s <code class="code docutils literal notranslate"><span class="pre">slurm/</span></code> dir; set <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code>, <code class="code docutils literal notranslate"><span class="pre">CACHE_DIR</span></code>, and Slurm accounts.</p></li>
+<li><p>Edit an inference YAML: eval JSONL <code class="code docutils literal notranslate"><span class="pre">data_path</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code>, and checkpoint path.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="code docutils literal notranslate"><span class="pre">infer_interactive.sh</span></code> with <code class="code docutils literal notranslate"><span class="pre">INFERENCE_CONFIG=...</span></code>.</p></li>
+<li><p>Scale with <code class="code docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> when the smoke passes.</p></li>
 </ol>
 </section>
 </section>
 <section id="automodel-inference">
 <h2>AutoModel Inference<a class="headerlink" href="#automodel-inference" title="Link to this heading">#</a></h2>
-<p>HF-format inference via <code class="docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_hf</span></code>. Supports the HF base model, full SFT checkpoints, and LoRA adapters.</p>
+<p>HF-format inference via <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="code docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_hf</span></code>. Supports the HF base model, full SFT checkpoints, and LoRA adapters.</p>
 <section id="quick-start">
 <h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>avlm/inference/automodel/slurm/interactive/launch_interactive_session.sh
@@ -507,14 +507,14 @@ bash<span class="w"> </span>avlm/inference/automodel/slurm/interactive/infer_int
 <section id="config-files">
 <h3>Config Files<a class="headerlink" href="#config-files" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Full SFT / base:</strong> <code class="docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code> (<code class="docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">false</span></code>)</p></li>
-<li><p><strong>LoRA:</strong> <code class="docutils literal notranslate"><span class="pre">automodel/configs/default_lora.yaml</span></code> (<code class="docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code>)</p></li>
+<li><p><strong>Full SFT / base:</strong> <code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code> (<code class="code docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">false</span></code>)</p></li>
+<li><p><strong>LoRA:</strong> <code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_lora.yaml</span></code> (<code class="code docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code>)</p></li>
 </ul>
 </section>
 </section>
 <section id="megatron-bridge-inference">
 <h2>Megatron-Bridge Inference<a class="headerlink" href="#megatron-bridge-inference" title="Link to this heading">#</a></h2>
-<p>Inference over Megatron-format checkpoints from Bridge SFT (or a merged LoRA checkpoint). <code class="docutils literal notranslate"><span class="pre">megatron-bridge/entrypoint.py</span></code> applies the Bridge AVLM overlay, then calls <code class="docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_mbridge</span></code>.</p>
+<p>Inference over Megatron-format checkpoints from Bridge SFT (or a merged LoRA checkpoint). <code class="code docutils literal notranslate"><span class="pre">megatron-bridge/entrypoint.py</span></code> applies the Bridge AVLM overlay, then calls <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="code docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_mbridge</span></code>.</p>
 <section id="id3">
 <h3>Quick Start<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/interactive/launch_interactive_session.sh
@@ -530,8 +530,8 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/interactive/inf
 bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_starter.sh
 </pre></div>
 </div>
-<p>Set <code class="docutils literal notranslate"><span class="pre">model_path</span></code> to your training checkpoint directory (for example <code class="docutils literal notranslate"><span class="pre">.../iter_0003100</span></code>). Match the parallelism fields to how the checkpoint was trained. Optional: <code class="docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code> on session launch if not using <code class="docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code> from the container (same as training).</p>
-<p>Config file: <code class="docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_mbridge.yaml</span></code>.</p>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">model_path</span></code> to your training checkpoint directory (for example <code class="code docutils literal notranslate"><span class="pre">.../iter_0003100</span></code>). Match the parallelism fields to how the checkpoint was trained. Optional: <code class="code docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code> on session launch if not using <code class="code docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code> from the container (same as training).</p>
+<p>Config file: <code class="code docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_mbridge.yaml</span></code>.</p>
 </section>
 </section>
 <section id="inference-config-reference">
@@ -549,26 +549,26 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inference_name</span></code></p></td>
-<td><p>Output subdirectory name under <code class="docutils literal notranslate"><span class="pre">base_output_dir</span></code>; also used as the Slurm job name</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">inference_name</span></code></p></td>
+<td><p>Output subdirectory name under <code class="code docutils literal notranslate"><span class="pre">base_output_dir</span></code>; also used as the Slurm job name</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data_path</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">data_path</span></code></p></td>
 <td><p>Eval JSONL (HF conversation format)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
 <td><p>Root directory prepended to relative video paths in each JSONL row</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">base_output_dir</span></code></p></td>
-<td><p>Parent directory for outputs (default <code class="docutils literal notranslate"><span class="pre">avlm/inference/outputs/</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">base_output_dir</span></code></p></td>
+<td><p>Parent directory for outputs (default <code class="code docutils literal notranslate"><span class="pre">avlm/inference/outputs/</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_new_tokens</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">max_new_tokens</span></code></p></td>
 <td><p>Maximum tokens generated per sample</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">video_fps</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">video_fps</span></code></p></td>
 <td><p>Frame sampling rate when decoding video clips</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_video_frames</span></code></p></td>
-<td><p>Maximum frames passed to the vision encoder per clip. Sampling first targets <code class="docutils literal notranslate"><span class="pre">video_fps</span></code> (roughly clip duration × fps frames); if that count exceeds this cap, frames are reduced to <code class="docutils literal notranslate"><span class="pre">max_video_frames</span></code> by <strong>uniform subsampling</strong> (evenly spaced indices across the clip)</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code></p></td>
+<td><p>Maximum frames passed to the vision encoder per clip. Sampling first targets <code class="code docutils literal notranslate"><span class="pre">video_fps</span></code> (roughly clip duration × fps frames); if that count exceeds this cap, frames are reduced to <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code> by <strong>uniform subsampling</strong> (evenly spaced indices across the clip)</p></td>
 </tr>
 </tbody>
 </table>
@@ -588,29 +588,29 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">INFERENCE_CONFIG</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">INFERENCE_CONFIG</span></code></p></td>
 <td><p>Path to the inference YAML</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code></p></td>
-<td><p>Output subdirectory name (overrides <code class="docutils literal notranslate"><span class="pre">inference_name</span></code> in the YAML)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code></p></td>
+<td><p>Output subdirectory name (overrides <code class="code docutils literal notranslate"><span class="pre">inference_name</span></code> in the YAML)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DATA_PATH</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">DATA_PATH</span></code></p></td>
 <td><p>Eval JSONL path</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MODEL_PATH</span></code></p></td>
-<td><p>Checkpoint path (overrides <code class="docutils literal notranslate"><span class="pre">model_path</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">MODEL_PATH</span></code></p></td>
+<td><p>Checkpoint path (overrides <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ADAPTER_PATH</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">ADAPTER_PATH</span></code></p></td>
 <td><p>LoRA adapter directory (AutoModel LoRA only)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BASE_OUTPUT_DIR</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">BASE_OUTPUT_DIR</span></code></p></td>
 <td><p>Parent output directory</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES</span></code></p></td>
 <td><p>Limit inference to the first N JSONL rows (useful for smokes)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RESUME=1</span></code></p></td>
-<td><p>Continue a partially written run from <code class="docutils literal notranslate"><span class="pre">rank_results/</span></code>; use the same config, <code class="docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code>, and number of ranks as the original job</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">RESUME=1</span></code></p></td>
+<td><p>Continue a partially written run from <code class="code docutils literal notranslate"><span class="pre">rank_results/</span></code>; use the same config, <code class="code docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code>, and number of ranks as the original job</p></td>
 </tr>
 </tbody>
 </table>
@@ -629,17 +629,17 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
-<td><p>Must be <code class="docutils literal notranslate"><span class="pre">nemotron_omni_hf</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_hf</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
 <td><p>HF model id or local path to base weights (for LoRA, must be the <strong>base</strong> model, not a consolidated SFT tree)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_lora</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when running with adapter weights only; <code class="docutils literal notranslate"><span class="pre">false</span></code> for base or full SFT</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">is_lora</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">true</span></code> when running with adapter weights only; <code class="code docutils literal notranslate"><span class="pre">false</span></code> for base or full SFT</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adapter_path</span></code></p></td>
-<td><p>Directory with <code class="docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> (required when <code class="docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code></p></td>
+<td><p>Directory with <code class="code docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> (required when <code class="code docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -658,32 +658,32 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
-<td><p>Must be <code class="docutils literal notranslate"><span class="pre">nemotron_omni_mbridge</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_mbridge</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hf_model_path</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">hf_model_path</span></code></p></td>
 <td><p>HF model id used for the processor/tokenizer</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
-<td><p>Megatron checkpoint directory (for example <code class="docutils literal notranslate"><span class="pre">.../iter_0003100</span></code>)</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
+<td><p>Megatron checkpoint directory (for example <code class="code docutils literal notranslate"><span class="pre">.../iter_0003100</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code></p></td>
 <td><p>Tensor parallelism; must match training</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline_model_parallel_size</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">pipeline_model_parallel_size</span></code></p></td>
 <td><p>Pipeline parallelism; must match training</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">context_parallel_size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">context_parallel_size</span></code></p></td>
 <td><p>Context parallelism; must match training</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expert_model_parallel_size</span></code></p></td>
-<td><p>Expert parallelism (EP); shards which MoE experts live on which GPUs. Must match training <code class="docutils literal notranslate"><span class="pre">ep_size</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">expert_model_parallel_size</span></code></p></td>
+<td><p>Expert parallelism (EP); shards which MoE experts live on which GPUs. Must match training <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">expert_tensor_parallel_size</span></code></p></td>
-<td><p>Expert tensor parallelism (ETP); shards each expert’s weights across GPUs (within-expert TP), separate from <code class="docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code>. Usually <code class="docutils literal notranslate"><span class="pre">1</span></code> unless training used ETP &gt; 1.</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">expert_tensor_parallel_size</span></code></p></td>
+<td><p>Expert tensor parallelism (ETP); shards each expert’s weights across GPUs (within-expert TP), separate from <code class="code docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code>. Usually <code class="code docutils literal notranslate"><span class="pre">1</span></code> unless training used ETP &gt; 1.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resize</span></code></p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, resize video frames to 512×512 before encoding (Bridge path)</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">resize</span></code></p></td>
+<td><p>When <code class="code docutils literal notranslate"><span class="pre">true</span></code>, resize video frames to 512×512 before encoding (Bridge path)</p></td>
 </tr>
 </tbody>
 </table>
@@ -695,11 +695,11 @@ bash<span class="w"> </span>avlm/inference/megatron-bridge/slurm/sbatch/sbatch_s
 <p>LoRA training saves <strong>adapter weights only</strong> — not a full copy of the 30B base model. Inference therefore always needs the <strong>base model</strong> plus the adapter, or a <strong>merged</strong> checkpoint produced offline.</p>
 <section id="automodel">
 <h3>AutoModel<a class="headerlink" href="#automodel" title="Link to this heading">#</a></h3>
-<p>Use <code class="docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> with:</p>
+<p>Use <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> with:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code> — HF base model (for example <code class="docutils literal notranslate"><span class="pre">nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</span></code>). Do <strong>not</strong> point this at a consolidated SFT checkpoint.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adapter_path</span></code> — training output directory containing <code class="docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> (often under <code class="docutils literal notranslate"><span class="pre">.../checkpoints_.../epoch_*_step_*</span></code> or a <code class="docutils literal notranslate"><span class="pre">model/</span></code> subfolder)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code> — HF base model (for example <code class="code docutils literal notranslate"><span class="pre">nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</span></code>). Do <strong>not</strong> point this at a consolidated SFT checkpoint.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">is_lora:</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> — training output directory containing <code class="code docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> (often under <code class="code docutils literal notranslate"><span class="pre">.../checkpoints_.../epoch_*_step_*</span></code> or a <code class="code docutils literal notranslate"><span class="pre">model/</span></code> subfolder)</p></li>
 </ul>
 <p>At load time the driver reads the LoRA matrices, maps wrapper layer names to the HF model, and <strong>adds the low-rank delta directly into the base weight tensors</strong> in memory. You do not need to merge adapters to disk before inference, but you do need the base model weights available locally or on HuggingFace Hub.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_CONFIG</span><span class="o">=</span>avlm/inference/automodel/configs/default_lora.yaml<span class="w"> </span><span class="se">\</span>
@@ -710,11 +710,11 @@ bash<span class="w"> </span>avlm/inference/automodel/slurm/interactive/infer_int
 </section>
 <section id="megatron-bridge">
 <h3>Megatron-Bridge<a class="headerlink" href="#megatron-bridge" title="Link to this heading">#</a></h3>
-<p>Bridge inference loads a <strong>full Megatron checkpoint</strong> from <code class="docutils literal notranslate"><span class="pre">model_path</span></code>. A raw LoRA <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> directory contains adapter deltas only and cannot be used directly with <code class="docutils literal notranslate"><span class="pre">default_mbridge.yaml</span></code>.</p>
+<p>Bridge inference loads a <strong>full Megatron checkpoint</strong> from <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>. A raw LoRA <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> directory contains adapter deltas only and cannot be used directly with <code class="code docutils literal notranslate"><span class="pre">default_mbridge.yaml</span></code>.</p>
 <p>Two options:</p>
 <ol class="arabic simple">
-<li><p><strong>Merge LoRA into Megatron weights</strong> with <code class="docutils literal notranslate"><span class="pre">merge_lora.py</span></code> under <code class="docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/peft/</span></code>, then set <code class="docutils literal notranslate"><span class="pre">model_path</span></code> to the merged <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> directory. See <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a> (LoRA Merge section).</p></li>
-<li><p><strong>Export an HF PEFT adapter</strong> with <code class="docutils literal notranslate"><span class="pre">export_adapter.py</span></code>, then run inference through <strong>AutoModel</strong> <code class="docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> as above.</p></li>
+<li><p><strong>Merge LoRA into Megatron weights</strong> with <code class="code docutils literal notranslate"><span class="pre">merge_lora.py</span></code> under <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/peft/</span></code>, then set <code class="code docutils literal notranslate"><span class="pre">model_path</span></code> to the merged <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> directory. See <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a> (LoRA Merge section).</p></li>
+<li><p><strong>Export an HF PEFT adapter</strong> with <code class="code docutils literal notranslate"><span class="pre">export_adapter.py</span></code>, then run inference through <strong>AutoModel</strong> <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> as above.</p></li>
 </ol>
 </section>
 </section>
@@ -724,7 +724,7 @@ bash<span class="w"> </span>avlm/inference/automodel/slurm/interactive/infer_int
 avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
 </pre></div>
 </div>
-<p>Multi-GPU runs also write per-rank scratch files under <code class="docutils literal notranslate"><span class="pre">rank_results/</span></code> until all ranks finish and rank 0 merges.</p>
+<p>Multi-GPU runs also write per-rank scratch files under <code class="code docutils literal notranslate"><span class="pre">rank_results/</span></code> until all ranks finish and rank 0 merges.</p>
 <p>For MCQ scoring and LLM-judge evaluation of these predictions, see <a class="reference internal" href="../evaluation.html"><span class="doc">Evaluation</span></a>.</p>
 </section>
 </section>
@@ -897,7 +897,7 @@ avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 18, 2026.
+  Last updated on Aug 19, 2026.
   <br/>
 </p></div>
       

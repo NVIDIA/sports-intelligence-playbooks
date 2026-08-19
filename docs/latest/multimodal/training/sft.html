@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -407,7 +407,7 @@
   <section id="sft">
 <h1>SFT<a class="headerlink" href="#sft" title="Link to this heading">#</a></h1>
 <p>Supervised fine-tuning (SFT) updates the language model weights and multimodal projection layers (vision and audio encoders often stay frozen). Use SFT when you need maximum adaptation capacity (~90–96% of parameters trainable vs. ~0.04–0.17% for LoRA; see <a class="reference internal" href="lora.html"><span class="doc">LoRA</span></a>) and can afford the higher compute and memory of full-parameter training and larger checkpoints (hundreds of GB per save vs. tens of MB for LoRA). Reference GPU memory and throughput numbers are in <a class="reference internal" href="lora.html#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> on the <a class="reference internal" href="lora.html"><span class="doc">LoRA</span></a> page.</p>
-<p>Both stacks share the same high-level recipe layout under <code class="docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
+<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands and smoke examples):</strong></p>
 <ul class="simple">
 <li><p><strong>AutoModel:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
@@ -416,7 +416,7 @@
 <p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
 <section id="what-gets-trained">
 <h2>What Gets Trained<a class="headerlink" href="#what-gets-trained" title="Link to this heading">#</a></h2>
-<p>SFT often keeps vision and audio encoders frozen and trains the LLM plus multimodal projectors (the layers that map vision/sound features into the language model). Use <code class="docutils literal notranslate"><span class="pre">freeze_config</span></code> in the recipe YAML (<code class="docutils literal notranslate"><span class="pre">true</span></code> = frozen, <code class="docutils literal notranslate"><span class="pre">false</span></code> = trainable).</p>
+<p>SFT often keeps vision and audio encoders frozen and trains the LLM plus multimodal projectors (the layers that map vision/sound features into the language model). Use <code class="code docutils literal notranslate"><span class="pre">freeze_config</span></code> in the recipe YAML (<code class="code docutils literal notranslate"><span class="pre">true</span></code> = frozen, <code class="code docutils literal notranslate"><span class="pre">false</span></code> = trainable).</p>
 <p class="rubric">AutoModel</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -429,16 +429,16 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_embeddings</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_embeddings</span></code></p></td>
 <td><p>Token embedding layer</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code></p></td>
 <td><p>Vision encoder (RADIO)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_audio_tower</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_audio_tower</span></code></p></td>
 <td><p>Audio / sound encoder</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
 <td><p>MoE language model decoder</p></td>
 </tr>
 </tbody>
@@ -457,19 +457,19 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
 <td><p>MoE language model decoder</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_vision_model</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_model</span></code></p></td>
 <td><p>Vision encoder</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_vision_projection</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_projection</span></code></p></td>
 <td><p>Vision-to-LM projector</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_sound_encoder</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_sound_encoder</span></code></p></td>
 <td><p>Audio / sound encoder</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">freeze_sound_projection</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_sound_projection</span></code></p></td>
 <td><p>Audio-to-LM projector</p></td>
 </tr>
 </tbody>
@@ -487,35 +487,35 @@
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p><strong>AutoModel</strong> (<code class="docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
-<th class="head"><p><strong>Megatron-Bridge</strong> (<code class="docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
+<th class="head"><p><strong>AutoModel</strong> (<code class="code docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
+<th class="head"><p><strong>Megatron-Bridge</strong> (<code class="code docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Global batch size</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs; with <code class="docutils literal notranslate"><span class="pre">micro_batch_size</span></code> sets gradient accumulation</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs; with <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> sets gradient accumulation</p></td>
 </tr>
 <tr class="row-odd"><td><p>Per-GPU microbatch</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">local_batch_size</span></code> — how many training examples each GPU processes at once; keep at 1 when sequence packing is on</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">micro_batch_size</span></code> — raise only if memory allows; in-batch packing needs <code class="docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">local_batch_size</span></code> — how many training examples each GPU processes at once; keep at 1 when sequence packing is on</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> — raise only if memory allows; in-batch packing needs <code class="code docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Max steps</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">max_steps</span></code> — hard stop; overrides epoch count</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">max_steps</span></code> (<code class="docutils literal notranslate"><span class="pre">max_iters</span></code> at runtime)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> — hard stop; overrides epoch count</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> (<code class="code docutils literal notranslate"><span class="pre">max_iters</span></code> at runtime)</p></td>
 </tr>
 <tr class="row-odd"><td><p>Validation</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">val_every_steps</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">val_every_iters</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">val_every_steps</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">val_every_iters</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Checkpoints</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ckpt_every_steps</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ckpt_every_iters</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">ckpt_every_steps</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">ckpt_every_iters</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>Impact:</strong> Higher global batch size stabilizes MoE training but needs more GPUs for gradient accumulation. More GPUs also let you raise parallelism (TP, EP) to split the model and lower memory per GPU. Fewer <code class="docutils literal notranslate"><span class="pre">max_steps</span></code> is fine for smoke tests; production runs typically use hundreds to thousands of steps with cosine decay aligned to <code class="docutils literal notranslate"><span class="pre">max_steps</span></code>.</p>
+<p><strong>Impact:</strong> Higher global batch size stabilizes MoE training but needs more GPUs for gradient accumulation. More GPUs also let you raise parallelism (TP, EP) to split the model and lower memory per GPU. Fewer <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> is fine for smoke tests; production runs typically use hundreds to thousands of steps with cosine decay aligned to <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>.</p>
 </section>
 <section id="optimizer-and-learning-rate">
 <h2>Optimizer and Learning Rate<a class="headerlink" href="#optimizer-and-learning-rate" title="Link to this heading">#</a></h2>
@@ -533,24 +533,24 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Optimizer</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code>: AdamW, <code class="docutils literal notranslate"><span class="pre">lr</span></code>, <code class="docutils literal notranslate"><span class="pre">weight_decay</span></code>, <code class="docutils literal notranslate"><span class="pre">betas</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code>: Adam, <code class="docutils literal notranslate"><span class="pre">lr</span></code>, <code class="docutils literal notranslate"><span class="pre">weight_decay</span></code>; optional CPU offload (below)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer</span></code>: AdamW, <code class="code docutils literal notranslate"><span class="pre">lr</span></code>, <code class="code docutils literal notranslate"><span class="pre">weight_decay</span></code>, <code class="code docutils literal notranslate"><span class="pre">betas</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer</span></code>: Adam, <code class="code docutils literal notranslate"><span class="pre">lr</span></code>, <code class="code docutils literal notranslate"><span class="pre">weight_decay</span></code>; optional CPU offload (below)</p></td>
 </tr>
 <tr class="row-odd"><td><p>Learning rate</p></td>
 <td><p>Default 5e-5 for full SFT</p></td>
 <td><p>Default 5e-5 for full SFT</p></td>
 </tr>
 <tr class="row-even"><td><p>LR schedule</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="docutils literal notranslate"><span class="pre">lr_warmup_steps</span></code>, <code class="docutils literal notranslate"><span class="pre">lr_decay_steps</span></code>, <code class="docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="docutils literal notranslate"><span class="pre">lr_warmup_iters</span></code>, <code class="docutils literal notranslate"><span class="pre">lr_decay_iters</span></code>, <code class="docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="code docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_warmup_steps</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_decay_steps</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="code docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_warmup_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_decay_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Grad clip</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code> (e.g. 1.0)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code> (e.g. 1.0)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Memory savers (Bridge)</p></td>
-<td><p>FSDP <code class="docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code>, <code class="docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code>, <code class="docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code>, <code class="docutils literal notranslate"><span class="pre">train.empty_unused_memory_level</span></code></p></td>
+<td><p>FSDP <code class="code docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code>, <code class="code docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code>, <code class="code docutils literal notranslate"><span class="pre">train.empty_unused_memory_level</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -559,9 +559,9 @@
 <p>Full SFT can run out of GPU memory even when model weights are sharded across TP/EP. CPU offload moves Adam optimizer state (momentum, variance, and related buffers) from GPU VRAM to host RAM so more room is left for activations and gradients. Tradeoffs: higher host memory use and some overhead when tensors move between GPU and CPU during the optimizer step.</p>
 <p>Recipe fields:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code> — enable offload (<code class="docutils literal notranslate"><span class="pre">true</span></code> / <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code> — share of optimizer state on CPU (<code class="docutils literal notranslate"><span class="pre">1.0</span></code> = all)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code> — must be <code class="docutils literal notranslate"><span class="pre">true</span></code> when offload is enabled</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code> — enable offload (<code class="code docutils literal notranslate"><span class="pre">true</span></code> / <code class="code docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code> — share of optimizer state on CPU (<code class="code docutils literal notranslate"><span class="pre">1.0</span></code> = all)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code> — must be <code class="code docutils literal notranslate"><span class="pre">true</span></code> when offload is enabled</p></li>
 </ul>
 <p>Full SFT on a single 8-GPU node often requires enabling CPU offload; multinode runs with more data parallelism may not need CPU offloading depending on the chosen parallelism level. LoRA trains far fewer parameters, so offload is often unnecessary.</p>
 <p>Further reading:</p>
@@ -573,13 +573,13 @@
 </section>
 <section id="distributed-parallelism">
 <h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
-<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. For Nemotron Omni, our training scripts support <strong>TP &gt; 1</strong> and <strong>EP &gt; 1</strong> only; keep <strong>PP</strong> and <strong>CP</strong> at <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
-<p>Set supported degrees under <code class="docutils literal notranslate"><span class="pre">distributed</span></code> in the recipe YAML (or via <code class="docutils literal notranslate"><span class="pre">TP</span></code> and <code class="docutils literal notranslate"><span class="pre">EP</span></code> env overrides on launch):</p>
+<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. For Nemotron Omni, our training scripts support <strong>TP &gt; 1</strong> and <strong>EP &gt; 1</strong> only; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Set supported degrees under <code class="code docutils literal notranslate"><span class="pre">distributed</span></code> in the recipe YAML (or via <code class="code docutils literal notranslate"><span class="pre">TP</span></code> and <code class="code docutils literal notranslate"><span class="pre">EP</span></code> env overrides on launch):</p>
 <ul class="simple">
 <li><p><strong>TP (tensor parallelism)</strong> — splits weight matrices within a layer across GPUs (e.g. attention and MLP shards).</p></li>
 <li><p><strong>EP (expert parallelism)</strong> — shards MoE expert networks across GPUs (required for Nemotron Omni’s MoE decoder).</p></li>
-<li><p><strong>PP (pipeline parallelism)</strong> — splits the model depth-wise across pipeline stages. Not supported for Nemotron Omni in our training scripts; keep <code class="docutils literal notranslate"><span class="pre">pp_size</span></code> at <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
-<li><p><strong>CP (context parallelism)</strong> — splits sequence length across GPUs for very long contexts. Not supported for Nemotron Omni in our training scripts; keep <code class="docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>PP (pipeline parallelism)</strong> — splits the model depth-wise across pipeline stages. Not supported for Nemotron Omni in our training scripts; keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>CP (context parallelism)</strong> — splits sequence length across GPUs for very long contexts. Not supported for Nemotron Omni in our training scripts; keep <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
 </ul>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -589,60 +589,60 @@
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>AutoModel (<code class="docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
-<th class="head"><p>Megatron-Bridge (<code class="docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
+<th class="head"><p>AutoModel (<code class="code docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
+<th class="head"><p>Megatron-Bridge (<code class="code docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tp_size</span></code></p></td>
-<td><p>Tensor-parallel degree; use <code class="docutils literal notranslate"><span class="pre">1</span></code> for Nemotron Omni AutoModel</p></td>
-<td><p>Tensor-parallel degree; <code class="docutils literal notranslate"><span class="pre">2</span></code> is typical on 8 GPUs</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tp_size</span></code></p></td>
+<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for Nemotron Omni AutoModel</p></td>
+<td><p>Tensor-parallel degree; <code class="code docutils literal notranslate"><span class="pre">2</span></code> is typical on 8 GPUs</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ep_size</span></code></p></td>
-<td><p>Expert-parallel degree; <code class="docutils literal notranslate"><span class="pre">8</span></code> on one 8-GPU node (uses DeepEP)</p></td>
-<td><p>Expert-parallel degree; <code class="docutils literal notranslate"><span class="pre">8</span></code> (1 node) or <code class="docutils literal notranslate"><span class="pre">32</span></code> (multinode)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code></p></td>
+<td><p>Expert-parallel degree; <code class="code docutils literal notranslate"><span class="pre">8</span></code> on one 8-GPU node (uses DeepEP)</p></td>
+<td><p>Expert-parallel degree; <code class="code docutils literal notranslate"><span class="pre">8</span></code> (1 node) or <code class="code docutils literal notranslate"><span class="pre">32</span></code> (multinode)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pp_size</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">pp_size</span></code></p></td>
+<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cp_size</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">cp_size</span></code></p></td>
+<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Activation checkpoint</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code> (FSDP)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code> (FSDP)</p></td>
 <td><p>Recompute flags in recipe / env</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>Impact:</strong> Let <code class="docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">=</span> <span class="pre">nodes</span> <span class="pre">×</span> <span class="pre">GPUs_per_node</span></code>.</p>
-<p><strong>AutoModel</strong> (Nemotron Omni recipes and training scripts use <code class="docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<p><strong>Impact:</strong> Let <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">=</span> <span class="pre">nodes</span> <span class="pre">×</span> <span class="pre">GPUs_per_node</span></code>.</p>
+<p><strong>AutoModel</strong> (Nemotron Omni recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">world_size</span></code> must be divisible by <code class="docutils literal notranslate"><span class="pre">tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ep_size</span></code> must divide <code class="docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">pp_size</span></code>.</p></li>
-<li><p>Data-parallel degree: <code class="docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be divisible by <code class="code docutils literal notranslate"><span class="pre">tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> must divide <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">pp_size</span></code>.</p></li>
+<li><p>Data-parallel degree: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
 </ul>
-<p>Example: 1 node × 8 GPUs, <code class="docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="docutils literal notranslate"><span class="pre">ep_size=8</span></code> → <code class="docutils literal notranslate"><span class="pre">dp_size=8</span></code>, and <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">/</span> <span class="pre">1</span></code> is divisible by <code class="docutils literal notranslate"><span class="pre">8</span></code>.</p>
-<p><strong>Megatron-Bridge</strong> (Nemotron Omni recipes and training scripts use <code class="docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → <code class="code docutils literal notranslate"><span class="pre">dp_size=8</span></code>, and <code class="code docutils literal notranslate"><span class="pre">8</span> <span class="pre">/</span> <span class="pre">1</span></code> is divisible by <code class="code docutils literal notranslate"><span class="pre">8</span></code>.</p>
+<p><strong>Megatron-Bridge</strong> (Nemotron Omni recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
 <ul class="simple">
-<li><p>Attention-path data-parallel degree follows the standard Megatron rule: <code class="docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
-<li><p>As a minimum-GPU bound, <code class="docutils literal notranslate"><span class="pre">world_size</span></code> must be at least <code class="docutils literal notranslate"><span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">max(tp_size</span> <span class="pre">×</span> <span class="pre">cp_size,</span> <span class="pre">ep_size)</span></code>.</p></li>
+<li><p>Attention-path data-parallel degree follows the standard Megatron rule: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
+<li><p>As a minimum-GPU bound, <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be at least <code class="code docutils literal notranslate"><span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">max(tp_size</span> <span class="pre">×</span> <span class="pre">cp_size,</span> <span class="pre">ep_size)</span></code>.</p></li>
 </ul>
-<p>Example: 1 node × 8 GPUs, <code class="docutils literal notranslate"><span class="pre">tp_size=2</span></code>, <code class="docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="docutils literal notranslate"><span class="pre">ep_size=8</span></code> → minimum <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">×</span> <span class="pre">max(2,</span> <span class="pre">8)</span> <span class="pre">=</span> <span class="pre">8</span></code>, which matches <code class="docutils literal notranslate"><span class="pre">world_size=8</span></code>.</p>
+<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=2</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → minimum <code class="code docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">×</span> <span class="pre">max(2,</span> <span class="pre">8)</span> <span class="pre">=</span> <span class="pre">8</span></code>, which matches <code class="code docutils literal notranslate"><span class="pre">world_size=8</span></code>.</p>
 <p>Further reading:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.nvidia.com/nemo/automodel/development/distributed-setup">NeMo AutoModel — Distributed Setup</a> — FSDP2 + expert parallelism</p></li>
-<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/parallelisms.html">Megatron-Bridge — Parallelisms</a> — <code class="docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_size</span></code>, <code class="docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="docutils literal notranslate"><span class="pre">dp_size</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/parallelisms.html">Megatron-Bridge — Parallelisms</a> — <code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">dp_size</span></code></p></li>
 <li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/parallelism-guide.html">Megatron Core — Parallelism Strategies</a> — TP, PP, CP, EP</p></li>
 </ul>
-<p>Changing parallelism after training changes the checkpoint layout, so keep <code class="docutils literal notranslate"><span class="pre">MODEL_NAME</span></code> and topology consistent to resume.</p>
+<p>Changing parallelism after training changes the checkpoint layout, so keep <code class="code docutils literal notranslate"><span class="pre">MODEL_NAME</span></code> and topology consistent to resume.</p>
 </section>
 <section id="data-video-and-sequence-budget">
 <h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
-<p>Training data is <strong>JSONL</strong> (one JSON object per line) in <strong>HuggingFace Conversation</strong> format: a <code class="docutils literal notranslate"><span class="pre">conversation</span></code> array of <code class="docutils literal notranslate"><span class="pre">user</span></code> / <code class="docutils literal notranslate"><span class="pre">assistant</span></code> turns with typed content (<code class="docutils literal notranslate"><span class="pre">video</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, and optionally <code class="docutils literal notranslate"><span class="pre">audio</span></code>). Rows may also include <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">class</span></code> metadata; <code class="docutils literal notranslate"><span class="pre">class</span></code> is the question-type / template name (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code>) and is used by eval tooling but is not required for training.</p>
-<p>Video (and audio) paths in the JSON are <strong>relative</strong> to <code class="docutils literal notranslate"><span class="pre">video_root</span></code> in the recipe YAML. Training resolves each file as <code class="docutils literal notranslate"><span class="pre">video_root</span></code> + the relative <code class="docutils literal notranslate"><span class="pre">path</span></code> (normalized, no leading slash).</p>
+<p>Training data is <strong>JSONL</strong> (one JSON object per line) in <strong>HuggingFace Conversation</strong> format: a <code class="code docutils literal notranslate"><span class="pre">conversation</span></code> array of <code class="code docutils literal notranslate"><span class="pre">user</span></code> / <code class="code docutils literal notranslate"><span class="pre">assistant</span></code> turns with typed content (<code class="code docutils literal notranslate"><span class="pre">video</span></code>, <code class="code docutils literal notranslate"><span class="pre">text</span></code>, and optionally <code class="code docutils literal notranslate"><span class="pre">audio</span></code>). Rows may also include <code class="code docutils literal notranslate"><span class="pre">id</span></code> and <code class="code docutils literal notranslate"><span class="pre">class</span></code> metadata; <code class="code docutils literal notranslate"><span class="pre">class</span></code> is the question-type / template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>) and is used by eval tooling but is not required for training.</p>
+<p>Video (and audio) paths in the JSON are <strong>relative</strong> to <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> in the recipe YAML. Training resolves each file as <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> + the relative <code class="code docutils literal notranslate"><span class="pre">path</span></code> (normalized, no leading slash).</p>
 <p>Example line:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample-001&quot;</span><span class="p">,</span>
@@ -659,7 +659,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">class</span></code> field is optional for training but recommended in curated datasets so eval can break down accuracy by question type.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field is optional for training but recommended in curated datasets so eval can break down accuracy by question type.</p>
 <p>The following table summarizes recipe fields that control data loading, video sampling, and sequence budget.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -675,24 +675,24 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Train / val JSONL</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">video_root</span></code>, <code class="docutils literal notranslate"><span class="pre">jsonl_format</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code>, <code class="code docutils literal notranslate"><span class="pre">jsonl_format</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Subsample</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
 </tr>
 <tr class="row-even"><td><p>Video frames</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="docutils literal notranslate"><span class="pre">video_sample_fps</span></code>, <code class="docutils literal notranslate"><span class="pre">min_video_frames</span></code> — one of the main OOM levers</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_video_frames</span></code> — one of the main OOM levers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
 </tr>
 <tr class="row-odd"><td><p>Sequence length</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataloader.packed_sequence.pack_size</span></code> / <code class="docutils literal notranslate"><span class="pre">max_length</span></code> (e.g. 24576)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset.seq_length</span></code> (<code class="docutils literal notranslate"><span class="pre">PACK_SIZE</span></code> env override)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.pack_size</span></code> / <code class="code docutils literal notranslate"><span class="pre">max_length</span></code> (e.g. 24576)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.seq_length</span></code> (<code class="code docutils literal notranslate"><span class="pre">PACK_SIZE</span></code> env override)</p></td>
 </tr>
 <tr class="row-even"><td><p>Sequence packing</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataloader.use_sequence_packing</span></code> + <code class="docutils literal notranslate"><span class="pre">packed_sequence.*</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dataset.pack_sequences_in_batch</span></code> — needs <code class="docutils literal notranslate"><span class="pre">micro_batch_size</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.use_sequence_packing</span></code> + <code class="code docutils literal notranslate"><span class="pre">packed_sequence.*</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.pack_sequences_in_batch</span></code> — needs <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -701,11 +701,11 @@
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
+<p><code class="code docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="code docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
 </section>
 <section id="weights-biases">
 <h2>Weights &amp; Biases<a class="headerlink" href="#weights-biases" title="Link to this heading">#</a></h2>
-<p>Training metrics are logged via the <code class="docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
+<p>Training metrics are logged via the <code class="code docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="code docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 22.0%" />
@@ -717,14 +717,14 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mode</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">mode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="code docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="code docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entity</span></code> / <code class="docutils literal notranslate"><span class="pre">project</span></code> / <code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
 </tr>
 <tr class="row-even"><td><p>Bridge fallback</p></td>
-<td><p>Scripts fall back to <code class="docutils literal notranslate"><span class="pre">offline</span></code> if <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="docutils literal notranslate"><span class="pre">online</span></code></p></td>
+<td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -733,9 +733,9 @@
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
-<li><p>Edit recipe YAML: data paths, <code class="docutils literal notranslate"><span class="pre">max_steps</span></code>, freeze flags, and memory knobs (frames, <code class="docutils literal notranslate"><span class="pre">seq_length</span></code> / <code class="docutils literal notranslate"><span class="pre">pack_size</span></code>).</p></li>
-<li><p><strong>AutoModel:</strong> <code class="docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
+<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
+<li><p>Edit recipe YAML: data paths, <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>, freeze flags, and memory knobs (frames, <code class="code docutils literal notranslate"><span class="pre">seq_length</span></code> / <code class="code docutils literal notranslate"><span class="pre">pack_size</span></code>).</p></li>
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="code docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="code docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
 <li><p><strong>Megatron-Bridge:</strong> HF→Meg conversion once, then the same interactive → sbatch flow.</p></li>
 </ol>
 <p>Smoke commands and CLI override tables are in the code-repo guides above.</p>
@@ -888,7 +888,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 18, 2026.
+  Last updated on Aug 19, 2026.
   <br/>
 </p></div>
       

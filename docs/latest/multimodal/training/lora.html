@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -408,7 +408,7 @@
 <h1>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h1>
 <p>LoRA (Low-Rank Adaptation) trains small adapter matrices injected into selected layers instead of updating all language-model weights. Use LoRA for faster iteration, smaller checkpoints, and lower optimizer memory while keeping the base model frozen.</p>
 <p>With our default recipes on Nemotron-3 Nano Omni (~33B total parameters), LoRA updates well under 1% of model weights. Checkpoints store adapter weights only, typically tens of MB per save, while full SFT on the same topology writes hundreds of GB per save. See <a class="reference internal" href="#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> for trainable-parameter, memory, and throughput comparisons.</p>
-<p><strong>Inference:</strong> LoRA checkpoints are not standalone models. You always need the frozen base checkpoint plus the adapter (HF <code class="docutils literal notranslate"><span class="pre">peft</span></code> load for AutoModel; Megatron base + LoRA <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> for Bridge). On Megatron-Bridge you can alternatively merge adapters into the base with <code class="docutils literal notranslate"><span class="pre">merge_lora.py</span></code> to produce a single deployable checkpoint (see <a class="reference internal" href="#lora-post-training"><span class="std std-ref">Post-Training (Megatron-Bridge Only)</span></a>).</p>
+<p><strong>Inference:</strong> LoRA checkpoints are not standalone models. You always need the frozen base checkpoint plus the adapter (HF <code class="code docutils literal notranslate"><span class="pre">peft</span></code> load for AutoModel; Megatron base + LoRA <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> for Bridge). On Megatron-Bridge you can alternatively merge adapters into the base with <code class="code docutils literal notranslate"><span class="pre">merge_lora.py</span></code> to produce a single deployable checkpoint (see <a class="reference internal" href="#lora-post-training"><span class="std std-ref">Post-Training (Megatron-Bridge Only)</span></a>).</p>
 <section id="sft-vs-lora-compute-and-checkpoint-size">
 <span id="sft-lora-compute-ref"></span><h2>SFT vs. LoRA (compute and checkpoint size)<a class="headerlink" href="#sft-vs-lora-compute-and-checkpoint-size" title="Link to this heading">#</a></h2>
 <p>The table below is an approximate SFT vs. LoRA comparison for Nemotron-3 Nano Omni. Actual numbers depend on your recipe, sequence length, and hardware.</p>
@@ -434,7 +434,7 @@
 <td><p>~2.4k–2.6k</p></td>
 <td><p>~2.5k–3.3k (comparable)</p></td>
 </tr>
-<tr class="row-even"><td><p>Checkpoint per <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> save</p></td>
+<tr class="row-even"><td><p>Checkpoint per <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> save</p></td>
 <td><p>hundreds of GB</p></td>
 <td><p>tens of MB (e.g. ~26 MB)</p></td>
 </tr>
@@ -445,9 +445,9 @@
 </tbody>
 </table>
 </div>
-<p>Trainable LoRA parameters scale linearly with <code class="docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the Nemotron-Omni example.</p>
+<p>Trainable LoRA parameters scale linearly with <code class="code docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the Nemotron-Omni example.</p>
 <p>Step time is often similar between SFT and LoRA because throughput (tps/gpu) is in the same ballpark; the main SFT costs are higher per-GPU memory, optimizer state over far more trainable weights, and checkpoint I/O.</p>
-<p>Both stacks share the same high-level recipe layout under <code class="docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
+<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands, merge/export, smoke examples):</strong></p>
 <ul class="simple">
 <li><p><strong>AutoModel:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
@@ -495,22 +495,22 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dim</span></code></p></td>
-<td><p>LoRA <strong>rank</strong>: inner dimension of the low-rank adapter (update approximated as <code class="docutils literal notranslate"><span class="pre">ΔW</span> <span class="pre">=</span> <span class="pre">B·A</span></code>). Higher rank means more adapter capacity and trainable parameters. Default <strong>64</strong> in AutoModel recipes.</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dim</span></code></p></td>
+<td><p>LoRA <strong>rank</strong>: inner dimension of the low-rank adapter (update approximated as <code class="code docutils literal notranslate"><span class="pre">ΔW</span> <span class="pre">=</span> <span class="pre">B·A</span></code>). Higher rank means more adapter capacity and trainable parameters. Default <strong>64</strong> in AutoModel recipes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
-<td><p>LoRA <strong>scaling</strong>: scales how strongly the adapter is applied (effective scale ≈ <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span></code>). Default <strong>128</strong> in AutoModel recipes (<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span> <span class="pre">=</span> <span class="pre">2</span></code>).</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
+<td><p>LoRA <strong>scaling</strong>: scales how strongly the adapter is applied (effective scale ≈ <code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span></code>). Default <strong>128</strong> in AutoModel recipes (<code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span> <span class="pre">=</span> <span class="pre">2</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">match_all_linear:</span> <span class="pre">false</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">match_all_linear:</span> <span class="pre">false</span></code></p></td>
 <td><p>Do not attach to every linear layer</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exclude_modules</span></code></p></td>
-<td><p>Glob patterns skipping vision, audio, sound, <code class="docutils literal notranslate"><span class="pre">lm_head</span></code>, projector (<code class="docutils literal notranslate"><span class="pre">*mlp1*</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">exclude_modules</span></code></p></td>
+<td><p>Glob patterns skipping vision, audio, sound, <code class="code docutils literal notranslate"><span class="pre">lm_head</span></code>, projector (<code class="code docutils literal notranslate"><span class="pre">*mlp1*</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>Freeze:</strong> same encoder freezes as SFT; base LM weights stay fixed while adapters train (<code class="docutils literal notranslate"><span class="pre">freeze_language_model:</span> <span class="pre">false</span></code> allows adapter gradients through the LM stack).</p>
+<p><strong>Freeze:</strong> same encoder freezes as SFT; base LM weights stay fixed while adapters train (<code class="code docutils literal notranslate"><span class="pre">freeze_language_model:</span> <span class="pre">false</span></code> allows adapter gradients through the LM stack).</p>
 <p class="rubric">Megatron-Bridge</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -523,22 +523,22 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dim</span></code> / <code class="docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
-<td><p>Same meaning as AutoModel (under <code class="docutils literal notranslate"><span class="pre">peft</span></code>). Defaults <strong>16</strong> / <strong>32</strong>.</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dim</span></code> / <code class="code docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
+<td><p>Same meaning as AutoModel (under <code class="code docutils literal notranslate"><span class="pre">peft</span></code>). Defaults <strong>16</strong> / <strong>32</strong>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">linear_qkv</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_qkv</span></code></p></td>
 <td><p>Attention Q/K/V projections</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">linear_proj</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_proj</span></code></p></td>
 <td><p>Attention output projection</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">in_proj</span></code> / <code class="docutils literal notranslate"><span class="pre">out_proj</span></code></p></td>
-<td><p>Mamba / SSM-style blocks in the decoder (under <code class="docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">in_proj</span></code> / <code class="code docutils literal notranslate"><span class="pre">out_proj</span></code></p></td>
+<td><p>Mamba / SSM-style blocks in the decoder (under <code class="code docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Freeze defaults for LoRA: encoders and vision/sound projections stay frozen (<code class="docutils literal notranslate"><span class="pre">freeze_vision_projection:</span> <span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">freeze_sound_projection:</span> <span class="pre">true</span></code>); only the LoRA adapters update the language model.</p>
+<p>Freeze defaults for LoRA: encoders and vision/sound projections stay frozen (<code class="code docutils literal notranslate"><span class="pre">freeze_vision_projection:</span> <span class="pre">true</span></code>, <code class="code docutils literal notranslate"><span class="pre">freeze_sound_projection:</span> <span class="pre">true</span></code>); only the LoRA adapters update the language model.</p>
 <p><strong>Impact:</strong> Broader target sets (higher rank, more modules) increase capacity and memory. Narrow targets train faster but may underfit complex sports QA. Excluding vision/audio modules prevents wasting capacity on frozen towers.</p>
 </section>
 <section id="training-schedule-and-batching">
@@ -556,28 +556,28 @@
 </section>
 <section id="distributed-parallelism">
 <h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
-<p>Same rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a> (<code class="docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_size</span></code>, and <code class="docutils literal notranslate"><span class="pre">world_size</span></code> constraints).</p>
+<p>Same rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a> (<code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code>, and <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> constraints).</p>
 </section>
 <section id="data-video-and-sequence-budget">
 <h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
-<p>Same JSONL format, <code class="docutils literal notranslate"><span class="pre">video_root</span></code> resolution, dataset fields, and sequence-packing rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>. LoRA recipes reuse those fields unchanged.</p>
+<p>Same JSONL format, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> resolution, dataset fields, and sequence-packing rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>. LoRA recipes reuse those fields unchanged.</p>
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
+<p><code class="code docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="code docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
 </section>
 <section id="checkpointing">
 <h2>Checkpointing<a class="headerlink" href="#checkpointing" title="Link to this heading">#</a></h2>
 <p>Training writes adapter state only, not the full base model:</p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <code class="docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> plus small metadata under <code class="docutils literal notranslate"><span class="pre">lora/slurm/outputs/&lt;MODEL_NAME&gt;/</span></code> (typically tens of MB per step save); <code class="docutils literal notranslate"><span class="pre">save_consolidated:</span> <span class="pre">true</span></code> for HF-friendly layout</p></li>
-<li><p><strong>Megatron-Bridge:</strong> <code class="docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">false</span></code> by default; <code class="docutils literal notranslate"><span class="pre">iter_*</span></code> Megatron <code class="docutils literal notranslate"><span class="pre">.distcp</span></code> shards holding LoRA weights only (tens of MB total per <code class="docutils literal notranslate"><span class="pre">iter_*</span></code>, vs. hundreds of GB for SFT on the same <code class="docutils literal notranslate"><span class="pre">tp</span></code>/<code class="docutils literal notranslate"><span class="pre">ep</span></code> layout)</p></li>
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> plus small metadata under <code class="code docutils literal notranslate"><span class="pre">lora/slurm/outputs/&lt;MODEL_NAME&gt;/</span></code> (typically tens of MB per step save); <code class="code docutils literal notranslate"><span class="pre">save_consolidated:</span> <span class="pre">true</span></code> for HF-friendly layout</p></li>
+<li><p><strong>Megatron-Bridge:</strong> <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">false</span></code> by default; <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> Megatron <code class="code docutils literal notranslate"><span class="pre">.distcp</span></code> shards holding LoRA weights only (tens of MB total per <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code>, vs. hundreds of GB for SFT on the same <code class="code docutils literal notranslate"><span class="pre">tp</span></code>/<code class="code docutils literal notranslate"><span class="pre">ep</span></code> layout)</p></li>
 </ul>
-<p>The frozen base always comes from <code class="docutils literal notranslate"><span class="pre">model.hf_model_id</span></code> (AutoModel) or <code class="docutils literal notranslate"><span class="pre">checkpoint.pretrained_checkpoint</span></code> (Bridge) at train and inference time. Adapter-only checkpoints cannot be loaded alone — pair them with the base, or merge (Bridge) before deployment.</p>
+<p>The frozen base always comes from <code class="code docutils literal notranslate"><span class="pre">model.hf_model_id</span></code> (AutoModel) or <code class="code docutils literal notranslate"><span class="pre">checkpoint.pretrained_checkpoint</span></code> (Bridge) at train and inference time. Adapter-only checkpoints cannot be loaded alone — pair them with the base, or merge (Bridge) before deployment.</p>
 </section>
 <section id="weights-biases">
 <h2>Weights &amp; Biases<a class="headerlink" href="#weights-biases" title="Link to this heading">#</a></h2>
-<p>Training metrics are logged via the <code class="docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
+<p>Training metrics are logged via the <code class="code docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="code docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 22.0%" />
@@ -589,14 +589,14 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mode</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">mode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="code docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="code docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entity</span></code> / <code class="docutils literal notranslate"><span class="pre">project</span></code> / <code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
 </tr>
 <tr class="row-even"><td><p>Bridge fallback</p></td>
-<td><p>Scripts fall back to <code class="docutils literal notranslate"><span class="pre">offline</span></code> if <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="docutils literal notranslate"><span class="pre">online</span></code></p></td>
+<td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -604,20 +604,20 @@
 </section>
 <section id="post-training-megatron-bridge-only">
 <span id="lora-post-training"></span><h2>Post-Training (Megatron-Bridge Only)<a class="headerlink" href="#post-training-megatron-bridge-only" title="Link to this heading">#</a></h2>
-<p>After LoRA training, merge or export adapters with Megatron-Bridge example scripts included in the NeMo container. By default they are under <code class="docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}</span></code> (<code class="docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code>):</p>
+<p>After LoRA training, merge or export adapters with Megatron-Bridge example scripts included in the NeMo container. By default they are under <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}</span></code> (<code class="code docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code>):</p>
 <ol class="arabic simple">
-<li><p><strong>Merge</strong> adapters into base Megatron weights — <code class="docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/peft/merge_lora.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a>)</p></li>
-<li><p><strong>Export</strong> HF PEFT adapter — <code class="docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/conversion/adapter/export_adapter.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a>)</p></li>
+<li><p><strong>Merge</strong> adapters into base Megatron weights — <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/peft/merge_lora.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a>)</p></li>
+<li><p><strong>Export</strong> HF PEFT adapter — <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/conversion/adapter/export_adapter.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a>)</p></li>
 </ol>
-<p>If you cloned Megatron-Bridge to Lustre (<code class="docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code>), use the same paths under your clone root.</p>
+<p>If you cloned Megatron-Bridge to Lustre (<code class="code docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code>), use the same paths under your clone root.</p>
 </section>
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
-<li><p>Pick a recipe under <code class="docutils literal notranslate"><span class="pre">lora/configs/</span></code> via <code class="docutils literal notranslate"><span class="pre">CONFIG_YAML_REL</span></code> or <code class="docutils literal notranslate"><span class="pre">CONFIG_YAML=</span></code>; tune <code class="docutils literal notranslate"><span class="pre">peft</span></code> rank/targets and <code class="docutils literal notranslate"><span class="pre">optimizer.lr</span></code> if adapting a new task.</p></li>
-<li><p><strong>AutoModel:</strong> <code class="docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
-<li><p><strong>Megatron-Bridge:</strong> HF→Meg conversion once, then the same interactive → sbatch flow; use <code class="docutils literal notranslate"><span class="pre">RESUME_CHECKPOINT=1</span></code> to continue.</p></li>
+<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
+<li><p>Pick a recipe under <code class="code docutils literal notranslate"><span class="pre">lora/configs/</span></code> via <code class="code docutils literal notranslate"><span class="pre">CONFIG_YAML_REL</span></code> or <code class="code docutils literal notranslate"><span class="pre">CONFIG_YAML=</span></code>; tune <code class="code docutils literal notranslate"><span class="pre">peft</span></code> rank/targets and <code class="code docutils literal notranslate"><span class="pre">optimizer.lr</span></code> if adapting a new task.</p></li>
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="code docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="code docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
+<li><p><strong>Megatron-Bridge:</strong> HF→Meg conversion once, then the same interactive → sbatch flow; use <code class="code docutils literal notranslate"><span class="pre">RESUME_CHECKPOINT=1</span></code> to continue.</p></li>
 </ol>
 <p>Smoke commands and CLI override tables are in the code-repo guides above.</p>
 </section>
@@ -772,7 +772,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 18, 2026.
+  Last updated on Aug 19, 2026.
   <br/>
 </p></div>
       

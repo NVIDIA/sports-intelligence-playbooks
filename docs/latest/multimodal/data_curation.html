@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -406,12 +406,13 @@
 <p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repository. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
 <section id="example-tennis-annotation-guideline">
 <h2>Example Tennis Annotation Guideline<a class="headerlink" href="#example-tennis-annotation-guideline" title="Link to this heading">#</a></h2>
-<p>The following is a <strong>tennis-specific</strong> annotation guideline that we used for multimodal language models. Other sports will use different fields and taxonomies, but the overall approach—segmenting events and capturing outcomes and narratives—carries over directly.</p>
+<p>The <strong>tennis-specific</strong> guideline below uses the point as the core unit of annotation. It defines the information recorded for each point, including game context, outcomes, timestamps, and descriptive narratives needed for multimodal training.</p>
 <p><a class="reference external" href="../Tennis_Annotation_Guideline.pdf">Tennis Annotation Guideline (PDF)</a> — a step-by-step guide for point-by-point annotation of full tennis match videos, including game context, segment timestamps, and dense captions.</p>
+<p>Meaningful action in sports can be organized around points, plays, possessions, periods, laps, or rounds. Annotation design therefore starts by choosing an event unit that preserves enough visual, audio, and temporal context to support the questions a model should answer. Although fields and terminology differ by sport, strong datasets share the same foundation: precise event boundaries, structured facts, grounded descriptions, and consistent quality control.</p>
 </section>
 <section id="from-tennis-annotation-to-training-data">
 <h2>From Tennis Annotation to Training Data<a class="headerlink" href="#from-tennis-annotation-to-training-data" title="Link to this heading">#</a></h2>
-<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
+<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="code docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
 <p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
 <p>Each annotated point becomes many training rows: one row per question template.</p>
 <section id="pipeline-overview">
@@ -422,22 +423,22 @@
 </section>
 <section id="what-the-generators-do">
 <h3>What the Generators Do<a class="headerlink" href="#what-the-generators-do" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">generate_mcq_qa.py</span></code> handles the default templates, while <code class="docutils literal notranslate"><span class="pre">generate_categorical_mcq_qa.py</span></code> handles categorical evaluation. Both walk every point in the raw JSON and apply <strong>named templates</strong> from <code class="docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">generate_mcq_qa.py</span></code> handles the default templates, while <code class="code docutils literal notranslate"><span class="pre">generate_categorical_mcq_qa.py</span></code> handles categorical evaluation. Both walk every point in the raw JSON and apply <strong>named templates</strong> from <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">tennis_mcq_config.json</span></code> — multiple-choice questions (server/winner, score, rally length, how the point ended, …)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tennis_qa_config.json</span></code> — open-ended QA (point caption, how the point ended, audio cues)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tennis_categorical_eval_config.json</span></code> — categorical MCQ/QA with evaluation metadata</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">question_types.json</span></code> — optional allow-list of template names (omit to generate all)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_mcq_config.json</span></code> — multiple-choice questions (server/winner, score, rally length, how the point ended, …)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_qa_config.json</span></code> — open-ended QA (point caption, how the point ended, audio cues)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_categorical_eval_config.json</span></code> — categorical MCQ/QA with evaluation metadata</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">question_types.json</span></code> — optional allow-list of template names (omit to generate all)</p></li>
 </ul>
-<p>Each template specifies which annotation <strong>field</strong> supplies the ground-truth answer, the <strong>question</strong> text (with placeholders such as <code class="docutils literal notranslate"><span class="pre">&lt;player1&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;score_before&gt;</span></code> filled from metadata), and a <strong>type</strong> that controls how options are built:</p>
+<p>Each template specifies which annotation <strong>field</strong> supplies the ground-truth answer, the <strong>question</strong> text (with placeholders such as <code class="code docutils literal notranslate"><span class="pre">&lt;player1&gt;</span></code> and <code class="code docutils literal notranslate"><span class="pre">&lt;score_before&gt;</span></code> filled from metadata), and a <strong>type</strong> that controls how options are built:</p>
 <ul class="simple">
 <li><p><strong>categorical</strong> — the template defines a fixed list of multiple-choice options in the config (for example, the four server/winner combinations, or the set of “how the point ended” categories). The generator reads the annotated field, picks the matching option as the correct answer, and presents the full predefined list as the MCQ choices.</p></li>
-<li><p><strong>numeric_range</strong> — the annotated field is a number (for example, <code class="docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>). The template maps numeric intervals to labeled answers (for example, 1 → “1 shot”, 2 → “2 shots”, 11–20 → “11–20 shots”). The generator finds which interval contains the annotated value and uses the corresponding label as the correct answer; the other interval labels are the distractors.</p></li>
+<li><p><strong>numeric_range</strong> — the annotated field is a number (for example, <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>). The template maps numeric intervals to labeled answers (for example, 1 → “1 shot”, 2 → “2 shots”, 11–20 → “11–20 shots”). The generator finds which interval contains the annotated value and uses the corresponding label as the correct answer; the other interval labels are the distractors.</p></li>
 <li><p><strong>open_ended</strong> — assistant reply is the annotation field verbatim</p></li>
 <li><p><strong>llm_gen_distractor</strong> — MCQ where the correct option is still the annotated text, but three wrong options are written by an LLM (mcq_* templates only)</p></li>
 </ul>
-<p>For each point the generators: (1) resolve placeholders, (2) pick or derive the correct answer, (3) shuffle MCQ options, and (4) emit a HuggingFace <strong>conversation</strong> record with the point’s relative <code class="docutils literal notranslate"><span class="pre">video</span></code> path, question/answer text, and a <code class="docutils literal notranslate"><span class="pre">class</span></code> field set to the template name (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="docutils literal notranslate"><span class="pre">score_after</span></code>).</p>
-<p>Most templates are <strong>fully deterministic</strong> and need no LLM. Only the legacy <code class="docutils literal notranslate"><span class="pre">mcq_*</span></code> distractor templates call an API (<code class="docutils literal notranslate"><span class="pre">openai</span></code> + <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code>; API key in a local <code class="docutils literal notranslate"><span class="pre">dev_local.env</span></code>); the current categorical config requires no LLM.</p>
+<p>For each point the generators: (1) resolve placeholders, (2) pick or derive the correct answer, (3) shuffle MCQ options, and (4) emit a HuggingFace <strong>conversation</strong> record with the point’s relative <code class="code docutils literal notranslate"><span class="pre">video</span></code> path, question/answer text, and a <code class="code docutils literal notranslate"><span class="pre">class</span></code> field set to the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>).</p>
+<p>Most templates are <strong>fully deterministic</strong> and need no LLM. Only the legacy <code class="code docutils literal notranslate"><span class="pre">mcq_*</span></code> distractor templates call an API (<code class="code docutils literal notranslate"><span class="pre">openai</span></code> + <code class="code docutils literal notranslate"><span class="pre">python-dotenv</span></code>; API key in a local <code class="code docutils literal notranslate"><span class="pre">dev_local.env</span></code>); the current categorical config requires no LLM.</p>
 </section>
 <section id="categorical-evaluation-mode">
 <h3>Categorical Evaluation Mode<a class="headerlink" href="#categorical-evaluation-mode" title="Link to this heading">#</a></h3>
@@ -449,11 +450,11 @@
 <span class="w">  </span>--video-root<span class="w"> </span><span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
-<p>It writes <code class="docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
+<p>It writes <code class="code docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="code docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="code docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
 </section>
 <section id="train-validation-test-splits">
 <h3>Train / Validation / Test Splits<a class="headerlink" href="#train-validation-test-splits" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">split_dataset.py</span></code> assigns <strong>points</strong> (not individual questions) to splits so every Q&amp;A derived from the same point stays together:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">split_dataset.py</span></code> assigns <strong>points</strong> (not individual questions) to splits so every Q&amp;A derived from the same point stays together:</p>
 <ul class="simple">
 <li><p><strong>train</strong> / <strong>validation</strong> — points from seen matches</p></li>
 <li><p><strong>test_seen_videos</strong> — held-out points from a seen match (generalization within a known game)</p></li>
@@ -463,7 +464,7 @@
 </section>
 <section id="output-format">
 <h3>Output Format<a class="headerlink" href="#output-format" title="Link to this heading">#</a></h3>
-<p>Final artifacts are JSONL files under <code class="docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/</span></code>. Each line is one (video, question) pair. The <code class="docutils literal notranslate"><span class="pre">class</span></code> field carries the question-type / template name the row was generated from (for example <code class="docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="docutils literal notranslate"><span class="pre">score_after</span></code>); eval tooling uses it to route MCQ vs descriptive scoring (see <a class="reference internal" href="evaluation.html"><span class="doc">Evaluation</span></a>).</p>
+<p>Final artifacts are JSONL files under <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/</span></code>. Each line is one (video, question) pair. The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field carries the question-type / template name the row was generated from (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>); eval tooling uses it to route MCQ vs descriptive scoring (see <a class="reference internal" href="evaluation.html"><span class="doc">Evaluation</span></a>).</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_video_001_ServerWinner_6f7b9d82-...&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;server_winner&quot;</span><span class="p">,</span>
@@ -486,8 +487,8 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Open-ended QA rows omit the <code class="docutils literal notranslate"><span class="pre">(A)/(B)/...</span></code> options; the assistant message is the annotation field directly.</p>
-<p>For <code class="docutils literal notranslate"><span class="pre">server_winner</span></code> and <code class="docutils literal notranslate"><span class="pre">receiver_winner</span></code> templates, MCQ options list all four server/receiver × winner player-name combinations (for example <code class="docutils literal notranslate"><span class="pre">Jack</span> <span class="pre">Draper</span> <span class="pre">served</span> <span class="pre">and</span> <span class="pre">Carlos</span> <span class="pre">Alcaraz</span> <span class="pre">won</span></code>), and the correct answer names both participants explicitly.</p>
+<p>Open-ended QA rows omit the <code class="code docutils literal notranslate"><span class="pre">(A)/(B)/...</span></code> options; the assistant message is the annotation field directly.</p>
+<p>For <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> and <code class="code docutils literal notranslate"><span class="pre">receiver_winner</span></code> templates, MCQ options list all four server/receiver × winner player-name combinations (for example <code class="code docutils literal notranslate"><span class="pre">Jack</span> <span class="pre">Draper</span> <span class="pre">served</span> <span class="pre">and</span> <span class="pre">Carlos</span> <span class="pre">Alcaraz</span> <span class="pre">won</span></code>), and the correct answer names both participants explicitly.</p>
 </section>
 <section id="question-templates-summary">
 <h3>Question Templates (Summary)<a class="headerlink" href="#question-templates-summary" title="Link to this heading">#</a></h3>
@@ -503,13 +504,13 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Deterministic MCQ</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="docutils literal notranslate"><span class="pre">receiver_winner</span></code>, <code class="docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, <code class="docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, <code class="docutils literal notranslate"><span class="pre">score_after</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">receiver_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, <code class="code docutils literal notranslate"><span class="pre">score_after</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>LLM MCQ (<code class="docutils literal notranslate"><span class="pre">mcq_*</span></code>)</p></td>
-<td><p>Distractor variants on <code class="docutils literal notranslate"><span class="pre">how_point_ended_description</span></code> and <code class="docutils literal notranslate"><span class="pre">point_caption</span></code>: generic rewrites, mechanism mismatch, player misattribution, location mismatch, unsupported embellishments, action mismatch</p></td>
+<tr class="row-odd"><td><p>LLM MCQ (<code class="code docutils literal notranslate"><span class="pre">mcq_*</span></code>)</p></td>
+<td><p>Distractor variants on <code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code> and <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>: generic rewrites, mechanism mismatch, player misattribution, location mismatch, unsupported embellishments, action mismatch</p></td>
 </tr>
 <tr class="row-even"><td><p>Open-ended QA</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, <code class="docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="docutils literal notranslate"><span class="pre">audio_cues</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="code docutils literal notranslate"><span class="pre">audio_cues</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -525,7 +526,7 @@
 <li><p><strong>Point-level splits:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/data_prep_example/tennis/split_dataset.py">split_dataset.py</a></p></li>
 <li><p><strong>Templates:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/tree/main/avlm/data_prep_example/tennis/configs">configs/</a></p></li>
 </ul>
-<p>The example ships with <strong>sample annotation JSON for two matches (20 points)</strong> under <code class="docutils literal notranslate"><span class="pre">raw_tennis_data_input/</span></code>. Training video files are not bundled — only the annotation JSON and generated JSONL.</p>
+<p>The example ships with <strong>sample annotation JSON for two matches (20 points)</strong> under <code class="code docutils literal notranslate"><span class="pre">raw_tennis_data_input/</span></code>. Training video files are not bundled — only the annotation JSON and generated JSONL.</p>
 </section>
 <section id="quick-start">
 <h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
@@ -535,7 +536,7 @@ uv<span class="w"> </span>sync<span class="w"> </span><span class="o">&amp;&amp;
 python<span class="w"> </span>prepare_training_data_pipeline.py
 </pre></div>
 </div>
-<p>The pipeline writes its output to <code class="docutils literal notranslate"><span class="pre">training_tennis_data_output/</span></code>; the final train, validation, and test splits are in <code class="docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/*.jsonl</span></code>.</p>
+<p>The pipeline writes its output to <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/</span></code>; the final train, validation, and test splits are in <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/*.jsonl</span></code>.</p>
 </section>
 </section>
 </section>
@@ -690,7 +691,7 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 18, 2026.
+  Last updated on Aug 19, 2026.
   <br/>
 </p></div>
       
