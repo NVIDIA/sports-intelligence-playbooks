@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
+
+    <title>Sports Intelligence Playbooks &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9625c932" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=a12e3537"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=65e89d2a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Curation" href="multimodal/data_curation.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Aug 18, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="multimodal/data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/inference/index.html">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/evaluation.html">Evaluation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sports-intelligence-playbooks">
+<h1>Sports Intelligence Playbooks<a class="headerlink" href="#sports-intelligence-playbooks" title="Link to this heading">#</a></h1>
+<a class="index-hero reference internal image-reference" href="_images/sports_intelligence_bright_canvas.jpg"><img alt="Sports Intelligence" class="index-hero align-center" src="_images/sports_intelligence_bright_canvas.jpg" style="width: 100%;" />
+</a>
+<p>These playbooks document how to build, train, evaluate, and run <strong>multimodal language models</strong> for sports—models that take video, audio, and text together and answer questions about what happened in a game.</p>
+<p><a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">Sports Intelligence GitHub repository</a></p>
+<section id="what-the-playbooks-provide">
+<h2>What the Playbooks Provide<a class="headerlink" href="#what-the-playbooks-provide" title="Link to this heading">#</a></h2>
+<p>NVIDIA’s public recipes provide generic paths for fine-tuning Nemotron Omni, but they are not tested and verified specifically for analyzing sports feeds. These playbooks provide a reproducible multimodal language model baseline for sports intelligence, with sports-specific data, evaluation, and distributed operational training and inference workflows already integrated.</p>
+<ol class="arabic simple">
+<li><p><strong>Complete sports intelligence starter kit.</strong> Covers the full lifecycle—from sports-video annotation and data preparation through SFT/LoRA training, inference (with quantization and deployment options such as vLLM and SGLang), and evaluation. Its template-driven data pipeline systematically generates multiple training-example types, enabling models to be trained and evaluated across different aspects of sports understanding.</p></li>
+<li><p><strong>Video- and audio-first fine-tuning with sports-relevant customization.</strong> Provides tested recipes for sports video clips with audio, rather than relying primarily on simpler image-and-text examples available in public recipes. It also exposes input-resolution and frame-sampling settings that help preserve details important to sports analysis, such as player motion, ball trajectory, court geometry, and event timing.</p></li>
+<li><p><strong>Domain-specific, measurable evaluation.</strong> Includes per-question-class MCQ metrics and LLM-as-a-judge evaluation for captions and descriptive answers.</p></li>
+<li><p><strong>Reproducible, scalable execution.</strong> Supplies tested distributed workflows, checkpoint conversion and parity checks, and automated inference-to-evaluation pipelines.</p></li>
+<li><p><strong>Informed choice of training method and framework.</strong> Supports and compares full SFT and LoRA across NeMo AutoModel and Megatron-Bridge, helping users balance quality, memory, iteration speed, and checkpoint size. When properly tuned, Megatron-Bridge can deliver up to <strong>3x higher training throughput</strong> than AutoModel.</p></li>
+<li><p><strong>Last but not least: shared practical learnings.</strong> Shares lessons from building, debugging, optimizing, and validating multimodal training workflows that can help others fine-tune multimodal language models for sports intelligence.</p></li>
+</ol>
+<p>The playbooks cover the complete AVLM lifecycle—from collecting and annotating multimodal sports data through train/eval preparation, SFT/LoRA training, inference, evaluation, and deployment. Evaluation findings feed back into data and training choices for continuous improvement.</p>
+<a class="reference internal image-reference" href="_images/AVLM_training_lifecycle.png"><img alt="AVLM training lifecycle" class="align-center" src="_images/AVLM_training_lifecycle.png" style="width: 75%;" />
+</a>
+<p><strong>Playbook Scripts:</strong> Implementation, launch scripts, and runbooks live in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> code repo under <code class="docutils literal notranslate"><span class="pre">avlm/training/</span></code>, <code class="docutils literal notranslate"><span class="pre">avlm/inference/</span></code>, and <code class="docutils literal notranslate"><span class="pre">avlm/evals/</span></code>.</p>
+<p>Use the navigation on the left to browse by section.</p>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/data_curation.html">Data Curation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/data_curation.html#example-tennis-annotation-guideline">Example Tennis Annotation Guideline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/data_curation.html#from-tennis-annotation-to-training-data">From Tennis Annotation to Training Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#pipeline-overview">Pipeline Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#what-the-generators-do">What the Generators Do</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#categorical-evaluation-mode">Categorical Evaluation Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#train-validation-test-splits">Train / Validation / Test Splits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#output-format">Output Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#question-templates-summary">Question Templates (Summary)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#example-code-and-documentation">Example Code and Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/data_curation.html#quick-start">Quick Start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/training/index.html">Training</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/setup.html">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#code-repo">Code Repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#containers">Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#two-stacks-pick-one">Two Stacks (Pick One)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#shared-layout-both-stacks">Shared Layout (Both Stacks)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#repo-bootstrap-optional">Repo Bootstrap (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#megatron-bridge-only">Megatron-Bridge Only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#interactive-vs-sbatch-slurm">Interactive vs. Sbatch (Slurm)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/setup.html#typical-workflow">Typical Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/sft.html">SFT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#what-gets-trained">What Gets Trained</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#training-schedule-and-batching">Training Schedule and Batching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#optimizer-and-learning-rate">Optimizer and Learning Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#distributed-parallelism">Distributed Parallelism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#data-video-and-sequence-budget">Data, Video, and Sequence Budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#moe-backend-automodel-only">MoE Backend (AutoModel Only)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#weights-biases">Weights &amp; Biases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/sft.html#quick-start">Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/training/lora.html">LoRA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#sft-vs-lora-compute-and-checkpoint-size">SFT vs. LoRA (compute and checkpoint size)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#what-gets-trained-target-modules-and-freeze">What Gets Trained (Target Modules and Freeze)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#training-schedule-and-batching">Training Schedule and Batching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#optimizer-and-learning-rate">Optimizer and Learning Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#distributed-parallelism">Distributed Parallelism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#data-video-and-sequence-budget">Data, Video, and Sequence Budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#moe-backend-automodel-only">MoE Backend (AutoModel Only)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#checkpointing">Checkpointing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#weights-biases">Weights &amp; Biases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#post-training-megatron-bridge-only">Post-Training (Megatron-Bridge Only)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/training/lora.html#quick-start">Quick Start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/inference/index.html">Inference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#containers">Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#two-backends-pick-one">Two Backends (Pick One)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#shared-layout">Shared Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#interactive-vs-sbatch">Interactive vs. Sbatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#typical-workflow">Typical Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#automodel-inference">AutoModel Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#config-files">Config Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#megatron-bridge-inference">Megatron-Bridge Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#id3">Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#inference-config-reference">Inference Config Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#shared-fields-both-backends">Shared Fields (Both Backends)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#cli-environment-overrides">CLI / Environment Overrides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#automodel-fields">AutoModel Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#megatron-bridge-fields">Megatron-Bridge Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#lora-inference-adapter-only-weights">LoRA Inference (Adapter-Only Weights)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#automodel">AutoModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#megatron-bridge">Megatron-Bridge</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#outputs">Outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/evaluation.html">Evaluation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#two-evaluation-modes">Two Evaluation Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#tennis-reference-classes">Tennis reference classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#mcq-evaluation">MCQ Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#answer-format">Answer format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#results">Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#run-mcq-eval">Run MCQ eval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#llm-as-judge-evaluation">LLM-as-Judge Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#full-event-context-for-the-judge">Full event context for the judge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#judge-prompt">Judge prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#judge-configuration">Judge configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#run-llm-judge">Run LLM judge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#llm-judge-aggregation">LLM judge aggregation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/evaluation.html#llm-judge-html-summary">LLM judge HTML summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#outputs-layout">Outputs Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#inference-eval-pipeline">Inference + Eval Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/evaluation.html#evaluation-figures">Evaluation Figures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/learnings.html">Learnings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/dataset_size_and_boundary_sensitivity.html#expectations">Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/dataset_size_and_boundary_sensitivity.html#evidence-from-our-tests">Evidence from Our Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/effective_input_resolution.html">Frame Resolution Impact</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/effective_input_resolution.html#expectations">Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/effective_input_resolution.html#evidence-from-our-tests">Evidence from Our Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/training_data_and_prediction_bias.html#expectations">Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/training_data_and_prediction_bias.html#evidence-from-our-tests">Evidence from Our Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/video_chunking.html">Video Chunking Impact</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multimodal/learnings/video_chunking.html#expectations">Expectations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="multimodal/data_curation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Curation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-playbooks-provide">What the Playbooks Provide</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Aug 18, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
