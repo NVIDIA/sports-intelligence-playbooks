@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+
+    <title>Evaluation &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=9625c932" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/evaluation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Learnings" href="learnings.html" />
+    <link rel="prev" title="Inference" href="inference/index.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training/lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="inference/index.html">Inference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Evaluation</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="evaluation">
+<h1>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h1>
+<a class="reference internal image-reference" href="../_images/Evaluation_Pipeline.png"><img alt="AVLM evaluation pipeline" class="align-center" src="../_images/Evaluation_Pipeline.png" style="width: 100%;" />
+</a>
+<p>The evaluation pipeline routes inference predictions by <code class="code docutils literal notranslate"><span class="pre">evaluation_type</span></code>: MCQ answers use deterministic letter matching, while open-ended answers use an LLM judge. The resulting scores are aggregated into JSON metrics and an HTML report.</p>
+<p>After inference writes predictions, we score them with two complementary methods:</p>
+<ul class="simple">
+<li><p><strong>MCQ accuracy</strong> — letter matching for multiple-choice questions (fast, deterministic)</p></li>
+<li><p><strong>LLM-as-judge</strong> — rubric scoring for open-ended captions and descriptions where wording varies but factual alignment matters</p></li>
+</ul>
+<p>Both approaches apply across sports. Code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository under <code class="code docutils literal notranslate"><span class="pre">avlm/evals/</span></code>; the shipped tennis question classes and prompts are a reference implementation, and the same patterns extend to other domains with sport-specific templates, metadata schemas, and judge rubrics. Predictions must exist first at:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.jsonl
+</pre></div>
+</div>
+<p>Each line is one (video, question) pair. See <a class="reference internal" href="inference/index.html"><span class="doc">Inference</span></a> for generating predictions.</p>
+<section id="two-evaluation-modes">
+<h2>Two Evaluation Modes<a class="headerlink" href="#two-evaluation-modes" title="Link to this heading">#</a></h2>
+<p>Routing uses the <code class="code docutils literal notranslate"><span class="pre">evaluation_type</span></code> field on each row in <code class="code docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">mcq</span></code> — scored locally by letter matching; no external API calls</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">open_ended</span></code> — scored by an LLM judge; requires a judge API key</p></li>
+</ul>
+<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field stores the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>). Set both fields during data preparation when defining templates (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>). MCQ answers use <code class="code docutils literal notranslate"><span class="pre">(A)</span> <span class="pre">...</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span> <span class="pre">...</span></code>; open-ended templates use free-text ground truth.</p>
+<section id="tennis-reference-classes">
+<h3>Tennis reference classes<a class="headerlink" href="#tennis-reference-classes" title="Link to this heading">#</a></h3>
+<p>Tennis MCQ classes include match facts such as <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>, <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, and <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, plus categorical visual and reasoning classes. Open-ended classes include <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, and <code class="code docutils literal notranslate"><span class="pre">audio_cues</span></code>. Categorical rows also carry <code class="code docutils literal notranslate"><span class="pre">super_category</span></code> and <code class="code docutils literal notranslate"><span class="pre">fine_category</span></code> labels for breakdowns across visual recognition, commentary, match facts, rules/reasoning, and audio. See <code class="code docutils literal notranslate"><span class="pre">avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD</span></code> for the current taxonomy.</p>
+</section>
+</section>
+<section id="mcq-evaluation">
+<h2>MCQ Evaluation<a class="headerlink" href="#mcq-evaluation" title="Link to this heading">#</a></h2>
+<p>The MCQ scorer reads inference predictions and compares each model answer to the annotated correct letter. The headline metric is the <strong>percentage of correct answers</strong>.</p>
+<section id="answer-format">
+<h3>Answer format<a class="headerlink" href="#answer-format" title="Link to this heading">#</a></h3>
+<p>Answers must start with <code class="code docutils literal notranslate"><span class="pre">(A)</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span></code>; optional Markdown bold is accepted. The scorer extracts the leading letter from model output and ground truth. Malformed reference answers are skipped with a warning. Unparseable model outputs count as <code class="code docutils literal notranslate"><span class="pre">num_parse_failed</span></code> and remain in the denominator, lowering accuracy.</p>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
+<p>Results are written to <code class="code docutils literal notranslate"><span class="pre">mcq/mcq_results.json</span></code> under the inference output directory. It reports <code class="code docutils literal notranslate"><span class="pre">pct_correct</span></code> (a 0–1 fraction), <code class="code docutils literal notranslate"><span class="pre">total_mcq_questions</span></code>, correct/incorrect counts, parse and inference failures, and the same metrics under <code class="code docutils literal notranslate"><span class="pre">per_class</span></code>.</p>
+</section>
+<section id="run-mcq-eval">
+<h3>Run MCQ eval<a class="headerlink" href="#run-mcq-eval" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/evals/scripts/run_mcq_eval.sh
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/mcq/mcq_results.json
+</pre></div>
+</div>
+</section>
+</section>
+<section id="llm-as-judge-evaluation">
+<h2>LLM-as-Judge Evaluation<a class="headerlink" href="#llm-as-judge-evaluation" title="Link to this heading">#</a></h2>
+<p>The LLM judge scores <code class="code docutils literal notranslate"><span class="pre">open_ended</span></code> rows. A separate model rates each answer against the reference on a <strong>1–10</strong> scale and returns a short justification plus notes on factual alignment.</p>
+<p>Use LLM judging when there is no single letter or exact string to match — for example, event captions or play-by-play descriptions where phrasing can differ but facts must hold.</p>
+<section id="full-event-context-for-the-judge">
+<h3>Full event context for the judge<a class="headerlink" href="#full-event-context-for-the-judge" title="Link to this heading">#</a></h3>
+<p>The judge does not see only the reference answer and the model reply. For each example it also receives:</p>
+<ol class="arabic simple">
+<li><p><strong>Reference answer</strong> — the annotation from the eval set</p></li>
+<li><p><strong>Original prompt</strong> — the full question the VLM was asked (including the video reference)</p></li>
+<li><p><strong>Model answer</strong> — the generated text (inference separates any internal reasoning trace before writing predictions)</p></li>
+<li><p><strong>Event metadata</strong> — the full annotated row for that clip from preprocessed source JSON</p></li>
+</ol>
+<section id="why-include-event-metadata">
+<h4>Why include event metadata?<a class="headerlink" href="#why-include-event-metadata" title="Link to this heading">#</a></h4>
+<p>Open-ended ground truth is often a <strong>short caption or play-by-play string</strong>. The model answer may use different wording but still be correct — or it may add <strong>extra factual claims</strong> that are not spelled out in the reference (for example, whether the point ended on an ace, a double fault, or a winner, or whether a serve was first or second).</p>
+<p>Comparing prediction to ground truth alone is not enough in those cases:</p>
+<ul class="simple">
+<li><p><strong>Ground truth alone</strong> cannot confirm or refute every fine-grained claim the model makes.</p></li>
+<li><p><strong>Strict pred-vs-GT matching</strong> would unfairly penalize valid extra detail that the annotator simply did not repeat in the short reference string.</p></li>
+<li><p><strong>Lenient semantic matching</strong> would let plausible but wrong details slip through.</p></li>
+</ul>
+<p><strong>Event metadata</strong> breaks that tradeoff. It is the structured annotation row for that point — the same fields used during data curation (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>): server/receiver, scores, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, rally length, captions, and related labels. The judge treats metadata as <strong>authoritative context</strong> to:</p>
+<ul class="simple">
+<li><p><strong>Verify</strong> specific claims in the prediction (for example, cross-check serve-related statements against <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>).</p></li>
+<li><p><strong>Disambiguate</strong> point-ending categories (ace, double fault, winner, unforced error, and so on) when the reference caption is vague or abbreviated.</p></li>
+<li><p><strong>Avoid false hallucination penalties</strong> when the model adds a detail that ground truth omitted but metadata supports.</p></li>
+<li><p><strong>Penalize contradictions</strong> when the prediction conflicts with structured fields, even if the wording sounds plausible.</p></li>
+</ul>
+<p>If metadata is omitted, the rubric falls back to strict pred-vs-GT scoring and penalizes unsupported additions. When metadata is present, scoring is primarily grounded-truth alignment, with metadata used as a secondary consistency check.</p>
+</section>
+<section id="how-metadata-is-attached">
+<h4>How metadata is attached<a class="headerlink" href="#how-metadata-is-attached" title="Link to this heading">#</a></h4>
+<p>During data preparation, open-ended rows can be augmented with structured point metadata. Inference copies that <code class="code docutils literal notranslate"><span class="pre">metadata</span></code> field into <code class="code docutils literal notranslate"><span class="pre">predictions.jsonl</span></code>; the judge does not load a separate annotation directory. <code class="code docutils literal notranslate"><span class="pre">metadata_mode</span></code> in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> controls whether metadata is placed in the user or system message, selected automatically, or omitted. The shipped config uses the user message.</p>
+</section>
+</section>
+<section id="judge-prompt">
+<h3>Judge prompt<a class="headerlink" href="#judge-prompt" title="Link to this heading">#</a></h3>
+<p>The rubric lives in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/utils/prompt.py</span></code>. At runtime the scorer fills in the reference answer, original prompt, model answer, and event metadata. An optional domain-specific paragraph from <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code> is appended to the system message.</p>
+<p><strong>System message</strong> (default):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>You are an expert VLM evaluator. Provide accurate, fair, and detailed scoring
+based on the given criteria.
+
+You are also an expert tennis commentator and rules adjudicator. Interpret tennis terminology precisely
+(serve, return, rally, winner, forced/unforced error, ace, double fault, volley, down-the-line, cross-court, baseline).
+When metadata includes score flow or serve attempts, penalize only direct contradictions;
+do not overrule matching GT/pred serve-sequence descriptions from ambiguous attempt-count fields.
+Prefer concise, technical justifications.
+</pre></div>
+</div>
+<p><strong>User message</strong> (template; <code class="code docutils literal notranslate"><span class="pre">REPLACE_*</span></code> slots are filled per example):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Your task is to compare the model prediction directly against the conversation
+and ground truth, and use the provided metadata as authoritative context for
+verification and disambiguation. Prioritize agreement with gt, and use metadata
+only for direct contradictions or clear disambiguation. Do not invent
+contradictions from ambiguous metadata fields. Treat unambiguous player aliases
+as the same player (for example, Amritraj and Riske-Amritraj) when the
+conversation or gt makes the mapping clear. For first serve/double fault/ace
+serve-related claims, use metadata fields like
+&#39;num_serving_attempts_until_successful&#39; as supporting context, but do not use
+that field to penalize a fault/let/then-successful-serve sequence when gt and
+pred agree on that sequence and metadata does not explicitly state a different
+complete serve sequence. If the prediction adds a specific point-ending
+category (like Ace, Double Fault, Winner, etc) that is not mentioned in the gt,
+do NOT penalize unless this addition is directly contradicted by the metadata.
+If metadata supports or is consistent with the pred&#39;s extra detail, do not
+treat it as a hallucination. However, if pred adds a point-ending type that is
+directly contradicted by metadata, penalize accordingly.
+
+If no metadata is provided, score purely on pred vs gt and be strict about
+extra unsupported details.
+
+IMPORTANT: Respond only with valid JSON. The &quot;score&quot; field must be an integer
+from 1 to 10, where 10 is best, never 0.
+
+**Ground Truth**
+REPLACE_GT
+
+**Conversation**
+REPLACE_CONVERSATION
+
+**Prediction**
+REPLACE_PREDICTION
+
+**Metadata**
+REPLACE_METADATA
+
+**Evaluation Guidance:**
+- Primary: Similarity to gt (semantic and factual)
+- Secondary: Consistency with metadata when present; penalize claims directly
+  contradicted by available metadata
+- **MCQ / single-letter answers**: If gt is of the form &quot;(A) ...&quot;, &quot;(B) ...&quot;,
+  &quot;(C) ...&quot;, &quot;(D) ...&quot; and pred is only the letter (e.g. &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;)
+  or &quot;A.&quot; / &quot;The answer is A.&quot;, treat as a **full match (score 10 ** when the
+  letter matches the gt choice. Do not penalize for missing the full &quot;(X) ...&quot;
+  text.
+- Treat unambiguous player aliases as equivalent, including
+  surname/full-name/hyphenated variants such as &quot;Amritraj&quot; and
+  &quot;Riske-Amritraj&quot;
+- For serve/double fault/ace claims, check metadata fields like
+  &#39;num_serving_attempts_until_successful&#39; as supporting context; do not let that
+  field override matching gt/pred fault/let/then-successful-serve descriptions
+  unless metadata explicitly gives a different complete serve sequence
+- If pred adds a point-ending type (Ace, Double Fault, etc) not in gt, check
+  metadata:
+    - If metadata supports or is consistent, do NOT penalize
+    - If metadata directly contradicts, penalize
+    - If metadata is absent, be strict and penalize unsupported additions
+- Ignore plausible but unsupported details that are not grounded in gt/metadata
+
+**Scoring (1-10, integers):**
+- 10: Pred essentially matches gt; no contradictions with metadata
+- 9: Very strong match; at most tiny omissions
+- 8: Minor omissions or wording differences; consistent with metadata
+- 7: Captures main idea; some errors/unsupported details
+- 6: Partially relevant; noticeable errors/contradictions
+- 1-5: Poor match or contradicted by metadata
+
+Respond ONLY with a JSON object of the form:
+{
+  &quot;score&quot;: &lt;1-10&gt;,
+  &quot;reasoning&quot;: &quot;&lt;brief, precise justification&gt;&quot;,
+  &quot;strengths&quot;: [&quot;&lt;strength 1&gt;&quot;, &quot;&lt;strength 2&gt;&quot;],
+  &quot;weaknesses&quot;: [&quot;&lt;weakness 1&gt;&quot;, &quot;&lt;weakness 2&gt;&quot;],
+  &quot;metadata_alignment&quot;: &quot;&lt;note on consistency with metadata&gt;&quot;
+}
+</pre></div>
+</div>
+<p>The tennis examples in the prompt (serve attempts, point-ending categories) illustrate how metadata cross-check works; adapt <code class="code docutils literal notranslate"><span class="pre">prompt.py</span></code> and the config <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> for other sports.</p>
+</section>
+<section id="judge-configuration">
+<h3>Judge configuration<a class="headerlink" href="#judge-configuration" title="Link to this heading">#</a></h3>
+<p>Copy and edit <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code>. You need:</p>
+<ul class="simple">
+<li><p>An OpenAI-compatible <strong>API base URL</strong> and <strong>judge model</strong> name</p></li>
+</ul>
+<p>Optional settings cover parallelism, timeouts, metadata placement, output fields, and domain-specific system guidance.</p>
+<p>Set the API key before running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CLIENT_API_KEY</span><span class="o">=</span>&lt;YOUR_CLIENT_API_KEY&gt;
+</pre></div>
+</div>
+<p>LLM judge requires <code class="code docutils literal notranslate"><span class="pre">openai</span></code>, <code class="code docutils literal notranslate"><span class="pre">pyyaml</span></code>, and <code class="code docutils literal notranslate"><span class="pre">tqdm</span></code>. Install them in base Python or a venv; if using a venv, set <code class="code docutils literal notranslate"><span class="pre">JUDGE_VENV_PATH</span></code> to its root. Run eval commands from the repository root; the shell wrappers accept configuration through environment variables rather than positional arguments.</p>
+</section>
+<section id="run-llm-judge">
+<h3>Run LLM judge<a class="headerlink" href="#run-llm-judge" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge.sh
+</pre></div>
+</div>
+<p>With config override and sample limit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VLM_SCORER_CONFIG</span><span class="o">=</span>avlm/evals/qa_llm_judge/vlm_configs/default.yaml<span class="w"> </span><span class="se">\</span>
+<span class="nv">MAX_LLM_JUDGE_SAMPLES</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+<span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge.sh
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/llm_judge/llm_judge_predictions.json
+</pre></div>
+</div>
+<p>This file contains <code class="code docutils literal notranslate"><span class="pre">statistics</span></code>, per-example <code class="code docutils literal notranslate"><span class="pre">results</span></code>, <code class="code docutils literal notranslate"><span class="pre">failures</span></code>, error counts, and run metadata.</p>
+</section>
+<section id="llm-judge-aggregation">
+<h3>LLM judge aggregation<a class="headerlink" href="#llm-judge-aggregation" title="Link to this heading">#</a></h3>
+<p>A second step aggregates judge output overall and by class:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge_eval.sh
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/llm_judge/llm_judge_results.json
+</pre></div>
+</div>
+<p>The result includes success/failure counts, mean and median scores, range, score distribution, and <code class="code docutils literal notranslate"><span class="pre">per_class</span></code> metrics.</p>
+</section>
+<section id="llm-judge-html-summary">
+<h3>LLM judge HTML summary<a class="headerlink" href="#llm-judge-html-summary" title="Link to this heading">#</a></h3>
+<p>Generate a browsable report from the per-example judge output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/evals/scripts/run_qa_llm_judge_summary.sh
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/llm_judge/llm_judge_summary.html
+</pre></div>
+</div>
+</section>
+</section>
+<section id="outputs-layout">
+<h2>Outputs Layout<a class="headerlink" href="#outputs-layout" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/
+├── predictions.jsonl          # from inference
+├── mcq/
+│   └── mcq_results.json       # MCQ accuracy
+└── llm_judge/
+    ├── llm_judge_predictions.json   # per-entry judge scores and failures
+    ├── llm_judge_results.json       # aggregated judge metrics
+    └── llm_judge_summary.html       # browsable report
+</pre></div>
+</div>
+</section>
+<section id="inference-eval-pipeline">
+<h2>Inference + Eval Pipeline<a class="headerlink" href="#inference-eval-pipeline" title="Link to this heading">#</a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/common/scripts/run_inference_eval_pipeline.sh</span></code> runs inference and evaluation end to end. The default stages are <code class="code docutils literal notranslate"><span class="pre">inference,mcq,judge,judge_eval,judge_summary</span></code>. Set <code class="code docutils literal notranslate"><span class="pre">INFERENCE_BACKEND</span></code> to <code class="code docutils literal notranslate"><span class="pre">automodel</span></code>, <code class="code docutils literal notranslate"><span class="pre">megatron_bridge</span></code>, or <code class="code docutils literal notranslate"><span class="pre">megatron_core</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">INFERENCE_BACKEND</span><span class="o">=</span>automodel<span class="w"> </span><span class="se">\</span>
+<span class="nv">INFERENCE_CONFIG</span><span class="o">=</span>avlm/inference/automodel/configs/default_sft.yaml<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pipeline.sh
+</pre></div>
+</div>
+<p>Score existing predictions only:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">STAGES</span><span class="o">=</span>mcq,judge,judge_eval,judge_summary<span class="w"> </span><span class="se">\</span>
+<span class="nv">INFERENCE_DIR</span><span class="o">=</span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;<span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pipeline.sh
+</pre></div>
+</div>
+</section>
+<section id="evaluation-figures">
+<h2>Evaluation Figures<a class="headerlink" href="#evaluation-figures" title="Link to this heading">#</a></h2>
+<p>Scripts under <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/</span></code> generate comparison, category, radar, and accuracy-versus-cost PNGs from evaluation outputs. Run the scripts listed in <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/README.md</span></code>; figures are written to <code class="code docutils literal notranslate"><span class="pre">avlm/evals/figures/outputs/</span></code>. Judge figures use the share of scores at least 9/10 as the headline pass metric.</p>
+<p>See <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a> for pipeline overrides and eval-suite examples, and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/evals/README.MD">avlm/evals/README.MD</a> for script-level reference.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="inference/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Inference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="learnings.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Learnings</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-evaluation-modes">Two Evaluation Modes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tennis-reference-classes">Tennis reference classes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcq-evaluation">MCQ Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#answer-format">Answer format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mcq-eval">Run MCQ eval</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-as-judge-evaluation">LLM-as-Judge Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-event-context-for-the-judge">Full event context for the judge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-include-event-metadata">Why include event metadata?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#how-metadata-is-attached">How metadata is attached</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#judge-prompt">Judge prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#judge-configuration">Judge configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-llm-judge">Run LLM judge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-judge-aggregation">LLM judge aggregation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-judge-html-summary">LLM judge HTML summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs-layout">Outputs Layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-eval-pipeline">Inference + Eval Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-figures">Evaluation Figures</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Aug 21, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
