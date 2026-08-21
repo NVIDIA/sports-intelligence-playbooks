@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>LoRA &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -447,13 +447,14 @@
 </div>
 <p>Trainable LoRA parameters scale linearly with <code class="code docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the Nemotron-Omni example.</p>
 <p>Step time is often similar between SFT and LoRA because throughput (tps/gpu) is in the same ballpark; the main SFT costs are higher per-GPU memory, optimizer state over far more trainable weights, and checkpoint I/O.</p>
-<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
+<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings live in the relevant <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; Slurm and container settings apply only to Slurm launch files. Training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands, merge/export, smoke examples):</strong></p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
-<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a></p></li>
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a></p></li>
 </ul>
-<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/TRAINING_ENV_VARS.MD">AutoModel LoRA reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/TRAINING_ENV_VARS.MD">Megatron-Bridge LoRA reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
 <p>Choose SFT or LoRA based on how much of the model you need to adapt and your operational constraints; see <a class="reference internal" href="#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> for memory, throughput, and checkpoint tradeoffs.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -524,7 +525,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dim</span></code> / <code class="code docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
-<td><p>Same meaning as AutoModel (under <code class="code docutils literal notranslate"><span class="pre">peft</span></code>). Defaults <strong>16</strong> / <strong>32</strong>.</p></td>
+<td><p>Same meaning as AutoModel (under <code class="code docutils literal notranslate"><span class="pre">peft</span></code>). Defaults <strong>64</strong> / <strong>128</strong>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_qkv</span></code></p></td>
 <td><p>Attention Q/K/V projections</p></td>
@@ -534,6 +535,9 @@
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">in_proj</span></code> / <code class="code docutils literal notranslate"><span class="pre">out_proj</span></code></p></td>
 <td><p>Mamba / SSM-style blocks in the decoder (under <code class="code docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_fc1</span></code> / <code class="code docutils literal notranslate"><span class="pre">linear_fc2</span></code></p></td>
+<td><p>Shared-expert MLP projections (under <code class="code docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -549,18 +553,19 @@
 <h2>Optimizer and Learning Rate<a class="headerlink" href="#optimizer-and-learning-rate" title="Link to this heading">#</a></h2>
 <p>LoRA uses a <strong>higher learning rate</strong> than full SFT because only adapter parameters update. Optimizer type, weight decay, LR schedule, and grad clip follow the same recipe fields as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>; defaults differ only in LR:</p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <strong>1e-3</strong> (vs. 5e-5 for SFT)</p></li>
-<li><p><strong>Megatron-Bridge:</strong> <strong>1e-4</strong> (vs. 5e-5 for SFT)</p></li>
+<li><p><strong>AutoModel:</strong> <strong>5e-4</strong> (vs. 5e-5 for SFT)</p></li>
+<li><p><strong>Megatron-Bridge:</strong> <strong>5e-4</strong> (vs. 5e-5 for SFT)</p></li>
 </ul>
 <p><strong>Impact:</strong> If loss spikes, reduce LR or increase warmup. LoRA often tolerates 10–20× the SFT learning rate because the update space is low-rank. CPU optimizer offload (see <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>) is usually unnecessary for LoRA due to lower GPU memory usage.</p>
 </section>
 <section id="distributed-parallelism">
 <h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
-<p>Same rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a> (<code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code>, and <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> constraints).</p>
+<p>For both AutoModel and Megatron-Bridge, keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>. Otherwise, use the same <code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, and <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>.</p>
 </section>
 <section id="data-video-and-sequence-budget">
 <h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
 <p>Same JSONL format, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> resolution, dataset fields, and sequence-packing rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>. LoRA recipes reuse those fields unchanged.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">AutoModel LoRA guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">Megatron-Bridge LoRA guide</a>.</p>
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
@@ -568,12 +573,12 @@
 </section>
 <section id="checkpointing">
 <h2>Checkpointing<a class="headerlink" href="#checkpointing" title="Link to this heading">#</a></h2>
-<p>Training writes adapter state only, not the full base model:</p>
+<p>Training writes adapter state rather than the full base model:</p>
 <ul class="simple">
 <li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> plus small metadata under <code class="code docutils literal notranslate"><span class="pre">lora/slurm/outputs/&lt;MODEL_NAME&gt;/</span></code> (typically tens of MB per step save); <code class="code docutils literal notranslate"><span class="pre">save_consolidated:</span> <span class="pre">true</span></code> for HF-friendly layout</p></li>
-<li><p><strong>Megatron-Bridge:</strong> <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">false</span></code> by default; <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> Megatron <code class="code docutils literal notranslate"><span class="pre">.distcp</span></code> shards holding LoRA weights only (tens of MB total per <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code>, vs. hundreds of GB for SFT on the same <code class="code docutils literal notranslate"><span class="pre">tp</span></code>/<code class="code docutils literal notranslate"><span class="pre">ep</span></code> layout)</p></li>
+<li><p><strong>Megatron-Bridge:</strong> <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">true</span></code> by default; <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> Megatron <code class="code docutils literal notranslate"><span class="pre">.distcp</span></code> shards include optimizer state for resume. Set <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">false</span></code> for weights-only checkpoints.</p></li>
 </ul>
-<p>The frozen base always comes from <code class="code docutils literal notranslate"><span class="pre">model.hf_model_id</span></code> (AutoModel) or <code class="code docutils literal notranslate"><span class="pre">checkpoint.pretrained_checkpoint</span></code> (Bridge) at train and inference time. Adapter-only checkpoints cannot be loaded alone — pair them with the base, or merge (Bridge) before deployment.</p>
+<p>AutoModel loads the frozen base from <code class="code docutils literal notranslate"><span class="pre">model.pretrained_model_name_or_path</span></code>. Megatron-Bridge uses <code class="code docutils literal notranslate"><span class="pre">run.hf_model_id</span></code> for the model configuration and processor, and loads the frozen base weights from <code class="code docutils literal notranslate"><span class="pre">checkpoint.pretrained_checkpoint</span></code>. Adapter-only checkpoints cannot be loaded alone — pair them with the base, or merge (Bridge) before deployment.</p>
 </section>
 <section id="weights-biases">
 <h2>Weights &amp; Biases<a class="headerlink" href="#weights-biases" title="Link to this heading">#</a></h2>
@@ -595,7 +600,7 @@
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
 </tr>
-<tr class="row-even"><td><p>Bridge fallback</p></td>
+<tr class="row-even"><td><p>Both stacks</p></td>
 <td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
 </tr>
 </tbody>
@@ -604,12 +609,21 @@
 </section>
 <section id="post-training-megatron-bridge-only">
 <span id="lora-post-training"></span><h2>Post-Training (Megatron-Bridge Only)<a class="headerlink" href="#post-training-megatron-bridge-only" title="Link to this heading">#</a></h2>
-<p>After LoRA training, merge or export adapters with Megatron-Bridge example scripts included in the NeMo container. By default they are under <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}</span></code> (<code class="code docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code>):</p>
+<p>After LoRA training, export the adapter or merge it into a full Hugging Face checkpoint:</p>
 <ol class="arabic simple">
-<li><p><strong>Merge</strong> adapters into base Megatron weights — <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/peft/merge_lora.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a>)</p></li>
-<li><p><strong>Export</strong> HF PEFT adapter — <code class="code docutils literal notranslate"><span class="pre">${MEGATRON_BRIDGE_ROOT}/examples/conversion/adapter/export_adapter.py</span></code> (<a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a>)</p></li>
+<li><p><strong>Export an HF PEFT adapter</strong></p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora_fsdp.sh">repository example</a></p></li>
+</ul>
+</li>
+<li><p><strong>Merge adapters into a full HF checkpoint</strong></p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full_fsdp.sh">repository example</a></p></li>
+</ul>
+</li>
 </ol>
-<p>If you cloned Megatron-Bridge to Lustre (<code class="code docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code>), use the same paths under your clone root.</p>
 </section>
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
@@ -772,7 +786,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 19, 2026.
+  Last updated on Aug 21, 2026.
   <br/>
 </p></div>
       

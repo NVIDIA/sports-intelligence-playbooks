@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>SFT &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -410,10 +410,11 @@
 <p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands and smoke examples):</strong></p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
-<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">megatron-bridge/sft/SFT_GUIDE.MD</a></p></li>
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">megatron-bridge/sft/SFT_GUIDE.MD</a></p></li>
 </ul>
-<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence/-/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/TRAINING_ENV_VARS.MD">AutoModel SFT reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/TRAINING_ENV_VARS.MD">Megatron-Bridge SFT reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
 <section id="what-gets-trained">
 <h2>What Gets Trained<a class="headerlink" href="#what-gets-trained" title="Link to this heading">#</a></h2>
 <p>SFT often keeps vision and audio encoders frozen and trains the LLM plus multimodal projectors (the layers that map vision/sound features into the language model). Use <code class="code docutils literal notranslate"><span class="pre">freeze_config</span></code> in the recipe YAML (<code class="code docutils literal notranslate"><span class="pre">true</span></code> = frozen, <code class="code docutils literal notranslate"><span class="pre">false</span></code> = trainable).</p>
@@ -429,8 +430,8 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_embeddings</span></code></p></td>
-<td><p>Token embedding layer</p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_video_embedder</span></code></p></td>
+<td><p>Video embedding layer; no additional effect when <code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code> is <code class="code docutils literal notranslate"><span class="pre">true</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code></p></td>
 <td><p>Vision encoder (RADIO)</p></td>
@@ -497,8 +498,8 @@
 <td><p><code class="code docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs; with <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> sets gradient accumulation</p></td>
 </tr>
 <tr class="row-odd"><td><p>Per-GPU microbatch</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">local_batch_size</span></code> — how many training examples each GPU processes at once; keep at 1 when sequence packing is on</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> — raise only if memory allows; in-batch packing needs <code class="code docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">local_batch_size</span></code> — samples per microbatch per GPU; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code> when sequence packing is on</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> — samples per microbatch per GPU; must be <code class="code docutils literal notranslate"><span class="pre">1</span></code> when sequence packing is on</p></td>
 </tr>
 <tr class="row-even"><td><p>Max steps</p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> — hard stop; overrides epoch count</p></td>
@@ -515,7 +516,7 @@
 </tbody>
 </table>
 </div>
-<p><strong>Impact:</strong> Higher global batch size stabilizes MoE training but needs more GPUs for gradient accumulation. More GPUs also let you raise parallelism (TP, EP) to split the model and lower memory per GPU. Fewer <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> is fine for smoke tests; production runs typically use hundreds to thousands of steps with cosine decay aligned to <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>.</p>
+<p><strong>Impact:</strong> Higher global batch size stabilizes MoE training but needs more GPUs for gradient accumulation. More GPUs increase data-parallel capacity. Fewer <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> is fine for smoke tests; production runs typically use hundreds to thousands of steps with cosine decay aligned to <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>.</p>
 </section>
 <section id="optimizer-and-learning-rate">
 <h2>Optimizer and Learning Rate<a class="headerlink" href="#optimizer-and-learning-rate" title="Link to this heading">#</a></h2>
@@ -545,12 +546,12 @@
 <td><p><code class="code docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="code docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_warmup_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_decay_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Grad clip</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code> (e.g. 1.0)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Memory savers (Bridge)</p></td>
-<td><p>FSDP <code class="code docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code>, <code class="code docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code>, <code class="code docutils literal notranslate"><span class="pre">train.empty_unused_memory_level</span></code></p></td>
+<tr class="row-even"><td><p>Memory savers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">distributed.strategy:</span> <span class="pre">fsdp2</span></code>, <code class="code docutils literal notranslate"><span class="pre">distributed.activation_checkpointing</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">distributed.use_megatron_fsdp</span></code>, <code class="code docutils literal notranslate"><span class="pre">precision.bf16_optimizer_states</span></code>, activation checkpointing via <code class="code docutils literal notranslate"><span class="pre">model.recompute_granularity</span></code>, <code class="code docutils literal notranslate"><span class="pre">model.fine_grained_activation_offloading</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer.optimizer_cpu_offload</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer.use_precision_aware_optimizer</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -560,20 +561,41 @@
 <p>Recipe fields:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code> — enable offload (<code class="code docutils literal notranslate"><span class="pre">true</span></code> / <code class="code docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">optimizer_offload_fraction</span></code> — share of optimizer state on CPU (<code class="code docutils literal notranslate"><span class="pre">1.0</span></code> = all)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">overlap_cpu_optimizer_d2h_h2d:</span> <span class="pre">true</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code> — must be <code class="code docutils literal notranslate"><span class="pre">true</span></code> when offload is enabled</p></li>
 </ul>
-<p>Full SFT on a single 8-GPU node often requires enabling CPU offload; multinode runs with more data parallelism may not need CPU offloading depending on the chosen parallelism level. LoRA trains far fewer parameters, so offload is often unnecessary.</p>
+<p>DDP (non-FSDP) on a single 8-GPU node often requires CPU offload.</p>
 <p>Further reading:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/features/optimizer_cpu_offload.html">Megatron Core — Optimizer CPU Offload</a> — CPU offload guide</p></li>
 <li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/apidocs/core/core.optimizer.optimizer_config.html">Megatron Core OptimizerConfig</a> — offload recipe fields</p></li>
 </ul>
+<p class="rubric">Megatron-Bridge FSDP</p>
+<p>FSDP shards model parameters, gradients, and optimizer states across data-parallel ranks, lowering per-GPU memory use. This can allow lower TP/EP degrees to speed up training.</p>
+<p>Recipe fields:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">use_megatron_fsdp:</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">precision.bf16_optimizer_states:</span> <span class="pre">true</span></code> — requires <code class="code docutils literal notranslate"><span class="pre">optimizer.use_precision_aware_optimizer:</span> <span class="pre">true</span></code></p></li>
+</ul>
+<p>Recommended environment:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pytorch_cuda_alloc_conf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expandable_segments:True</span>
+<span class="w">  </span><span class="nt">nccl_nvls_enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">torch_nccl_avoid_record_streams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">cuda_device_max_connections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+</pre></div>
+</div>
+<p>Further reading:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/training/megatron-fsdp.html">Megatron-Bridge — Megatron FSDP</a></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/features/megatron_fsdp.html">Megatron Core — Megatron FSDP</a></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/skills/nemo-mbridge-perf-megatron-fsdp/SKILL.html">Megatron-Bridge — Megatron FSDP performance skill</a></p></li>
+</ul>
 <p><strong>Impact:</strong> LR that is too high diverges MoE models quickly; too low underfits. Warmup (often ~10% of total steps) reduces early instability.</p>
 </section>
 <section id="distributed-parallelism">
 <h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
-<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. For Nemotron Omni, our training scripts support <strong>TP &gt; 1</strong> and <strong>EP &gt; 1</strong> only; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. The current Nemotron Omni recipes use <strong>TP1</strong> and <strong>EP8</strong>; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <p>Set supported degrees under <code class="code docutils literal notranslate"><span class="pre">distributed</span></code> in the recipe YAML (or via <code class="code docutils literal notranslate"><span class="pre">TP</span></code> and <code class="code docutils literal notranslate"><span class="pre">EP</span></code> env overrides on launch):</p>
 <ul class="simple">
 <li><p><strong>TP (tensor parallelism)</strong> — splits weight matrices within a layer across GPUs (e.g. attention and MLP shards).</p></li>
@@ -596,11 +618,11 @@
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tp_size</span></code></p></td>
 <td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for Nemotron Omni AutoModel</p></td>
-<td><p>Tensor-parallel degree; <code class="code docutils literal notranslate"><span class="pre">2</span></code> is typical on 8 GPUs</p></td>
+<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for the current recipes</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code></p></td>
 <td><p>Expert-parallel degree; <code class="code docutils literal notranslate"><span class="pre">8</span></code> on one 8-GPU node (uses DeepEP)</p></td>
-<td><p>Expert-parallel degree; <code class="code docutils literal notranslate"><span class="pre">8</span></code> (1 node) or <code class="code docutils literal notranslate"><span class="pre">32</span></code> (multinode)</p></td>
+<td><p>Expert-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">8</span></code> for the current recipes</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">pp_size</span></code></p></td>
 <td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
@@ -609,10 +631,6 @@
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">cp_size</span></code></p></td>
 <td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
 <td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Activation checkpoint</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">activation_checkpointing:</span> <span class="pre">true</span></code> (FSDP)</p></td>
-<td><p>Recompute flags in recipe / env</p></td>
 </tr>
 </tbody>
 </table>
@@ -630,7 +648,7 @@
 <li><p>Attention-path data-parallel degree follows the standard Megatron rule: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
 <li><p>As a minimum-GPU bound, <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be at least <code class="code docutils literal notranslate"><span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">max(tp_size</span> <span class="pre">×</span> <span class="pre">cp_size,</span> <span class="pre">ep_size)</span></code>.</p></li>
 </ul>
-<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=2</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → minimum <code class="code docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">×</span> <span class="pre">max(2,</span> <span class="pre">8)</span> <span class="pre">=</span> <span class="pre">8</span></code>, which matches <code class="code docutils literal notranslate"><span class="pre">world_size=8</span></code>.</p>
+<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → minimum <code class="code docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">×</span> <span class="pre">max(1,</span> <span class="pre">8)</span> <span class="pre">=</span> <span class="pre">8</span></code>, which matches <code class="code docutils literal notranslate"><span class="pre">world_size=8</span></code>.</p>
 <p>Further reading:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.nvidia.com/nemo/automodel/development/distributed-setup">NeMo AutoModel — Distributed Setup</a> — FSDP2 + expert parallelism</p></li>
@@ -683,21 +701,22 @@
 <td><p><code class="code docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
 </tr>
 <tr class="row-even"><td><p>Video frames</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_video_frames</span></code> — one of the main OOM levers</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
 </tr>
 <tr class="row-odd"><td><p>Sequence length</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.pack_size</span></code> / <code class="code docutils literal notranslate"><span class="pre">max_length</span></code> (e.g. 24576)</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.seq_length</span></code> (<code class="code docutils literal notranslate"><span class="pre">PACK_SIZE</span></code> env override)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.pack_size</span></code> (packed) / <code class="code docutils literal notranslate"><span class="pre">dataloader.collate_fn.max_length</span></code> (non-packed)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.seq_length</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Sequence packing</p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.use_sequence_packing</span></code> + <code class="code docutils literal notranslate"><span class="pre">packed_sequence.*</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.pack_sequences_in_batch</span></code> — needs <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.use_sequence_packing</span></code> + <code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.*</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.pack_sequences_in_batch</span></code> — requires <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span> <span class="pre">=</span> <span class="pre">1</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p><strong>Sequence packing</strong> improves throughput by fitting multiple short samples in one sequence; packed token count must exceed your longest sample (video + audio + text). See <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/datasets/overview">NeMo AutoModel — Datasets overview</a> (packed sequence support) and <a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/training/packed-sequences.html">Megatron-Bridge — Packed sequences</a>.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">AutoModel SFT guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">Megatron-Bridge SFT guide</a>.</p>
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
@@ -723,7 +742,7 @@
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
 </tr>
-<tr class="row-even"><td><p>Bridge fallback</p></td>
+<tr class="row-even"><td><p>Both stacks</p></td>
 <td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
 </tr>
 </tbody>
@@ -888,7 +907,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 19, 2026.
+  Last updated on Aug 21, 2026.
   <br/>
 </p></div>
       

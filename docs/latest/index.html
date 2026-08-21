@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>Sports Intelligence Playbooks &#8212; Sports Intelligence Playbooks</title>
   
@@ -75,7 +75,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -386,7 +386,7 @@
 <h2>What the Playbooks Provide<a class="headerlink" href="#what-the-playbooks-provide" title="Link to this heading">#</a></h2>
 <p>NVIDIA’s public recipes provide generic paths for fine-tuning Nemotron Omni, but they are not tested and verified specifically for analyzing sports feeds. These playbooks provide a reproducible multimodal language model baseline for sports intelligence, with sports-specific data, evaluation, and distributed operational training and inference workflows already integrated.</p>
 <ol class="arabic simple">
-<li><p><strong>Complete sports intelligence starter kit.</strong> Covers the full lifecycle—from sports-video annotation and data preparation through SFT/LoRA training, inference (with quantization and deployment options such as vLLM and SGLang), and evaluation. Its template-driven data pipeline systematically generates multiple training-example types, enabling models to be trained and evaluated across different aspects of sports understanding.</p></li>
+<li><p><strong>Complete sports intelligence starter kit.</strong> Covers the full lifecycle—from sports-video annotation and data preparation through SFT/LoRA training, inference, and evaluation. Its template-driven data pipeline systematically generates multiple training-example types, enabling models to be trained and evaluated across different aspects of sports understanding.</p></li>
 <li><p><strong>Video- and audio-first fine-tuning with sports-relevant customization.</strong> Provides tested recipes for sports video clips with audio, rather than relying primarily on simpler image-and-text examples available in public recipes. It also exposes input-resolution and frame-sampling settings that help preserve details important to sports analysis, such as player motion, ball trajectory, court geometry, and event timing.</p></li>
 <li><p><strong>Domain-specific, measurable evaluation.</strong> Includes per-question-class MCQ metrics and LLM-as-a-judge evaluation for captions and descriptive answers.</p></li>
 <li><p><strong>Reproducible, scalable execution.</strong> Supplies tested distributed workflows, checkpoint conversion and parity checks, and automated inference-to-evaluation pipelines.</p></li>
@@ -396,7 +396,7 @@
 <p>The playbooks cover the complete AVLM lifecycle—from collecting and annotating multimodal sports data through train/eval preparation, SFT/LoRA training, inference, evaluation, and deployment. Evaluation findings feed back into data and training choices for continuous improvement.</p>
 <a class="reference internal image-reference" href="_images/AVLM_training_lifecycle.png"><img alt="AVLM training lifecycle" class="align-center" src="_images/AVLM_training_lifecycle.png" style="width: 75%;" />
 </a>
-<p><strong>Playbook Scripts:</strong> Implementation, launch scripts, and runbooks live in the <a class="reference external" href="https://gitlab-master.nvidia.com/avlm/sports_intelligence">sports_intelligence</a> code repo under <code class="code docutils literal notranslate"><span class="pre">avlm/training/</span></code>, <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code>, and <code class="code docutils literal notranslate"><span class="pre">avlm/evals/</span></code>.</p>
+<p><strong>Playbook Scripts:</strong> Implementation, launch scripts, and runbooks live in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">sports_intelligence</a> code repo under <code class="code docutils literal notranslate"><span class="pre">avlm/training/</span></code>, <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code>, and <code class="code docutils literal notranslate"><span class="pre">avlm/evals/</span></code>.</p>
 <p>Use the navigation on the left to browse by section.</p>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
@@ -460,19 +460,10 @@
 <li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#containers">Containers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#two-backends-pick-one">Two Backends (Pick One)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#shared-layout">Shared Layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#interactive-vs-sbatch">Interactive vs. Sbatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#typical-workflow">Typical Workflow</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#automodel-inference">AutoModel Inference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#quick-start">Quick Start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#config-files">Config Files</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#megatron-bridge-inference">Megatron-Bridge Inference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#id3">Quick Start</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#automodel-inference">AutoModel Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#megatron-bridge-inference">Megatron-Bridge Inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#inference-config-reference">Inference Config Reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#shared-fields-both-backends">Shared Fields (Both Backends)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multimodal/inference/index.html#cli-environment-overrides">CLI / Environment Overrides</a></li>
@@ -486,6 +477,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/inference/index.html#quick-start">Quick Start</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="multimodal/evaluation.html">Evaluation</a><ul>
@@ -674,7 +666,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 19, 2026.
+  Last updated on Aug 21, 2026.
   <br/>
 </p></div>
       
