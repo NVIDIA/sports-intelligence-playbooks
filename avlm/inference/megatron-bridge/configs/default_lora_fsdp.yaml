@@ -1,0 +1,30 @@
+# Megatron-Bridge FSDP LoRA inference settings — TEMPLATE ONLY (not used at runtime).
+# Copy to default_lora_fsdp_local.yaml in this directory and edit, then point INFERENCE_CONFIG at the local file.
+
+# hf_model_path: base HF model used for processor staging
+# model_path: FSDP base model being adapted
+# adapter_path: FSDP LoRA checkpoint
+
+inference_name: mbridge_inference_lora_fsdp
+
+# HF conversation JSONL (auto-detected format)
+data_path: /path/to/eval.jsonl  # REPLACE_ME with the HF conversation JSONL path.
+video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+base_output_dir: avlm/inference/outputs/
+
+model_name: nemotron_omni_mbridge
+hf_model_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+
+model_path: /path/to/fsdp_base_checkpoint  # REPLACE_ME with the FSDP base checkpoint path.
+adapter_path: /path/to/fsdp_lora_adapter  # REPLACE_ME with the trained FSDP LoRA adapter checkpoint path.
+is_fsdp: true
+fsdp_sharding_strategy: no_shard
+
+# context parallel and pipeline parallel are not wired
+tensor_model_parallel_size: 1
+expert_model_parallel_size: 1
+expert_tensor_parallel_size: 1
+
+max_new_tokens: 256
+video_fps: 2.0
+max_video_frames: 128

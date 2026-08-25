@@ -1,0 +1,16 @@
+# Megatron-Bridge model-conversion launch settings — TEMPLATE ONLY (not used at runtime).
+# Copy over launch_local.yaml in this directory to reset the tracked runtime configuration, then edit.
+
+GPUS_PER_NODE: 8  # REPLACE_ME with GPUs to allocate; FSDP defaults to one process per allocated GPU, while standard conversion is single-process.
+SLURM_TIME_LIMIT: '4:00:00'
+
+CACHE_DIR: /lustre/path/to/cache  # REPLACE_ME with a writable cache directory.
+CONTAINER_IMAGE: /lustre/path/to/nemo_26_06.sqsh  # REPLACE_ME with the container image path.
+CONTAINER_MOUNT_HOST: /lustre  # REPLACE_ME if the host filesystem root is mounted elsewhere.
+
+# Use Megatron-Bridge and Python packages provided by the container image.
+MB_BRIDGE_USE_CONTAINER_PKGS: 1
+
+SINGLE_NODE_PARTITION: your-single-node-partition  # REPLACE_ME with the interactive single-node partition.
+SLURM_ACCOUNTS:
+  - your-slurm-account  # REPLACE_ME with the Slurm account.

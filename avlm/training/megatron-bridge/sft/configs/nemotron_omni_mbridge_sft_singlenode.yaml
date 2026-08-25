@@ -1,0 +1,147 @@
+# Nemotron Omni full-parameter SFT on a video/audio conversation dataset.
+# Single-node debugging recipe.
+# Sequence packing is disabled. Use nemotron_omni_mbridge_sft_multinode.yaml for full training.
+
+run:
+  hf_model_id: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+  recipe: conversation_jsonl_sft_config
+  model_name: nemotron_omni_mbridge_sft_singlenode
+
+task_encoder:
+  # Set true to resize every sampled video frame to 512x512 before processing.
+  resize_to_512: false
+
+precision:
+  # Stores Adam first- and second-moment states in BF16; requires optimizer.use_precision_aware_optimizer: true.
+  bf16_optimizer_states: true
+
+environment:
+  pytorch_cuda_alloc_conf: expandable_segments:True
+  nccl_nvls_enable: 0
+  torch_nccl_avoid_record_streams: 1
+  cuda_device_max_connections: 32  # Number of concurrent CUDA compute/copy work queues per device.
+
+checkpoint:
+  # Requires fsdp_dtensor checkpoint format.
+  pretrained_checkpoint: /path/to/megatron_fsdp_checkpoint  # REPLACE_ME with the Megatron-FSDP base checkpoint path.
+  save_optim: true  # Set false for weights-only checkpoints that cannot resume optimizer state.
+
+step_scheduler:
+  global_batch_size: 8
+  micro_batch_size: 1  # Must be 1 when sequence packing is enabled.
+  max_steps: 40
+  gc_every_iters: 1
+  ckpt_every_iters: 50
+  val_every_iters: 5
+
+# Context and pipeline parallelism are not wired; both remain fixed at 1.
+distributed:
+  tp_size: 1
+  ep_size: 8
+  use_megatron_fsdp: true  # Selects fsdp_dtensor checkpoint format.
+
+model:
+  # Full activation recomputation reduces memory use.
+  recompute_granularity: full
+  recompute_method: uniform
+  recompute_num_layers: 1
+
+  # Selective alternative: replace the full recomputation settings above with:
+  # recompute_granularity: selective
+  # recompute_modules:
+  #   - mlp
+  #   - layernorm
+  #   - moe_act
+
+  # Optional fine-grained activation offload:
+  # fine_grained_activation_offloading: true
+  # offload_modules:
+  #   - expert_fc1
+  #   - moe_act
+
+dataset:
+  path_or_dataset: /path/to/train.jsonl  # REPLACE_ME with the training JSONL path.
+  jsonl_format: hf
+  video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+  video_metadata_path: /path/to/train_video_metadata.json  # REPLACE_ME with the training video-metadata path used for sequence packing.
+  sample_ratio: 1.0
+
+  # Uniformly samples the full video from first frame to last. video_sample_fps determines
+  # the frame count from clip duration, bounded by max_video_frames.
+  max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+  video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+
+  num_workers: 4  # REPLACE_ME with the desired number of workers; 0 loads data in the main process.
+  pack_sequences_in_batch: false
+  packing_ratio: 0.90  # REPLACE_ME with the desired packing fill ratio.
+  # Packed: seq_length is the full pack limit and micro_batch_size must be 1.
+  # Non-packed: seq_length is the per-sample limit and micro_batch_size may be greater than 1.
+  seq_length: 8192  # REPLACE_ME with the desired length.
+
+validation_dataset:
+  # Validation is always non-packed.
+  path_or_dataset: /path/to/validation.jsonl  # REPLACE_ME with the validation JSONL path.
+  jsonl_format: hf
+  video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+  sample_ratio: 0.05  # REPLACE_ME with the desired ratio; lower values reduce validation time and coverage.
+  max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+  video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+
+# Train only the language model.
+freeze_config:
+  freeze_language_model: false
+  freeze_vision_model: true
+  freeze_vision_projection: true
+  freeze_sound_encoder: true
+  freeze_sound_projection: true
+
+train:
+  empty_unused_memory_level: 0  # Calls torch.cuda.empty_cache() each iteration: 0=off, 1=moderate, 2=aggressive.
+
+optimizer:
+  lr: 5.0e-5
+  weight_decay: 0.05
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  optimizer_cpu_offload: false
+  optimizer_offload_fraction: 1.0
+  # Required by precision.bf16_optimizer_states.
+  # Also required if CPU offload is enabled.
+  use_precision_aware_optimizer: true
+  # When enabling optimizer CPU offload, also enable:
+  # overlap_cpu_optimizer_d2h_h2d: true
+
+lr_scheduler:
+  lr_decay_style: cosine
+  min_lr: 1.0e-5
+  lr_warmup_iters: 50
+  lr_decay_iters: 1000
+
+clip_grad_norm:
+  max_norm: 1.0
+
+validation:
+  eval_iters: 5  # Number of iterations per validation run; 0 disables validation, -1 evaluates the full selected subset.
+
+logger:
+  log_interval: 1
+
+wandb:
+  mode: disabled  # REPLACE_ME with online, offline, or disabled.
+  entity: your-wandb-entity  # REPLACE_ME with your W&B entity.
+  project: your-wandb-project  # REPLACE_ME with your W&B project.
+  name: your-run-name  # REPLACE_ME with a descriptive run name.
+
+rng:
+  seed: 42
+
+# Set enabled to true to enable inference during validation (batch only).
+# inference_max_samples_seed: -1 means non-random, iterative sampling.
+inference_validation:
+  enabled: false
+  every_steps: 100  # Must be a multiple of the checkpoint interval.
+  inference_config: avlm/inference/megatron-bridge/configs/default_sft_fsdp_local.yaml  # Provided default; replace only to use another inference config.
+  data_path: /path/to/validation.jsonl  # REPLACE_ME with the inference-validation JSONL path.
+  cluster_params: /path/to/inference_launch_local.yaml  # REPLACE_ME with the inference cluster parameters (launch_local) path.
+  # max_samples: 512  # Optional maximum number of validation samples.
+  # inference_max_samples_seed: -1  # Sampling seed; -1 uses non-random, iterative sampling.

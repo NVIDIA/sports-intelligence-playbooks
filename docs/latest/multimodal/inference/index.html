@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 25, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -405,11 +405,11 @@
 <h1>Inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h1>
 <p>After fine-tuning, we run inference to generate predictions and evaluate model quality. Keep the video preprocessing and text prompt style/template consistent with training: frame rate (<code class="code docutils literal notranslate"><span class="pre">video_fps</span></code>) and resolution settings affect how much spatial and temporal detail the model sees, and mismatches in preprocessing or prompting can shift results on fine-grained sports QA.</p>
 <p>This section covers distributed inference (interactive and <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code>) for our recommended base model <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for Hugging Face weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
-<p><strong>Runbook (commands and smoke examples):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/inference/README.md">avlm/inference/README.md</a>.</p>
-<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/inference/INFERENCE_ENV_VARS.MD">inference environment reference</a>.</p>
+<p><strong>Runbook (commands and smoke examples):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/INFERENCE_ENV_VARS.MD">inference environment reference</a>.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>Inference code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">sports_intelligence</a> repo at <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code> (shared driver: <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code>). Clone the repo, <code class="code docutils literal notranslate"><span class="pre">cd</span></code> to its root, and run all launch commands from there.</p>
+<p>Inference code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repo at <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code> (shared driver: <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code>). Clone the repo, <code class="code docutils literal notranslate"><span class="pre">cd</span></code> to its root, and run all launch commands from there.</p>
 <section id="containers">
 <h3>Containers<a class="headerlink" href="#containers" title="Link to this heading">#</a></h3>
 <p>Set <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> in each backend’s <code class="code docutils literal notranslate"><span class="pre">slurm/launch_local.yaml</span></code> (copy from <code class="code docutils literal notranslate"><span class="pre">launch.yaml</span></code>).</p>
@@ -530,7 +530,7 @@
 </section>
 <section id="cli-environment-overrides">
 <h3>CLI / Environment Overrides<a class="headerlink" href="#cli-environment-overrides" title="Link to this heading">#</a></h3>
-<p>These are applied on top of the inference YAML (see <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/inference/README.md">avlm/inference/README.md</a> for examples).</p>
+<p>These are applied on top of the inference YAML (see <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a> for examples).</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 28.0%" />
@@ -673,7 +673,7 @@
 <li><p><strong>DDP (non-FSDP):</strong> use <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> with the base checkpoint in <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>, the adapter checkpoint in <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code>, and <code class="code docutils literal notranslate"><span class="pre">is_fsdp:</span> <span class="pre">false</span></code>.</p></li>
 <li><p><strong>FSDP:</strong> use <code class="code docutils literal notranslate"><span class="pre">default_lora_fsdp.yaml</span></code> with the FSDP base checkpoint in <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>, the FSDP adapter checkpoint in <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code>, and <code class="code docutils literal notranslate"><span class="pre">is_fsdp:</span> <span class="pre">true</span></code>.</p></li>
 </ul>
-<p>Merging or exporting the adapter remains optional; see <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a> for those workflows.</p>
+<p>Merging or exporting the adapter remains optional; see <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a> for those workflows.</p>
 </section>
 </section>
 <section id="outputs">
@@ -688,11 +688,11 @@ avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>Complete <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/inference/README.md#setup">Setup in the inference runbook</a> for the selected backend.</p></li>
+<li><p>Complete <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md#setup">Setup in the inference runbook</a> for the selected backend.</p></li>
 <li><p>Select the matching SFT or LoRA runtime config and set <code class="code docutils literal notranslate"><span class="pre">inference_name</span></code>, <code class="code docutils literal notranslate"><span class="pre">data_path</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code>, and <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>; set <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> for LoRA. For Megatron-Bridge, select DDP (non-FSDP) or FSDP to match the checkpoint.</p></li>
 <li><p>Run a small interactive smoke test, then submit a batch run after it passes.</p></li>
 </ol>
-<p>Copy, launch, smoke, batch, resume, and override commands are in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/inference/README.md">inference runbook</a>.</p>
+<p>Copy, launch, smoke, batch, resume, and override commands are in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">inference runbook</a>.</p>
 </section>
 </section>
 
@@ -856,7 +856,7 @@ avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 21, 2026.
+  Last updated on Aug 25, 2026.
   <br/>
 </p></div>
       

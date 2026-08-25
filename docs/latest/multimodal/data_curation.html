@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 25, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -403,7 +403,7 @@
                   
   <section id="data-curation">
 <h1>Data Curation<a class="headerlink" href="#data-curation" title="Link to this heading">#</a></h1>
-<p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">sports_intelligence</a> repository. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
+<p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
 <section id="example-tennis-annotation-guideline">
 <h2>Example Tennis Annotation Guideline<a class="headerlink" href="#example-tennis-annotation-guideline" title="Link to this heading">#</a></h2>
 <p>The <strong>tennis-specific</strong> guideline below uses the point as the core unit of annotation. It defines the information recorded for each point, including game context, outcomes, timestamps, and descriptive narratives needed for multimodal training.</p>
@@ -412,8 +412,8 @@
 </section>
 <section id="from-tennis-annotation-to-training-data">
 <h2>From Tennis Annotation to Training Data<a class="headerlink" href="#from-tennis-annotation-to-training-data" title="Link to this heading">#</a></h2>
-<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="code docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
-<p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">sports_intelligence</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
+<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="code docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
+<p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
 <p>Each annotated point becomes many training rows: one row per question template.</p>
 <section id="pipeline-overview">
 <h3>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">#</a></h3>
@@ -450,7 +450,7 @@
 <span class="w">  </span>--video-root<span class="w"> </span><span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
-<p>It writes <code class="code docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="code docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="code docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
+<p>It writes <code class="code docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="code docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="code docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
 </section>
 <section id="train-validation-test-splits">
 <h3>Train / Validation / Test Splits<a class="headerlink" href="#train-validation-test-splits" title="Link to this heading">#</a></h3>
@@ -515,22 +515,22 @@
 </tbody>
 </table>
 </div>
-<p>Full examples are listed in the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/TEMPLATE_EXAMPLES.MD">default template examples</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/categorical_data_samples/TEMPLATE_EXAMPLES_CATEGORICAL.MD">categorical template examples</a>.</p>
+<p>Full examples are listed in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/TEMPLATE_EXAMPLES.MD">default template examples</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/categorical_data_samples/TEMPLATE_EXAMPLES_CATEGORICAL.MD">categorical template examples</a>.</p>
 </section>
 <section id="example-code-and-documentation">
 <h3>Example Code and Documentation<a class="headerlink" href="#example-code-and-documentation" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>README (start here):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/README.md">avlm/data_prep_example/tennis/README.md</a></p></li>
-<li><p><strong>End-to-end runner:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/prepare_training_data_pipeline.py">prepare_training_data_pipeline.py</a></p></li>
-<li><p><strong>MCQ/QA generation:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/generate_mcq_qa.py">generate_mcq_qa.py</a></p></li>
-<li><p><strong>Point-level splits:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/data_prep_example/tennis/split_dataset.py">split_dataset.py</a></p></li>
-<li><p><strong>Templates:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/tree/main/avlm/data_prep_example/tennis/configs">configs/</a></p></li>
+<li><p><strong>README (start here):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/README.md">avlm/data_prep_example/tennis/README.md</a></p></li>
+<li><p><strong>End-to-end runner:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/prepare_training_data_pipeline.py">prepare_training_data_pipeline.py</a></p></li>
+<li><p><strong>MCQ/QA generation:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/generate_mcq_qa.py">generate_mcq_qa.py</a></p></li>
+<li><p><strong>Point-level splits:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/split_dataset.py">split_dataset.py</a></p></li>
+<li><p><strong>Templates:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/tree/main/avlm/data_prep_example/tennis/configs">configs/</a></p></li>
 </ul>
 <p>The example ships with <strong>sample annotation JSON for two matches (20 points)</strong> under <code class="code docutils literal notranslate"><span class="pre">raw_tennis_data_input/</span></code>. Training video files are not bundled — only the annotation JSON and generated JSONL.</p>
 </section>
 <section id="quick-start">
 <h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
-<p>From the tennis example directory in a clone of <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence">sports_intelligence</a>:</p>
+<p>From the tennis example directory in a clone of <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>avlm/data_prep_example/tennis
 uv<span class="w"> </span>sync<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 python<span class="w"> </span>prepare_training_data_pipeline.py
@@ -691,7 +691,7 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 21, 2026.
+  Last updated on Aug 25, 2026.
   <br/>
 </p></div>
       

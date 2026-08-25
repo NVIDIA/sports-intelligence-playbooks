@@ -1,0 +1,234 @@
+{
+  "description": "Annotation triggers for contextual tennis-rules MCQs. Only mode=contextual questions are emitted in v1.",
+  "max_per_point": 2,
+  "selection_mode": "diversity",
+  "family_order": ["outcome", "serve", "score", "geometry", "rally"],
+  "family_top_k": 4,
+  "question_bank": "tennis_rules_question_bank.json",
+  "super_category": "Rules & Reasoning",
+  "fine_category": "Rules Knowledge",
+  "questions": [
+    {
+      "id": 1,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 40,
+      "triggers": { "any": ["has_serve_attempt", "outcome_in:Ace,Double Fault"] }
+    },
+    {
+      "id": 2,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 20,
+      "triggers": { "any": ["serve_attempts_eq:2", "outcome_in:Double Fault"] }
+    },
+    {
+      "id": 3,
+      "mode": "contextual",
+      "family": "outcome",
+      "priority": 10,
+      "triggers": { "all": ["outcome_in:Double Fault"] }
+    },
+    { "id": 4, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 5, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 6,
+      "mode": "contextual",
+      "family": "outcome",
+      "priority": 10,
+      "triggers": { "all": ["outcome_in:Ace"] }
+    },
+    {
+      "id": 7,
+      "mode": "contextual",
+      "family": "geometry",
+      "priority": 55,
+      "triggers": {
+        "any": [
+          "outcome_in:Winner,Forced Error,Unforced Error",
+          "loser_point_ended_in:net,out,no-contact,no contact"
+        ]
+      }
+    },
+    { "id": 8, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 9, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 10, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 11, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 12,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 45,
+      "triggers": { "any": ["has_serve_attempt", "outcome_in:Ace,Double Fault"] }
+    },
+    {
+      "id": 13,
+      "mode": "contextual",
+      "family": "outcome",
+      "priority": 15,
+      "triggers": { "all": ["outcome_in:Winner"] }
+    },
+    { "id": 14, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 15,
+      "mode": "contextual",
+      "family": "geometry",
+      "priority": 25,
+      "triggers": {
+        "any": [
+          "loser_point_ended_in:net",
+          "text_mentions:into the net,in the net,hit the net"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "mode": "contextual",
+      "family": "geometry",
+      "priority": 35,
+      "triggers": {
+        "any": [
+          "loser_point_ended_in:out",
+          "text_mentions:wide,sideline,alley,outside the court"
+        ]
+      }
+    },
+    { "id": 17, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 18,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 60,
+      "triggers": { "all": ["has_parseable_scores"] }
+    },
+    {
+      "id": 19,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 18,
+      "triggers": { "any": ["score_before_is_deuce", "score_after_is_deuce"] }
+    },
+    {
+      "id": 20,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 16,
+      "triggers": { "all": ["score_before_is_deuce", "score_after_is_advantage"] }
+    },
+    {
+      "id": 21,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 16,
+      "triggers": { "all": ["score_before_is_advantage", "score_after_is_deuce"] }
+    },
+    {
+      "id": 22,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 16,
+      "triggers": { "all": ["score_before_is_advantage", "game_won_from_score"] }
+    },
+    {
+      "id": 23,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 50,
+      "triggers": { "any": ["score_mentions_love"] }
+    },
+    {
+      "id": 24,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 22,
+      "triggers": { "all": ["score_before_is_break_point"] }
+    },
+    {
+      "id": 25,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 28,
+      "triggers": { "all": ["game_won_from_score", "server_won_game"] }
+    },
+    {
+      "id": 26,
+      "mode": "contextual",
+      "family": "outcome",
+      "priority": 14,
+      "triggers": { "all": ["outcome_in:Forced Error,Unforced Error"] }
+    },
+    {
+      "id": 27,
+      "mode": "contextual",
+      "family": "rally",
+      "priority": 48,
+      "triggers": { "all": ["outcome_in:Winner,Forced Error,Unforced Error"] }
+    },
+    { "id": 28, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 29,
+      "mode": "contextual",
+      "family": "rally",
+      "priority": 42,
+      "triggers": { "any": ["shot_type_mentions:volley", "text_mentions:volley"] }
+    },
+    {
+      "id": 30,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 52,
+      "triggers": { "all": ["has_parseable_scores", "score_before_is_game_start"] }
+    },
+    {
+      "id": 31,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 53,
+      "triggers": { "all": ["has_parseable_scores", "not_score_before_is_game_start"] }
+    },
+    { "id": 32, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 33, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    { "id": 34, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } },
+    {
+      "id": 35,
+      "mode": "contextual",
+      "family": "rally",
+      "priority": 49,
+      "triggers": { "all": ["outcome_in:Winner,Forced Error,Unforced Error"] }
+    },
+    {
+      "id": 36,
+      "mode": "contextual",
+      "family": "serve",
+      "priority": 41,
+      "triggers": { "any": ["has_serve_attempt", "outcome_in:Ace,Double Fault"] }
+    },
+    {
+      "id": 37,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 24,
+      "triggers": { "all": ["score_before_is_server_game_point"] }
+    },
+    {
+      "id": 38,
+      "mode": "contextual",
+      "family": "score",
+      "priority": 27,
+      "triggers": { "all": ["game_won_from_score", "receiver_won_game"] }
+    },
+    {
+      "id": 39,
+      "mode": "contextual",
+      "family": "geometry",
+      "priority": 30,
+      "triggers": {
+        "any": [
+          "loser_point_ended_in:out",
+          "text_mentions:beyond the baseline,outside the baseline,long,behind the baseline"
+        ]
+      }
+    },
+    { "id": 40, "mode": "generic-only", "priority": 90, "triggers": { "all": [] } }
+  ]
+}

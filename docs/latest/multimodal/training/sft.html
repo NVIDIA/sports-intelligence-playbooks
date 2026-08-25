@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 25, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -410,11 +410,11 @@
 <p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands and smoke examples):</strong></p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
-<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">megatron-bridge/sft/SFT_GUIDE.MD</a></p></li>
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">megatron-bridge/sft/SFT_GUIDE.MD</a></p></li>
 </ul>
-<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/TRAINING_ENV_VARS.MD">AutoModel SFT reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/TRAINING_ENV_VARS.MD">Megatron-Bridge SFT reference</a>.</p>
-<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/TRAINING_ENV_VARS.MD">AutoModel SFT reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/TRAINING_ENV_VARS.MD">Megatron-Bridge SFT reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
 <section id="what-gets-trained">
 <h2>What Gets Trained<a class="headerlink" href="#what-gets-trained" title="Link to this heading">#</a></h2>
 <p>SFT often keeps vision and audio encoders frozen and trains the LLM plus multimodal projectors (the layers that map vision/sound features into the language model). Use <code class="code docutils literal notranslate"><span class="pre">freeze_config</span></code> in the recipe YAML (<code class="code docutils literal notranslate"><span class="pre">true</span></code> = frozen, <code class="code docutils literal notranslate"><span class="pre">false</span></code> = trainable).</p>
@@ -716,7 +716,7 @@
 </table>
 </div>
 <p><strong>Sequence packing</strong> improves throughput by fitting multiple short samples in one sequence; packed token count must exceed your longest sample (video + audio + text). See <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/datasets/overview">NeMo AutoModel — Datasets overview</a> (packed sequence support) and <a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/training/packed-sequences.html">Megatron-Bridge — Packed sequences</a>.</p>
-<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">AutoModel SFT guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">Megatron-Bridge SFT guide</a>.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">AutoModel SFT guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">Megatron-Bridge SFT guide</a>.</p>
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
@@ -907,7 +907,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 21, 2026.
+  Last updated on Aug 25, 2026.
   <br/>
 </p></div>
       

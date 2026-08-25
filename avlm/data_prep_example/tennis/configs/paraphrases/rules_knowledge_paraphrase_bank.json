@@ -1,0 +1,3376 @@
+{
+  "description": "Split-aware paraphrase bank for rules_knowledge_contextual (question stems + options). Pools: train=4, validation=2, test=2.",
+  "pool_sizes": {
+    "train": 4,
+    "validation": 2,
+    "test": 2
+  },
+  "templates": [
+    "rules_knowledge_contextual"
+  ],
+  "metadata_key": "rules_knowledge_paraphrase",
+  "passthrough_missing": false,
+  "rewrite_stems": true,
+  "paraphrases": {
+    "In the service box diagonally opposite the server": {
+      "train": [
+        "In the service box diagonally opposite the server",
+        "Inside the diagonally opposite service box",
+        "In the receiver’s service box across and diagonal from the server",
+        "Within the correct diagonal service box"
+      ],
+      "validation": [
+        "Into the service box located diagonally across the net",
+        "Inside the service box opposite the server on the diagonal"
+      ],
+      "test": [
+        "In the proper cross-court service box",
+        "Within the diagonally opposing service court"
+      ]
+    },
+    "Anywhere inside the opponent’s singles court": {
+      "train": [
+        "Anywhere inside the opponent’s singles court",
+        "At any location within the receiver’s singles court",
+        "Anywhere in the opponent’s full singles playing area",
+        "In any part of the other player’s singles court"
+      ],
+      "validation": [
+        "Anywhere within the singles boundaries on the receiver’s side",
+        "At any in-bounds spot in the opponent’s singles court"
+      ],
+      "test": [
+        "In any location inside the receiver’s singles lines",
+        "Anywhere on the opposing half of the singles court"
+      ]
+    },
+    "In either service box on the opponent’s side of the net": {
+      "train": [
+        "In either service box on the opponent’s side of the net",
+        "Inside either one of the receiver’s service boxes",
+        "In either service court across the net",
+        "Within either service box on the opposing side"
+      ],
+      "validation": [
+        "In any of the two service boxes belonging to the receiver’s end",
+        "Inside either service area on the other side of the net"
+      ],
+      "test": [
+        "In one of the opponent’s service boxes, regardless of diagonal",
+        "Within either of the two receiving-side service courts"
+      ]
+    },
+    "On or beyond the opponent’s baseline after the bounce": {
+      "train": [
+        "On or beyond the opponent’s baseline after the bounce",
+        "With its first bounce at or past the receiver’s baseline",
+        "On the opposing baseline or farther beyond it",
+        "At least as deep as the opponent’s baseline"
+      ],
+      "validation": [
+        "So that it lands on or behind the receiver’s baseline",
+        "At the opponent’s baseline or outside the court beyond it"
+      ],
+      "test": [
+        "With a bounce no shorter than the far baseline",
+        "On the receiver’s baseline or past the end of the court"
+      ]
+    },
+    "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?": {
+      "train": [
+        "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+        "Under singles rules, which location makes a serve legal?",
+        "Where is a serve required to land in order to be valid in singles?",
+        "For a singles serve to count as good, where must the ball land?"
+      ],
+      "validation": [
+        "Which part of the receiver’s court must a valid singles serve first hit?",
+        "What is the required landing area for a good serve in singles?"
+      ],
+      "test": [
+        "Where must the first bounce occur for a singles serve to be legal?",
+        "Which court area is the legal target for a singles serve?"
+      ]
+    },
+    "Under singles rules, which location makes a serve legal?": {
+      "train": [
+        "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+        "Under singles rules, which location makes a serve legal?",
+        "Where is a serve required to land in order to be valid in singles?",
+        "For a singles serve to count as good, where must the ball land?"
+      ],
+      "validation": [
+        "Which part of the receiver’s court must a valid singles serve first hit?",
+        "What is the required landing area for a good serve in singles?"
+      ],
+      "test": [
+        "Where must the first bounce occur for a singles serve to be legal?",
+        "Which court area is the legal target for a singles serve?"
+      ]
+    },
+    "Where is a serve required to land in order to be valid in singles?": {
+      "train": [
+        "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+        "Under singles rules, which location makes a serve legal?",
+        "Where is a serve required to land in order to be valid in singles?",
+        "For a singles serve to count as good, where must the ball land?"
+      ],
+      "validation": [
+        "Which part of the receiver’s court must a valid singles serve first hit?",
+        "What is the required landing area for a good serve in singles?"
+      ],
+      "test": [
+        "Where must the first bounce occur for a singles serve to be legal?",
+        "Which court area is the legal target for a singles serve?"
+      ]
+    },
+    "For a singles serve to count as good, where must the ball land?": {
+      "train": [
+        "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+        "Under singles rules, which location makes a serve legal?",
+        "Where is a serve required to land in order to be valid in singles?",
+        "For a singles serve to count as good, where must the ball land?"
+      ],
+      "validation": [
+        "Which part of the receiver’s court must a valid singles serve first hit?",
+        "What is the required landing area for a good serve in singles?"
+      ],
+      "test": [
+        "Where must the first bounce occur for a singles serve to be legal?",
+        "Which court area is the legal target for a singles serve?"
+      ]
+    },
+    "The server immediately loses the point": {
+      "train": [
+        "The server immediately loses the point",
+        "The point is awarded to the receiver at once",
+        "The first fault costs the server the point immediately",
+        "The receiver wins as soon as the first serve is faulted"
+      ],
+      "validation": [
+        "The server forfeits the point after that single fault",
+        "One service fault immediately gives the point to the receiver"
+      ],
+      "test": [
+        "The point ends in the receiver’s favor on the first fault",
+        "The server loses without receiving another service attempt"
+      ]
+    },
+    "The server is awarded a second serve on the same point": {
+      "train": [
+        "The server is awarded a second serve on the same point",
+        "The server gets another service attempt for that point",
+        "Play continues with the server’s second serve",
+        "A second serve is taken without starting a new point"
+      ],
+      "validation": [
+        "The same point proceeds to the second service attempt",
+        "The server serves again using the remaining attempt"
+      ],
+      "test": [
+        "The first fault is followed by a second serve for this point",
+        "The server retains the point and takes the next serve attempt"
+      ]
+    },
+    "The receiver may choose whether the point is replayed": {
+      "train": [
+        "The receiver may choose whether the point is replayed",
+        "The receiver decides if the players replay the point",
+        "Replaying the point is left to the receiver’s choice",
+        "The receiver can accept the fault or request a replay"
+      ],
+      "validation": [
+        "The receiving player determines whether to restart the point",
+        "The receiver has the option to order the point replayed"
+      ],
+      "test": [
+        "A replay occurs only if the receiver elects one",
+        "The choice to replay belongs to the player receiving serve"
+      ]
+    },
+    "The players change ends and the entire point is restarted": {
+      "train": [
+        "The players change ends and the entire point is restarted",
+        "Both players switch court ends before replaying the point",
+        "The point begins again after the players exchange ends",
+        "Play restarts from scratch with the players on opposite ends"
+      ],
+      "validation": [
+        "The competitors change sides and replay the full point",
+        "A complete replay follows an immediate change of ends"
+      ],
+      "test": [
+        "The players swap ends, then start that point over",
+        "The ruling requires both an end change and a new point"
+      ]
+    },
+    "If the server commits a fault on the first serve, what is the correct continuation of the point?": {
+      "train": [
+        "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+        "After a fault on the first serve, what happens next on that point?",
+        "What is the ruling when the server faults the opening serve of a point?",
+        "The first serve is a fault. How does the point continue?"
+      ],
+      "validation": [
+        "What follows when only the first serve is a fault?",
+        "After a first-service fault, how does the same point proceed?"
+      ],
+      "test": [
+        "What is the server entitled to after faulting on the first attempt?",
+        "How is play resumed following a fault on the opening serve?"
+      ]
+    },
+    "After a fault on the first serve, what happens next on that point?": {
+      "train": [
+        "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+        "After a fault on the first serve, what happens next on that point?",
+        "What is the ruling when the server faults the opening serve of a point?",
+        "The first serve is a fault. How does the point continue?"
+      ],
+      "validation": [
+        "What follows when only the first serve is a fault?",
+        "After a first-service fault, how does the same point proceed?"
+      ],
+      "test": [
+        "What is the server entitled to after faulting on the first attempt?",
+        "How is play resumed following a fault on the opening serve?"
+      ]
+    },
+    "What is the ruling when the server faults the opening serve of a point?": {
+      "train": [
+        "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+        "After a fault on the first serve, what happens next on that point?",
+        "What is the ruling when the server faults the opening serve of a point?",
+        "The first serve is a fault. How does the point continue?"
+      ],
+      "validation": [
+        "What follows when only the first serve is a fault?",
+        "After a first-service fault, how does the same point proceed?"
+      ],
+      "test": [
+        "What is the server entitled to after faulting on the first attempt?",
+        "How is play resumed following a fault on the opening serve?"
+      ]
+    },
+    "The first serve is a fault. How does the point continue?": {
+      "train": [
+        "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+        "After a fault on the first serve, what happens next on that point?",
+        "What is the ruling when the server faults the opening serve of a point?",
+        "The first serve is a fault. How does the point continue?"
+      ],
+      "validation": [
+        "What follows when only the first serve is a fault?",
+        "After a first-service fault, how does the same point proceed?"
+      ],
+      "test": [
+        "What is the server entitled to after faulting on the first attempt?",
+        "How is play resumed following a fault on the opening serve?"
+      ]
+    },
+    "The server is granted a third serve": {
+      "train": [
+        "The server is granted a third serve",
+        "A third service attempt is awarded to the server",
+        "The server may try to serve once more",
+        "Play continues with an additional, third serve"
+      ],
+      "validation": [
+        "The server receives one extra serve after the two faults",
+        "Another service attempt is allowed as a third try"
+      ],
+      "test": [
+        "The point proceeds to a third delivery by the server",
+        "The server is permitted a further serve attempt"
+      ]
+    },
+    "The point is replayed from the beginning": {
+      "train": [
+        "The point is replayed from the beginning",
+        "The players restart the entire point",
+        "Play begins again as a new version of the same point",
+        "The point is reset and played over"
+      ],
+      "validation": [
+        "Both players replay the point from its opening serve",
+        "The ruling is to start that point again"
+      ],
+      "test": [
+        "The complete point must be contested again",
+        "The previous play is discarded and the point restarts"
+      ]
+    },
+    "The receiver is awarded the point (double fault)": {
+      "train": [
+        "The receiver is awarded the point because of a double fault",
+        "The receiver wins the point on a double fault",
+        "Two service faults give the point to the receiver",
+        "A double fault ends the point in the receiver’s favor"
+      ],
+      "validation": [
+        "The point goes to the receiving player after both faults",
+        "Faulting twice awards this point to the receiver"
+      ],
+      "test": [
+        "The server’s double fault results in a point for the receiver",
+        "The receiver takes the point when both serves are faults"
+      ]
+    },
+    "The score remains unchanged and the server serves again on a later point": {
+      "train": [
+        "The score remains unchanged and the server serves again on a later point",
+        "No point is awarded, and the server next serves on a future point",
+        "The score stays the same until the server serves again later",
+        "Neither player scores; serving resumes on a subsequent point"
+      ],
+      "validation": [
+        "The double fault does not alter the score, and play continues later",
+        "The scoreboard is unchanged before another future serve"
+      ],
+      "test": [
+        "The point is deferred without scoring and the server tries again later",
+        "No score is recorded, with the server returning on a later point"
+      ]
+    },
+    "If the server faults on both the first serve and the second serve, what is the official result?": {
+      "train": [
+        "If the server faults on both the first serve and the second serve, what is the official result?",
+        "What is the result of consecutive faults on first and second serve?",
+        "When both serve attempts of a point are faults, who wins the point and why?",
+        "A first-serve fault is followed by a second-serve fault. What is the ruling?"
+      ],
+      "validation": [
+        "How is a point decided when the server faults twice?",
+        "What is the consequence of faulting on both service attempts?"
+      ],
+      "test": [
+        "Who receives the point after a first-serve fault and a second-serve fault?",
+        "What outcome results from two faults on the same point?"
+      ]
+    },
+    "What is the result of consecutive faults on first and second serve?": {
+      "train": [
+        "If the server faults on both the first serve and the second serve, what is the official result?",
+        "What is the result of consecutive faults on first and second serve?",
+        "When both serve attempts of a point are faults, who wins the point and why?",
+        "A first-serve fault is followed by a second-serve fault. What is the ruling?"
+      ],
+      "validation": [
+        "How is a point decided when the server faults twice?",
+        "What is the consequence of faulting on both service attempts?"
+      ],
+      "test": [
+        "Who receives the point after a first-serve fault and a second-serve fault?",
+        "What outcome results from two faults on the same point?"
+      ]
+    },
+    "When both serve attempts of a point are faults, who wins the point and why?": {
+      "train": [
+        "If the server faults on both the first serve and the second serve, what is the official result?",
+        "What is the result of consecutive faults on first and second serve?",
+        "When both serve attempts of a point are faults, who wins the point and why?",
+        "A first-serve fault is followed by a second-serve fault. What is the ruling?"
+      ],
+      "validation": [
+        "How is a point decided when the server faults twice?",
+        "What is the consequence of faulting on both service attempts?"
+      ],
+      "test": [
+        "Who receives the point after a first-serve fault and a second-serve fault?",
+        "What outcome results from two faults on the same point?"
+      ]
+    },
+    "A first-serve fault is followed by a second-serve fault. What is the ruling?": {
+      "train": [
+        "If the server faults on both the first serve and the second serve, what is the official result?",
+        "What is the result of consecutive faults on first and second serve?",
+        "When both serve attempts of a point are faults, who wins the point and why?",
+        "A first-serve fault is followed by a second-serve fault. What is the ruling?"
+      ],
+      "validation": [
+        "How is a point decided when the server faults twice?",
+        "What is the consequence of faulting on both service attempts?"
+      ],
+      "test": [
+        "Who receives the point after a first-serve fault and a second-serve fault?",
+        "What outcome results from two faults on the same point?"
+      ]
+    },
+    "Any serve that the receiver touches but fails to return in court": {
+      "train": [
+        "Any serve that the receiver touches but fails to return in court",
+        "A serve contacted by the receiver but not returned in bounds",
+        "Any delivery the receiver touches without making a legal return",
+        "A serve that reaches the racket but is not put back into court"
+      ],
+      "validation": [
+        "Any touched serve whose return fails to land in play",
+        "A delivery the receiver contacts yet cannot return inside the lines"
+      ],
+      "test": [
+        "Any serve played by the receiver without a successful in-court reply",
+        "A serve the receiver gets a touch on but does not return legally"
+      ]
+    },
+    "A serve that lands in and is not touched by the receiver": {
+      "train": [
+        "A serve that lands in and is not touched by the receiver",
+        "A legal serve the receiver never contacts",
+        "An in-bounds delivery that passes the receiver untouched",
+        "A good serve on which the receiver makes no contact"
+      ],
+      "validation": [
+        "A serve landing legally without touching the receiver’s racket",
+        "An untouched serve whose first bounce is in the correct box"
+      ],
+      "test": [
+        "A valid delivery that the receiving player does not touch",
+        "A good serve that goes completely uncontacted by the receiver"
+      ]
+    },
+    "A non-serve groundstroke that lands in and is not reached by the opponent": {
+      "train": [
+        "A non-serve groundstroke that lands in and is not reached by the opponent",
+        "An in-bounds groundstroke the other player cannot reach",
+        "A rally groundstroke that lands legally beyond the opponent’s reach",
+        "A groundstroke, excluding the serve, that the opponent cannot get to"
+      ],
+      "validation": [
+        "An in-court rally shot that is unreachable for the opposing player",
+        "A legal groundstroke the opponent fails to reach"
+      ],
+      "test": [
+        "A non-service shot landing in with the other player unable to reach it",
+        "An unreachable groundstroke that lands within the court"
+      ]
+    },
+    "A second serve that lands in after a fault on the first serve": {
+      "train": [
+        "A second serve that lands in after a fault on the first serve",
+        "A legal second delivery following a first-serve fault",
+        "An in-bounds second serve taken after the opening serve missed",
+        "A successful second service attempt after a first fault"
+      ],
+      "validation": [
+        "A good second serve preceded by a fault",
+        "The second delivery landing legally after the first was faulty"
+      ],
+      "test": [
+        "A valid serve on the server’s second attempt",
+        "A first fault followed by an in-bounds second serve"
+      ]
+    },
+    "Which of the following correctly defines an ace?": {
+      "train": [
+        "Which of the following correctly defines an ace?",
+        "What is the definition of an ace in tennis?",
+        "Which statement accurately describes an ace?",
+        "How is an ace correctly defined under tennis rules?"
+      ],
+      "validation": [
+        "Which description matches a tennis ace?",
+        "What must happen for a serve to be recorded as an ace?"
+      ],
+      "test": [
+        "Which type of serve is classified as an ace?",
+        "In tennis terminology, what makes a serve an ace?"
+      ]
+    },
+    "What is the definition of an ace in tennis?": {
+      "train": [
+        "Which of the following correctly defines an ace?",
+        "What is the definition of an ace in tennis?",
+        "Which statement accurately describes an ace?",
+        "How is an ace correctly defined under tennis rules?"
+      ],
+      "validation": [
+        "Which description matches a tennis ace?",
+        "What must happen for a serve to be recorded as an ace?"
+      ],
+      "test": [
+        "Which type of serve is classified as an ace?",
+        "In tennis terminology, what makes a serve an ace?"
+      ]
+    },
+    "Which statement accurately describes an ace?": {
+      "train": [
+        "Which of the following correctly defines an ace?",
+        "What is the definition of an ace in tennis?",
+        "Which statement accurately describes an ace?",
+        "How is an ace correctly defined under tennis rules?"
+      ],
+      "validation": [
+        "Which description matches a tennis ace?",
+        "What must happen for a serve to be recorded as an ace?"
+      ],
+      "test": [
+        "Which type of serve is classified as an ace?",
+        "In tennis terminology, what makes a serve an ace?"
+      ]
+    },
+    "How is an ace correctly defined under tennis rules?": {
+      "train": [
+        "Which of the following correctly defines an ace?",
+        "What is the definition of an ace in tennis?",
+        "Which statement accurately describes an ace?",
+        "How is an ace correctly defined under tennis rules?"
+      ],
+      "validation": [
+        "Which description matches a tennis ace?",
+        "What must happen for a serve to be recorded as an ace?"
+      ],
+      "test": [
+        "Which type of serve is classified as an ace?",
+        "In tennis terminology, what makes a serve an ace?"
+      ]
+    },
+    "The ball is out, because the line is outside the court": {
+      "train": [
+        "The ball is out because the line lies outside the court",
+        "It is called out since the boundary line is not part of the court",
+        "The shot is out on the premise that lines are outside the playing area",
+        "The ball loses the point because touching the line counts as out"
+      ],
+      "validation": [
+        "It is outside the court because the line itself is excluded",
+        "The ruling is out, as a boundary line does not count as in"
+      ],
+      "test": [
+        "A ball on the line is judged outside the playing area",
+        "The line is treated as out, so the ball is out"
+      ]
+    },
+    "The point is replayed as a let": {
+      "train": [
+        "The point is replayed as a let",
+        "A let is called and the point is played again",
+        "The ruling is a let, requiring a replay",
+        "Play restarts because the point is declared a let"
+      ],
+      "validation": [
+        "The players repeat the point following a let call",
+        "A let cancels the play and causes the point to be replayed"
+      ],
+      "test": [
+        "The point does not count and is restarted as a let",
+        "The umpire orders a replay under the let rule"
+      ]
+    },
+    "The ball is in, because the line is part of the court": {
+      "train": [
+        "The ball is in because the line is part of the court",
+        "It is called in since boundary lines count as court",
+        "A shot touching the line is legally in",
+        "The line belongs to the playing area, so the ball is good"
+      ],
+      "validation": [
+        "The correct call is in because contact with the line counts",
+        "The ball remains in play after landing on the court line"
+      ],
+      "test": [
+        "A line ball is inside the legal court boundaries",
+        "Landing on the line makes the shot in"
+      ]
+    },
+    "The ball is out unless confirmed otherwise by electronic line calling": {
+      "train": [
+        "The ball is out unless electronic line calling confirms otherwise",
+        "It is called out unless the electronic system overturns that call",
+        "The default ruling is out pending electronic confirmation",
+        "Only an electronic in-call can prevent the ball from being judged out"
+      ],
+      "validation": [
+        "The shot counts as out without contrary electronic evidence",
+        "Electronic review must confirm in; otherwise the ball is out"
+      ],
+      "test": [
+        "It remains an out ball unless line technology says it landed in",
+        "The call is out except when the electronic system verifies it as good"
+      ]
+    },
+    "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?": {
+      "train": [
+        "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+        "If a ball lands on the singles sideline during a point, is it in or out?",
+        "How do the rules treat a ball that touches the singles sideline?",
+        "A shot hits the singles sideline. What is the correct in/out ruling?"
+      ],
+      "validation": [
+        "What is the call when a shot touches a singles boundary line?",
+        "Is a ball that lands on the singles sideline considered in play?"
+      ],
+      "test": [
+        "How should an official call a ball that clips the singles sideline?",
+        "Under the line rules, what is the status of a shot landing on the sideline?"
+      ]
+    },
+    "If a ball lands on the singles sideline during a point, is it in or out?": {
+      "train": [
+        "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+        "If a ball lands on the singles sideline during a point, is it in or out?",
+        "How do the rules treat a ball that touches the singles sideline?",
+        "A shot hits the singles sideline. What is the correct in/out ruling?"
+      ],
+      "validation": [
+        "What is the call when a shot touches a singles boundary line?",
+        "Is a ball that lands on the singles sideline considered in play?"
+      ],
+      "test": [
+        "How should an official call a ball that clips the singles sideline?",
+        "Under the line rules, what is the status of a shot landing on the sideline?"
+      ]
+    },
+    "How do the rules treat a ball that touches the singles sideline?": {
+      "train": [
+        "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+        "If a ball lands on the singles sideline during a point, is it in or out?",
+        "How do the rules treat a ball that touches the singles sideline?",
+        "A shot hits the singles sideline. What is the correct in/out ruling?"
+      ],
+      "validation": [
+        "What is the call when a shot touches a singles boundary line?",
+        "Is a ball that lands on the singles sideline considered in play?"
+      ],
+      "test": [
+        "How should an official call a ball that clips the singles sideline?",
+        "Under the line rules, what is the status of a shot landing on the sideline?"
+      ]
+    },
+    "A shot hits the singles sideline. What is the correct in/out ruling?": {
+      "train": [
+        "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+        "If a ball lands on the singles sideline during a point, is it in or out?",
+        "How do the rules treat a ball that touches the singles sideline?",
+        "A shot hits the singles sideline. What is the correct in/out ruling?"
+      ],
+      "validation": [
+        "What is the call when a shot touches a singles boundary line?",
+        "Is a ball that lands on the singles sideline considered in play?"
+      ],
+      "test": [
+        "How should an official call a ball that clips the singles sideline?",
+        "Under the line rules, what is the status of a shot landing on the sideline?"
+      ]
+    },
+    "Yes, provided the bounce is inside the baseline": {
+      "train": [
+        "Yes, provided the bounce is inside the baseline",
+        "Yes, as long as the toss bounces within the baseline",
+        "It is legal if the bounce occurs in front of the baseline",
+        "Yes; a bounce inside the back line permits the serve"
+      ],
+      "validation": [
+        "The serve is allowed when the tossed ball lands inside the baseline",
+        "Yes, but the bounce must be within the court’s baseline"
+      ],
+      "test": [
+        "A bounced toss is valid when it lands on the court side of the baseline",
+        "Yes, conditional on the ball bouncing short of the baseline"
+      ]
+    },
+    "Yes, but only on the second serve": {
+      "train": [
+        "Yes, but only on the second serve",
+        "A bounce is permitted solely for the second service attempt",
+        "Yes; this is legal only when serving a second serve",
+        "Only a second serve may be struck after the toss bounces"
+      ],
+      "validation": [
+        "The rule allows it on the second delivery, not the first",
+        "Yes, restricted to the server’s final service attempt"
+      ],
+      "test": [
+        "A bounced toss can be served only as a second serve",
+        "It is legal exclusively on the second attempt"
+      ]
+    },
+    "Yes, if the receiver agrees before the point": {
+      "train": [
+        "Yes, if the receiver agrees before the point",
+        "The serve is allowed when the receiving player consents beforehand",
+        "Yes, provided the receiver approves it prior to play",
+        "Advance agreement from the receiver makes the bounced serve legal"
+      ],
+      "validation": [
+        "It is permitted if both sides agree before the point begins",
+        "Yes; the receiver must first grant permission"
+      ],
+      "test": [
+        "The server may do so with the receiver’s pre-point consent",
+        "A bounced serve is legal only by prior agreement with the receiver"
+      ]
+    },
+    "No; the serve must be struck before the ball bounces": {
+      "train": [
+        "No; the serve must be struck before the ball bounces",
+        "No, the server has to hit the toss before it reaches the court",
+        "A legal serve requires contact while the tossed ball is still airborne",
+        "No; once the toss bounces, it cannot be served"
+      ],
+      "validation": [
+        "The ball must be struck out of the air for the serve to be valid",
+        "No, service contact must occur ahead of any bounce"
+      ],
+      "test": [
+        "Allowing the toss to bounce prevents a legal serve",
+        "The serve is invalid because the ball must be hit prior to bouncing"
+      ]
+    },
+    "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?": {
+      "train": [
+        "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+        "Is a bounce-serve legal if the tossed ball hits the court before contact?",
+        "Can the server let the toss bounce and still hit a legal serve?",
+        "Does tennis allow the serve to be struck after the tossed ball bounces?"
+      ],
+      "validation": [
+        "Must a serve be hit before the tossed ball reaches the court?",
+        "Is it legal to serve after allowing the toss to bounce?"
+      ],
+      "test": [
+        "Can a server strike the ball as a serve following a bounce?",
+        "Does a bounced toss remain eligible to be hit as a legal serve?"
+      ]
+    },
+    "Is a bounce-serve legal if the tossed ball hits the court before contact?": {
+      "train": [
+        "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+        "Is a bounce-serve legal if the tossed ball hits the court before contact?",
+        "Can the server let the toss bounce and still hit a legal serve?",
+        "Does tennis allow the serve to be struck after the tossed ball bounces?"
+      ],
+      "validation": [
+        "Must a serve be hit before the tossed ball reaches the court?",
+        "Is it legal to serve after allowing the toss to bounce?"
+      ],
+      "test": [
+        "Can a server strike the ball as a serve following a bounce?",
+        "Does a bounced toss remain eligible to be hit as a legal serve?"
+      ]
+    },
+    "Can the server let the toss bounce and still hit a legal serve?": {
+      "train": [
+        "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+        "Is a bounce-serve legal if the tossed ball hits the court before contact?",
+        "Can the server let the toss bounce and still hit a legal serve?",
+        "Does tennis allow the serve to be struck after the tossed ball bounces?"
+      ],
+      "validation": [
+        "Must a serve be hit before the tossed ball reaches the court?",
+        "Is it legal to serve after allowing the toss to bounce?"
+      ],
+      "test": [
+        "Can a server strike the ball as a serve following a bounce?",
+        "Does a bounced toss remain eligible to be hit as a legal serve?"
+      ]
+    },
+    "Does tennis allow the serve to be struck after the tossed ball bounces?": {
+      "train": [
+        "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+        "Is a bounce-serve legal if the tossed ball hits the court before contact?",
+        "Can the server let the toss bounce and still hit a legal serve?",
+        "Does tennis allow the serve to be struck after the tossed ball bounces?"
+      ],
+      "validation": [
+        "Must a serve be hit before the tossed ball reaches the court?",
+        "Is it legal to serve after allowing the toss to bounce?"
+      ],
+      "test": [
+        "Can a server strike the ball as a serve following a bounce?",
+        "Does a bounced toss remain eligible to be hit as a legal serve?"
+      ]
+    },
+    "A shot, other than the serve, that lands in and is not touched or cannot be returned by the opponent": {
+      "train": [
+        "A shot other than the serve that lands in and is untouched or unreturnable",
+        "An in-bounds rally shot the opponent does not touch or cannot return",
+        "A legal non-serve shot that goes untouched or cannot be put back in play",
+        "A rally ball landing in that the opponent cannot contact or return"
+      ],
+      "validation": [
+        "An in-court shot, excluding a serve, that produces no successful reply",
+        "A non-service shot that lands legally and is untouched or unreturnable"
+      ],
+      "test": [
+        "A valid rally shot the other player cannot reach or return",
+        "An in-bounds non-serve that the opponent fails to play back"
+      ]
+    },
+    "Any point won by the server": {
+      "train": [
+        "Any point won by the server",
+        "Every point for which the serving player is the winner",
+        "A point awarded to whoever served",
+        "Any rally ending in the server’s favor"
+      ],
+      "validation": [
+        "Every point the server wins, regardless of how",
+        "A server-won point of any kind"
+      ],
+      "test": [
+        "Any occasion on which the serving player takes the point",
+        "A point credited to the server for any reason"
+      ]
+    },
+    "Any error made by the opponent under pressure": {
+      "train": [
+        "Any error made by the opponent under pressure",
+        "Every mistake the opposing player makes while pressured",
+        "An opponent’s error caused by a difficult shot",
+        "Any pressured mistake committed by the other player"
+      ],
+      "validation": [
+        "Every error induced by pressure from the hitter",
+        "A mistake the opponent makes when put under strain"
+      ],
+      "test": [
+        "Any failed reply resulting from the opponent being pressured",
+        "An error by the other player in response to a demanding ball"
+      ]
+    },
+    "A serve that the receiver touches but fails to put back in play": {
+      "train": [
+        "A serve that the receiver touches but fails to put back in play",
+        "A contacted serve that the receiver cannot return legally",
+        "A delivery touched by the receiver without a successful return",
+        "A serve the receiver reaches but does not send back into play"
+      ],
+      "validation": [
+        "A touched delivery whose return is not put in court",
+        "A serve contacted by the receiving player but not returned in bounds"
+      ],
+      "test": [
+        "A delivery that reaches the receiver’s racket without a legal reply",
+        "A serve the receiver touches yet fails to return"
+      ]
+    },
+    "In standard point classification, which statement correctly defines a winner?": {
+      "train": [
+        "In standard point classification, which statement correctly defines a winner?",
+        "What correctly defines a winner in tennis point classification?",
+        "Which option is the correct definition of a winner?",
+        "How is a winner defined, as distinct from a serve ace?"
+      ],
+      "validation": [
+        "Which description qualifies a shot as a winner rather than an ace?",
+        "What conditions define a winner during a rally?"
+      ],
+      "test": [
+        "Which point-ending shot is recorded as a winner?",
+        "In point classification, what makes a non-serve shot a winner?"
+      ]
+    },
+    "What correctly defines a winner in tennis point classification?": {
+      "train": [
+        "In standard point classification, which statement correctly defines a winner?",
+        "What correctly defines a winner in tennis point classification?",
+        "Which option is the correct definition of a winner?",
+        "How is a winner defined, as distinct from a serve ace?"
+      ],
+      "validation": [
+        "Which description qualifies a shot as a winner rather than an ace?",
+        "What conditions define a winner during a rally?"
+      ],
+      "test": [
+        "Which point-ending shot is recorded as a winner?",
+        "In point classification, what makes a non-serve shot a winner?"
+      ]
+    },
+    "Which option is the correct definition of a winner?": {
+      "train": [
+        "In standard point classification, which statement correctly defines a winner?",
+        "What correctly defines a winner in tennis point classification?",
+        "Which option is the correct definition of a winner?",
+        "How is a winner defined, as distinct from a serve ace?"
+      ],
+      "validation": [
+        "Which description qualifies a shot as a winner rather than an ace?",
+        "What conditions define a winner during a rally?"
+      ],
+      "test": [
+        "Which point-ending shot is recorded as a winner?",
+        "In point classification, what makes a non-serve shot a winner?"
+      ]
+    },
+    "How is a winner defined, as distinct from a serve ace?": {
+      "train": [
+        "In standard point classification, which statement correctly defines a winner?",
+        "What correctly defines a winner in tennis point classification?",
+        "Which option is the correct definition of a winner?",
+        "How is a winner defined, as distinct from a serve ace?"
+      ],
+      "validation": [
+        "Which description qualifies a shot as a winner rather than an ace?",
+        "What conditions define a winner during a rally?"
+      ],
+      "test": [
+        "Which point-ending shot is recorded as a winner?",
+        "In point classification, what makes a non-serve shot a winner?"
+      ]
+    },
+    "The opponent must play the next ball off the net": {
+      "train": [
+        "The opponent must play the next ball off the net",
+        "The other player has to return the ball from the net",
+        "Play continues with the opponent retrieving the ball off the net",
+        "The opponent is required to strike the ball where it rests against the net"
+      ],
+      "validation": [
+        "The next shot must be played by the opponent directly from the net",
+        "The receiving player must continue by taking the ball off the net"
+      ],
+      "test": [
+        "The ball remains live for the opponent to play from the net",
+        "The opponent’s next action is to return the netted ball"
+      ]
+    },
+    "The player who hit the ball into the net loses the point": {
+      "train": [
+        "The player who hit the ball into the net loses the point",
+        "The point goes to the opponent of the player who netted the shot",
+        "Failing to clear the net costs the hitter the point",
+        "The hitter loses because the ball did not pass over the net"
+      ],
+      "validation": [
+        "A rally ball left in the net awards the point to the other player",
+        "The player making the net error forfeits the point"
+      ],
+      "test": [
+        "The opponent wins after the hitter sends the shot into the net",
+        "The netted shot ends the point against its hitter"
+      ]
+    },
+    "The server is awarded a second serve": {
+      "train": [
+        "The server is awarded a second serve",
+        "The server receives another service attempt",
+        "Play continues with a second delivery",
+        "An additional serve is given to the serving player"
+      ],
+      "validation": [
+        "The ruling grants the server one more serve",
+        "The next action is a second serve"
+      ],
+      "test": [
+        "The server may deliver the ball again",
+        "A further service attempt is allowed"
+      ]
+    },
+    "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?": {
+      "train": [
+        "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+        "What is the result if a rally shot goes into the net and fails to cross?",
+        "A player puts the ball into the net during a rally. Who wins the point?",
+        "If a shot dies in the net and never reaches the other side, what is the ruling?"
+      ],
+      "validation": [
+        "Who receives the point when a rally ball fails to clear the net?",
+        "What is the outcome after a player sends a rally shot into the net?"
+      ],
+      "test": [
+        "How is the point awarded when a non-serve shot does not cross the net?",
+        "What ruling applies to a rally shot that remains on the hitter’s side of the net?"
+      ]
+    },
+    "What is the result if a rally shot goes into the net and fails to cross?": {
+      "train": [
+        "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+        "What is the result if a rally shot goes into the net and fails to cross?",
+        "A player puts the ball into the net during a rally. Who wins the point?",
+        "If a shot dies in the net and never reaches the other side, what is the ruling?"
+      ],
+      "validation": [
+        "Who receives the point when a rally ball fails to clear the net?",
+        "What is the outcome after a player sends a rally shot into the net?"
+      ],
+      "test": [
+        "How is the point awarded when a non-serve shot does not cross the net?",
+        "What ruling applies to a rally shot that remains on the hitter’s side of the net?"
+      ]
+    },
+    "A player puts the ball into the net during a rally. Who wins the point?": {
+      "train": [
+        "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+        "What is the result if a rally shot goes into the net and fails to cross?",
+        "A player puts the ball into the net during a rally. Who wins the point?",
+        "If a shot dies in the net and never reaches the other side, what is the ruling?"
+      ],
+      "validation": [
+        "Who receives the point when a rally ball fails to clear the net?",
+        "What is the outcome after a player sends a rally shot into the net?"
+      ],
+      "test": [
+        "How is the point awarded when a non-serve shot does not cross the net?",
+        "What ruling applies to a rally shot that remains on the hitter’s side of the net?"
+      ]
+    },
+    "If a shot dies in the net and never reaches the other side, what is the ruling?": {
+      "train": [
+        "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+        "What is the result if a rally shot goes into the net and fails to cross?",
+        "A player puts the ball into the net during a rally. Who wins the point?",
+        "If a shot dies in the net and never reaches the other side, what is the ruling?"
+      ],
+      "validation": [
+        "Who receives the point when a rally ball fails to clear the net?",
+        "What is the outcome after a player sends a rally shot into the net?"
+      ],
+      "test": [
+        "How is the point awarded when a non-serve shot does not cross the net?",
+        "What ruling applies to a rally shot that remains on the hitter’s side of the net?"
+      ]
+    },
+    "In, because any lined area of the full court is playable": {
+      "train": [
+        "In, because any lined area of the full court is playable",
+        "The ball is in since all marked parts of the full court count",
+        "It is legal because every area inside the outer court lines is playable",
+        "The shot is in on the basis that the entire lined court is valid"
+      ],
+      "validation": [
+        "All space within the full-court markings counts, so the ball is in",
+        "It lands in a marked court area and is therefore called in"
+      ],
+      "test": [
+        "The alley is playable as part of the fully lined court",
+        "The call is in because the outer court boundaries include that area"
+      ]
+    },
+    "Let; the point must be replayed": {
+      "train": [
+        "A let is called, so the point must be replayed",
+        "The ruling is a let and a complete replay",
+        "Play is canceled and restarted as a let",
+        "The point does not count and is played over"
+      ],
+      "validation": [
+        "A let requires the players to repeat the point",
+        "The umpire orders a new point under the let rule"
+      ],
+      "test": [
+        "The existing point is voided for a replay",
+        "The players start the point again following a let"
+      ]
+    },
+    "In only if it was a serve": {
+      "train": [
+        "In only if it was a serve",
+        "The ball counts as in solely when the shot is a serve",
+        "It is legal for a serve but out for every other shot",
+        "Only a service ball may land there and remain in"
+      ],
+      "validation": [
+        "The alley is in for this purpose only on serve",
+        "It counts as part of the court exclusively for a serve"
+      ],
+      "test": [
+        "The call is in if, and only if, the ball was served",
+        "Only the opening delivery makes that landing location legal"
+      ]
+    },
+    "Out, because the doubles alleys are not in play in singles": {
+      "train": [
+        "Out, because the doubles alleys are not in play in singles",
+        "The ball is out since singles excludes the doubles alley",
+        "It lands beyond the singles sideline and is therefore out",
+        "The alley is outside the playable singles court, so the shot is out"
+      ],
+      "validation": [
+        "A singles point does not use the doubles alley; the call is out",
+        "The shot is outside because only the singles boundaries apply"
+      ],
+      "test": [
+        "Landing in the doubles alley counts as out during singles",
+        "The ball misses the singles court even though it is inside the doubles lines"
+      ]
+    },
+    "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?": {
+      "train": [
+        "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+        "In singles, is a ball landing in the doubles alley in or out?",
+        "A singles shot lands in the alley between singles and doubles sidelines. What is the call?",
+        "How are the doubles alleys treated for in/out judgments in singles?"
+      ],
+      "validation": [
+        "Does the doubles alley count as part of the court during singles play?",
+        "What is the call for a singles shot that lands between the singles and doubles sidelines?"
+      ],
+      "test": [
+        "In singles, how is a ball in the doubles alley judged?",
+        "Is the alley inside or outside the playable singles court?"
+      ]
+    },
+    "In singles, is a ball landing in the doubles alley in or out?": {
+      "train": [
+        "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+        "In singles, is a ball landing in the doubles alley in or out?",
+        "A singles shot lands in the alley between singles and doubles sidelines. What is the call?",
+        "How are the doubles alleys treated for in/out judgments in singles?"
+      ],
+      "validation": [
+        "Does the doubles alley count as part of the court during singles play?",
+        "What is the call for a singles shot that lands between the singles and doubles sidelines?"
+      ],
+      "test": [
+        "In singles, how is a ball in the doubles alley judged?",
+        "Is the alley inside or outside the playable singles court?"
+      ]
+    },
+    "A singles shot lands in the alley between singles and doubles sidelines. What is the call?": {
+      "train": [
+        "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+        "In singles, is a ball landing in the doubles alley in or out?",
+        "A singles shot lands in the alley between singles and doubles sidelines. What is the call?",
+        "How are the doubles alleys treated for in/out judgments in singles?"
+      ],
+      "validation": [
+        "Does the doubles alley count as part of the court during singles play?",
+        "What is the call for a singles shot that lands between the singles and doubles sidelines?"
+      ],
+      "test": [
+        "In singles, how is a ball in the doubles alley judged?",
+        "Is the alley inside or outside the playable singles court?"
+      ]
+    },
+    "How are the doubles alleys treated for in/out judgments in singles?": {
+      "train": [
+        "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+        "In singles, is a ball landing in the doubles alley in or out?",
+        "A singles shot lands in the alley between singles and doubles sidelines. What is the call?",
+        "How are the doubles alleys treated for in/out judgments in singles?"
+      ],
+      "validation": [
+        "Does the doubles alley count as part of the court during singles play?",
+        "What is the call for a singles shot that lands between the singles and doubles sidelines?"
+      ],
+      "test": [
+        "In singles, how is a ball in the doubles alley judged?",
+        "Is the alley inside or outside the playable singles court?"
+      ]
+    },
+    "0 (Love), 10, 20, 30, Game": {
+      "train": [
+        "0 (Love), 10, 20, 30, Game",
+        "Love, 10, 20, 30, then game",
+        "Zero followed by 10, 20, 30, and game",
+        "Love → 10 → 20 → 30 → Game"
+      ],
+      "validation": [
+        "The order is Love, ten, twenty, thirty, game",
+        "0, 10, 20, 30, with the next score being game"
+      ],
+      "test": [
+        "Points advance from Love through 10, 20, and 30 to game",
+        "The sequence reads 0–10–20–30–Game"
+      ]
+    },
+    "0 (Love), 15, 30, 40, Game": {
+      "train": [
+        "0 (Love), 15, 30, 40, Game",
+        "Love, 15, 30, 40, then game",
+        "Zero followed by 15, 30, 40, and game",
+        "Love → 15 → 30 → 40 → Game"
+      ],
+      "validation": [
+        "The order is Love, fifteen, thirty, forty, game",
+        "0, 15, 30, 40, with the next score being game"
+      ],
+      "test": [
+        "Points advance from Love through 15, 30, and 40 to game",
+        "The sequence reads 0–15–30–40–Game"
+      ]
+    },
+    "0 (Love), 15, 30, 45, Game": {
+      "train": [
+        "0 (Love), 15, 30, 45, Game",
+        "Love, 15, 30, 45, then game",
+        "Zero followed by 15, 30, 45, and game",
+        "Love → 15 → 30 → 45 → Game"
+      ],
+      "validation": [
+        "The order is Love, fifteen, thirty, forty-five, game",
+        "0, 15, 30, 45, with the next score being game"
+      ],
+      "test": [
+        "Points advance from Love through 15, 30, and 45 to game",
+        "The sequence reads 0–15–30–45–Game"
+      ]
+    },
+    "0 (Love), 15, 30, Advantage, Game": {
+      "train": [
+        "0 (Love), 15, 30, Advantage, Game",
+        "Love, 15, 30, Advantage, then game",
+        "Zero followed by 15, 30, Advantage, and game",
+        "Love → 15 → 30 → Advantage → Game"
+      ],
+      "validation": [
+        "The order is Love, fifteen, thirty, advantage, game",
+        "0, 15, 30, Advantage, with the next score being game"
+      ],
+      "test": [
+        "Points advance from Love through 15 and 30 to advantage and game",
+        "The sequence reads 0–15–30–Advantage–Game"
+      ]
+    },
+    "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?": {
+      "train": [
+        "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+        "Before deuce, how do point values progress within a game?",
+        "What is the standard sequence of points in a tennis game prior to deuce?",
+        "Which sequence correctly lists Love, 15, 30, and 40 within a game?"
+      ],
+      "validation": [
+        "Which sequence gives the standard point scores before deuce?",
+        "How are points counted from love through game in ordinary tennis scoring?"
+      ],
+      "test": [
+        "What is the normal progression of point values within a game?",
+        "Before a game reaches deuce, in what order are point scores counted?"
+      ]
+    },
+    "Before deuce, how do point values progress within a game?": {
+      "train": [
+        "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+        "Before deuce, how do point values progress within a game?",
+        "What is the standard sequence of points in a tennis game prior to deuce?",
+        "Which sequence correctly lists Love, 15, 30, and 40 within a game?"
+      ],
+      "validation": [
+        "Which sequence gives the standard point scores before deuce?",
+        "How are points counted from love through game in ordinary tennis scoring?"
+      ],
+      "test": [
+        "What is the normal progression of point values within a game?",
+        "Before a game reaches deuce, in what order are point scores counted?"
+      ]
+    },
+    "What is the standard sequence of points in a tennis game prior to deuce?": {
+      "train": [
+        "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+        "Before deuce, how do point values progress within a game?",
+        "What is the standard sequence of points in a tennis game prior to deuce?",
+        "Which sequence correctly lists Love, 15, 30, and 40 within a game?"
+      ],
+      "validation": [
+        "Which sequence gives the standard point scores before deuce?",
+        "How are points counted from love through game in ordinary tennis scoring?"
+      ],
+      "test": [
+        "What is the normal progression of point values within a game?",
+        "Before a game reaches deuce, in what order are point scores counted?"
+      ]
+    },
+    "Which sequence correctly lists Love, 15, 30, and 40 within a game?": {
+      "train": [
+        "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+        "Before deuce, how do point values progress within a game?",
+        "What is the standard sequence of points in a tennis game prior to deuce?",
+        "Which sequence correctly lists Love, 15, 30, and 40 within a game?"
+      ],
+      "validation": [
+        "Which sequence gives the standard point scores before deuce?",
+        "How are points counted from love through game in ordinary tennis scoring?"
+      ],
+      "test": [
+        "What is the normal progression of point values within a game?",
+        "Before a game reaches deuce, in what order are point scores counted?"
+      ]
+    },
+    "Advantage server": {
+      "train": [
+        "Advantage server",
+        "The server has advantage",
+        "Advantage to the serving player",
+        "The score favors the server by advantage"
+      ],
+      "validation": [
+        "It is the server’s advantage",
+        "The serving player holds the advantage"
+      ],
+      "test": [
+        "The umpire calls advantage for the server",
+        "The score is Ad-In for the server"
+      ]
+    },
+    "Game point": {
+      "train": [
+        "Game point",
+        "A point that can decide the game",
+        "An opportunity to win the game on the next point",
+        "The score is at game point"
+      ],
+      "validation": [
+        "A next-point chance to close out the game",
+        "The player is one point from winning the game"
+      ],
+      "test": [
+        "A game-ending opportunity",
+        "A chance to secure the game with the following point"
+      ]
+    },
+    "Deuce": {
+      "train": [
+        "Deuce",
+        "A tied score of 40–40",
+        "The game is level at deuce",
+        "Both players are tied at three points each"
+      ],
+      "validation": [
+        "The score is deuce",
+        "Forty-all"
+      ],
+      "test": [
+        "An even game score after each player reaches 40",
+        "The umpire’s call is deuce"
+      ]
+    },
+    "Match point": {
+      "train": [
+        "Match point",
+        "A point that can decide the match",
+        "An opportunity to win the match on the next point",
+        "The score is at match point"
+      ],
+      "validation": [
+        "A next-point chance to close out the match",
+        "The player is one point from winning the match"
+      ],
+      "test": [
+        "A match-ending opportunity",
+        "A chance to secure the match with the following point"
+      ]
+    },
+    "If both players have won three points in a game (score 40–40), what is the score called?": {
+      "train": [
+        "If both players have won three points in a game (score 40–40), what is the score called?",
+        "What is the name of the score when both players are at 40 in a game?",
+        "When the game score reaches 40–40, what is that score called?",
+        "Both sides have three points in the game. What is the score termed?"
+      ],
+      "validation": [
+        "What term describes a game tied at three points apiece?",
+        "Which score name applies when each player has reached 40?"
+      ],
+      "test": [
+        "How is a 40–40 game score announced?",
+        "What is the tennis term for an even score of 40–40?"
+      ]
+    },
+    "What is the name of the score when both players are at 40 in a game?": {
+      "train": [
+        "If both players have won three points in a game (score 40–40), what is the score called?",
+        "What is the name of the score when both players are at 40 in a game?",
+        "When the game score reaches 40–40, what is that score called?",
+        "Both sides have three points in the game. What is the score termed?"
+      ],
+      "validation": [
+        "What term describes a game tied at three points apiece?",
+        "Which score name applies when each player has reached 40?"
+      ],
+      "test": [
+        "How is a 40–40 game score announced?",
+        "What is the tennis term for an even score of 40–40?"
+      ]
+    },
+    "When the game score reaches 40–40, what is that score called?": {
+      "train": [
+        "If both players have won three points in a game (score 40–40), what is the score called?",
+        "What is the name of the score when both players are at 40 in a game?",
+        "When the game score reaches 40–40, what is that score called?",
+        "Both sides have three points in the game. What is the score termed?"
+      ],
+      "validation": [
+        "What term describes a game tied at three points apiece?",
+        "Which score name applies when each player has reached 40?"
+      ],
+      "test": [
+        "How is a 40–40 game score announced?",
+        "What is the tennis term for an even score of 40–40?"
+      ]
+    },
+    "Both sides have three points in the game. What is the score termed?": {
+      "train": [
+        "If both players have won three points in a game (score 40–40), what is the score called?",
+        "What is the name of the score when both players are at 40 in a game?",
+        "When the game score reaches 40–40, what is that score called?",
+        "Both sides have three points in the game. What is the score termed?"
+      ],
+      "validation": [
+        "What term describes a game tied at three points apiece?",
+        "Which score name applies when each player has reached 40?"
+      ],
+      "test": [
+        "How is a 40–40 game score announced?",
+        "What is the tennis term for an even score of 40–40?"
+      ]
+    },
+    "Game for that player": {
+      "train": [
+        "Game for that player",
+        "That player wins the game",
+        "The game is awarded to the point winner",
+        "Winning the point closes out the game"
+      ],
+      "validation": [
+        "The player taking the point also takes the game",
+        "The result is a completed game for that player"
+      ],
+      "test": [
+        "That point ends the game in the player’s favor",
+        "The point winner secures the game"
+      ]
+    },
+    "40–30 for that player": {
+      "train": [
+        "40–30 for that player",
+        "That player leads the game 40–30",
+        "The point winner moves ahead by forty to thirty",
+        "The new score is 40–30 in that player’s favor"
+      ],
+      "validation": [
+        "That player holds a 40–30 advantage",
+        "The scoreboard reads 40–30 to the player"
+      ],
+      "test": [
+        "The player goes in front at forty-thirty",
+        "It becomes 40–30 with that player leading"
+      ]
+    },
+    "The game returns to 30–30": {
+      "train": [
+        "The game returns to 30–30",
+        "The score moves back to thirty-all",
+        "Both players are level again at 30",
+        "The point produces a 30–30 score"
+      ],
+      "validation": [
+        "Play resumes from a tied score of thirty apiece",
+        "The scoreboard reverts to 30–30"
+      ],
+      "test": [
+        "The game becomes even at thirty-all",
+        "The score is reset to 30 points each"
+      ]
+    },
+    "Advantage for that player": {
+      "train": [
+        "Advantage for that player",
+        "That player gains the advantage",
+        "The score becomes advantage to the point winner",
+        "Winning from deuce gives that player Ad"
+      ],
+      "validation": [
+        "The player moves one point ahead at advantage",
+        "The umpire calls advantage for that player"
+      ],
+      "test": [
+        "That player holds the edge after deuce",
+        "The result is an advantage score for the point winner"
+      ]
+    },
+    "From deuce, a player wins the next point. What is the score?": {
+      "train": [
+        "From deuce, a player wins the next point. What is the score?",
+        "After deuce, what is the score when one player wins the following point?",
+        "A player wins the point at deuce. What is the resulting score?",
+        "What score follows immediately after a point won from deuce?"
+      ],
+      "validation": [
+        "What score does a player earn by taking the first point after deuce?",
+        "How is the score announced when one player wins a point from deuce?"
+      ],
+      "test": [
+        "After deuce, what does one consecutive point give its winner?",
+        "What is the immediate scoring result of winning the next point at deuce?"
+      ]
+    },
+    "After deuce, what is the score when one player wins the following point?": {
+      "train": [
+        "From deuce, a player wins the next point. What is the score?",
+        "After deuce, what is the score when one player wins the following point?",
+        "A player wins the point at deuce. What is the resulting score?",
+        "What score follows immediately after a point won from deuce?"
+      ],
+      "validation": [
+        "What score does a player earn by taking the first point after deuce?",
+        "How is the score announced when one player wins a point from deuce?"
+      ],
+      "test": [
+        "After deuce, what does one consecutive point give its winner?",
+        "What is the immediate scoring result of winning the next point at deuce?"
+      ]
+    },
+    "A player wins the point at deuce. What is the resulting score?": {
+      "train": [
+        "From deuce, a player wins the next point. What is the score?",
+        "After deuce, what is the score when one player wins the following point?",
+        "A player wins the point at deuce. What is the resulting score?",
+        "What score follows immediately after a point won from deuce?"
+      ],
+      "validation": [
+        "What score does a player earn by taking the first point after deuce?",
+        "How is the score announced when one player wins a point from deuce?"
+      ],
+      "test": [
+        "After deuce, what does one consecutive point give its winner?",
+        "What is the immediate scoring result of winning the next point at deuce?"
+      ]
+    },
+    "What score follows immediately after a point won from deuce?": {
+      "train": [
+        "From deuce, a player wins the next point. What is the score?",
+        "After deuce, what is the score when one player wins the following point?",
+        "A player wins the point at deuce. What is the resulting score?",
+        "What score follows immediately after a point won from deuce?"
+      ],
+      "validation": [
+        "What score does a player earn by taking the first point after deuce?",
+        "How is the score announced when one player wins a point from deuce?"
+      ],
+      "test": [
+        "After deuce, what does one consecutive point give its winner?",
+        "What is the immediate scoring result of winning the next point at deuce?"
+      ]
+    },
+    "Game for Player B": {
+      "train": [
+        "Game for Player B",
+        "Player B wins the game",
+        "The game is awarded to Player B",
+        "That point closes out the game for Player B"
+      ],
+      "validation": [
+        "Player B secures the entire game",
+        "The result is a game won by Player B"
+      ],
+      "test": [
+        "Player B takes both the point and the game",
+        "The game ends in Player B’s favor"
+      ]
+    },
+    "Advantage Player B": {
+      "train": [
+        "Advantage Player B",
+        "Player B has the advantage",
+        "The score moves to advantage for Player B",
+        "Player B is one point ahead after deuce"
+      ],
+      "validation": [
+        "The umpire calls advantage to Player B",
+        "Player B gains Ad"
+      ],
+      "test": [
+        "The game score favors Player B at advantage",
+        "It becomes Player B’s advantage"
+      ]
+    },
+    "40–30 to Player B": {
+      "train": [
+        "40–30 to Player B",
+        "Player B leads 40–30",
+        "The score becomes forty-thirty for Player B",
+        "Player B moves ahead by 40 points to 30"
+      ],
+      "validation": [
+        "The scoreboard favors Player B at 40–30",
+        "It is now 40–30 in Player B’s favor"
+      ],
+      "test": [
+        "Player B holds a forty-thirty lead",
+        "The game stands at 40–30 to Player B"
+      ]
+    },
+    "The score is Advantage to Player A. Player B then wins the next point. What is the score?": {
+      "train": [
+        "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+        "From Advantage to Player A, Player B wins the point. What is the new score?",
+        "If the player without Advantage wins the next point, what happens to the score?",
+        "Advantage Player A is followed by a point for Player B. What is the score now?"
+      ],
+      "validation": [
+        "What follows when Player B wins a point against Player A’s advantage?",
+        "How does the score change if the player without advantage takes the next point?"
+      ],
+      "test": [
+        "Player A has advantage, then loses the point; what is the new score?",
+        "Where does the score move after the trailing player wins from the opponent’s advantage?"
+      ]
+    },
+    "From Advantage to Player A, Player B wins the point. What is the new score?": {
+      "train": [
+        "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+        "From Advantage to Player A, Player B wins the point. What is the new score?",
+        "If the player without Advantage wins the next point, what happens to the score?",
+        "Advantage Player A is followed by a point for Player B. What is the score now?"
+      ],
+      "validation": [
+        "What follows when Player B wins a point against Player A’s advantage?",
+        "How does the score change if the player without advantage takes the next point?"
+      ],
+      "test": [
+        "Player A has advantage, then loses the point; what is the new score?",
+        "Where does the score move after the trailing player wins from the opponent’s advantage?"
+      ]
+    },
+    "If the player without Advantage wins the next point, what happens to the score?": {
+      "train": [
+        "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+        "From Advantage to Player A, Player B wins the point. What is the new score?",
+        "If the player without Advantage wins the next point, what happens to the score?",
+        "Advantage Player A is followed by a point for Player B. What is the score now?"
+      ],
+      "validation": [
+        "What follows when Player B wins a point against Player A’s advantage?",
+        "How does the score change if the player without advantage takes the next point?"
+      ],
+      "test": [
+        "Player A has advantage, then loses the point; what is the new score?",
+        "Where does the score move after the trailing player wins from the opponent’s advantage?"
+      ]
+    },
+    "Advantage Player A is followed by a point for Player B. What is the score now?": {
+      "train": [
+        "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+        "From Advantage to Player A, Player B wins the point. What is the new score?",
+        "If the player without Advantage wins the next point, what happens to the score?",
+        "Advantage Player A is followed by a point for Player B. What is the score now?"
+      ],
+      "validation": [
+        "What follows when Player B wins a point against Player A’s advantage?",
+        "How does the score change if the player without advantage takes the next point?"
+      ],
+      "test": [
+        "Player A has advantage, then loses the point; what is the new score?",
+        "Where does the score move after the trailing player wins from the opponent’s advantage?"
+      ]
+    },
+    "The score returns to deuce": {
+      "train": [
+        "The score returns to deuce",
+        "The game goes back to an even 40–40",
+        "Winning against advantage restores deuce",
+        "The players become level at deuce again"
+      ],
+      "validation": [
+        "The scoreboard moves back to forty-all",
+        "The advantage is erased and the score is deuce"
+      ],
+      "test": [
+        "Play continues from another deuce",
+        "The score is tied again after the advantage disappears"
+      ]
+    },
+    "Player A wins the game": {
+      "train": [
+        "Player A wins the game",
+        "The game is awarded to Player A",
+        "Player A closes out the game",
+        "That point secures the game for Player A"
+      ],
+      "validation": [
+        "Player A takes both the point and the game",
+        "The result is a game for Player A"
+      ],
+      "test": [
+        "The game ends in Player A’s favor",
+        "Player A converts the advantage to win the game"
+      ]
+    },
+    "Player A reaches 40–30": {
+      "train": [
+        "Player A reaches 40–30",
+        "Player A moves to a 40–30 lead",
+        "The score becomes forty-thirty for Player A",
+        "Player A goes ahead by 40 points to 30"
+      ],
+      "validation": [
+        "The scoreboard reads 40–30 in Player A’s favor",
+        "Player A holds a forty-thirty advantage"
+      ],
+      "test": [
+        "It becomes 40–30 to Player A",
+        "Player A takes a one-point lead at 40–30"
+      ]
+    },
+    "Player A is awarded a set point only": {
+      "train": [
+        "Player A is awarded a set point only",
+        "The point gives Player A a set-point opportunity but not the game",
+        "Player A receives only set point",
+        "The result is set point for Player A without a game win"
+      ],
+      "validation": [
+        "Player A moves solely to a chance to win the set",
+        "Only a set point is credited to Player A"
+      ],
+      "test": [
+        "Player A earns set point rather than closing the game",
+        "The ruling awards Player A a set-point chance alone"
+      ]
+    },
+    "The score is Advantage to Player A. Player A then wins the next point. What is the result?": {
+      "train": [
+        "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+        "From Advantage, the same player wins the next point. What is the result?",
+        "Player A holds Advantage and wins the following point. What happens?",
+        "What occurs when the player with Advantage wins the next point?"
+      ],
+      "validation": [
+        "What happens when Player A converts a point while holding advantage?",
+        "How is the game resolved if the player with advantage wins again?"
+      ],
+      "test": [
+        "Player A has advantage and takes the following point; what is awarded?",
+        "What result follows two straight points by Player A beginning from deuce?"
+      ]
+    },
+    "From Advantage, the same player wins the next point. What is the result?": {
+      "train": [
+        "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+        "From Advantage, the same player wins the next point. What is the result?",
+        "Player A holds Advantage and wins the following point. What happens?",
+        "What occurs when the player with Advantage wins the next point?"
+      ],
+      "validation": [
+        "What happens when Player A converts a point while holding advantage?",
+        "How is the game resolved if the player with advantage wins again?"
+      ],
+      "test": [
+        "Player A has advantage and takes the following point; what is awarded?",
+        "What result follows two straight points by Player A beginning from deuce?"
+      ]
+    },
+    "Player A holds Advantage and wins the following point. What happens?": {
+      "train": [
+        "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+        "From Advantage, the same player wins the next point. What is the result?",
+        "Player A holds Advantage and wins the following point. What happens?",
+        "What occurs when the player with Advantage wins the next point?"
+      ],
+      "validation": [
+        "What happens when Player A converts a point while holding advantage?",
+        "How is the game resolved if the player with advantage wins again?"
+      ],
+      "test": [
+        "Player A has advantage and takes the following point; what is awarded?",
+        "What result follows two straight points by Player A beginning from deuce?"
+      ]
+    },
+    "What occurs when the player with Advantage wins the next point?": {
+      "train": [
+        "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+        "From Advantage, the same player wins the next point. What is the result?",
+        "Player A holds Advantage and wins the following point. What happens?",
+        "What occurs when the player with Advantage wins the next point?"
+      ],
+      "validation": [
+        "What happens when Player A converts a point while holding advantage?",
+        "How is the game resolved if the player with advantage wins again?"
+      ],
+      "test": [
+        "Player A has advantage and takes the following point; what is awarded?",
+        "What result follows two straight points by Player A beginning from deuce?"
+      ]
+    },
+    "Advantage": {
+      "train": [
+        "Advantage",
+        "An advantage score",
+        "A one-point edge after deuce",
+        "The scoring term Ad"
+      ],
+      "validation": [
+        "A lead of one point beyond deuce",
+        "The advantage state of a game"
+      ],
+      "test": [
+        "An Ad score for one player",
+        "The post-deuce advantage call"
+      ]
+    },
+    "Zero points (or zero games)": {
+      "train": [
+        "Zero points or zero games",
+        "A score of zero",
+        "No points, or no games in a set score",
+        "Nothing on that side of the score"
+      ],
+      "validation": [
+        "The numerical value zero",
+        "A player has yet to score a point or game"
+      ],
+      "test": [
+        "Zero in the relevant score",
+        "No points or games recorded"
+      ]
+    },
+    "In tennis scoring, what does “Love” mean?": {
+      "train": [
+        "In tennis scoring, what does “Love” mean?",
+        "What does the term Love represent in a tennis score?",
+        "In scoring terminology, Love corresponds to which value?",
+        "When a score is announced with Love, what does that indicate?"
+      ],
+      "validation": [
+        "Which numerical score is expressed by the word “Love”?",
+        "In a tennis score, what value does Love denote?"
+      ],
+      "test": [
+        "What number is represented when an umpire calls Love?",
+        "How many points or games does Love indicate on the scoreboard?"
+      ]
+    },
+    "What does the term Love represent in a tennis score?": {
+      "train": [
+        "In tennis scoring, what does “Love” mean?",
+        "What does the term Love represent in a tennis score?",
+        "In scoring terminology, Love corresponds to which value?",
+        "When a score is announced with Love, what does that indicate?"
+      ],
+      "validation": [
+        "Which numerical score is expressed by the word “Love”?",
+        "In a tennis score, what value does Love denote?"
+      ],
+      "test": [
+        "What number is represented when an umpire calls Love?",
+        "How many points or games does Love indicate on the scoreboard?"
+      ]
+    },
+    "In scoring terminology, Love corresponds to which value?": {
+      "train": [
+        "In tennis scoring, what does “Love” mean?",
+        "What does the term Love represent in a tennis score?",
+        "In scoring terminology, Love corresponds to which value?",
+        "When a score is announced with Love, what does that indicate?"
+      ],
+      "validation": [
+        "Which numerical score is expressed by the word “Love”?",
+        "In a tennis score, what value does Love denote?"
+      ],
+      "test": [
+        "What number is represented when an umpire calls Love?",
+        "How many points or games does Love indicate on the scoreboard?"
+      ]
+    },
+    "When a score is announced with Love, what does that indicate?": {
+      "train": [
+        "In tennis scoring, what does “Love” mean?",
+        "What does the term Love represent in a tennis score?",
+        "In scoring terminology, Love corresponds to which value?",
+        "When a score is announced with Love, what does that indicate?"
+      ],
+      "validation": [
+        "Which numerical score is expressed by the word “Love”?",
+        "In a tennis score, what value does Love denote?"
+      ],
+      "test": [
+        "What number is represented when an umpire calls Love?",
+        "How many points or games does Love indicate on the scoreboard?"
+      ]
+    },
+    "The server can win the game on the next point": {
+      "train": [
+        "The server can win the game on the next point",
+        "The next point gives the server a chance to close the game",
+        "One more point would secure the service game for the server",
+        "The server is a point away from winning the game"
+      ],
+      "validation": [
+        "Winning the following point would give the server the game",
+        "The serving player has an immediate game-winning opportunity"
+      ],
+      "test": [
+        "The server can finish the game with the very next point",
+        "A win on the upcoming point awards the game to the server"
+      ]
+    },
+    "Either player can win the set on the next point": {
+      "train": [
+        "Either player can win the set on the next point",
+        "The following point offers both players a chance to take the set",
+        "Whoever wins the next point also wins the set",
+        "The set can end for either player on this one point"
+      ],
+      "validation": [
+        "Both competitors are one point from securing the set",
+        "The upcoming point decides the set in favor of its winner"
+      ],
+      "test": [
+        "Each player has set point simultaneously",
+        "The next rally will award the set to one of the players"
+      ]
+    },
+    "The match must be decided by a tiebreak": {
+      "train": [
+        "The match must be decided by a tiebreak",
+        "A tiebreak is required to determine the match winner",
+        "The players have to settle the match in a tiebreak",
+        "Match victory now depends on winning a tiebreak"
+      ],
+      "validation": [
+        "The deciding procedure for the match is a tiebreak",
+        "Play moves to a compulsory match-deciding tiebreak"
+      ],
+      "test": [
+        "Only a tiebreak can resolve the match",
+        "The match proceeds to a tiebreak for its decision"
+      ]
+    },
+    "The receiver can win the server’s service game on the next point": {
+      "train": [
+        "The receiver can win the server’s service game on the next point",
+        "The next point gives the receiver a chance to break serve",
+        "One more point would let the receiver take the service game",
+        "The receiver is a point away from winning the server’s game"
+      ],
+      "validation": [
+        "Winning the following point would complete a service break",
+        "The receiving player has an immediate opportunity to take the game"
+      ],
+      "test": [
+        "The receiver can break the server on the very next point",
+        "A win on the upcoming point awards the server’s game to the receiver"
+      ]
+    },
+    "Which situation correctly defines a break point?": {
+      "train": [
+        "Which situation correctly defines a break point?",
+        "What is a break point in tennis?",
+        "Which statement correctly describes a break point?",
+        "When is the receiver said to have a break point?"
+      ],
+      "validation": [
+        "When does the receiver have an opportunity called break point?",
+        "Which next-point situation is known as a break point?"
+      ],
+      "test": [
+        "What must be at stake for the receiver for the score to be break point?",
+        "Which scoring circumstance gives the receiver a chance to break serve immediately?"
+      ]
+    },
+    "What is a break point in tennis?": {
+      "train": [
+        "Which situation correctly defines a break point?",
+        "What is a break point in tennis?",
+        "Which statement correctly describes a break point?",
+        "When is the receiver said to have a break point?"
+      ],
+      "validation": [
+        "When does the receiver have an opportunity called break point?",
+        "Which next-point situation is known as a break point?"
+      ],
+      "test": [
+        "What must be at stake for the receiver for the score to be break point?",
+        "Which scoring circumstance gives the receiver a chance to break serve immediately?"
+      ]
+    },
+    "Which statement correctly describes a break point?": {
+      "train": [
+        "Which situation correctly defines a break point?",
+        "What is a break point in tennis?",
+        "Which statement correctly describes a break point?",
+        "When is the receiver said to have a break point?"
+      ],
+      "validation": [
+        "When does the receiver have an opportunity called break point?",
+        "Which next-point situation is known as a break point?"
+      ],
+      "test": [
+        "What must be at stake for the receiver for the score to be break point?",
+        "Which scoring circumstance gives the receiver a chance to break serve immediately?"
+      ]
+    },
+    "When is the receiver said to have a break point?": {
+      "train": [
+        "Which situation correctly defines a break point?",
+        "What is a break point in tennis?",
+        "Which statement correctly describes a break point?",
+        "When is the receiver said to have a break point?"
+      ],
+      "validation": [
+        "When does the receiver have an opportunity called break point?",
+        "Which next-point situation is known as a break point?"
+      ],
+      "test": [
+        "What must be at stake for the receiver for the score to be break point?",
+        "Which scoring circumstance gives the receiver a chance to break serve immediately?"
+      ]
+    },
+    "The server wins their own service game": {
+      "train": [
+        "The server wins their own service game",
+        "The serving player takes the game",
+        "The player serving successfully closes out that service game",
+        "The server retains serve by winning the game"
+      ],
+      "validation": [
+        "The game is won by the player who served it",
+        "The serving player secures their service game"
+      ],
+      "test": [
+        "The server finishes the game in their own favor",
+        "The player on serve holds by taking the game"
+      ]
+    },
+    "The receiver wins the server’s service game": {
+      "train": [
+        "The receiver wins the server’s service game",
+        "The receiving player takes the game from the server",
+        "The receiver completes a break by winning the service game",
+        "The game served by the opponent is won by the receiver"
+      ],
+      "validation": [
+        "The receiver takes the game despite not serving",
+        "The serving player loses the game to the receiver"
+      ],
+      "test": [
+        "The receiver captures the opponent’s service game",
+        "The returner wins the game against serve"
+      ]
+    },
+    "The server saves a match point": {
+      "train": [
+        "The server saves a match point",
+        "The serving player prevents the match from ending on match point",
+        "The server wins a point that the opponent could have used to take the match",
+        "A match-point threat is erased by the server"
+      ],
+      "validation": [
+        "The server survives the opponent’s opportunity to win the match",
+        "The serving player defends a match point successfully"
+      ],
+      "test": [
+        "The server keeps the match alive on match point",
+        "A point won on serve cancels the opponent’s match point"
+      ]
+    },
+    "The server hits an ace": {
+      "train": [
+        "The server hits an ace",
+        "The serving player delivers an untouched legal serve",
+        "The point begins with an ace by the server",
+        "The server wins directly with an unreturned, untouched serve"
+      ],
+      "validation": [
+        "An ace is recorded for the serving player",
+        "The server’s delivery lands in without receiver contact"
+      ],
+      "test": [
+        "The serving player produces a clean ace",
+        "The server strikes a valid serve that goes untouched"
+      ]
+    },
+    "What does it mean for a player to “hold serve”?": {
+      "train": [
+        "What does it mean for a player to “hold serve”?",
+        "Which statement correctly defines holding serve?",
+        "What is meant by a service hold?",
+        "When has a server successfully held serve?"
+      ],
+      "validation": [
+        "What outcome constitutes a hold of serve?",
+        "When is a service game recorded as a hold?"
+      ],
+      "test": [
+        "Which player must win the game for it to be called a hold?",
+        "What does the server accomplish by holding serve?"
+      ]
+    },
+    "Which statement correctly defines holding serve?": {
+      "train": [
+        "What does it mean for a player to “hold serve”?",
+        "Which statement correctly defines holding serve?",
+        "What is meant by a service hold?",
+        "When has a server successfully held serve?"
+      ],
+      "validation": [
+        "What outcome constitutes a hold of serve?",
+        "When is a service game recorded as a hold?"
+      ],
+      "test": [
+        "Which player must win the game for it to be called a hold?",
+        "What does the server accomplish by holding serve?"
+      ]
+    },
+    "What is meant by a service hold?": {
+      "train": [
+        "What does it mean for a player to “hold serve”?",
+        "Which statement correctly defines holding serve?",
+        "What is meant by a service hold?",
+        "When has a server successfully held serve?"
+      ],
+      "validation": [
+        "What outcome constitutes a hold of serve?",
+        "When is a service game recorded as a hold?"
+      ],
+      "test": [
+        "Which player must win the game for it to be called a hold?",
+        "What does the server accomplish by holding serve?"
+      ]
+    },
+    "When has a server successfully held serve?": {
+      "train": [
+        "What does it mean for a player to “hold serve”?",
+        "Which statement correctly defines holding serve?",
+        "What is meant by a service hold?",
+        "When has a server successfully held serve?"
+      ],
+      "validation": [
+        "What outcome constitutes a hold of serve?",
+        "When is a service game recorded as a hold?"
+      ],
+      "test": [
+        "Which player must win the game for it to be called a hold?",
+        "What does the server accomplish by holding serve?"
+      ]
+    },
+    "A forced error always occurs on serve; an unforced error never does": {
+      "train": [
+        "A forced error always occurs on serve, while an unforced error never does",
+        "Forced errors are limited to serves, whereas unforced errors exclude serves",
+        "Every forced mistake happens during service and no unforced mistake can",
+        "Serve situations alone produce forced errors, not unforced errors"
+      ],
+      "validation": [
+        "A forced error must come on a serve; an unforced error cannot come on one",
+        "Only service play can cause a forced error, with unforced errors occurring elsewhere"
+      ],
+      "test": [
+        "Forced mistakes are exclusively service errors, unlike unforced mistakes",
+        "The distinction is that forced errors occur on serve and unforced errors do not"
+      ]
+    },
+    "A forced error is caused by opponent pressure; an unforced error is a routine mistake without significant pressure": {
+      "train": [
+        "A forced error results from opponent pressure, while an unforced error is a routine mistake without significant pressure",
+        "Opponent pressure induces a forced error; a manageable miss without that pressure is unforced",
+        "A demanding ball causes a forced mistake, whereas an unpressured routine miss is unforced",
+        "The error is forced when the opponent creates substantial difficulty and unforced when the player misses an ordinary shot"
+      ],
+      "validation": [
+        "Forced errors arise under meaningful pressure; unforced errors come from avoidable mistakes in routine situations",
+        "Pressure from the other player makes an error forced, while lack of such pressure makes a routine miss unforced"
+      ],
+      "test": [
+        "A pressured failure is classified as forced and an avoidable, unpressured failure as unforced",
+        "The categories differ according to whether opponent pressure made the missed shot difficult"
+      ]
+    },
+    "A forced error ends in a let; an unforced error awards the point immediately": {
+      "train": [
+        "A forced error ends in a let, while an unforced error awards the point immediately",
+        "Forced mistakes require a replay, whereas unforced mistakes decide the point at once",
+        "The point becomes a let after a forced error but ends after an unforced one",
+        "A forced error cancels the point; an unforced error gives the opponent the point"
+      ],
+      "validation": [
+        "Forced errors lead to replays, unlike unforced errors that immediately award points",
+        "A let follows a forced mistake, while an unforced miss concludes the rally"
+      ],
+      "test": [
+        "The consequence of a forced error is a replay and that of an unforced error is an immediate point",
+        "Forced mistakes restart play, but unforced mistakes end it in the opponent’s favor"
+      ]
+    },
+    "A forced error requires the ball to hit the net; an unforced error requires the ball to land long": {
+      "train": [
+        "A forced error requires the ball to hit the net, while an unforced error requires it to land long",
+        "Net contact defines a forced error and a long ball defines an unforced one",
+        "A mistake is forced only when the shot reaches the net, but unforced only when it goes beyond the baseline",
+        "Forced errors are netted balls, whereas unforced errors are balls hit long"
+      ],
+      "validation": [
+        "The ball must enter the net for a forced error and miss deep for an unforced error",
+        "A net error is always forced, while an overhit shot is always unforced"
+      ],
+      "test": [
+        "Forced and unforced errors are distinguished respectively by net and long outcomes",
+        "Hitting the net makes an error forced; landing long makes it unforced"
+      ]
+    },
+    "Which statement best distinguishes a forced error from an unforced error?": {
+      "train": [
+        "Which statement best distinguishes a forced error from an unforced error?",
+        "How do forced and unforced errors differ?",
+        "What is the key distinction between a forced error and an unforced error?",
+        "Which option correctly contrasts forced error vs unforced error?"
+      ],
+      "validation": [
+        "What separates an error induced by pressure from an unforced mistake?",
+        "Which description correctly contrasts forced and unforced errors?"
+      ],
+      "test": [
+        "How does opponent pressure determine whether an error is forced or unforced?",
+        "What criterion distinguishes a forced error from an unforced one?"
+      ]
+    },
+    "How do forced and unforced errors differ?": {
+      "train": [
+        "Which statement best distinguishes a forced error from an unforced error?",
+        "How do forced and unforced errors differ?",
+        "What is the key distinction between a forced error and an unforced error?",
+        "Which option correctly contrasts forced error vs unforced error?"
+      ],
+      "validation": [
+        "What separates an error induced by pressure from an unforced mistake?",
+        "Which description correctly contrasts forced and unforced errors?"
+      ],
+      "test": [
+        "How does opponent pressure determine whether an error is forced or unforced?",
+        "What criterion distinguishes a forced error from an unforced one?"
+      ]
+    },
+    "What is the key distinction between a forced error and an unforced error?": {
+      "train": [
+        "Which statement best distinguishes a forced error from an unforced error?",
+        "How do forced and unforced errors differ?",
+        "What is the key distinction between a forced error and an unforced error?",
+        "Which option correctly contrasts forced error vs unforced error?"
+      ],
+      "validation": [
+        "What separates an error induced by pressure from an unforced mistake?",
+        "Which description correctly contrasts forced and unforced errors?"
+      ],
+      "test": [
+        "How does opponent pressure determine whether an error is forced or unforced?",
+        "What criterion distinguishes a forced error from an unforced one?"
+      ]
+    },
+    "Which option correctly contrasts forced error vs unforced error?": {
+      "train": [
+        "Which statement best distinguishes a forced error from an unforced error?",
+        "How do forced and unforced errors differ?",
+        "What is the key distinction between a forced error and an unforced error?",
+        "Which option correctly contrasts forced error vs unforced error?"
+      ],
+      "validation": [
+        "What separates an error induced by pressure from an unforced mistake?",
+        "Which description correctly contrasts forced and unforced errors?"
+      ],
+      "test": [
+        "How does opponent pressure determine whether an error is forced or unforced?",
+        "What criterion distinguishes a forced error from an unforced one?"
+      ]
+    },
+    "Zero; the ball may never bounce": {
+      "train": [
+        "Zero; the ball may never bounce",
+        "No bounce is allowed before the return",
+        "The player must strike every ball out of the air",
+        "The ball has to be returned before touching the court"
+      ],
+      "validation": [
+        "A legal return permits no bounce at all",
+        "The maximum is zero bounces"
+      ],
+      "test": [
+        "Any bounce ends the point before a return can be made",
+        "The player is required to volley every shot"
+      ]
+    },
+    "Two": {
+      "train": [
+        "Two bounces",
+        "A maximum of two bounces",
+        "The ball may bounce twice",
+        "Up to two contacts with the court"
+      ],
+      "validation": [
+        "Two is the permitted bounce limit",
+        "The return may follow the second bounce"
+      ],
+      "test": [
+        "A player is allowed a pair of bounces",
+        "The limit is two bounces on that side"
+      ]
+    },
+    "One": {
+      "train": [
+        "One bounce",
+        "A maximum of one bounce",
+        "The ball may bounce once",
+        "Up to a single contact with the court"
+      ],
+      "validation": [
+        "One is the permitted bounce limit",
+        "The return must occur by the first bounce"
+      ],
+      "test": [
+        "A player is allowed one bounce",
+        "The limit is a single bounce on that side"
+      ]
+    },
+    "As many as needed if the player stays behind the baseline": {
+      "train": [
+        "As many as needed if the player stays behind the baseline",
+        "There is no bounce limit while the player remains behind the baseline",
+        "Any number of bounces is allowed from a position beyond the baseline",
+        "The ball may keep bouncing until the player crosses the baseline"
+      ],
+      "validation": [
+        "Remaining behind the back line permits unlimited bounces",
+        "A player outside the baseline can wait through as many bounces as necessary"
+      ],
+      "test": [
+        "Unlimited bounces are legal provided the player stays behind the baseline",
+        "The bounce count is unrestricted for a player positioned beyond the baseline"
+      ]
+    },
+    "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?": {
+      "train": [
+        "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+        "Once the point is in a rally, how many bounces are allowed before a return?",
+        "In a rally, what is the maximum number of bounces permitted before playing the ball?",
+        "After a legal serve, how many bounces may occur on one side before the ball must be returned?"
+      ],
+      "validation": [
+        "What is the bounce limit on one side once a rally has begun?",
+        "Before returning a live ball, how many bounces may a player allow?"
+      ],
+      "test": [
+        "How many times can the ball legally bounce on a player’s side during play?",
+        "What is the maximum permitted number of bounces before a return?"
+      ]
+    },
+    "Once the point is in a rally, how many bounces are allowed before a return?": {
+      "train": [
+        "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+        "Once the point is in a rally, how many bounces are allowed before a return?",
+        "In a rally, what is the maximum number of bounces permitted before playing the ball?",
+        "After a legal serve, how many bounces may occur on one side before the ball must be returned?"
+      ],
+      "validation": [
+        "What is the bounce limit on one side once a rally has begun?",
+        "Before returning a live ball, how many bounces may a player allow?"
+      ],
+      "test": [
+        "How many times can the ball legally bounce on a player’s side during play?",
+        "What is the maximum permitted number of bounces before a return?"
+      ]
+    },
+    "In a rally, what is the maximum number of bounces permitted before playing the ball?": {
+      "train": [
+        "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+        "Once the point is in a rally, how many bounces are allowed before a return?",
+        "In a rally, what is the maximum number of bounces permitted before playing the ball?",
+        "After a legal serve, how many bounces may occur on one side before the ball must be returned?"
+      ],
+      "validation": [
+        "What is the bounce limit on one side once a rally has begun?",
+        "Before returning a live ball, how many bounces may a player allow?"
+      ],
+      "test": [
+        "How many times can the ball legally bounce on a player’s side during play?",
+        "What is the maximum permitted number of bounces before a return?"
+      ]
+    },
+    "After a legal serve, how many bounces may occur on one side before the ball must be returned?": {
+      "train": [
+        "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+        "Once the point is in a rally, how many bounces are allowed before a return?",
+        "In a rally, what is the maximum number of bounces permitted before playing the ball?",
+        "After a legal serve, how many bounces may occur on one side before the ball must be returned?"
+      ],
+      "validation": [
+        "What is the bounce limit on one side once a rally has begun?",
+        "Before returning a live ball, how many bounces may a player allow?"
+      ],
+      "test": [
+        "How many times can the ball legally bounce on a player’s side during play?",
+        "What is the maximum permitted number of bounces before a return?"
+      ]
+    },
+    "A volley is a shot struck before the ball bounces and is legal during a rally": {
+      "train": [
+        "A volley is a legal rally shot struck before the ball bounces",
+        "During a rally, hitting the ball out of the air is a legal volley",
+        "A player volleys legally by contacting the ball prior to its bounce",
+        "A volley is an airborne-ball strike permitted once the rally is underway"
+      ],
+      "validation": [
+        "The shot is a volley when legally played before touching the court",
+        "A legal volley involves returning the ball without allowing a bounce"
+      ],
+      "test": [
+        "Striking a rally ball in the air constitutes a permitted volley",
+        "A volley is a lawful no-bounce shot during open play"
+      ]
+    },
+    "A volley is illegal in singles": {
+      "train": [
+        "A volley is illegal in singles",
+        "Singles rules do not permit volleying",
+        "Players may not strike the ball before it bounces in singles",
+        "A no-bounce return is prohibited during a singles point"
+      ],
+      "validation": [
+        "Only groundstrokes, not volleys, are legal in singles",
+        "Singles play forbids contacting the ball in the air"
+      ],
+      "test": [
+        "Hitting a volley during singles results in an illegal shot",
+        "The volley is not a lawful singles stroke"
+      ]
+    },
+    "A volley is allowed only on the second serve": {
+      "train": [
+        "A volley is allowed only on the second serve",
+        "Players may volley exclusively during a second serve",
+        "The only legal time for a volley is on the server’s second delivery",
+        "Volleying is restricted to second-service situations"
+      ],
+      "validation": [
+        "A first serve or rally cannot be volleyed, but a second serve can",
+        "The rules permit a volley solely when receiving a second serve"
+      ],
+      "test": [
+        "Only the second service attempt may be struck as a volley",
+        "A volley becomes legal only against the second serve"
+      ]
+    },
+    "A volley requires the ball to bounce once first": {
+      "train": [
+        "A volley requires the ball to bounce once first",
+        "The ball must make one bounce before a volley is struck",
+        "A player can volley only after the shot contacts the court",
+        "One prior bounce is necessary for the stroke to count as a volley"
+      ],
+      "validation": [
+        "Volleying means hitting the ball following its first bounce",
+        "The stroke is not a volley unless the ball has bounced once"
+      ],
+      "test": [
+        "A legal volley comes immediately after a single bounce",
+        "The defining requirement for a volley is one bounce before contact"
+      ]
+    },
+    "Which statement about a volley is correct?": {
+      "train": [
+        "Which statement about a volley is correct?",
+        "What correctly describes a volley in tennis?",
+        "Which option accurately defines a legal volley?",
+        "How is a volley correctly characterized under the rules of play?"
+      ],
+      "validation": [
+        "What type of shot is a legal volley?",
+        "Which description correctly states when a volley is struck?"
+      ],
+      "test": [
+        "How is a volley performed during a legal rally?",
+        "What distinguishes a volley from a groundstroke?"
+      ]
+    },
+    "What correctly describes a volley in tennis?": {
+      "train": [
+        "Which statement about a volley is correct?",
+        "What correctly describes a volley in tennis?",
+        "Which option accurately defines a legal volley?",
+        "How is a volley correctly characterized under the rules of play?"
+      ],
+      "validation": [
+        "What type of shot is a legal volley?",
+        "Which description correctly states when a volley is struck?"
+      ],
+      "test": [
+        "How is a volley performed during a legal rally?",
+        "What distinguishes a volley from a groundstroke?"
+      ]
+    },
+    "Which option accurately defines a legal volley?": {
+      "train": [
+        "Which statement about a volley is correct?",
+        "What correctly describes a volley in tennis?",
+        "Which option accurately defines a legal volley?",
+        "How is a volley correctly characterized under the rules of play?"
+      ],
+      "validation": [
+        "What type of shot is a legal volley?",
+        "Which description correctly states when a volley is struck?"
+      ],
+      "test": [
+        "How is a volley performed during a legal rally?",
+        "What distinguishes a volley from a groundstroke?"
+      ]
+    },
+    "How is a volley correctly characterized under the rules of play?": {
+      "train": [
+        "Which statement about a volley is correct?",
+        "What correctly describes a volley in tennis?",
+        "Which option accurately defines a legal volley?",
+        "How is a volley correctly characterized under the rules of play?"
+      ],
+      "validation": [
+        "What type of shot is a legal volley?",
+        "Which description correctly states when a volley is struck?"
+      ],
+      "test": [
+        "How is a volley performed during a legal rally?",
+        "What distinguishes a volley from a groundstroke?"
+      ]
+    },
+    "The ad court (left side from the server’s perspective)": {
+      "train": [
+        "The ad court, on the server’s left",
+        "From the left-hand ad side",
+        "The server begins in the advantage court",
+        "On the left side of the center mark"
+      ],
+      "validation": [
+        "The opening serve comes from the ad-court half",
+        "From the server’s left, also called the ad court"
+      ],
+      "test": [
+        "The advantage side of the baseline",
+        "The left service position behind the baseline"
+      ]
+    },
+    "The deuce court (right side from the server’s perspective)": {
+      "train": [
+        "The deuce court, on the server’s right",
+        "From the right-hand deuce side",
+        "The server begins in the deuce court",
+        "On the right side of the center mark"
+      ],
+      "validation": [
+        "The opening serve comes from the deuce-court half",
+        "From the server’s right, also called the deuce court"
+      ],
+      "test": [
+        "The deuce side of the baseline",
+        "The right service position behind the baseline"
+      ]
+    },
+    "Either side, chosen by the receiver": {
+      "train": [
+        "Either side, chosen by the receiver",
+        "The receiver selects which half the server uses",
+        "Either service position is allowed at the receiving player’s choice",
+        "The receiver decides whether the serve comes from left or right"
+      ],
+      "validation": [
+        "Whichever side the receiver requests",
+        "The server may begin on either half, subject to the receiver’s selection"
+      ],
+      "test": [
+        "Left or right is legal depending on the receiving player’s decision",
+        "The choice of opening side belongs to the receiver"
+      ]
+    },
+    "Either side, alternating randomly each point": {
+      "train": [
+        "Either side, alternating randomly each point",
+        "The server switches unpredictably between left and right",
+        "Either half may be used according to a random alternation",
+        "The service side changes randomly after each point"
+      ],
+      "validation": [
+        "Left and right are selected by chance from point to point",
+        "The server alternates sides without a fixed starting order"
+      ],
+      "test": [
+        "Either court is valid as long as the sequence is random",
+        "A random left-right pattern determines each service position"
+      ]
+    },
+    "At the start of a game, from which side of the center mark should the server begin the first point?": {
+      "train": [
+        "At the start of a game, from which side of the center mark should the server begin the first point?",
+        "Where must the server stand for the first point of a game?",
+        "For the opening point of a game, which court half does the server use?",
+        "At 0–0 in a game, from which side is the first serve delivered?"
+      ],
+      "validation": [
+        "Which side does the server use to open a game?",
+        "From which court must the first point of a game be served?"
+      ],
+      "test": [
+        "Where should the server position for the game’s opening serve?",
+        "Does the first serve of a game begin from the deuce or ad side?"
+      ]
+    },
+    "Where must the server stand for the first point of a game?": {
+      "train": [
+        "At the start of a game, from which side of the center mark should the server begin the first point?",
+        "Where must the server stand for the first point of a game?",
+        "For the opening point of a game, which court half does the server use?",
+        "At 0–0 in a game, from which side is the first serve delivered?"
+      ],
+      "validation": [
+        "Which side does the server use to open a game?",
+        "From which court must the first point of a game be served?"
+      ],
+      "test": [
+        "Where should the server position for the game’s opening serve?",
+        "Does the first serve of a game begin from the deuce or ad side?"
+      ]
+    },
+    "For the opening point of a game, which court half does the server use?": {
+      "train": [
+        "At the start of a game, from which side of the center mark should the server begin the first point?",
+        "Where must the server stand for the first point of a game?",
+        "For the opening point of a game, which court half does the server use?",
+        "At 0–0 in a game, from which side is the first serve delivered?"
+      ],
+      "validation": [
+        "Which side does the server use to open a game?",
+        "From which court must the first point of a game be served?"
+      ],
+      "test": [
+        "Where should the server position for the game’s opening serve?",
+        "Does the first serve of a game begin from the deuce or ad side?"
+      ]
+    },
+    "At 0–0 in a game, from which side is the first serve delivered?": {
+      "train": [
+        "At the start of a game, from which side of the center mark should the server begin the first point?",
+        "Where must the server stand for the first point of a game?",
+        "For the opening point of a game, which court half does the server use?",
+        "At 0–0 in a game, from which side is the first serve delivered?"
+      ],
+      "validation": [
+        "Which side does the server use to open a game?",
+        "From which court must the first point of a game be served?"
+      ],
+      "test": [
+        "Where should the server position for the game’s opening serve?",
+        "Does the first serve of a game begin from the deuce or ad side?"
+      ]
+    },
+    "From the same side as the previous point": {
+      "train": [
+        "From the same side as the previous point",
+        "The server remains on the prior service side",
+        "The next delivery comes from the unchanged court half",
+        "Serving continues from the position used for the last point"
+      ],
+      "validation": [
+        "The server does not switch sides",
+        "The following point starts from the identical side of the center mark"
+      ],
+      "test": [
+        "The previous service position is used again",
+        "The server stays on the same half of the baseline"
+      ]
+    },
+    "From anywhere behind the baseline": {
+      "train": [
+        "From anywhere behind the baseline",
+        "Any position beyond the back line may be used",
+        "The server may stand at any point behind the baseline",
+        "Anywhere along the area outside the court’s baseline is valid"
+      ],
+      "validation": [
+        "The serve can originate from an unrestricted spot behind the back line",
+        "Any behind-baseline location is acceptable"
+      ],
+      "test": [
+        "The server chooses freely where to stand beyond the baseline",
+        "There is no lateral restriction behind the baseline"
+      ]
+    },
+    "From the opposite side of the center mark (alternating sides each point)": {
+      "train": [
+        "From the opposite side of the center mark, alternating each point",
+        "The server switches to the other court half for the next point",
+        "Each point begins from the side opposite the previous serve",
+        "Service alternates between deuce and ad courts point by point"
+      ],
+      "validation": [
+        "The next delivery comes from across the center mark",
+        "The server changes sides after every completed point"
+      ],
+      "test": [
+        "Left and right service positions alternate throughout the game",
+        "The server moves to the other side of center before serving again"
+      ]
+    },
+    "From the ad court only for the remainder of the game": {
+      "train": [
+        "From the ad court only for the remainder of the game",
+        "Every later point is served exclusively from the left-hand side",
+        "The server stays in the ad court until the game ends",
+        "All remaining deliveries originate from the advantage side"
+      ],
+      "validation": [
+        "After the opening point, only the ad-side position is used",
+        "The rest of the game is served from left of the center mark"
+      ],
+      "test": [
+        "No further deuce-court serves occur during that game",
+        "The advantage court becomes the permanent service side for the game"
+      ]
+    },
+    "After the first point of a game, where does the server deliver the next serve?": {
+      "train": [
+        "After the first point of a game, where does the server deliver the next serve?",
+        "Within a game, how do serve sides change from point to point?",
+        "Following the first point, from which side is the next serve taken?",
+        "Do servers continue from the same side or alternate sides after each point?"
+      ],
+      "validation": [
+        "From which side is the second point of a game served?",
+        "How does the server’s position change after each point in a game?"
+      ],
+      "test": [
+        "Where must the serve originate after the opening point?",
+        "What is the rule for alternating service sides within one game?"
+      ]
+    },
+    "Within a game, how do serve sides change from point to point?": {
+      "train": [
+        "After the first point of a game, where does the server deliver the next serve?",
+        "Within a game, how do serve sides change from point to point?",
+        "Following the first point, from which side is the next serve taken?",
+        "Do servers continue from the same side or alternate sides after each point?"
+      ],
+      "validation": [
+        "From which side is the second point of a game served?",
+        "How does the server’s position change after each point in a game?"
+      ],
+      "test": [
+        "Where must the serve originate after the opening point?",
+        "What is the rule for alternating service sides within one game?"
+      ]
+    },
+    "Following the first point, from which side is the next serve taken?": {
+      "train": [
+        "After the first point of a game, where does the server deliver the next serve?",
+        "Within a game, how do serve sides change from point to point?",
+        "Following the first point, from which side is the next serve taken?",
+        "Do servers continue from the same side or alternate sides after each point?"
+      ],
+      "validation": [
+        "From which side is the second point of a game served?",
+        "How does the server’s position change after each point in a game?"
+      ],
+      "test": [
+        "Where must the serve originate after the opening point?",
+        "What is the rule for alternating service sides within one game?"
+      ]
+    },
+    "Do servers continue from the same side or alternate sides after each point?": {
+      "train": [
+        "After the first point of a game, where does the server deliver the next serve?",
+        "Within a game, how do serve sides change from point to point?",
+        "Following the first point, from which side is the next serve taken?",
+        "Do servers continue from the same side or alternate sides after each point?"
+      ],
+      "validation": [
+        "From which side is the second point of a game served?",
+        "How does the server’s position change after each point in a game?"
+      ],
+      "test": [
+        "Where must the serve originate after the opening point?",
+        "What is the rule for alternating service sides within one game?"
+      ]
+    },
+    "Let the ball bounce twice and still return it": {
+      "train": [
+        "Let the ball bounce twice and still return it",
+        "Wait for a second bounce before playing the ball back",
+        "Make the return after the ball has contacted the court two times",
+        "Allow two bounces on that side and then continue the rally"
+      ],
+      "validation": [
+        "Return the shot following its second bounce",
+        "Play the ball legally even after a pair of bounces"
+      ],
+      "test": [
+        "Take the return once the ball has bounced for the second time",
+        "Use two bounces before sending the ball back"
+      ]
+    },
+    "Catch the ball with the hand and claim the point": {
+      "train": [
+        "Catch the ball with the hand and claim the point",
+        "Stop the ball by hand and request that the point be awarded",
+        "Grab the live ball and declare the point won",
+        "Use a hand to catch the shot before claiming victory"
+      ],
+      "validation": [
+        "Claim the point after physically catching the ball",
+        "Take hold of the ball instead of returning it and ask for the point"
+      ],
+      "test": [
+        "End play by catching the ball with a hand",
+        "Manually catch the incoming shot and treat the point as won"
+      ]
+    },
+    "Return the ball after at most one bounce": {
+      "train": [
+        "Return the ball after at most one bounce",
+        "Play the shot back before it bounces a second time",
+        "Make the return either in the air or following the first bounce",
+        "Send the ball back no later than its first bounce"
+      ],
+      "validation": [
+        "Strike a legal return with zero or one bounce",
+        "Return the live ball before a second court contact"
+      ],
+      "test": [
+        "Allow no more than a single bounce before replying",
+        "Hit the ball back by the time it has bounced once"
+      ]
+    },
+    "Claim a let because the ball landed near the line": {
+      "train": [
+        "Claim a let because the ball landed near the line",
+        "Request a replay solely because the shot bounced close to a boundary",
+        "Treat a near-line landing as grounds for a let",
+        "Ask to replay the point when the ball lands beside the line"
+      ],
+      "validation": [
+        "Call a let based on the shot’s proximity to the court marking",
+        "Demand a new point because the bounce was near a line"
+      ],
+      "test": [
+        "Use a close landing by the line to claim a replay",
+        "Declare a let whenever the ball lands close to the boundary"
+      ]
+    },
+    "Player A hits a shot that lands in Player B’s court. What may Player B legally do?": {
+      "train": [
+        "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+        "After a shot lands in the opponent’s court, what is a legal response?",
+        "A ball bounces once in Player B’s court. What is Player B allowed to do?",
+        "When the opponent’s shot lands in, how may the receiving player continue the point?"
+      ],
+      "validation": [
+        "How many bounces may Player B allow before making a legal return?",
+        "What may the opponent do after a live shot lands in their court?"
+      ],
+      "test": [
+        "After the ball bounces legally, when must the receiving player return it?",
+        "Which response remains legal after a rally ball reaches the opponent’s side?"
+      ]
+    },
+    "After a shot lands in the opponent’s court, what is a legal response?": {
+      "train": [
+        "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+        "After a shot lands in the opponent’s court, what is a legal response?",
+        "A ball bounces once in Player B’s court. What is Player B allowed to do?",
+        "When the opponent’s shot lands in, how may the receiving player continue the point?"
+      ],
+      "validation": [
+        "How many bounces may Player B allow before making a legal return?",
+        "What may the opponent do after a live shot lands in their court?"
+      ],
+      "test": [
+        "After the ball bounces legally, when must the receiving player return it?",
+        "Which response remains legal after a rally ball reaches the opponent’s side?"
+      ]
+    },
+    "A ball bounces once in Player B’s court. What is Player B allowed to do?": {
+      "train": [
+        "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+        "After a shot lands in the opponent’s court, what is a legal response?",
+        "A ball bounces once in Player B’s court. What is Player B allowed to do?",
+        "When the opponent’s shot lands in, how may the receiving player continue the point?"
+      ],
+      "validation": [
+        "How many bounces may Player B allow before making a legal return?",
+        "What may the opponent do after a live shot lands in their court?"
+      ],
+      "test": [
+        "After the ball bounces legally, when must the receiving player return it?",
+        "Which response remains legal after a rally ball reaches the opponent’s side?"
+      ]
+    },
+    "When the opponent’s shot lands in, how may the receiving player continue the point?": {
+      "train": [
+        "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+        "After a shot lands in the opponent’s court, what is a legal response?",
+        "A ball bounces once in Player B’s court. What is Player B allowed to do?",
+        "When the opponent’s shot lands in, how may the receiving player continue the point?"
+      ],
+      "validation": [
+        "How many bounces may Player B allow before making a legal return?",
+        "What may the opponent do after a live shot lands in their court?"
+      ],
+      "test": [
+        "After the ball bounces legally, when must the receiving player return it?",
+        "Which response remains legal after a rally ball reaches the opponent’s side?"
+      ]
+    },
+    "No; the center service line is out": {
+      "train": [
+        "No; the center service line is out",
+        "No, a serve touching the middle service line counts as outside",
+        "The delivery is a fault because the center line is not in",
+        "A landing on the center service boundary is called out"
+      ],
+      "validation": [
+        "No; that line does not belong to the legal service box",
+        "The serve misses because the center service line is excluded"
+      ],
+      "test": [
+        "Contact with the middle service line makes the ball out",
+        "It is not good since the center service marking counts as out"
+      ]
+    },
+    "No; only the service box interior counts": {
+      "train": [
+        "No; only the service box interior counts",
+        "No, the ball must land strictly inside the service lines",
+        "The serve is out because boundary lines do not count as part of the box",
+        "Only a bounce fully within the service-box interior is legal"
+      ],
+      "validation": [
+        "No; touching any service-box line makes the delivery a fault",
+        "The legal target excludes the lines surrounding the service box"
+      ],
+      "test": [
+        "A serve is good only when it misses every boundary line",
+        "It is not legal because the service area consists solely of its interior"
+      ]
+    },
+    "Only if it is a second serve": {
+      "train": [
+        "Only if it is a second serve",
+        "The line counts only on the server’s second attempt",
+        "It is good for a second delivery but not a first",
+        "Only second serves may legally land on that line"
+      ],
+      "validation": [
+        "The ruling depends on this being the final service attempt",
+        "A center-line bounce is valid solely during a second serve"
+      ],
+      "test": [
+        "It counts in only after a fault on the first serve",
+        "The serve is legal there exclusively on the second delivery"
+      ]
+    },
+    "Yes; the line is part of the service box": {
+      "train": [
+        "Yes; the line is part of the service box",
+        "Yes, a service-box boundary counts as in",
+        "The serve is good because landing on the line is legal",
+        "A center-line bounce lies within the valid service area"
+      ],
+      "validation": [
+        "Yes; touching the correct service line makes the delivery in",
+        "The line belongs to the box, so the serve is valid"
+      ],
+      "test": [
+        "A ball on the service-box line is called good",
+        "Yes, the legal target includes its boundary lines"
+      ]
+    },
+    "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?": {
+      "train": [
+        "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+        "If a serve lands on the center service line of the proper box, is it in?",
+        "Does landing on the center service line count as a good serve?",
+        "A serve touches the center service line of the correct box. What is the ruling?"
+      ],
+      "validation": [
+        "Does a serve touching the proper center service line count as in?",
+        "How is a serve called when it lands on the boundary of the correct service box?"
+      ],
+      "test": [
+        "Is the center service line included in the legal service area?",
+        "What ruling applies to a serve whose first bounce is on the correct box’s center line?"
+      ]
+    },
+    "If a serve lands on the center service line of the proper box, is it in?": {
+      "train": [
+        "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+        "If a serve lands on the center service line of the proper box, is it in?",
+        "Does landing on the center service line count as a good serve?",
+        "A serve touches the center service line of the correct box. What is the ruling?"
+      ],
+      "validation": [
+        "Does a serve touching the proper center service line count as in?",
+        "How is a serve called when it lands on the boundary of the correct service box?"
+      ],
+      "test": [
+        "Is the center service line included in the legal service area?",
+        "What ruling applies to a serve whose first bounce is on the correct box’s center line?"
+      ]
+    },
+    "Does landing on the center service line count as a good serve?": {
+      "train": [
+        "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+        "If a serve lands on the center service line of the proper box, is it in?",
+        "Does landing on the center service line count as a good serve?",
+        "A serve touches the center service line of the correct box. What is the ruling?"
+      ],
+      "validation": [
+        "Does a serve touching the proper center service line count as in?",
+        "How is a serve called when it lands on the boundary of the correct service box?"
+      ],
+      "test": [
+        "Is the center service line included in the legal service area?",
+        "What ruling applies to a serve whose first bounce is on the correct box’s center line?"
+      ]
+    },
+    "A serve touches the center service line of the correct box. What is the ruling?": {
+      "train": [
+        "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+        "If a serve lands on the center service line of the proper box, is it in?",
+        "Does landing on the center service line count as a good serve?",
+        "A serve touches the center service line of the correct box. What is the ruling?"
+      ],
+      "validation": [
+        "Does a serve touching the proper center service line count as in?",
+        "How is a serve called when it lands on the boundary of the correct service box?"
+      ],
+      "test": [
+        "Is the center service line included in the legal service area?",
+        "What ruling applies to a serve whose first bounce is on the correct box’s center line?"
+      ]
+    },
+    "Game point (the server can win the game by winning the next point)": {
+      "train": [
+        "Game point: the server can win the game on the next point",
+        "A game-point chance for the server to close the game immediately",
+        "The server is one point away from taking the game",
+        "The server holds an immediate chance to finish the game"
+      ],
+      "validation": [
+        "The score presents the server with game point",
+        "This is the server’s opportunity to finish the game on the next rally"
+      ],
+      "test": [
+        "The upcoming point can convert the server’s lead into a game win",
+        "It is game point because one more server-won point ends the game"
+      ]
+    },
+    "Break point": {
+      "train": [
+        "Break point",
+        "An immediate chance for the receiver to win the service game",
+        "A point that can complete a break of serve",
+        "The receiver is one point from taking the game"
+      ],
+      "validation": [
+        "A next-point opportunity to break the server",
+        "The score gives the returner a break-point chance"
+      ],
+      "test": [
+        "A point on which the receiver can capture the service game",
+        "The server faces a possible service break on the following point"
+      ]
+    },
+    "Set point only if it is also 5–5 in the set": {
+      "train": [
+        "Set point only if the set score is also 5–5",
+        "It is a set-point chance solely when the games are tied at five apiece",
+        "The point concerns the set only under a 5–5 game score",
+        "A simultaneous set point exists only at five games all"
+      ],
+      "validation": [
+        "It counts as set point provided the set has reached 5–5",
+        "Only a five-all set score would make this a set-point opportunity"
+      ],
+      "test": [
+        "The point can decide the set only when both players have five games",
+        "Set point applies here exclusively with the set level at 5–5"
+      ]
+    },
+    "The score is 40–30 in favor of the server. What does the next point represent for the server?": {
+      "train": [
+        "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+        "At 40–30 for the server, what is the next point called for the server?",
+        "When the server leads 40–30, what is at stake on the following point?",
+        "Server 40–30: what does winning or contesting the next point mean for the server?"
+      ],
+      "validation": [
+        "What opportunity does a 40–30 lead give the server?",
+        "How is the next point described when the server leads 40–30?"
+      ],
+      "test": [
+        "At server 40–30, what can the server secure by winning the following point?",
+        "Which scoring term applies to the server’s next point at 40–30?"
+      ]
+    },
+    "At 40–30 for the server, what is the next point called for the server?": {
+      "train": [
+        "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+        "At 40–30 for the server, what is the next point called for the server?",
+        "When the server leads 40–30, what is at stake on the following point?",
+        "Server 40–30: what does winning or contesting the next point mean for the server?"
+      ],
+      "validation": [
+        "What opportunity does a 40–30 lead give the server?",
+        "How is the next point described when the server leads 40–30?"
+      ],
+      "test": [
+        "At server 40–30, what can the server secure by winning the following point?",
+        "Which scoring term applies to the server’s next point at 40–30?"
+      ]
+    },
+    "When the server leads 40–30, what is at stake on the following point?": {
+      "train": [
+        "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+        "At 40–30 for the server, what is the next point called for the server?",
+        "When the server leads 40–30, what is at stake on the following point?",
+        "Server 40–30: what does winning or contesting the next point mean for the server?"
+      ],
+      "validation": [
+        "What opportunity does a 40–30 lead give the server?",
+        "How is the next point described when the server leads 40–30?"
+      ],
+      "test": [
+        "At server 40–30, what can the server secure by winning the following point?",
+        "Which scoring term applies to the server’s next point at 40–30?"
+      ]
+    },
+    "Server 40–30: what does winning or contesting the next point mean for the server?": {
+      "train": [
+        "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+        "At 40–30 for the server, what is the next point called for the server?",
+        "When the server leads 40–30, what is at stake on the following point?",
+        "Server 40–30: what does winning or contesting the next point mean for the server?"
+      ],
+      "validation": [
+        "What opportunity does a 40–30 lead give the server?",
+        "How is the next point described when the server leads 40–30?"
+      ],
+      "test": [
+        "At server 40–30, what can the server secure by winning the following point?",
+        "Which scoring term applies to the server’s next point at 40–30?"
+      ]
+    },
+    "The receiver hits an ace": {
+      "train": [
+        "The receiver hits an ace",
+        "The receiving player delivers an untouched serve",
+        "An ace is recorded for the player returning in this game",
+        "The receiver wins by serving a clean ace"
+      ],
+      "validation": [
+        "The returner strikes a legal serve that is not touched",
+        "The player receiving serve produces an ace"
+      ],
+      "test": [
+        "An uncontacted good serve is hit by the receiver",
+        "The receiver records a point directly from an ace"
+      ]
+    },
+    "The receiver forces a let": {
+      "train": [
+        "The receiver forces a let",
+        "The receiving player causes the point to be replayed",
+        "A let results from the receiver’s action",
+        "The returner creates a situation requiring a replay"
+      ],
+      "validation": [
+        "The receiver makes the umpire call a let",
+        "Play restarts because of something the receiving player did"
+      ],
+      "test": [
+        "The point is voided on a let caused by the receiver",
+        "The receiver is responsible for the let ruling"
+      ]
+    },
+    "The receiver wins a tiebreak point": {
+      "train": [
+        "The receiver wins a tiebreak point",
+        "The receiving player takes one point during a tiebreak",
+        "A single tiebreak point is awarded to the receiver",
+        "The returner wins the next rally in the tiebreak"
+      ],
+      "validation": [
+        "The receiver adds one point to their tiebreak score",
+        "One point of the tiebreak goes to the receiving player"
+      ],
+      "test": [
+        "The receiver prevails on a point played in the tiebreak",
+        "The result is a tiebreak point for the returner"
+      ]
+    },
+    "What does it mean when the receiver “breaks” the server?": {
+      "train": [
+        "What does it mean when the receiver “breaks” the server?",
+        "Which statement correctly defines a service break?",
+        "When has the receiver broken the server’s serve?",
+        "What is meant by breaking serve?"
+      ],
+      "validation": [
+        "What must the receiver do to record a service break?",
+        "Which result means that the receiver has broken serve?"
+      ],
+      "test": [
+        "When is a receiver credited with a break of serve?",
+        "What event is described as the receiver breaking the server?"
+      ]
+    },
+    "Which statement correctly defines a service break?": {
+      "train": [
+        "What does it mean when the receiver “breaks” the server?",
+        "Which statement correctly defines a service break?",
+        "When has the receiver broken the server’s serve?",
+        "What is meant by breaking serve?"
+      ],
+      "validation": [
+        "What must the receiver do to record a service break?",
+        "Which result means that the receiver has broken serve?"
+      ],
+      "test": [
+        "When is a receiver credited with a break of serve?",
+        "What event is described as the receiver breaking the server?"
+      ]
+    },
+    "When has the receiver broken the server’s serve?": {
+      "train": [
+        "What does it mean when the receiver “breaks” the server?",
+        "Which statement correctly defines a service break?",
+        "When has the receiver broken the server’s serve?",
+        "What is meant by breaking serve?"
+      ],
+      "validation": [
+        "What must the receiver do to record a service break?",
+        "Which result means that the receiver has broken serve?"
+      ],
+      "test": [
+        "When is a receiver credited with a break of serve?",
+        "What event is described as the receiver breaking the server?"
+      ]
+    },
+    "What is meant by breaking serve?": {
+      "train": [
+        "What does it mean when the receiver “breaks” the server?",
+        "Which statement correctly defines a service break?",
+        "When has the receiver broken the server’s serve?",
+        "What is meant by breaking serve?"
+      ],
+      "validation": [
+        "What must the receiver do to record a service break?",
+        "Which result means that the receiver has broken serve?"
+      ],
+      "test": [
+        "When is a receiver credited with a break of serve?",
+        "What event is described as the receiver breaking the server?"
+      ]
+    },
+    "The point is replayed": {
+      "train": [
+        "The point is replayed",
+        "The players contest the point again",
+        "Play restarts for a complete replay",
+        "The previous rally is discarded and repeated"
+      ],
+      "validation": [
+        "The point begins again from the serve",
+        "Neither player scores before a new version of the point"
+      ],
+      "test": [
+        "A replay of the entire point is ordered",
+        "The same point is played over"
+      ]
+    },
+    "The hitter wins the point if the opponent does not reach it": {
+      "train": [
+        "The hitter wins the point if the opponent does not reach it",
+        "An unreachable shot gives the point to the player who struck it",
+        "The point goes to the hitter when the other player cannot get to the ball",
+        "Failure by the opponent to reach the shot makes the hitter the winner"
+      ],
+      "validation": [
+        "The striker takes the point provided the opponent never reaches the ball",
+        "The player hitting the ball wins when it passes beyond the opponent’s reach"
+      ],
+      "test": [
+        "An unplayed shot awards the point to its hitter",
+        "The hitter prevails if the opponent cannot make contact"
+      ]
+    },
+    "The hitter loses the point (the ball is out)": {
+      "train": [
+        "The hitter loses the point because the ball is out",
+        "An out ball awards the point to the opponent",
+        "Landing beyond the baseline costs the striker the point",
+        "The player who hit long loses the rally"
+      ],
+      "validation": [
+        "The point ends against the hitter when the shot lands out",
+        "The opponent wins due to the hitter’s out ball"
+      ],
+      "test": [
+        "A long shot results in a point loss for the player who struck it",
+        "The ball misses the court, so its hitter forfeits the point"
+      ]
+    },
+    "The ball remains in play until it bounces twice": {
+      "train": [
+        "The ball remains in play until it bounces twice",
+        "Play continues through the ball’s second bounce",
+        "The shot stays live until two court contacts occur",
+        "The point does not end before the ball has bounced a second time"
+      ],
+      "validation": [
+        "Two bounces are required before the ball is no longer playable",
+        "The opponent may keep playing until after the second bounce"
+      ],
+      "test": [
+        "A first bounce does not settle the point; the ball remains live",
+        "The rally continues unless and until the ball bounces twice"
+      ]
+    },
+    "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?": {
+      "train": [
+        "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+        "If a rally shot lands long past the baseline, what is the ruling?",
+        "A ball is hit beyond the opponent’s baseline. Who wins the point?",
+        "What happens when a shot lands clearly outside beyond the baseline?"
+      ],
+      "validation": [
+        "Who gets the point when a rally ball lands beyond the baseline?",
+        "How is a shot called if its first bounce is clearly long?"
+      ],
+      "test": [
+        "What is the point outcome after the hitter sends the ball past the baseline?",
+        "What ruling applies to a ball landing outside the court beyond the baseline?"
+      ]
+    },
+    "If a rally shot lands long past the baseline, what is the ruling?": {
+      "train": [
+        "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+        "If a rally shot lands long past the baseline, what is the ruling?",
+        "A ball is hit beyond the opponent’s baseline. Who wins the point?",
+        "What happens when a shot lands clearly outside beyond the baseline?"
+      ],
+      "validation": [
+        "Who gets the point when a rally ball lands beyond the baseline?",
+        "How is a shot called if its first bounce is clearly long?"
+      ],
+      "test": [
+        "What is the point outcome after the hitter sends the ball past the baseline?",
+        "What ruling applies to a ball landing outside the court beyond the baseline?"
+      ]
+    },
+    "A ball is hit beyond the opponent’s baseline. Who wins the point?": {
+      "train": [
+        "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+        "If a rally shot lands long past the baseline, what is the ruling?",
+        "A ball is hit beyond the opponent’s baseline. Who wins the point?",
+        "What happens when a shot lands clearly outside beyond the baseline?"
+      ],
+      "validation": [
+        "Who gets the point when a rally ball lands beyond the baseline?",
+        "How is a shot called if its first bounce is clearly long?"
+      ],
+      "test": [
+        "What is the point outcome after the hitter sends the ball past the baseline?",
+        "What ruling applies to a ball landing outside the court beyond the baseline?"
+      ]
+    },
+    "What happens when a shot lands clearly outside beyond the baseline?": {
+      "train": [
+        "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+        "If a rally shot lands long past the baseline, what is the ruling?",
+        "A ball is hit beyond the opponent’s baseline. Who wins the point?",
+        "What happens when a shot lands clearly outside beyond the baseline?"
+      ],
+      "validation": [
+        "Who gets the point when a rally ball lands beyond the baseline?",
+        "How is a shot called if its first bounce is clearly long?"
+      ],
+      "test": [
+        "What is the point outcome after the hitter sends the ball past the baseline?",
+        "What ruling applies to a ball landing outside the court beyond the baseline?"
+      ]
+    }
+  }
+}

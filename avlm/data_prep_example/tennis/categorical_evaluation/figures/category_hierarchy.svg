@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" role="img" aria-label="Tennis understanding hierarchy with five non-overlapping super categories">
+  <rect width="1000" height="450" fill="#f7f8fa"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L10 5 L0 10 z" fill="#9aa6b5"/>
+    </marker>
+  </defs>
+  <rect x="20" y="195" width="155" height="60" rx="10" fill="#173f5f"/>
+  <text x="97" y="220" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="14">Tennis</text>
+  <text x="97" y="240" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="14">Understanding</text>
+  <g stroke="#9aa6b5" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M175 225 C220 225, 214 60, 260 60"/>
+    <path d="M175 225 C220 225, 214 145, 260 145"/>
+    <path d="M175 225 C220 225, 214 230, 260 230"/>
+    <path d="M175 225 C220 225, 214 315, 260 315"/>
+    <path d="M175 225 C220 225, 214 400, 260 400"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">
+    <rect x="260" y="35" width="220" height="50" rx="9" fill="#eaf2f8" stroke="#20639b"/>
+    <text x="370" y="56" fill="#173f5f">Fine-Grained Visual</text><text x="370" y="73" fill="#173f5f">Recognition</text>
+    <rect x="260" y="120" width="220" height="50" rx="9" fill="#faedf0" stroke="#b44c65"/>
+    <text x="370" y="150" fill="#8b3048">Commentary &amp; Reporting</text>
+    <rect x="260" y="205" width="220" height="50" rx="9" fill="#fff5e3" stroke="#e9a23b"/>
+    <text x="370" y="235" fill="#855b11">Match Facts</text>
+    <rect x="260" y="290" width="220" height="50" rx="9" fill="#f1edfa" stroke="#6f5aa8"/>
+    <text x="370" y="320" fill="#554180">Rules &amp; Reasoning</text>
+    <rect x="260" y="375" width="220" height="50" rx="9" fill="#e8f5f2" stroke="#2a9d8f"/>
+    <text x="370" y="405" fill="#176b5c">Audio Understanding</text>
+  </g>
+  <g stroke="#b7c0cc" stroke-width="1.5" fill="none">
+    <path d="M480 60 H510 V8 H534"/><path d="M510 60 V34 H534"/><path d="M510 60 H534"/><path d="M510 60 V86 H534"/><path d="M510 60 V112 H534"/>
+    <path d="M480 145 H510 V137 H534"/><path d="M510 145 V167 H534"/>
+    <path d="M480 230 H510 V207 H534"/><path d="M510 230 V237 H534"/><path d="M510 230 V267 H534"/>
+    <path d="M480 315 H510 V303 H534"/><path d="M510 315 V329 H534"/>
+    <path d="M480 400 H510 V392 H534"/><path d="M510 400 V422 H534"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#34435a">
+    <text x="540" y="12"><tspan font-weight="700">Shot mechanics</tspan><tspan fill="#5d687c"> &#8212; stroke, wing &amp; direction</tspan></text>
+    <text x="540" y="38"><tspan font-weight="700">Court positioning</tspan><tspan fill="#5d687c"> &#8212; near/far player side</tspan></text>
+    <text x="540" y="64"><tspan font-weight="700">Player movement</tspan><tspan fill="#5d687c"> &#8212; lateral &amp; depth motion</tspan></text>
+    <text x="540" y="90"><tspan font-weight="700">Ball outcome &amp; placement</tspan><tspan fill="#5d687c"> &#8212; net, out or no contact</tspan></text>
+    <text x="540" y="116"><tspan font-weight="700">Action consistency</tspan><tspan fill="#5d687c"> &#8212; caption agrees with actions</tspan></text>
+    <text x="540" y="141"><tspan font-weight="700">Point narration</tspan><tspan fill="#5d687c"> &#8212; complete point report</tspan></text>
+    <text x="540" y="171"><tspan font-weight="700">Ending reporting</tspan><tspan fill="#5d687c"> &#8212; precise ending description</tspan></text>
+    <text x="540" y="211"><tspan font-weight="700">Point roles &amp; outcome</tspan><tspan fill="#5d687c"> &#8212; roles, winner &amp; ending</tspan></text>
+    <text x="540" y="241"><tspan font-weight="700">Score &amp; serve state</tspan><tspan fill="#5d687c"> &#8212; score transition &amp; attempts</tspan></text>
+    <text x="540" y="271"><tspan font-weight="700">Rally structure</tspan><tspan fill="#5d687c"> &#8212; shot count &amp; rally length</tspan></text>
+    <text x="540" y="307"><tspan font-weight="700">Cross-field reasoning</tspan><tspan fill="#5d687c"> &#8212; combine evidence with tennis logic</tspan></text>
+    <text x="540" y="333"><tspan font-weight="700">Rules knowledge</tspan><tspan fill="#5d687c"> &#8212; annotation-triggered rules questions</tspan></text>
+    <text x="540" y="396"><tspan font-weight="700">Impact &amp; play sounds</tspan><tspan fill="#5d687c"> &#8212; effort &amp; footwork cues</tspan></text>
+    <text x="540" y="426"><tspan font-weight="700">Crowd &amp; official cues</tspan><tspan fill="#5d687c"> &#8212; reactions &amp; calls</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+# Inference/eval suite — TEMPLATE ONLY (not used at runtime).
+# Copy to test_inference_eval_suite_local.yaml in this directory and edit, then:
+#   SUITE_CONFIG=avlm/inference/common/suites/test_inference_eval_suite_local.yaml \
+#     bash avlm/inference/common/scripts/run_inference_eval_suite.sh
+
+suite_name: test_inference_eval_suite
+
+num_nodes: 2  # REPLACE_ME with the Slurm node count for suite runs.
+MAX_INFERENCE_SAMPLES: 1000  # REPLACE_ME with the sample limit (optional).
+
+runs:
+  - INFERENCE_NAME: test_suite_automodel_sft
+    INFERENCE_CONFIG: avlm/inference/automodel/configs/default_sft_local.yaml  # REPLACE_ME after copying/editing the inference config.
+    INFERENCE_BACKEND: automodel
+    MODEL_PATH: /path/to/sft_checkpoint  # REPLACE_ME with the trained SFT checkpoint path.

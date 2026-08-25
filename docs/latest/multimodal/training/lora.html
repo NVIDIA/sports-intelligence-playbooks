@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 21, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 25, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -450,11 +450,11 @@
 <p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings live in the relevant <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; Slurm and container settings apply only to Slurm launch files. Training hyperparameters live in the recipe YAML.</p>
 <p><strong>Runbooks (commands, merge/export, smoke examples):</strong></p>
 <ul class="simple">
-<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
-<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a></p></li>
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a></p></li>
 </ul>
-<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/TRAINING_ENV_VARS.MD">AutoModel LoRA reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/TRAINING_ENV_VARS.MD">Megatron-Bridge LoRA reference</a>.</p>
-<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/TRAINING_ENV_VARS.MD">AutoModel LoRA reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/TRAINING_ENV_VARS.MD">Megatron-Bridge LoRA reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
 <p>Choose SFT or LoRA based on how much of the model you need to adapt and your operational constraints; see <a class="reference internal" href="#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> for memory, throughput, and checkpoint tradeoffs.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -565,7 +565,7 @@
 <section id="data-video-and-sequence-budget">
 <h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
 <p>Same JSONL format, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> resolution, dataset fields, and sequence-packing rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>. LoRA recipes reuse those fields unchanged.</p>
-<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">AutoModel LoRA guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">Megatron-Bridge LoRA guide</a>.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">AutoModel LoRA guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">Megatron-Bridge LoRA guide</a>.</p>
 </section>
 <section id="moe-backend-automodel-only">
 <h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
@@ -613,14 +613,14 @@
 <ol class="arabic simple">
 <li><p><strong>Export an HF PEFT adapter</strong></p>
 <ul class="simple">
-<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a></p></li>
-<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora_fsdp.sh">repository example</a></p></li>
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora_fsdp.sh">repository example</a></p></li>
 </ul>
 </li>
 <li><p><strong>Merge adapters into a full HF checkpoint</strong></p>
 <ul class="simple">
-<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a></p></li>
-<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports_intelligence/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full_fsdp.sh">repository example</a></p></li>
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full_fsdp.sh">repository example</a></p></li>
 </ul>
 </li>
 </ol>
@@ -786,7 +786,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 21, 2026.
+  Last updated on Aug 25, 2026.
   <br/>
 </p></div>
       
