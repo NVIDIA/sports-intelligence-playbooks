@@ -1,0 +1,10 @@
+[project]
+name = "tennis-data-prep"
+version = "0.1.0"
+description = "Tennis annotation → HuggingFace training data example"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai",
+    "python-dotenv",
+]

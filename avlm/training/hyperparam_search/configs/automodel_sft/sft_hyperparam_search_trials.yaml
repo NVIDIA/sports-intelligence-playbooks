@@ -1,0 +1,15 @@
+hyperparam_name: automodel_sft_hyperparam_search
+
+# UPDATE ME
+num_nodes: 4
+GPUS_PER_NODE: 8
+WANDB_MODE: online
+
+# UPDATE ME
+trials:
+  - name: base
+    config: avlm/training/automodel/sft/configs/nemotron_omni_automodel_sft_multinode.yaml
+
+  - name: trial_2
+    # Replace with a training config containing different hyperparameters.
+    config: avlm/training/automodel/sft/configs/nemotron_omni_automodel_sft_multinode.yaml

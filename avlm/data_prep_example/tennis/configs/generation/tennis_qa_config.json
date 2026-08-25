@@ -1,0 +1,36 @@
+{
+  "how_point_ended_description": {
+    "field": "how_point_ended_description",
+    "type": "open_ended",
+    "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+    "context_required": [
+      "<player1>",
+      "<player2>",
+      "<player1_description>",
+      "<player2_description>"
+    ],
+    "super_category": "Commentary & Reporting",
+    "fine_category": "Ending Reporting"
+  },
+  "point_caption": {
+    "field": "point_caption",
+    "type": "open_ended",
+    "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+    "context_required": [
+      "<player1>",
+      "<player2>",
+      "<player1_description>",
+      "<player2_description>"
+    ],
+    "super_category": "Commentary & Reporting",
+    "fine_category": "Point Narration"
+  },
+  "audio_cues": {
+    "field": "audio_cues",
+    "type": "open_ended",
+    "question": "what audio cues or sounds can be heard during this point",
+    "context_required": [],
+    "super_category": "Audio Understanding",
+    "fine_category": "Audible Events"
+  }
+}

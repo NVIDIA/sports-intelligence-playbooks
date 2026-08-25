@@ -1,0 +1,12 @@
+# Generic SFT launch settings — TEMPLATE ONLY (not used at runtime).
+# Copy to launch_local.yaml in this directory and edit.
+
+CONFIG_YAML_REL: avlm/training/automodel/sft/configs/nemotron_omni_automodel_sft_singlenode.yaml
+MODEL_NAME: nemotron_omni_sft
+
+# GPU count: auto-detected from nvidia-smi / CUDA_VISIBLE_DEVICES at train time.
+# Optional override: NUM_GPUS=4 in this file, or NUM_GPUS=4 bash train_sft.sh
+
+# Writable cache root (HF hub, Triton, etc.). Any path the container can write to —
+# local disk, tmpfs, or a shared filesystem. Not required to be on Lustre.
+CACHE_DIR: /path/to/cache  # REPLACE_ME with a writable cache directory.

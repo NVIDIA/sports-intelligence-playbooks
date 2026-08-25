@@ -1,0 +1,30 @@
+.env
+**/dev_local.env
+
+# Cluster- and data-path-specific configs (copy from launch.yaml / conversion.yaml / *_*.yaml templates)
+**/*_local.yaml
+
+.cache/
+.venv/
+avlm-worktrees/
+.claude
+.cursor
+.vscode
+
+**__pycache__**
+
+**/logs/
+**/outputs/
+
+wandb
+
+# Generated HTML documentation (documentation/repo.sh writes to repo-root docs/)
+/docs/*
+!/docs/.gitignore
+documentation/_build/
+documentation/_repo/
+documentation/.ruff_cache/
+documentation/.mypy_cache/
+documentation/.pytest_cache/
+documentation/docs-server.log
+.production-publish.*/

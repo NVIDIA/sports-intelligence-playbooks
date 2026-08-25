@@ -1,0 +1,197 @@
+# Nemotron Omni LoRA on a video/audio conversation dataset.
+# Single-node debugging recipe with reduced steps, batch size, frame count, and sequence length.
+# Sequence packing is disabled to exercise non-packed collation.
+# Use nemotron_omni_automodel_lora_multinode.yaml for full training.
+
+recipe: avlm.training.automodel.training_data_processing.training_recipe.FinetuneRecipeForVLM
+
+step_scheduler:
+  global_batch_size: 8
+  local_batch_size: 1
+  gc_every_steps: 1
+  ckpt_every_steps: 50
+  val_every_steps: 5
+  max_steps: 40
+  num_epochs: null
+
+dist_env:
+  backend: nccl
+  timeout_minutes: 30
+
+seed: 42
+
+model:
+  _target_: nemo_automodel.NeMoAutoModelForImageTextToText.from_pretrained
+  pretrained_model_name_or_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+  trust_remote_code: true
+  torch_dtype: torch.bfloat16
+  backend:
+    _target_: nemo_automodel.components.models.common.BackendConfig
+    attn: sdpa
+    linear: torch
+    rms_norm: torch_fp32
+    rope_fusion: false
+    dispatcher: deepep
+    experts: torch_mm
+    fake_balanced_gate: false
+    enable_hf_state_dict_adapter: true
+
+peft:
+  _target_: nemo_automodel.components._peft.lora.PeftConfig
+  match_all_linear: false
+  exclude_modules:
+    - "*vision_tower*"
+    - "*vision_model*"
+    - "*audio*"
+    - "*sound*"
+    - "*lm_head*"
+    - "*mlp1*"
+  dim: 64
+  alpha: 128
+  use_triton: true
+
+processor:
+  _target_: transformers.AutoProcessor.from_pretrained
+  pretrained_model_name_or_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+  trust_remote_code: true
+  # Video resolution — uncomment one option to override the default.
+  # This controls the spatial resolution of each sampled frame; frame count and timing
+  # are controlled separately by max_video_frames and video_sample_fps.
+  # Approximate resolutions below assume 16:9 video; other aspect ratios produce different dimensions.
+  # video_target_num_patches: 512   # 480x256
+  # video_target_num_patches: 1024  # Default; 672x384
+  # video_target_num_patches: 2048  # 960x544
+  # Higher values preserve more visual detail but increase token count and memory use.
+  # If you choose a non-default resolution, consider adjusting max_length, pack_size,
+  # and collate_max_length accordingly.
+
+checkpoint:
+  enabled: true
+  # Used when running the recipe directly; launch scripts override this path.
+  checkpoint_dir: avlm/training/automodel/lora/outputs/nemotron_omni_lora/checkpoints/
+  model_save_format: safetensors
+  save_consolidated: true  # change to 'final' to only export the final checkpoint
+
+distributed:
+  strategy: fsdp2
+  tp_size: 1  # Required: Nemotron Omni AutoModel has no TP plan (tp_size>1 fails at load)
+  cp_size: 1  # Default; CP>1 not documented/tested for Nemotron Omni VLM in AutoModel
+  pp_size: 1  # Default; PP>1 not documented/tested for Nemotron Omni VLM in AutoModel
+  ep_size: 8  # Pre-hopper DeepEP (A100): intranode only
+  sequence_parallel: false
+  activation_checkpointing: true
+
+  # Explicit bf16 MoE FSDP policy matching
+  moe:
+    mp_policy:
+      _target_: torch.distributed.fsdp.MixedPrecisionPolicy
+      param_dtype: bfloat16
+      reduce_dtype: bfloat16
+      output_dtype: bfloat16
+      cast_forward_inputs: true
+
+freeze_config:
+  # freeze_video_embedder: true # No additional effect when freeze_vision_tower is true.
+  freeze_vision_tower: true
+  freeze_audio_tower: true
+  freeze_language_model: false
+
+clip_grad_norm:
+  max_norm: 1.0
+
+dataset:
+  _target_: avlm.training.automodel.training_data_processing.dataset.make_video_sound_jsonl_dataset
+  path_or_dataset: /path/to/train.jsonl  # REPLACE_ME with the training JSONL path.
+  video_metadata_path: /path/to/train_video_metadata.json  # REPLACE_ME with the training video-metadata path.
+  video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+  split: train
+  sample_ratio: 1.0
+  use_custom_pretokenize: true
+
+  # Uniformly samples the full video from first frame to last. video_sample_fps determines
+  # the frame count from clip duration, bounded by max_video_frames.
+  max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+  video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+
+  # Despite its name, this flag does not reliably truncate video-sound samples. Keep it false.
+  # Packed: false skips each overlength sample whole and continues packing. With true,
+  # AVLM rejects token truncation because it would desynchronize the video/audio tensors,
+  # randomly selects another sample, and fails if no valid sample is found after 10 attempts.
+  # Non-packed: ignored; batches exceeding collate_fn.max_length are randomly resampled
+  # as a whole, also for up to 10 attempts.
+  truncate: false
+
+dataloader:
+  _target_: torchdata.stateful_dataloader.StatefulDataLoader
+  num_workers: 0  # REPLACE_ME with desired number of workers; 0 loads data in the main process.
+  drop_last: true
+  use_sequence_packing: false
+  packed_sequence:
+    pretokenize: true
+    max_length: 8192  # REPLACE_ME with the desired maximum sample length.
+    pack_size: 8192  # REPLACE_ME with the desired packed sequence length.
+    packing_ratio: 0.9  # REPLACE_ME with the desired packing fill ratio.
+    collate_max_length: 8192  # REPLACE_ME with the desired packed batch length.
+    drop_long_samples: true
+  collate_fn:
+    _target_: avlm.training.automodel.training_data_processing.collate.video_sound_collate_fn
+    max_length: 8192  # REPLACE_ME with the desired maximum non-packed batch length.
+    max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+    video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+
+validation_dataset:
+  _target_: avlm.training.automodel.training_data_processing.dataset.make_video_sound_jsonl_dataset
+  path_or_dataset: /path/to/validation.jsonl  # REPLACE_ME with the validation JSONL path.
+  video_metadata_path: /path/to/validation_video_metadata.json  # REPLACE_ME with the validation video-metadata path.
+  video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+  split: validation
+  sample_ratio: 0.05  # REPLACE_ME with the desired validation sample ratio. Lower values reduce validation time.
+  use_custom_pretokenize: true
+  max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+  video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+  truncate: false
+
+validation_dataloader:
+  _target_: torchdata.stateful_dataloader.StatefulDataLoader
+  shuffle: false
+  num_workers: 0  # REPLACE_ME with desired number of workers; 0 loads data in the main process.
+  collate_fn:
+    _target_: avlm.training.automodel.training_data_processing.collate.video_sound_collate_fn
+    max_length: 8192  # REPLACE_ME with the desired maximum validation batch length.
+    max_video_frames: 32  # REPLACE_ME with the desired maximum frame count.
+    video_sample_fps: 2  # REPLACE_ME with the desired sampling rate.
+  # Inherits dataloader.packed_sequence. Uncomment for validation-only overrides:
+  # packed_sequence:
+  #   pretokenize: true
+  #   packing_ratio: 0.9
+  #   drop_long_samples: true
+  #   max_packs: 2
+
+wandb:
+  mode: disabled  # REPLACE_ME with online, offline, or disabled.
+  entity: your-wandb-entity  # REPLACE_ME with your W&B entity.
+  project: your-wandb-project  # REPLACE_ME with your W&B project.
+  name: your-run-name  # REPLACE_ME with a descriptive run name.
+
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 5.0e-4
+  weight_decay: 0.05
+  betas: [0.9, 0.999]
+
+lr_scheduler:
+  lr_decay_style: cosine
+  min_lr: 1.0e-5
+  lr_warmup_steps: 50
+  lr_decay_steps: 10000
+
+# Set enabled to true to enable inference during validation (batch only).
+# inference_max_samples_seed: -1 means non-random, iterative sampling.
+inference_validation:
+  enabled: false
+  every_steps: 100  # Must be a multiple of the checkpoint interval.
+  inference_config: avlm/inference/automodel/configs/default_lora_local.yaml  # Provided default; replace only to use another inference config.
+  data_path: /path/to/validation.jsonl  # REPLACE_ME with the inference-validation JSONL path.
+  cluster_params: /path/to/inference_launch_local.yaml  # REPLACE_ME with the inference cluster parameters (launch_local) path.
+  # max_samples: 512  # Optional maximum number of validation samples.
+  # inference_max_samples_seed: -1  # Sampling seed; -1 uses non-random, iterative sampling.
