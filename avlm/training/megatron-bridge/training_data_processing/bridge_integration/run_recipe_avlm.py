@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """AVLM training entrypoint: extends Bridge run_recipe without editing the cache checkout."""
 
 from __future__ import annotations

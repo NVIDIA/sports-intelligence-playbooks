@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # Build a portable deep_ep wheel for NeMo AutoModel (nemo-automodel:26.06-style images).
 #
 # Run INSIDE the nemo-automodel container (CUDA toolkit + nvcc required):

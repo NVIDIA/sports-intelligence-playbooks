@@ -1,4 +1,6 @@
-# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Optional training-time dump of decoded processed prompt text (collate path).
 
 Enable with ``AVLM_LOG_PROCESSED_PROMPT=1`` and optional ``AVLM_LOG_PROCESSED_PROMPT_TAG``

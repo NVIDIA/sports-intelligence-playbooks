@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # HF ↔ Megatron conversion inside an interactive Slurm container session.
 # Set CONVERSION_DIRECTION in conversion_local.yaml; optional RUN_PARITY_CHECK=1
 #

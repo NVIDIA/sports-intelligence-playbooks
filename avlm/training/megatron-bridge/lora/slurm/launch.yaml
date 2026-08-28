@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Megatron-Bridge LoRA launch settings — TEMPLATE ONLY (not used at runtime).
 # Copy over launch_local.yaml in this directory to reset the tracked runtime configuration, then edit.
 

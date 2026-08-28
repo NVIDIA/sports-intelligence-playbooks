@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Megatron-Bridge environment setup: git checkout, Python env, runtime exports, launch init.
 # Used on the login node (git bootstrap) and inside the NeMo container (env prep + train/convert).
 # Default: container source (/opt/Megatron-Bridge) + /opt/venv + a few extra pip wheels.

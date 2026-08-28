@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Submit Megatron-Bridge LoRA through Slurm. See avlm/training/megatron-bridge/lora/LORA_GUIDE.MD.
 set -euo pipefail
 

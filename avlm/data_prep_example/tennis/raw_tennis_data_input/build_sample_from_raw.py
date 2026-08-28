@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Build per-video annotation JSON from the Data Factory tennis export.
 
 Aggregates segment files into one JSON per game, assigns relative clip paths

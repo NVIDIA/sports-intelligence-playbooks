@@ -1,5 +1,6 @@
-# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
-#
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # JSONL video-sound collate prep: frame sampling and audio via Megatron-Bridge utils.
 
 from __future__ import annotations

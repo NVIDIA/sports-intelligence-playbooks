@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from megatron.core.activations import squared_relu
 
 from megatron.bridge.models.nemotron_omni.nemotron_omni_provider import NemotronOmniModelProvider

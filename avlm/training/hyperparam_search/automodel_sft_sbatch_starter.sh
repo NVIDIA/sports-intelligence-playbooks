@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Submit one Slurm automodel SFT job per trial in a hyperparameter-search YAML.
 #
 #   HYPERPARAM_CONFIG=avlm/training/hyperparam_search/configs/automodel_sft/sft_hyperparam_search_trials.yaml \

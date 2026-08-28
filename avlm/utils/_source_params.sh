@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Source per-mode cluster parameters (SFT or LoRA).
 # Usage: source_cluster_params "/path/to/training/automodel/sft/slurm"
 #

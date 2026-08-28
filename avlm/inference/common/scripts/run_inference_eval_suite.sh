@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Run one inference/eval pipeline per run in a suite YAML.
 #
 #   SUITE_CONFIG=avlm/inference/common/suites/my_suite.yaml \

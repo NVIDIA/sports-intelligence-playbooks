@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Run Megatron-Bridge LoRA (PEFT) inside an interactive Slurm container session.
 #
 #   bash avlm/training/megatron-bridge/lora/slurm/interactive/launch_interactive_session.sh

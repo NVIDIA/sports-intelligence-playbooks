@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Submit Megatron-Bridge SFT through Slurm. See avlm/training/megatron-bridge/sft/SFT_GUIDE.MD.
 set -euo pipefail
 

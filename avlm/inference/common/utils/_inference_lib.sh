@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Shared inference launch helpers.
 
 INFERENCE_COMMON_UTILS_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

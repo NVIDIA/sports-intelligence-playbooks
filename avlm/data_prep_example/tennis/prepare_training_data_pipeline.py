@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """End-to-end tennis data-prep example (annotations -> HF train/eval data).
 
 Runs the full pipeline and produces training / evaluation splits in

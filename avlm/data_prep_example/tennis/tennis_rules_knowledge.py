@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Annotation-triggered tennis-rules knowledge MCQs.
 
 Loads ``configs/rules/tennis_rules_question_bank.json`` and

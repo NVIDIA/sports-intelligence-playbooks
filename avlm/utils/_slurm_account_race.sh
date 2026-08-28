@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Multi-account Slurm racing submission (login node only).
 #
 # Sourced by sbatch_starter.sh before training starts. Kept separate from

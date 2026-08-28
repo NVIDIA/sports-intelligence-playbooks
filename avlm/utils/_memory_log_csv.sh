@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Background host/GPU memory CSV logger for MEMORY_LOG=1 (invoked from _train_lib.sh).
 # Usage: _memory_log_csv.sh TRAIN_LOG CSV_FILE INTERVAL_SEC TRAIN_PID
 set -euo pipefail

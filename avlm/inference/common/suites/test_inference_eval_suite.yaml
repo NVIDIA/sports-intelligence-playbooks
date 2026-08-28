@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Inference/eval suite — TEMPLATE ONLY (not used at runtime).
 # Copy to test_inference_eval_suite_local.yaml in this directory and edit, then:
 #   SUITE_CONFIG=avlm/inference/common/suites/test_inference_eval_suite_local.yaml \
