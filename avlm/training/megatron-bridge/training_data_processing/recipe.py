@@ -1,5 +1,6 @@
-# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
-#
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Installed into Megatron-Bridge as:
 #   src/megatron/bridge/recipes/nemotron_omni/recipe.py
 

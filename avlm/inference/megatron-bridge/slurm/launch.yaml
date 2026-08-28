@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Megatron-Bridge inference Slurm settings - TEMPLATE ONLY.
 # Copy to launch_local.yaml and edit.
 #

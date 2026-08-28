@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Megatron-Bridge FSDP LoRA inference settings — TEMPLATE ONLY (not used at runtime).
 # Copy to default_lora_fsdp_local.yaml in this directory and edit, then point INFERENCE_CONFIG at the local file.
 

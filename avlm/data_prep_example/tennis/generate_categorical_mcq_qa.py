@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Categorical-evaluation MCQ/QA generator.
 
 Reads ``configs/generation/tennis_categorical_eval_config.json`` (legacy-compatible

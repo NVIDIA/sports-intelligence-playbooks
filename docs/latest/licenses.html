@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>Licenses &#8212; Sports Intelligence Playbooks</title>
   
@@ -75,7 +75,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 25, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 28, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -402,9 +402,21 @@
                   
   <section id="licenses">
 <h1>Licenses<a class="headerlink" href="#licenses" title="Link to this heading">#</a></h1>
-<section id="sports-intelligence-code">
-<h2>Sports Intelligence Code<a class="headerlink" href="#sports-intelligence-code" title="Link to this heading">#</a></h2>
-<p>All code in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository is licensed under the <strong>Apache License, Version 2.0</strong> (<a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a>). A copy of the license is included in the repository <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/LICENSE">LICENSE</a>.</p>
+<section id="sports-intelligence-playbooks">
+<h2>Sports Intelligence Playbooks<a class="headerlink" href="#sports-intelligence-playbooks" title="Link to this heading">#</a></h2>
+<p>All NVIDIA-authored <strong>code and published documentation</strong> in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository is licensed under the <strong>Apache License, Version 2.0</strong> (<a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a>). A copy of the license is included in the repository <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/LICENSE">LICENSE</a>.</p>
+<p>The public export includes playbook source (for example under <code class="docutils literal notranslate"><span class="pre">avlm/</span></code>) and prebuilt HTML documentation under <code class="docutils literal notranslate"><span class="pre">docs/</span></code>, served via <a class="reference external" href="https://nvidia.github.io/sports-intelligence-playbooks/">GitHub Pages</a>. Illustrative commands and code snippets in the HTML docs are provided under Apache-2.0; runnable playbook code lives in the repository source tree. The Sphinx documentation source toolchain (<code class="docutils literal notranslate"><span class="pre">documentation/</span></code> in the internal monorepo) is not included in the public export.</p>
+</section>
+<section id="third-party-notices">
+<h2>Third-Party Notices<a class="headerlink" href="#third-party-notices" title="Link to this heading">#</a></h2>
+<p>Third-party software used by the playbooks (data-prep, eval, inference, VLM
+decode libraries, optional components, and NGC container baseline) is documented
+in <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/THIRD_PARTY_NOTICES">THIRD_PARTY_NOTICES</a>.</p>
+</section>
+<section id="video-and-audio-decoding">
+<h2>Video and Audio Decoding<a class="headerlink" href="#video-and-audio-decoding" title="Link to this heading">#</a></h2>
+<p>The git release does not bundle codec binaries. Training, inference, and evaluation launchers may download decode dependencies via <code class="docutils literal notranslate"><span class="pre">pip</span></code> (see <code class="docutils literal notranslate"><span class="pre">THIRD_PARTY_NOTICES</span></code>). FFmpeg obtained directly or through <code class="docutils literal notranslate"><span class="pre">imageio-ffmpeg</span></code> may include <strong>LGPL- and/or GPL-licensed</strong> components depending on the build; review those license terms before redistribution.</p>
+<p>Documentation build themes and other documentation-only third-party licenses also appear under <code class="docutils literal notranslate"><span class="pre">documentation/licenses/</span></code> in the monorepo (the public GitHub export excludes the <code class="docutils literal notranslate"><span class="pre">documentation/</span></code> toolchain directory).</p>
 </section>
 </section>
 
@@ -448,7 +460,9 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sports-intelligence-code">Sports Intelligence Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sports-intelligence-playbooks">Sports Intelligence Playbooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-notices">Third-Party Notices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-and-audio-decoding">Video and Audio Decoding</a></li>
 </ul>
   </nav></div>
 
@@ -538,7 +552,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Aug 25, 2026.
+  Last updated on Aug 28, 2026.
   <br/>
 </p></div>
       

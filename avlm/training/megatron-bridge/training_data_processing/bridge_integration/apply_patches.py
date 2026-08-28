@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Stage AVLM modules on an import overlay (Bridge cache checkout stays pristine)."""
 
 from __future__ import annotations

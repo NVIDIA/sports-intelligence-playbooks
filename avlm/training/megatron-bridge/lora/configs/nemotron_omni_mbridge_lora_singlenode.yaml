@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Nemotron Omni LoRA PEFT on a video/audio conversation dataset.
 # Single-node debugging recipe.
 # Sequence packing is disabled. Use nemotron_omni_mbridge_lora_multinode.yaml for full training.

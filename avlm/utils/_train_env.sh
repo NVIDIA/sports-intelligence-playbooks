@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Shared env for AutoModel SFT/LoRA launch scripts.
 # Set CONFIG_YAML or CONFIG_YAML_REL and _TRAIN_SCRIPT_DIR before sourcing
 # (legacy: CORD_V2_YAML_REL, _CORD_SCRIPT_DIR).

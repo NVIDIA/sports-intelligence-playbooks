@@ -13,6 +13,7 @@ Most questions need no LLM; legacy `mcq_*` templates use one only to write incor
 |---|---|
 | **Offline pipeline** (deterministic MCQ + open-ended QA) | Python 3.10+, `tqdm` |
 | **`mcq_*` LLM distractors** | `openai`, `python-dotenv`; LLM API key in `dev_local.env` (copy from `dev.env`) |
+| **Clip extraction** (`build_sample_from_raw.py --extract-clips`) | `ffmpeg` on `PATH` (system install or via `imageio-ffmpeg`; see repo [THIRD_PARTY_NOTICES](../../../THIRD_PARTY_NOTICES)) |
 
 Install Python dependencies in this directory with [uv](https://docs.astral.sh/uv/):
 

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Nemotron Omni full-parameter SFT on a video/audio conversation dataset.
 # Single-node debugging recipe with reduced steps, batch size, frame count, and sequence length.
 # Sequence packing is disabled to exercise non-packed collation.

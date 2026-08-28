@@ -162,4 +162,22 @@ SFT and LoRA dirs share the same shape: `configs/` (recipe YAML), `generic/` (tr
 
 ## License
 
-All code in this repository is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) (Apache-2.0). See [LICENSE](LICENSE) for the full license text.
+All NVIDIA-authored code and published documentation in this repository is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) (Apache-2.0). See [LICENSE](LICENSE) for the full license text. The GitHub Pages site is built from prebuilt HTML under `docs/`; the Sphinx documentation source toolchain is not included in the public export.
+
+Third-party components used by the playbooks (Python dependencies, decode libraries, optional wheels, and NGC container baseline) are listed in [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
+
+## Video and audio decoding dependencies
+
+This project decodes video and audio for training, inference, evaluation, and data preparation. **Codec binaries are not included in the git release**, but runtime workflows may **download third-party packages via pip**, including:
+
+- **decord** — video frame decoding
+- **imageio-ffmpeg** — provides a prebuilt **FFmpeg** executable when system FFmpeg is not available
+- **librosa** / **audioread** — audio decode fallbacks
+
+AutoModel and Megatron-Bridge launch scripts install these into a cache directory (for example `${CACHE_DIR}/automodel_container_pkgs`) when they are missing from the NeMo container. Disable automatic installation with `SKIP_VLM_TRAINING_DEPS=1` or `SKIP_VLM_INFERENCE_DEPS=1` if you provide equivalent packages yourself.
+
+The tennis data-prep script `build_sample_from_raw.py --extract-clips` requires an **`ffmpeg` executable on PATH** (system install or the binary from `imageio-ffmpeg`).
+
+**FFmpeg license note:** FFmpeg may include **LGPL- and/or GPL-licensed** components depending on how the binary was built. Review [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) and your installed FFmpeg build before redistribution or commercial use.
+
+The recommended runtime is the NVIDIA NeMo containers documented above; the playbooks supplement those images with the decode packages listed here.

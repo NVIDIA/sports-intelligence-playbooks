@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 DEFAULT_SYSTEM_PROMPT = (
         "You are an expert VLM evaluator. Provide accurate, fair, and detailed scoring "
         "based on the given criteria."

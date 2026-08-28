@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Megatron-Bridge VLM SFT launch. Sourced by interactive/train_interactive.sh and sbatch/srun.sh.
 
 # shellcheck shell=bash

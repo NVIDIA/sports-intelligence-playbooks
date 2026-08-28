@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Augment categorical MCQ/QA JSON samples with point-level annotation metadata.
 
 Reads HuggingFace-style conversation records from a categorical data directory

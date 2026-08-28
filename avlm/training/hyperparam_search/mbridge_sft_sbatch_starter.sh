@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Submit one Slurm Megatron-Bridge SFT job per trial in a hyperparameter-search YAML.
 #
 #   HYPERPARAM_CONFIG=avlm/training/hyperparam_search/configs/mbridge_sft/mbridge_sft_hyperparam_search_trials.yaml \

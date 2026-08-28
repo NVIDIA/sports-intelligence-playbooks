@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Apply split-aware paraphrases to closed-vocab MCQ options.
 
 Rewrites option/answer surface forms using a paraphrase bank JSON, e.g.:

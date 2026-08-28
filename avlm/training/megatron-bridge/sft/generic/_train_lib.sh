@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Generic Megatron-Bridge VLM SFT launch. Reuses the existing Slurm training implementation.
 
 # shellcheck shell=bash

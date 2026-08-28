@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # Submit a non-interactive Slurm job that builds the deep_ep wheel inside
 # nemo-automodel:26.06 and writes it to wheels/deepep/.
 #
@@ -20,7 +23,7 @@ PROJECT_ROOT="${REPO_ROOT}"
 
 SLURM_ACCOUNT="${SLURM_ACCOUNT:-ai4m_sportscaster}"
 PARTITION="${PARTITION:-interactive_singlenode}"
-CONTAINER_IMAGE="${CONTAINER_IMAGE:-/lustre/fs11/portfolios/ai4m/projects/ai4m_sportscaster/docker_images/nemo-automodel_26_06.sqsh}"
+CONTAINER_IMAGE="${CONTAINER_IMAGE:-/lustre/path/to/nemo-automodel_26_06.sqsh}"  # REPLACE_ME
 WORKDIR="${WORKDIR:-${PROJECT_ROOT}}"
 JOB_NAME="${JOB_NAME:-deepep_wheel_build}"
 BUILD_TIME="${BUILD_TIME:-4:00:00}"

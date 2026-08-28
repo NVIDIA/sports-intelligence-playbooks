@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Make Mamba parameters compatible with ``fsdp_dtensor`` checkpoints."""
 
 from __future__ import annotations

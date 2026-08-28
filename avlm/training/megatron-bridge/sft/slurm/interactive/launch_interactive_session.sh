@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Start an interactive Slurm container session for Megatron-Bridge SFT.
 #
 #   bash avlm/training/megatron-bridge/sft/slurm/interactive/launch_interactive_session.sh

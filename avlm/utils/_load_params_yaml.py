@@ -1,5 +1,6 @@
-# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
-#
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Read YAML and print shell export KEY=value lines for sourcing.
 # Lists become space-separated values (for SLURM_ACCOUNTS / SLURM_ACCOUNTS_RACE). Booleans become 0/1.
 #

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # Install a prebuilt deep_ep wheel over the nemo-automodel container default.
 #
 # Run INSIDE the container after it is loaded (lustre mount must include this repo).
