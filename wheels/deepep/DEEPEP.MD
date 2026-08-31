@@ -45,3 +45,9 @@ automatically when YAML (or `DISPATCHER`) is `deepep`. Skip automatic installati
 `SKIP_DEEPEP_INSTALL_ON_BATCH` aliases remain supported. Force without a DeepEP recipe
 with `DEEPEP_FORCE_INSTALL=1`. Skip the training preflight check with
 `SKIP_DEEPEP_WHEEL_CHECK=1`.
+
+## Upstream and license
+
+- **Source:** [deepseek-ai/DeepEP](https://github.com/deepseek-ai/DeepEP) (branch `hybrid-ep`, commit `7febc6e` in wheel tags)
+- **License:** MIT — full copyright and license text is in [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES); each wheel also bundles the upstream LICENSE in `dist-info/licenses/LICENSE`.
+- **NVIDIA scripts** in this directory (`install_deepep_wheel.sh`, `check_deepep_wheel.py`, `building/`) are Apache-2.0.
