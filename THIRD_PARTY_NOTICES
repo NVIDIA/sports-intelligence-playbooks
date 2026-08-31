@@ -36,17 +36,6 @@ Evaluation (LLM judge and related scripts)
   tqdm                (see above)     MPL-2.0 AND MIT
 
 ================================================================================
-Third-party API inference (avlm/evals/inference_3rdparty/)
-================================================================================
-
-  requests            (pip)           Apache-2.0
-  openai              (see above)     Apache-2.0
-  PyYAML              (see above)     MIT
-  decord              (see below)     Apache-2.0
-  Pillow              (see container) HPND
-  numpy               (see container) BSD-3-Clause
-
-================================================================================
 Video and audio decoding — VLM gap-fill (runtime pip install)
 ================================================================================
 
@@ -99,16 +88,45 @@ Optional components
 ================================================================================
 
   wandb               (optional)      MIT
-  deep_ep             (local wheel)   Apache-2.0
-                      Pre-built wheels under wheels/deepep/; not on PyPI.
-                      Installed automatically on supported hardware when recipes
-                      use dispatcher: deepep.
   nvidia-ml-py        (optional)      BSD
 
 Sources:
   https://github.com/wandb/wandb
-  https://github.com/deepseek-ai/DeepEP (deep_ep wheel provenance: see wheels/deepep/DEEPEP.MD)
   https://github.com/gpuopenanalytics/nvidia-ml-py
+
+================================================================================
+deep_ep (vendored wheels — wheels/deepep/)
+================================================================================
+
+Pre-built deep_ep wheels are checked into wheels/deepep/ and redistributed as
+compiled binaries (not on PyPI). Installed automatically on supported hardware
+when recipes use dispatcher: deepep. Build and install details:
+wheels/deepep/DEEPEP.MD. NVIDIA install/build scripts under wheels/deepep/ are
+Apache-2.0.
+
+Source: https://github.com/deepseek-ai/DeepEP
+
+MIT License
+
+Copyright (c) 2025 DeepSeek
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ================================================================================
 NGC container baseline (not bundled in this repository)
@@ -139,15 +157,6 @@ Representative components preinstalled or pulled in those environments:
 
 Review NGC image documentation and upstream project licenses for the complete
 dependency graph of your chosen container version.
-
-================================================================================
-Documentation build (documentation/ only)
-================================================================================
-
-The documentation/ directory (excluded from the public GitHub export) uses
-Sphinx and related packages pinned in documentation/requirements.txt, including
-pydata-sphinx-theme and nvidia-sphinx-theme. License texts for bundled themes
-also appear under documentation/licenses/.
 
 ================================================================================
 FFmpeg / LGPL notice
