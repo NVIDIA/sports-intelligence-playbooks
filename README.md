@@ -6,6 +6,8 @@ This repository provides a starter kit for sports-intelligence built on **NVIDIA
 
 Public Nemotron Omni recipes cover generic fine-tuning; these playbooks are a sports-focused multimodal baseline with video/audio data, eval, and distributed train/infer workflows wired in. The training and inference scripts themselves are still generic enough to reuse for other multimodal applications beyond sports.
 
+> **Supported models:** These playbooks are validated for **Nemotron 3 Nano Omni** only. The NeMo AutoModel stack supports [additional models](https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models); other models may be added here after testing confirms they meet our quality bar for sports intelligence.
+
 **What you get**
 
 - End-to-end path: annotation → QA/MCQ data prep → SFT/LoRA → inference → evaluation
