@@ -148,6 +148,17 @@ body.modal-open #pst-back-to-top {
     margin-bottom: 1.75rem;
 }
 
+/* Index page: h2 section below the document title; h3 subsection smaller but bold. */
+.bd-article #what-the-playbooks-provide > h2 {
+    font-size: var(--pst-font-size-h2);
+    font-weight: var(--pst-font-weight-heading);
+}
+
+.bd-article #playbook-includes > h3 {
+    font-size: var(--pst-font-size-h4);
+    font-weight: var(--pst-font-weight-heading);
+}
+
 /* Keep the index hero full-width while reducing its vertical footprint. */
 @media (min-width: 768px) {
     .bd-article img.index-hero {

@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>Sports Intelligence Playbooks &#8212; Sports Intelligence Playbooks</title>
   
@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9625c932" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=1a43867f" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -386,12 +386,14 @@
 <p class="admonition-title">Note</p>
 <p><strong>Supported models:</strong> These playbooks are validated for <strong>Nemotron 3 Nano Omni</strong> only. The NeMo AutoModel stack supports <a class="reference external" href="https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models">additional models</a>; other models may be added here after testing confirms they meet our quality bar for sports intelligence.</p>
 </div>
+<section id="what-the-playbooks-provide">
+<h2>What the Playbooks Provide<a class="headerlink" href="#what-the-playbooks-provide" title="Link to this heading">#</a></h2>
 <p>NVIDIA Sports Intelligence Playbooks provide developers with end-to-end recipes for taking their own sports footage, annotations, metadata, and domain knowledge and using them to customize multimodal models for sports understanding.</p>
 <p>The lifecycle spans data acquisition, annotation and preparation, inference, evaluation, optimization, and deployment.</p>
 <p>The playbooks bring together NVIDIA accelerated computing, the Nemotron 3 Nano Omni multimodal model, model customization, evaluation tools, and inference pipeline into a reference workflow developers can adapt to their sport and application. NVIDIA Nemotron 3 Nano Omni brings unified multimodal reasoning into a single, highly efficient open model. Its hybrid Mixture-of-Experts design has 30 billion total parameters, with approximately 3 billion active per token. This allows it to run efficiently on enterprise hardware including edge systems like NVIDIA Jetson. This model is available for commercial use.</p>
 <p>The result is a path for turning general multimodal AI into specialized sports intelligence.</p>
 <section id="playbook-includes">
-<h2>Playbook Includes<a class="headerlink" href="#playbook-includes" title="Link to this heading">#</a></h2>
+<h3>Playbook Includes<a class="headerlink" href="#playbook-includes" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Complete sports intelligence starter kit.</strong> Covers the full lifecycle—from sports-video annotation and data preparation through SFT/LoRA training, inference, and evaluation. Its template-driven data pipeline systematically generates multiple training-example types, enabling models to be trained and evaluated across different aspects of sports understanding.</p></li>
 <li><p><strong>Video- and audio-first fine-tuning with sports-relevant customization.</strong> Provides tested recipes for sports video clips with audio, rather than relying primarily on simpler image-and-text examples available in public recipes. It also exposes input-resolution and frame-sampling settings that help preserve details important to sports analysis, such as player motion, ball trajectory, court geometry, and event timing.</p></li>
@@ -539,6 +541,7 @@
 </div>
 </section>
 </section>
+</section>
 
 
                 </article>
@@ -580,7 +583,10 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#playbook-includes">Playbook Includes</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-playbooks-provide">What the Playbooks Provide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#playbook-includes">Playbook Includes</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
