@@ -1,5 +1,6 @@
 .env
 **/dev_local.env
+**/local_dev.env
 
 # Cluster- and data-path-specific configs (copy from launch.yaml / conversion.yaml / *_*.yaml templates)
 **/*_local.yaml

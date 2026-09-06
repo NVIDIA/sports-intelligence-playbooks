@@ -2,11 +2,11 @@
 
 # NVIDIA Sports Intelligence Playbooks - AVLM
 
-This repository provides a starter kit for sports-intelligence built on **NVIDIA AI stack**: playbooks, training recipes, and launch scripts using **Nemotron Multimodal Language Models**.
+This repository provides a starter kit for sports-intelligence built on **NVIDIA AI stack**: playbooks, training recipes, and launch scripts using **Multimodal Language Models**.
 
-Public Nemotron Omni recipes cover generic fine-tuning; these playbooks are a sports-focused multimodal baseline with video/audio data, eval, and distributed train/infer workflows wired in. The training and inference scripts themselves are still generic enough to reuse for other multimodal applications beyond sports.
+Public recipes cover generic fine-tuning; these playbooks are a sports-focused multimodal baseline with video/audio data, eval, and distributed train/infer workflows wired in. The training and inference scripts themselves are still generic enough to reuse for other multimodal applications beyond sports.
 
-> **Supported models:** These playbooks are validated for **Nemotron 3 Nano Omni** only. The NeMo AutoModel stack supports [additional models](https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models); other models may be added here after testing confirms they meet our quality bar for sports intelligence.
+> **Model compatibility:** Current recipes and configurations have been tested with the reference model documented in the training guide. The NeMo AutoModel stack supports [additional models](https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models), and support for additional multimodal models is planned after testing confirms they meet our quality bar for sports intelligence.
 
 **What you get**
 
@@ -18,18 +18,6 @@ Public Nemotron Omni recipes cover generic fine-tuning; these playbooks are a sp
 - Practical notes from debugging and optimizing multimodal training for sports
 
 **Docs:** [Sports Intelligence documentation](https://nvidia.github.io/sports-intelligence-playbooks/)
-
-Accuracy spider plot across different evaluation aspects (for tennis). With fine-tuning, Nemotron Omni delivers consistently strong performance in visual recognition, match facts, and reasoning relative to frontier multimodal models.
-
-<div align="center">
-  <img src="assets/03_radar_norm.png" alt="Normalized evaluation scores by category" width="65%">
-</div>
-
-The following scatter plot shows the accuracy–cost comparison of the fine-tuned Nemotron Omni Model (30B) vs. other frontier (and much larger) multimodal models. With fine-tuning, Nemotron Omni achieves the highest accuracy at a fraction of the output-token cost of those frontier models.
-
-<p align="center">
-  <img src="assets/12_judge_score_vs_output_token_cost.png" alt="Judge accuracy versus output-token cost" width="100%">
-</p>
 
 The playbooks cover one full AVLM round—from collecting and annotating multimodal sports data, through train/eval preparation, SFT/LoRA training, inference, and evaluation, with deployment as the next step. The repository layout below maps each stage to concrete scripts and guides; the two training stacks are interchangeable options for the training and inference steps.
 

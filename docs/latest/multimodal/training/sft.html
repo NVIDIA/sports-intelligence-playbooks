@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>SFT &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 04, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -339,6 +339,7 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
@@ -595,13 +596,13 @@
 </section>
 <section id="distributed-parallelism">
 <h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
-<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. The current Nemotron Omni recipes use <strong>TP1</strong> and <strong>EP8</strong>; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. The current reference MoE recipes use <strong>TP1</strong> and <strong>EP8</strong>; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <p>Set supported degrees under <code class="code docutils literal notranslate"><span class="pre">distributed</span></code> in the recipe YAML (or via <code class="code docutils literal notranslate"><span class="pre">TP</span></code> and <code class="code docutils literal notranslate"><span class="pre">EP</span></code> env overrides on launch):</p>
 <ul class="simple">
 <li><p><strong>TP (tensor parallelism)</strong> — splits weight matrices within a layer across GPUs (e.g. attention and MLP shards).</p></li>
-<li><p><strong>EP (expert parallelism)</strong> — shards MoE expert networks across GPUs (required for Nemotron Omni’s MoE decoder).</p></li>
-<li><p><strong>PP (pipeline parallelism)</strong> — splits the model depth-wise across pipeline stages. Not supported for Nemotron Omni in our training scripts; keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
-<li><p><strong>CP (context parallelism)</strong> — splits sequence length across GPUs for very long contexts. Not supported for Nemotron Omni in our training scripts; keep <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>EP (expert parallelism)</strong> — shards MoE expert networks across GPUs (required for the current reference model’s MoE decoder).</p></li>
+<li><p><strong>PP (pipeline parallelism)</strong> — splits the model depth-wise across pipeline stages. Not supported by the current reference recipes; keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>CP (context parallelism)</strong> — splits sequence length across GPUs for very long contexts. Not supported by the current reference recipes; keep <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
 </ul>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
@@ -617,7 +618,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tp_size</span></code></p></td>
-<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for Nemotron Omni AutoModel</p></td>
+<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for the current AutoModel recipes</p></td>
 <td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for the current recipes</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code></p></td>
@@ -625,25 +626,25 @@
 <td><p>Expert-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">8</span></code> for the current recipes</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">pp_size</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">cp_size</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
-<td><p>Not supported for Nemotron Omni in our training scripts; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p><strong>Impact:</strong> Let <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">=</span> <span class="pre">nodes</span> <span class="pre">×</span> <span class="pre">GPUs_per_node</span></code>.</p>
-<p><strong>AutoModel</strong> (Nemotron Omni recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<p><strong>AutoModel</strong> (current reference recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be divisible by <code class="code docutils literal notranslate"><span class="pre">tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size</span></code>.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> must divide <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">pp_size</span></code>.</p></li>
 <li><p>Data-parallel degree: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
 </ul>
 <p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → <code class="code docutils literal notranslate"><span class="pre">dp_size=8</span></code>, and <code class="code docutils literal notranslate"><span class="pre">8</span> <span class="pre">/</span> <span class="pre">1</span></code> is divisible by <code class="code docutils literal notranslate"><span class="pre">8</span></code>.</p>
-<p><strong>Megatron-Bridge</strong> (Nemotron Omni recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<p><strong>Megatron-Bridge</strong> (current reference recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
 <ul class="simple">
 <li><p>Attention-path data-parallel degree follows the standard Megatron rule: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
 <li><p>As a minimum-GPU bound, <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be at least <code class="code docutils literal notranslate"><span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">max(tp_size</span> <span class="pre">×</span> <span class="pre">cp_size,</span> <span class="pre">ep_size)</span></code>.</p></li>
@@ -907,7 +908,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 04, 2026.
+  Last updated on Sep 06, 2026.
   <br/>
 </p></div>
       

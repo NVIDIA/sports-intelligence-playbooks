@@ -1,6 +1,6 @@
-# Nemotron Omni inference guide
+# Multimodal inference guide
 
-Run inference with a trained Nemotron Omni checkpoint over a JSONL dataset. Train a
+Run inference with a trained multimodal checkpoint over a JSONL dataset. Train a
 model first: for full-parameter SFT see the
 [AutoModel SFT guide](../training/automodel/sft/SFT_GUIDE.MD) or
 [Megatron-Bridge SFT guide](../training/megatron-bridge/sft/SFT_GUIDE.MD); for adapter

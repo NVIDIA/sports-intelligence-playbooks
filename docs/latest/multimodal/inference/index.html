@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>Inference &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 04, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -339,6 +339,7 @@
 </details></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
@@ -404,7 +405,7 @@
   <section id="inference">
 <h1>Inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h1>
 <p>After fine-tuning, we run inference to generate predictions and evaluate model quality. Keep the video preprocessing and text prompt style/template consistent with training: frame rate (<code class="code docutils literal notranslate"><span class="pre">video_fps</span></code>) and resolution settings affect how much spatial and temporal detail the model sees, and mismatches in preprocessing or prompting can shift results on fine-grained sports QA.</p>
-<p>This section covers distributed inference (interactive and <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code>) for our recommended base model <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for Hugging Face weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
+<p>This section covers distributed inference (interactive and <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code>) for the <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">reference base model used by the current examples</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for Hugging Face weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
 <p><strong>Runbook (commands and smoke examples):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a>.</p>
 <p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/INFERENCE_ENV_VARS.MD">inference environment reference</a>.</p>
 <section id="setup">
@@ -593,7 +594,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
-<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_hf</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_hf</span></code> for the current reference HF checkpoint</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
 <td><p>HF model id or local path to base or full SFT weights; for LoRA, this must be the <strong>base</strong> model</p></td>
@@ -622,7 +623,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
-<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_mbridge</span></code> (for the Nemotron-3-Nano-Omni model)</p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_mbridge</span></code> for the current reference Megatron-Bridge checkpoint</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">hf_model_path</span></code></p></td>
 <td><p>HF model id used for the processor/tokenizer</p></td>
@@ -856,7 +857,7 @@ avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 04, 2026.
+  Last updated on Sep 06, 2026.
   <br/>
 </p></div>
       

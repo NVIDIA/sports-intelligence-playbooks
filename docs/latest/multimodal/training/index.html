@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.0.0" name="docs-version" />
 
     <title>Training &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 04, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -335,6 +335,7 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
@@ -400,10 +401,10 @@
   <section id="training">
 <h1>Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h1>
 <p>Sports intelligence depends on models that can reason in all of the visual, audio, and text modalities. Fine-tuning multimodal language models on domain-specific data is one of the most effective ways to improve accuracy: sports analysis relies on fine-grained details such as player motion, ball trajectory, court geometry, and timing that general-purpose models often miss. Adequate spatial and temporal resolution in both data and model inputs is essential so the model can ground answers in what actually happened in the clip. Getting the most accurate results therefore requires more than tuning the weights of a fixed base model alone. It also depends on how multimodal data is curated, encoded, and aligned across the full fine-tuning pipeline.</p>
-<p>This training section covers supervised fine-tuning (SFT) and LoRA (Low-Rank Adaptation) for <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a>. Our recommended “Nemotron-3 Nano Omni” model is available for commercial use. Our playbooks and launch scripts in the code repo are tested against this base model.</p>
+<p>This training section covers supervised fine-tuning (SFT) and LoRA (Low-Rank Adaptation) for multimodal language models. The current reference recipes and launch scripts have been tested by the Sports Intelligence Playbooks project with <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Supported models:</strong> These playbooks are validated for <strong>Nemotron 3 Nano Omni</strong> only. The NeMo AutoModel stack supports <a class="reference external" href="https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models">additional models</a>; other models may be added here after testing confirms they meet our quality bar for sports intelligence.</p>
+<p><strong>Model compatibility:</strong> Current playbook recipes target the reference checkpoint above. The NeMo AutoModel stack supports <a class="reference external" href="https://github.com/NVIDIA-NeMo/Automodel/tree/main/nemo_automodel/components/models">additional models</a>, and support for additional multimodal models is planned as model-specific testing is completed.</p>
 </div>
 <p>See <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> for stack layout and prerequisites. SFT and LoRA link to full runbooks are in the code repo.</p>
 <div class="toctree-wrapper compound">
@@ -538,7 +539,7 @@
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 04, 2026.
+  Last updated on Sep 06, 2026.
   <br/>
 </p></div>
       
