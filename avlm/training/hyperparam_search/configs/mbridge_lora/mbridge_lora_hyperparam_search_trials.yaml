@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+hyperparam_name: mbridge_lora_hyperparam_search
+
+# UPDATE ME
+num_nodes: 4
+GPUS_PER_NODE: 8
+WANDB_MODE: online
+
+# UPDATE ME
+trials:
+  - name: base
+    config: avlm/training/megatron-bridge/lora/configs/nemotron_omni_mbridge_lora_multinode.yaml
+
+  - name: trial_2
+    # Replace with a training config containing different hyperparameters.
+    config: avlm/training/megatron-bridge/lora/configs/nemotron_omni_mbridge_lora_multinode.yaml

@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Megatron-Bridge SFT launch settings — TEMPLATE ONLY (not used at runtime).
+# Copy over launch_local.yaml in this directory to reset the tracked runtime configuration, then edit.
+
+CONFIG_YAML_REL: avlm/training/megatron-bridge/sft/configs/nemotron_omni_mbridge_sft_singlenode.yaml
+MODEL_NAME: nemotron_omni_mbridge_sft
+num_nodes: 1
+GPUS_PER_NODE: 8
+SLURM_TIME_LIMIT: '4:00:00'
+
+CACHE_DIR: /lustre/path/to/cache  # REPLACE_ME with a writable cache directory.
+CONTAINER_IMAGE: /lustre/path/to/nemo_26_06.sqsh  # REPLACE_ME with the container image path.
+CONTAINER_MOUNT_HOST: /lustre  # REPLACE_ME if the host filesystem root is mounted elsewhere.
+
+# REPLACE_ME with Slurm partitions
+PARTITIONS:
+  - backfill_block1
+  - polar3
+  - polar4
+  - polar
+  - grizzly
+FEW_NODES_PARTITIONS:
+  - interactive
+SINGLE_NODE_PARTITION: interactive_singlenode
+
+SLURM_ACCOUNT_RACE: 0
+SLURM_ACCOUNTS:
+  - your-slurm-account  # REPLACE_ME with the account used for normal submissions.
+SLURM_ACCOUNTS_RACE:
+  - your-first-slurm-account  # REPLACE_ME with the first account to race.
+  # - your-second-slurm-account  # REPLACE_ME with another account to race.

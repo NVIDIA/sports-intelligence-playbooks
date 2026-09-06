@@ -1,0 +1,40 @@
+{
+  "description": "Split-aware paraphrase bank for the none-correct shot/trajectory templates. Only the none-phrase is rewritten; distractor labels pass through unchanged. Disjoint pools: train=8, validation=3, test=3.",
+  "pool_sizes": {
+    "train": 8,
+    "validation": 3,
+    "test": 3
+  },
+  "templates": [
+    "loser_shot_type_none",
+    "winner_shot_type_none",
+    "loser_shot_trajectory_none",
+    "winner_shot_trajectory_none"
+  ],
+  "metadata_key": "none_option_paraphrase",
+  "passthrough_missing": true,
+  "paraphrases": {
+    "none of the other options": {
+      "train": [
+        "none of the other options",
+        "none of these choices",
+        "none of the listed options",
+        "not any of the other options",
+        "no other option is correct",
+        "none of the alternatives shown",
+        "something else not listed here",
+        "none of the remaining choices"
+      ],
+      "validation": [
+        "none of the given options",
+        "none of these answers",
+        "no listed option is right"
+      ],
+      "test": [
+        "none of the options above",
+        "none of the provided choices",
+        "a different answer not shown here"
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# VLM Scorer default configuration (YAML)
+# Place this file in the same directory as vlm_scorer.py and run:
+#   python3 vlm_scorer.py
+
+# Required
+base_url: https://inference-api.nvidia.com/v1/
+model: openai/openai/gpt-5.1
+# these were the legacy megatron-lm model
+# base_url: https://inference-api.nvidia.com
+# model: us/azure/openai/gpt-5
+
+# Optional
+max_workers: 8
+api_rate_limit: 0.01
+max_retries: 3
+retry_delay: 5
+stats_only: false
+
+# Timeout settings
+request_timeout_seconds: 60
+per_entry_timeout_seconds: 180
+
+# Summary settings
+summary_chunk_max_chars: 450000
+summary_max_workers: 4
+summary_request_timeout_seconds: 180
+
+# Output configuration
+# Emit only specific fields in results to reduce file size
+result_fields:
+  - index
+  - id
+  - score
+  - pred
+  - gt
+  - conversation
+  - reasoning
+  - strengths
+  - weaknesses
+  - class
+
+# Drop failed results (with error or score == 0) from saved outputs
+# Statistics remain computed on all processed entries
+# drop_failed: true
+drop_failed: false
+
+# Add domain guidance to the system prompt (inline)
+system_prompt: >-
+  You are also an expert tennis commentator and rules adjudicator. Interpret tennis terminology precisely (serve, return, rally, winner, forced/unforced error, ace, double fault, volley, down-the-line, cross-court, baseline). When metadata includes score flow or serve attempts, penalize only direct contradictions; do not overrule matching GT/pred serve-sequence descriptions from ambiguous attempt-count fields. Prefer concise, technical justifications.
+
+system_prompt_deprecated: >-
+  You are also an expert tennis commentator and rules adjudicator. Interpret tennis terminology precisely (serve, return, rally, winner, forced/unforced error, ace, double fault, volley, down-the-line, cross-court, baseline). When metadata includes score flow or serve attempts, penalize predictions that contradict them. Prefer concise, technical justifications.
+
+# Metadata handling
+metadata_mode: user           # auto|user|system|omit (auto = smart placement based on size)
+metadata_max_chars: 0         # 0 disables truncation
+metadata_compact: true

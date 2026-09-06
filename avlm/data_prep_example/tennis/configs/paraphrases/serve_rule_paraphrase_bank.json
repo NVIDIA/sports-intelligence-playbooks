@@ -1,0 +1,632 @@
+{
+  "description": "Split-aware paraphrase bank for serve_rule_consistency, grounded_serve_rule_consistency, and serve_sequence_outcome. Disjoint pools: train=8, validation=3, test=3.",
+  "pool_sizes": {
+    "train": 8,
+    "validation": 3,
+    "test": 3
+  },
+  "templates": [
+    "serve_rule_consistency",
+    "grounded_serve_rule_consistency",
+    "serve_sequence_outcome"
+  ],
+  "metadata_key": "serve_rule_paraphrase",
+  "paraphrases": {
+    "First serve was successful; point outcome: Unforced Error": {
+      "train": [
+        "First serve went in; the point ended with an Unforced Error",
+        "The opening serve was in play, and the point finished as an Unforced Error",
+        "Successful first serve; final outcome: Unforced Error",
+        "First serve landed in; point result was Unforced Error",
+        "The first serve succeeded, and the point concluded via Unforced Error",
+        "In-play first serve; the rally ended as an Unforced Error",
+        "First serve was good; outcome recorded as Unforced Error",
+        "A successful first serve preceded an Unforced Error ending"
+      ],
+      "validation": [
+        "First serve made it in; Unforced Error decided the point",
+        "The first delivery was successful; point ended by Unforced Error",
+        "Opening serve in; point outcome Unforced Error"
+      ],
+      "test": [
+        "First serve put the ball in play; Unforced Error closed the point",
+        "Successful first service; the point's outcome was Unforced Error",
+        "The first serve was valid, and Unforced Error was the ending"
+      ]
+    },
+    "First serve was successful; point outcome: Winner": {
+      "train": [
+        "First serve went in; the point ended with a Winner",
+        "The opening serve was in play, and the point finished as a Winner",
+        "Successful first serve; final outcome: Winner",
+        "First serve landed in; point result was Winner",
+        "The first serve succeeded, and the point concluded via Winner",
+        "In-play first serve; the rally ended as a Winner",
+        "First serve was good; outcome recorded as Winner",
+        "A successful first serve preceded a Winner ending"
+      ],
+      "validation": [
+        "First serve made it in; a Winner decided the point",
+        "The first delivery was successful; point ended by Winner",
+        "Opening serve in; point outcome Winner"
+      ],
+      "test": [
+        "First serve put the ball in play; a Winner closed the point",
+        "Successful first service; the point's outcome was Winner",
+        "The first serve was valid, and Winner was the ending"
+      ]
+    },
+    "First serve was successful; point outcome: Forced Error": {
+      "train": [
+        "First serve went in; the point ended with a Forced Error",
+        "The opening serve was in play, and the point finished as a Forced Error",
+        "Successful first serve; final outcome: Forced Error",
+        "First serve landed in; point result was Forced Error",
+        "The first serve succeeded, and the point concluded via Forced Error",
+        "In-play first serve; the rally ended as a Forced Error",
+        "First serve was good; outcome recorded as Forced Error",
+        "A successful first serve preceded a Forced Error ending"
+      ],
+      "validation": [
+        "First serve made it in; Forced Error decided the point",
+        "The first delivery was successful; point ended by Forced Error",
+        "Opening serve in; point outcome Forced Error"
+      ],
+      "test": [
+        "First serve put the ball in play; Forced Error closed the point",
+        "Successful first service; the point's outcome was Forced Error",
+        "The first serve was valid, and Forced Error was the ending"
+      ]
+    },
+    "First serve was a fault; second serve was successful; point outcome: Unforced Error": {
+      "train": [
+        "First serve missed, second serve went in; the point ended Unforced Error",
+        "Fault on first serve, successful second; outcome: Unforced Error",
+        "After a first-serve fault, the second serve landed in and the point ended by Unforced Error",
+        "First serve faulted; second serve was good; Unforced Error finished the point",
+        "Missed first serve, in-play second serve; final result Unforced Error",
+        "A faulting first serve, then a successful second, preceded an Unforced Error",
+        "First serve failed, second serve succeeded; point outcome Unforced Error",
+        "Opening serve faulted; second serve put the ball in play; ended as Unforced Error"
+      ],
+      "validation": [
+        "First-serve fault, second-serve success; Unforced Error decided it",
+        "Fault then a good second serve; the point closed with Unforced Error",
+        "First serve out, second serve in; outcome was Unforced Error"
+      ],
+      "test": [
+        "After faulting the first serve, the second serve was good and Unforced Error ended the point",
+        "First serve missed; second serve was successful; Unforced Error was the result",
+        "A first-serve fault and successful second serve led to an Unforced Error ending"
+      ]
+    },
+    "First serve was a fault; second serve was successful; point outcome: Winner": {
+      "train": [
+        "First serve missed, second serve went in; the point ended Winner",
+        "Fault on first serve, successful second; outcome: Winner",
+        "After a first-serve fault, the second serve landed in and the point ended by Winner",
+        "First serve faulted; second serve was good; Winner finished the point",
+        "Missed first serve, in-play second serve; final result Winner",
+        "A faulting first serve, then a successful second, preceded a Winner",
+        "First serve failed, second serve succeeded; point outcome Winner",
+        "Opening serve faulted; second serve put the ball in play; ended as Winner"
+      ],
+      "validation": [
+        "First-serve fault, second-serve success; Winner decided it",
+        "Fault then a good second serve; the point closed with a Winner",
+        "First serve out, second serve in; outcome was Winner"
+      ],
+      "test": [
+        "After faulting the first serve, the second serve was good and a Winner ended the point",
+        "First serve missed; second serve was successful; Winner was the result",
+        "A first-serve fault and successful second serve led to a Winner ending"
+      ]
+    },
+    "First serve was a fault; second serve was successful; point outcome: Forced Error": {
+      "train": [
+        "First serve missed, second serve went in; the point ended Forced Error",
+        "Fault on first serve, successful second; outcome: Forced Error",
+        "After a first-serve fault, the second serve landed in and the point ended by Forced Error",
+        "First serve faulted; second serve was good; Forced Error finished the point",
+        "Missed first serve, in-play second serve; final result Forced Error",
+        "A faulting first serve, then a successful second, preceded a Forced Error",
+        "First serve failed, second serve succeeded; point outcome Forced Error",
+        "Opening serve faulted; second serve put the ball in play; ended as Forced Error"
+      ],
+      "validation": [
+        "First-serve fault, second-serve success; Forced Error decided it",
+        "Fault then a good second serve; the point closed with Forced Error",
+        "First serve out, second serve in; outcome was Forced Error"
+      ],
+      "test": [
+        "After faulting the first serve, the second serve was good and Forced Error ended the point",
+        "First serve missed; second serve was successful; Forced Error was the result",
+        "A first-serve fault and successful second serve led to a Forced Error ending"
+      ]
+    },
+    "First serve was an ace; point outcome: Ace": {
+      "train": [
+        "The first serve was an Ace, ending the point immediately",
+        "Ace on the first serve; point outcome: Ace",
+        "First serve produced an unreturnable Ace and closed the point",
+        "An Ace on first serve decided the point at once",
+        "First serve was an Ace; no rally followed",
+        "The server hit a first-serve Ace to win the point outright",
+        "Opening serve Ace; the point ended as an Ace",
+        "First-serve Ace finished the point with no return"
+      ],
+      "validation": [
+        "Ace delivered on the first serve; outcome Ace",
+        "The first serve was an immediate Ace",
+        "First serve Ace; point concluded as Ace"
+      ],
+      "test": [
+        "An unreturnable first serve Ace ended the point",
+        "First service Ace; recorded outcome Ace",
+        "The point ended on a first-serve Ace"
+      ]
+    },
+    "First and second serves were faults; point outcome: Double Fault": {
+      "train": [
+        "Both serves faulted; the point ended as a Double Fault",
+        "First and second serves missed; outcome: Double Fault",
+        "Two consecutive serve faults produced a Double Fault",
+        "Neither serve landed in; Double Fault decided the point",
+        "Fault on first and second serve; point outcome Double Fault",
+        "The server double-faulted after missing both serves",
+        "Both service attempts were faults; result Double Fault",
+        "First serve fault, second serve fault; Double Fault ended it"
+      ],
+      "validation": [
+        "Two faults on serve; the point was a Double Fault",
+        "Missed first and second serves; Double Fault recorded",
+        "Both serves out; outcome Double Fault"
+      ],
+      "test": [
+        "A Double Fault followed faults on both serve attempts",
+        "First and second serves failed; Double Fault closed the point",
+        "Consecutive serve faults yielded a Double Fault"
+      ]
+    },
+    "First serve was a fault; second serve was an ace; point outcome: Ace": {
+      "train": [
+        "First serve faulted, then the second serve was an Ace",
+        "Fault on first serve; second-serve Ace ended the point",
+        "After a first-serve fault, the second serve was an Ace",
+        "Missed first serve, Ace on second; outcome Ace",
+        "First serve out, second serve Ace; point ended as Ace",
+        "A first-serve fault preceded a second-serve Ace",
+        "Fault then Ace on second serve; recorded outcome Ace",
+        "Opening serve faulted; the second serve Ace closed the point"
+      ],
+      "validation": [
+        "First-serve fault followed by a second-serve Ace",
+        "After missing the first serve, the server hit a second-serve Ace",
+        "Fault on first, Ace on second; outcome Ace"
+      ],
+      "test": [
+        "The first serve missed and the second serve Ace finished the point",
+        "First serve fault; second serve Ace; point outcome Ace",
+        "A faulting first serve and second-serve Ace decided the point"
+      ]
+    },
+    "Both serves were faults, but the rally continued to Unforced Error": {
+      "train": [
+        "Both serves faulted, yet play continued and ended in an Unforced Error",
+        "Two missed serves still led into a continuing rally ending Unforced Error",
+        "Serve faults on both attempts, but Unforced Error closed a continued exchange",
+        "Despite two serve faults, play persisted until Unforced Error",
+        "Neither serve landed, yet the rally continued into Unforced Error",
+        "Both serves were faults, but the point kept going to Unforced Error",
+        "Both service tries failed; still the rally reached Unforced Error",
+        "Out on first and second serve, then continued play to Unforced Error"
+      ],
+      "validation": [
+        "Two serve misses failed to stop a rally that ended Unforced Error",
+        "Fault then fault on serve, followed by continued play and Unforced Error",
+        "Both serves missed while the point continued to Unforced Error"
+      ],
+      "test": [
+        "After two serve faults the exchange kept going into Unforced Error",
+        "Serve faults on both attempts, then a lingering rally ending Unforced Error",
+        "Continued rally to Unforced Error even though both serves were faults"
+      ]
+    },
+    "Both serves were faults, but the rally continued to Winner": {
+      "train": [
+        "Both serves faulted, yet play continued and ended in a Winner",
+        "Two missed serves still led into a continuing rally ending Winner",
+        "Serve faults on both attempts, but Winner closed a continued exchange",
+        "Despite two serve faults, play persisted until a Winner",
+        "Neither serve landed, yet the rally continued into a Winner",
+        "Both serves were faults, but the point kept going to Winner",
+        "Both service tries failed; still the rally reached a Winner",
+        "Out on first and second serve, then continued play to Winner"
+      ],
+      "validation": [
+        "Two serve misses failed to stop a rally that ended Winner",
+        "Fault then fault on serve, followed by continued play and Winner",
+        "Both serves missed while the point continued to Winner"
+      ],
+      "test": [
+        "After two serve faults the exchange kept going into Winner",
+        "Serve faults on both attempts, then a lingering rally ending Winner",
+        "Continued rally to Winner even though both serves were faults"
+      ]
+    },
+    "Both serves were faults, but the rally continued to Forced Error": {
+      "train": [
+        "Both serves faulted, yet play continued and ended in a Forced Error",
+        "Two missed serves still led into a continuing rally ending Forced Error",
+        "Serve faults on both attempts, but Forced Error closed a continued exchange",
+        "Despite two serve faults, play persisted until Forced Error",
+        "Neither serve landed, yet the rally continued into Forced Error",
+        "Both serves were faults, but the point kept going to Forced Error",
+        "Both service tries failed; still the rally reached Forced Error",
+        "Out on first and second serve, then continued play to Forced Error"
+      ],
+      "validation": [
+        "Two serve misses failed to stop a rally that ended Forced Error",
+        "Fault then fault on serve, followed by continued play and Forced Error",
+        "Both serves missed while the point continued to Forced Error"
+      ],
+      "test": [
+        "After two serve faults the exchange kept going into Forced Error",
+        "Serve faults on both attempts, then a lingering rally ending Forced Error",
+        "Continued rally to Forced Error even though both serves were faults"
+      ]
+    },
+    "Both serves were faults, but the rally continued to a Winner": {
+      "train": [
+        "Both serves were faults, but play continued and finished with a Winner",
+        "Faults on both serves did not prevent a later Winner after extended play",
+        "Two serve faults, then a continuing rally capped by a Winner",
+        "Missed first and second serves, yet a Winner ended a still-ongoing point",
+        "Serve faults twice, but the rally continued before a Winner",
+        "Both serves out; a Winner nonetheless closed a continued sequence",
+        "After failing both serves, the point continued until a Winner",
+        "Double serve misses, continued exchange, Winner finish"
+      ],
+      "validation": [
+        "Two faults on serve preceded a continued Winner ending",
+        "Neither serve succeeded, but a Winner still concluded continuing play",
+        "Faulted both serves and still reached a Winner via continued rallying"
+      ],
+      "test": [
+        "A Winner ended the point even though both serves had faulted and play continued",
+        "Continued play after two serve faults resolved as a Winner",
+        "Winner finish after continuation past two serve faults"
+      ]
+    },
+    "First serve was a fault, but the rally continued without a second serve": {
+      "train": [
+        "First serve faulted, yet play continued with no second serve",
+        "A first-serve fault occurred, but the rally went on without a second serve",
+        "Fault on the first serve, then the point continued without taking a second serve",
+        "The first serve missed, but no second serve was hit and the rally continued",
+        "First serve was a fault; somehow the exchange continued without a second serve",
+        "Despite a first-serve fault, play resumed without a second serve attempt",
+        "Opening serve faulted, yet the rally proceeded with no second serve",
+        "First-serve fault ignored: the rally continued without a second serve"
+      ],
+      "validation": [
+        "Fault on first serve, but the point continued with no second serve taken",
+        "The first serve was out, yet the rally kept going without a second serve",
+        "First serve faulted; the rally still continued with no second serve"
+      ],
+      "test": [
+        "A missed first serve was followed by continued play and no second serve",
+        "First serve fault, no second serve, but the rally continued anyway",
+        "Even after a first-serve fault, the rally continued without a second serve"
+      ]
+    },
+    "Second serve was successful, but point outcome was Double Fault": {
+      "train": [
+        "The second serve went in, yet the outcome was listed as Double Fault",
+        "Successful second serve contradicted by a Double Fault result",
+        "Second serve landed in play, but the point was scored as Double Fault",
+        "A good second serve was followed by an impossible Double Fault outcome",
+        "Second serve succeeded; nonetheless the recorded outcome was Double Fault",
+        "In-play second serve, yet Double Fault was marked as the result",
+        "The second serve was valid, but the point somehow ended as Double Fault",
+        "Successful second delivery with a Double Fault outcome recorded"
+      ],
+      "validation": [
+        "Second serve made it in, but Double Fault was still the outcome",
+        "A successful second serve was paired with a Double Fault result",
+        "Second serve in play; outcome was Double Fault"
+      ],
+      "test": [
+        "Despite a successful second serve, the point outcome was Double Fault",
+        "The second serve was good, yet Double Fault decided the scoreboard",
+        "Second-serve success paired with a Double Fault ending"
+      ]
+    },
+    "First serve was successful, but point outcome was Double Fault": {
+      "train": [
+        "The first serve went in, yet the outcome was listed as Double Fault",
+        "Successful first serve contradicted by a Double Fault result",
+        "First serve landed in play, but the point was scored as Double Fault",
+        "A good first serve was followed by an impossible Double Fault outcome",
+        "First serve succeeded; nonetheless the recorded outcome was Double Fault",
+        "In-play first serve, yet Double Fault was marked as the result",
+        "The first serve was valid, but the point somehow ended as Double Fault",
+        "Successful first delivery with a Double Fault outcome recorded"
+      ],
+      "validation": [
+        "First serve made it in, but Double Fault was still the outcome",
+        "A successful first serve was paired with a Double Fault result",
+        "First serve in play; outcome was Double Fault"
+      ],
+      "test": [
+        "Despite a successful first serve, the point outcome was Double Fault",
+        "The first serve was good, yet Double Fault decided the scoreboard",
+        "First-serve success paired with a Double Fault ending"
+      ]
+    },
+    "First serve was an ace, but the rally continued to Unforced Error": {
+      "train": [
+        "The first serve was an Ace, yet play continued to Unforced Error",
+        "Ace on the first serve, but the rally kept going into Unforced Error",
+        "Despite an Ace first serve, the exchange proceeded to Unforced Error",
+        "First-serve Ace claimed; still the point ran on to Unforced Error",
+        "An Ace from the first serve failed to stop a continuation ending Unforced Error",
+        "First serve Ace, then a prolonged rally finishing Unforced Error",
+        "After a first-serve Ace the rally continued and reached Unforced Error",
+        "Ace on first serve contradicted by continued play to Unforced Error"
+      ],
+      "validation": [
+        "A first-serve Ace did not prevent further rallying into Unforced Error",
+        "First service Ace, ongoing exchange, Unforced Error finish",
+        "Even with a first-serve Ace, play persisted until Unforced Error"
+      ],
+      "test": [
+        "The point continued past a first-serve Ace into Unforced Error",
+        "First-serve Ace then extra shots ending Unforced Error",
+        "Rally survived a first-serve Ace and closed as Unforced Error"
+      ]
+    },
+    "First serve was an ace, but the rally continued to Winner": {
+      "train": [
+        "The first serve was an Ace, yet play continued to Winner",
+        "Ace on the first serve, but the rally kept going into Winner",
+        "Despite an Ace first serve, the exchange proceeded to Winner",
+        "First-serve Ace claimed; still the point ran on to Winner",
+        "An Ace from the first serve failed to stop a continuation ending Winner",
+        "First serve Ace, then a prolonged rally finishing Winner",
+        "After a first-serve Ace the rally continued and reached Winner",
+        "Ace on first serve contradicted by continued play to Winner"
+      ],
+      "validation": [
+        "A first-serve Ace did not prevent further rallying into Winner",
+        "First service Ace, ongoing exchange, Winner finish",
+        "Even with a first-serve Ace, play persisted until Winner"
+      ],
+      "test": [
+        "The point continued past a first-serve Ace into Winner",
+        "First-serve Ace then extra shots ending Winner",
+        "Rally survived a first-serve Ace and closed as Winner"
+      ]
+    },
+    "First serve was an ace, but the rally continued to a Winner": {
+      "train": [
+        "The first serve was an Ace, yet play continued to a Winner",
+        "Ace on the first serve, but the rally kept going into a Winner",
+        "Despite an Ace first serve, the exchange proceeded to a Winner",
+        "First-serve Ace claimed; still the point ran on to a Winner",
+        "An Ace from the first serve failed to stop a continuation ending a Winner",
+        "First serve Ace, then a prolonged rally finishing a Winner",
+        "After a first-serve Ace the rally continued and reached a Winner",
+        "Ace on first serve contradicted by continued play to a Winner"
+      ],
+      "validation": [
+        "A first-serve Ace did not prevent further rallying into a Winner",
+        "First service Ace, ongoing exchange, a Winner finish",
+        "Even with a first-serve Ace, play persisted until a Winner"
+      ],
+      "test": [
+        "The point continued past a first-serve Ace into a Winner",
+        "First-serve Ace then extra shots ending a Winner",
+        "Rally survived a first-serve Ace and closed as a Winner"
+      ]
+    },
+    "First serve was an ace, but the rally continued to Forced Error": {
+      "train": [
+        "The first serve was an Ace, yet play continued to Forced Error",
+        "Ace on the first serve, but the rally kept going into Forced Error",
+        "Despite an Ace first serve, the exchange proceeded to Forced Error",
+        "First-serve Ace claimed; still the point ran on to Forced Error",
+        "An Ace from the first serve failed to stop a continuation ending Forced Error",
+        "First serve Ace, then a prolonged rally finishing Forced Error",
+        "After a first-serve Ace the rally continued and reached Forced Error",
+        "Ace on first serve contradicted by continued play to Forced Error"
+      ],
+      "validation": [
+        "A first-serve Ace did not prevent further rallying into Forced Error",
+        "First service Ace, ongoing exchange, Forced Error finish",
+        "Even with a first-serve Ace, play persisted until Forced Error"
+      ],
+      "test": [
+        "The point continued past a first-serve Ace into Forced Error",
+        "First-serve Ace then extra shots ending Forced Error",
+        "Rally survived a first-serve Ace and closed as Forced Error"
+      ]
+    },
+    "Second serve was an ace, but the rally continued to Unforced Error": {
+      "train": [
+        "The second serve was an Ace, yet play continued to Unforced Error",
+        "Ace on the second serve, but the rally kept going into Unforced Error",
+        "Despite an Ace second serve, the exchange proceeded to Unforced Error",
+        "Second-serve Ace claimed; still the point ran on to Unforced Error",
+        "An Ace from the second serve failed to stop a continuation ending Unforced Error",
+        "Second serve Ace, then a prolonged rally finishing Unforced Error",
+        "After a second-serve Ace the rally continued and reached Unforced Error",
+        "Ace on second serve contradicted by continued play to Unforced Error"
+      ],
+      "validation": [
+        "A second-serve Ace did not prevent further rallying into Unforced Error",
+        "Second service Ace, ongoing exchange, Unforced Error finish",
+        "Even with a second-serve Ace, play persisted until Unforced Error"
+      ],
+      "test": [
+        "The point continued past a second-serve Ace into Unforced Error",
+        "Second-serve Ace then extra shots ending Unforced Error",
+        "Rally survived a second-serve Ace and closed as Unforced Error"
+      ]
+    },
+    "Second serve was an ace, but the rally continued to Winner": {
+      "train": [
+        "The second serve was an Ace, yet play continued to Winner",
+        "Ace on the second serve, but the rally kept going into Winner",
+        "Despite an Ace second serve, the exchange proceeded to Winner",
+        "Second-serve Ace claimed; still the point ran on to Winner",
+        "An Ace from the second serve failed to stop a continuation ending Winner",
+        "Second serve Ace, then a prolonged rally finishing Winner",
+        "After a second-serve Ace the rally continued and reached Winner",
+        "Ace on second serve contradicted by continued play to Winner"
+      ],
+      "validation": [
+        "A second-serve Ace did not prevent further rallying into Winner",
+        "Second service Ace, ongoing exchange, Winner finish",
+        "Even with a second-serve Ace, play persisted until Winner"
+      ],
+      "test": [
+        "The point continued past a second-serve Ace into Winner",
+        "Second-serve Ace then extra shots ending Winner",
+        "Rally survived a second-serve Ace and closed as Winner"
+      ]
+    },
+    "Second serve was an ace, but the rally continued to Forced Error": {
+      "train": [
+        "The second serve was an Ace, yet play continued to Forced Error",
+        "Ace on the second serve, but the rally kept going into Forced Error",
+        "Despite an Ace second serve, the exchange proceeded to Forced Error",
+        "Second-serve Ace claimed; still the point ran on to Forced Error",
+        "An Ace from the second serve failed to stop a continuation ending Forced Error",
+        "Second serve Ace, then a prolonged rally finishing Forced Error",
+        "After a second-serve Ace the rally continued and reached Forced Error",
+        "Ace on second serve contradicted by continued play to Forced Error"
+      ],
+      "validation": [
+        "A second-serve Ace did not prevent further rallying into Forced Error",
+        "Second service Ace, ongoing exchange, Forced Error finish",
+        "Even with a second-serve Ace, play persisted until Forced Error"
+      ],
+      "test": [
+        "The point continued past a second-serve Ace into Forced Error",
+        "Second-serve Ace then extra shots ending Forced Error",
+        "Rally survived a second-serve Ace and closed as Forced Error"
+      ]
+    },
+    "Second serve was an ace, but the rally continued afterward": {
+      "train": [
+        "Second serve was an Ace, yet the rally continued afterward",
+        "An Ace on second serve was followed by further rallying",
+        "Ace second serve, but play continued after that Ace",
+        "Despite a second-serve Ace, the rally kept going afterward",
+        "Second-serve Ace claimed, then the exchange continued",
+        "The second serve was an Ace, yet the rally continued afterward",
+        "Ace on second serve contradicted by continued play afterward",
+        "Second serve Ace, but the rally did not end immediately"
+      ],
+      "validation": [
+        "A second-serve Ace did not end the point; the rally continued",
+        "Ace on second serve, then continued rallying",
+        "Second serve Ace followed by additional play"
+      ],
+      "test": [
+        "Even after a second-serve Ace, the rally continued",
+        "Second-serve Ace, then the point kept going",
+        "The rally persisted after an Ace on the second serve"
+      ]
+    },
+    "First serve was a fault, but no second serve was taken and outcome was Ace": {
+      "train": [
+        "First serve faulted, no second serve followed, yet the outcome was Ace",
+        "A first-serve fault with no second serve was somehow scored as Ace",
+        "Fault on first serve, skipped second serve, but Ace was recorded",
+        "The first serve missed and no second serve was hit, yet outcome Ace",
+        "First-serve fault without a second serve, contradicting an Ace result",
+        "No second serve after a first-serve fault, but the point was marked Ace",
+        "Opening serve faulted; second serve omitted; outcome still Ace",
+        "First serve out, no second attempt, Ace listed as the ending"
+      ],
+      "validation": [
+        "Fault on first serve and no second serve, yet Ace was the outcome",
+        "Missed first serve, skipped second, Ace recorded anyway",
+        "First-serve fault, absent second serve, Ace result"
+      ],
+      "test": [
+        "Despite a first-serve fault and no second serve, the outcome was Ace",
+        "First serve faulted with no second serve; Ace still decided the point",
+        "A missing second serve after a first-serve fault coexists with an Ace outcome"
+      ]
+    },
+    "First serve was an ace, but a second serve was attempted": {
+      "train": [
+        "First serve was an Ace, yet a second serve was still attempted",
+        "An Ace on first serve was followed by an unnecessary second-serve try",
+        "Ace first serve, but the server then attempted a second serve",
+        "Despite a first-serve Ace, a second serve was taken",
+        "First-serve Ace claimed, then a second serve was attempted anyway",
+        "The opening serve was an Ace, yet a second serve followed",
+        "Ace on first serve contradicted by a subsequent second-serve attempt",
+        "First serve Ace, but a second serve was still hit"
+      ],
+      "validation": [
+        "A first-serve Ace did not prevent a second-serve attempt",
+        "Ace first serve, then an attempted second serve",
+        "First serve Ace followed by a second serve try"
+      ],
+      "test": [
+        "Even after a first-serve Ace, a second serve was attempted",
+        "First-serve Ace, then another serve was attempted",
+        "A second serve was tried despite an Ace on the first serve"
+      ]
+    },
+    "Both serves were faults, but point outcome was Ace": {
+      "train": [
+        "Both serves faulted, yet the outcome was recorded as Ace",
+        "Two serve faults occurred, but Ace was listed as the result",
+        "Despite faults on both serves, the point outcome was Ace",
+        "First and second serves missed, yet Ace decided the point",
+        "Double serve faults contradicting an Ace outcome",
+        "Both serves were out; nevertheless Ace was the recorded ending",
+        "Faults on both serves with an Ace result marked",
+        "Two consecutive serve faults, but the outcome was Ace"
+      ],
+      "validation": [
+        "Both service attempts faulted, yet Ace was still the outcome",
+        "Missed both serves, but Ace was recorded anyway",
+        "Fault-fault on serve paired with an Ace result"
+      ],
+      "test": [
+        "Even after two serve faults, the outcome was Ace",
+        "Both serves failed, yet Ace closed the point on the scoreboard",
+        "An Ace outcome followed faults on both serves"
+      ]
+    },
+    "Second serve was successful and the rally continued, despite the Ace outcome": {
+      "train": [
+        "Second serve went in and the rally continued, yet the outcome was Ace",
+        "A successful second serve and continuing rally contradict an Ace result",
+        "Second serve in play with a continued rally, but Ace was recorded",
+        "Successful second serve, rally ongoing, impossible Ace ending",
+        "The second serve succeeded and play continued despite an Ace outcome",
+        "In-play second serve and continued exchange with Ace marked as result",
+        "Second serve was good and the rally went on, conflicting with Ace",
+        "Continued rally after a successful second serve, yet outcome Ace"
+      ],
+      "validation": [
+        "Successful second serve and a continued rally coexist with an Ace outcome",
+        "Second serve in, rally continued, Ace still listed",
+        "A continuing rally after a good second serve contradicts Ace"
+      ],
+      "test": [
+        "Despite an Ace outcome, the second serve succeeded and the rally continued",
+        "Second-serve success and further rallying clash with an Ace result",
+        "The rally continued after a successful second serve even though Ace was recorded"
+      ]
+    }
+  }
+}

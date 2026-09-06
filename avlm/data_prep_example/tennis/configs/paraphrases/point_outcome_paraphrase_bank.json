@@ -1,0 +1,278 @@
+{
+  "description": "Split-aware paraphrase bank for point_outcome_reasoning. Disjoint pools: train=8, validation=3, test=3.",
+  "pool_sizes": {
+    "train": 8,
+    "validation": 3,
+    "test": 3
+  },
+  "templates": [
+    "point_outcome_reasoning"
+  ],
+  "metadata_key": "point_outcome_paraphrase",
+  "paraphrases": {
+    "receiver hit a point-ending winner and won the point": {
+      "train": [
+        "receiver struck a point-ending winner and took the point",
+        "the receiver won the point with a finishing winner",
+        "receiver produced the closing winner and claimed the point",
+        "a point-ending winner from the receiver decided the point in their favor",
+        "receiver finished the point with a winner and won it",
+        "the receiver's point-ending winner secured the point",
+        "receiver won after hitting a shot that ended the point as a winner",
+        "receiver closed out the point by hitting a winner"
+      ],
+      "validation": [
+        "receiver ended the point with a winner and earned it",
+        "the receiver's finishing winner gave them the point",
+        "receiver took the point via a point-ending winner"
+      ],
+      "test": [
+        "receiver sealed the point with a winner and won",
+        "a finishing winner by the receiver won them the point",
+        "receiver claimed the point after a point-ending winner"
+      ]
+    },
+    "server hit a point-ending winner and won the point": {
+      "train": [
+        "server struck a point-ending winner and took the point",
+        "the server won the point with a finishing winner",
+        "server produced the closing winner and claimed the point",
+        "a point-ending winner from the server decided the point in their favor",
+        "server finished the point with a winner and won it",
+        "the server's point-ending winner secured the point",
+        "server won after hitting a shot that ended the point as a winner",
+        "server closed out the point by hitting a winner"
+      ],
+      "validation": [
+        "server ended the point with a winner and earned it",
+        "the server's finishing winner gave them the point",
+        "server took the point via a point-ending winner"
+      ],
+      "test": [
+        "server sealed the point with a winner and won",
+        "a finishing winner by the server won them the point",
+        "server claimed the point after a point-ending winner"
+      ]
+    },
+    "receiver hit the point-ending winner, but server won the point": {
+      "train": [
+        "receiver hit the finishing winner, yet the server still won the point",
+        "the receiver produced the point-ending winner, but the server took the point",
+        "receiver closed with a winner, but the server got the point",
+        "a point-ending winner came from the receiver, but the server won anyway",
+        "receiver struck the decisive winner, yet server claimed the point",
+        "the finishing winner was the receiver's, but the server won the point",
+        "receiver ended the rally with a winner, but server was awarded the point",
+        "despite the receiver's point-ending winner, the server won the point"
+      ],
+      "validation": [
+        "receiver made the closing winner, but server still got the point",
+        "the receiver hit a finishing winner, but the server won the point",
+        "receiver hit the winner that ended the point, yet server won"
+      ],
+      "test": [
+        "receiver delivered the point-ending winner, but server took the point",
+        "the finishing winner was hit by the receiver, but server won the point",
+        "receiver hit a closing winner, yet the server won the point"
+      ]
+    },
+    "server hit the point-ending winner, but receiver won the point": {
+      "train": [
+        "server hit the finishing winner, yet the receiver still won the point",
+        "the server produced the point-ending winner, but the receiver took the point",
+        "server closed with a winner, but the receiver got the point",
+        "a point-ending winner came from the server, but the receiver won anyway",
+        "server struck the decisive winner, yet receiver claimed the point",
+        "the finishing winner was the server's, but the receiver won the point",
+        "server ended the rally with a winner, but receiver was awarded the point",
+        "despite the server's point-ending winner, the receiver won the point"
+      ],
+      "validation": [
+        "server made the closing winner, but receiver still got the point",
+        "the server hit a finishing winner, but the receiver won the point",
+        "server hit the winner that ended the point, yet receiver won"
+      ],
+      "test": [
+        "server delivered the point-ending winner, but receiver took the point",
+        "the finishing winner was hit by the server, but receiver won the point",
+        "server hit a closing winner, yet the receiver won the point"
+      ]
+    },
+    "server committed the point-ending error but still won the point": {
+      "train": [
+        "server made the error that ended the point, yet still won it",
+        "the server's point-ending mistake left the server as the winner",
+        "server committed the finishing error but was still awarded the point",
+        "despite the server ending the point with an error, the server won",
+        "server produced the decisive miss and nevertheless took the point",
+        "the point ended on the server's error, but the server won anyway",
+        "server erred to finish the point and still claimed the win",
+        "a point-ending error by the server did not prevent the server winning"
+      ],
+      "validation": [
+        "server's finishing error still resulted in a server win",
+        "the server ended the point with a miss but won the point",
+        "server made the closing mistake and still took the point"
+      ],
+      "test": [
+        "server committed the decisive error yet remained the point winner",
+        "the point closed on a server error while the server won",
+        "server's point-ending miss was paired with a server win"
+      ]
+    },
+    "receiver committed the point-ending error but still won the point": {
+      "train": [
+        "receiver made the error that ended the point, yet still won it",
+        "the receiver's point-ending mistake left the receiver as the winner",
+        "receiver committed the finishing error but was still awarded the point",
+        "despite the receiver ending the point with an error, the receiver won",
+        "receiver produced the decisive miss and nevertheless took the point",
+        "the point ended on the receiver's error, but the receiver won anyway",
+        "receiver erred to finish the point and still claimed the win",
+        "a point-ending error by the receiver did not prevent the receiver winning"
+      ],
+      "validation": [
+        "receiver's finishing error still resulted in a receiver win",
+        "the receiver ended the point with a miss but won the point",
+        "receiver made the closing mistake and still took the point"
+      ],
+      "test": [
+        "receiver committed the decisive error yet remained the point winner",
+        "the point closed on a receiver error while the receiver won",
+        "receiver's point-ending miss was paired with a receiver win"
+      ]
+    },
+    "receiver committed an unforced error, so server won the point": {
+      "train": [
+        "receiver made an unforced error, handing the point to the server",
+        "an unforced error from the receiver gave the server the point",
+        "receiver's unforced miss meant the server won the point",
+        "the receiver made an unforced error, so the server took the point",
+        "server won after the receiver committed an unforced error",
+        "receiver gave the point away with an unforced error, so the server won",
+        "because the receiver hit an unforced error, the server won",
+        "unforced error by the receiver decided the point for the server"
+      ],
+      "validation": [
+        "receiver's unforced error awarded the point to the server",
+        "the server won when the receiver made an unforced error",
+        "an unforced miss from the receiver let the server win the point"
+      ],
+      "test": [
+        "receiver produced an unforced error, so the server claimed the point",
+        "server took the point after the receiver's unforced error",
+        "the point went to the server following a receiver unforced error"
+      ]
+    },
+    "server committed an unforced error, so receiver won the point": {
+      "train": [
+        "server made an unforced error, handing the point to the receiver",
+        "an unforced error from the server gave the receiver the point",
+        "server's unforced miss meant the receiver won the point",
+        "the server made an unforced error, so the receiver took the point",
+        "receiver won after the server committed an unforced error",
+        "server gave the point away with an unforced error, so the receiver won",
+        "because the server hit an unforced error, the receiver won",
+        "unforced error by the server decided the point for the receiver"
+      ],
+      "validation": [
+        "server's unforced error awarded the point to the receiver",
+        "the receiver won when the server made an unforced error",
+        "an unforced miss from the server let the receiver win the point"
+      ],
+      "test": [
+        "server produced an unforced error, so the receiver claimed the point",
+        "receiver took the point after the server's unforced error",
+        "the point went to the receiver following a server unforced error"
+      ]
+    },
+    "server hit an ace and won the point immediately": {
+      "train": [
+        "server struck an ace and took the point at once",
+        "an ace from the server ended the point immediately in their favor",
+        "server won instantly with an ace",
+        "the server's ace decided the point right away",
+        "server served an ace and claimed the point immediately",
+        "ace by the server produced an immediate point win",
+        "server closed the point immediately via an ace",
+        "the point ended at once on the server's ace"
+      ],
+      "validation": [
+        "server earned the point immediately with an ace",
+        "an immediate ace win went to the server",
+        "server's ace finished the point on the spot"
+      ],
+      "test": [
+        "server took the point straight away with an ace",
+        "the server won the point instantly with an ace",
+        "an ace gave the server an immediate point"
+      ]
+    },
+    "server forced an error from receiver and won the point": {
+      "train": [
+        "server pressured the receiver into an error and won the point",
+        "the server forced a receiver mistake and took the point",
+        "server won after forcing an error from the receiver",
+        "a forced error drawn from the receiver gave the server the point",
+        "server induced the receiver's error and claimed the point",
+        "the receiver erred under pressure from the server, so server won",
+        "server created a forced error by the receiver and won",
+        "forced error from the receiver handed the point to the server"
+      ],
+      "validation": [
+        "server extracted a forced error from the receiver and won",
+        "the server won by forcing the receiver into a miss",
+        "receiver's forced error under server pressure decided the point for server"
+      ],
+      "test": [
+        "server caused a forced receiver error and took the point",
+        "a forced miss by the receiver won the point for the server",
+        "server claimed the point after forcing the receiver's error"
+      ]
+    },
+    "receiver forced an error from server and won the point": {
+      "train": [
+        "receiver pressured the server into an error and won the point",
+        "the receiver forced a server mistake and took the point",
+        "receiver won after forcing an error from the server",
+        "a forced error drawn from the server gave the receiver the point",
+        "receiver induced the server's error and claimed the point",
+        "the server erred under pressure from the receiver, so receiver won",
+        "receiver created a forced error by the server and won",
+        "forced error from the server handed the point to the receiver"
+      ],
+      "validation": [
+        "receiver extracted a forced error from the server and won",
+        "the receiver won by forcing the server into a miss",
+        "server's forced error under receiver pressure decided the point for receiver"
+      ],
+      "test": [
+        "receiver caused a forced server error and took the point",
+        "a forced miss by the server won the point for the receiver",
+        "receiver claimed the point after forcing the server's error"
+      ]
+    },
+    "server double-faulted, so receiver won the point": {
+      "train": [
+        "server committed a double fault, awarding the point to the receiver",
+        "a double fault by the server gave the receiver the point",
+        "server double-faulted and the receiver took the point",
+        "the server missed both serves, so the receiver won the point",
+        "receiver won after the server's double fault",
+        "double fault from the server decided the point for the receiver",
+        "because the server double-faulted, the receiver won",
+        "server's double fault handed the point to the receiver"
+      ],
+      "validation": [
+        "server's double fault awarded the point to the receiver",
+        "the receiver won when the server double-faulted",
+        "a double fault by the server let the receiver claim the point"
+      ],
+      "test": [
+        "server produced a double fault, so the receiver won the point",
+        "receiver took the point following the server's double fault",
+        "the point went to the receiver after a server double fault"
+      ]
+    }
+  }
+}

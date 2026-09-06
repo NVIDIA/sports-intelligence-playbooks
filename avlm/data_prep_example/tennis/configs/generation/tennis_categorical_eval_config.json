@@ -1,0 +1,1093 @@
+{
+  "schema_version": "1.1",
+  "name": "tennis_categorical_evaluation",
+  "description": "Standalone categorical-evaluation config in legacy-compatible shape. `question_templates` mirrors tennis_mcq_config.json; `qa_templates` mirrors tennis_qa_config.json. Runtime dispatch uses `type`. Review/metadata use `option_space` (`closed` = fixed label set, `open` = free-text answer) and `distractor_generation` (`fixed`/`derived`/`llm`/`heuristic`/`none`). Extra keys (super_category, fine_category, derivation, normalizations) are used by generate_categorical_mcq_qa.py.",
+  "review_status": "pending",
+  "generation_policy": {
+    "unavailable_value_markers": [
+      "n/a",
+      "unknown",
+      "unknow",
+      "no response",
+      "no response.",
+      "no reponse",
+      "no contact by winner",
+      "no contact by the winner",
+      "no contact by the winner.",
+      "no contact by the loser",
+      "no contact by the loser.",
+      "no contact by the player"
+    ],
+    "minimum_mcq_options": 2,
+    "maximum_mcq_options": 4,
+    "minimum_observed_option_count": 5,
+    "require_explicit_ground_truth": true,
+    "one_controlled_mismatch_per_distractor": true,
+    "do_not_treat_omission_as_contradiction": true
+  },
+  "normalizations": {
+    "hand_used": {
+      "fh (forehand)": "forehand",
+      "bh (backhand)": "backhand",
+      "double-handed backhand": "backhand",
+      "double-handed backhand shot": "backhand"
+    },
+    "shot_trajectory": {
+      "cross court": "cross-court",
+      "down the line": "down the line",
+      "down the middle": "down the middle",
+      "deuce court": "deuce court",
+      "ad court": "ad court",
+      "no man's left": "no man's left",
+      "no man's right": "no man's right",
+      "out of bounds": "out of court",
+      "out of the bounds": "out of court",
+      "out of the court": "out of court",
+      "out of court": "out of court",
+      "outside bounds": "out of court",
+      "outside the court": "out of court",
+      "away from the court": "out of court",
+      "outside": "out of court"
+    },
+    "lateral_movement": {
+      "l2r (left to right)": "left to right",
+      "r2l (right to left)": "right to left",
+      "no lateral movement": "no lateral movement"
+    },
+    "depth_movement": {
+      "b2f (back to front)": "forward",
+      "f2b (front to back)": "backward",
+      "no depth movement": "no depth movement"
+    },
+    "ball_outcome": {
+      "net": "into the net",
+      "out": "out",
+      "no contact by loser": "not contacted by the losing player",
+      "landed on the losing player's side of the court": "landed on the losing player's side of the court"
+    },
+    "ball_outcome_own_side_markers": [
+      "own court",
+      "his court",
+      "her court",
+      "same side",
+      "same court",
+      "own side",
+      "loser's court",
+      "loser's own",
+      "player's own",
+      "player's court",
+      "their court",
+      "his own",
+      "her own",
+      "back onto"
+    ],
+    "ball_outcome_own_side_exclude_markers": [
+      "double fault",
+      "double-fault",
+      "outside the service",
+      "out of bound",
+      "out of the court",
+      "outside the court"
+    ],
+    "shot_type_aliases": {
+      "groundstroke with heavy topsin": "groundstroke with heavy topspin",
+      "groundstroke with heavy topspin": "groundstroke with heavy topspin",
+      "groundstroke hit flat or very little spin": "flat groundstroke",
+      "volley": "volley",
+      "down-the-middle serve": "serve down the middle",
+      "down-the-middle ace": "ace down the middle",
+      "wide-ace": "wide ace",
+      "overhead smash": "overhead smash",
+      "smash": "overhead smash",
+      "passing shot": "passing shot",
+      "ace": "ace",
+      "drop shot": "drop shot",
+      "slice": "slice",
+      "half-volley": "half-volley",
+      "lob (high shot)": "lob",
+      "wide serve": "wide serve",
+      "kick serve": "kick serve",
+      "block": "block shot",
+      "block shot": "block shot",
+      "overhead serve": "overhead serve",
+      "serve": "serve",
+      "tweener": "tweener shot",
+      "lob shot": "lob"
+    },
+    "audio_groups": {
+      "Ball impact": [
+        "pop",
+        "smack",
+        "thwack",
+        "whack",
+        "whacks",
+        "thud",
+        "thump",
+        "thumps"
+      ],
+      "Player effort": [
+        "grunt",
+        "grunts",
+        "gasp",
+        "gasps"
+      ],
+      "Footwork": [
+        "squeak",
+        "squeaks"
+      ],
+      "Crowd": [
+        "clap",
+        "claps",
+        "clapping",
+        "cheer",
+        "cheers",
+        "cheering",
+        "murmur",
+        "murmurs",
+        "chatter"
+      ],
+      "Official": [
+        "umpire's call",
+        "umpire call",
+        "umpire shout",
+        "umpire's shout",
+        "fault call"
+      ]
+    }
+  },
+  "distractor_strategies": {
+    "general_description": "Generate three plausible descriptions that are incorrect in exactly one explicit fact. Preserve concise annotation style and do not add facts that cannot be checked.",
+    "mechanism_mismatch": "Change only how the point ended while preserving player attribution and any explicit location.",
+    "player_misattribution": "Change only which player won or committed the point-ending error.",
+    "location_mismatch": "Change only the explicit point-ending location. Use this strategy only when location is stated in the source annotation.",
+    "unsupported_embellishment": "Add one unsupported detail while preserving winner, mechanism, and location. Do not use omission alone as evidence that the detail is false.",
+    "action_mismatch": "Append one verified structured action sentence to the original caption. Distractors alter only the value in that appended sentence (shot/hand/trajectory/movement). Never rewrite mid-caption phrases. Skip when no usable action field is available.",
+    "tennis_score_state": "Use alternative legal or near-legal tennis score transitions derived from score_before; include the annotated score_after as the only correct option.",
+    "serve_sequence_outcome": "Generate coherent alternative serve sequences. Two attempts with a non-double-fault outcome means the first serve was a fault and the second serve was successful; only two failed serves mean double fault. Skip unsupported or internally inconsistent attempt/outcome pairs.",
+    "serve_rule_consistency": "Ask which interpretation is logically consistent with tennis rules. The correct option is the rule-consistent reading of the annotated serve attempts and outcome; each distractor contains an explicit internal contradiction, such as a rally continuing after an ace or two faults, or a double fault after a successful second serve.",
+    "grounded_serve_rule_consistency": "Generate one rule-consistent option that matches the video, one rule-consistent but video-incorrect serve scenario, and two options containing explicit tennis-rule contradictions. The video is required to distinguish the two coherent options.",
+    "point_outcome_reasoning": "Generate one outcome interpretation that matches the video, one internally coherent but video-incorrect interpretation, and two options that contradict how a point-ending winner or error determines which role wins.",
+    "rules_knowledge_contextual": "When the point annotation matches a tennis-rules trigger (serve outcome, score state, ball outcome, etc.), ask a closed-vocab rules-knowledge MCQ thematically related to that situation. The correct answer is the general rule, not a video-specific fact."
+  },
+  "question_templates": {
+    "winner_shot_type": {
+      "field": "winner_shot_type",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What type of shot did the winning player hit to win the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options_from_observed_fields": [
+        "winner_shot_type"
+      ],
+      "option_vocabulary_source": "Prescreen winner_shot_type only; resolve other from winner_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "optional_none_option": "none of the other options",
+      "optional_none_probability": 0.25,
+      "none_option_correct_probability": 0.0,
+      "answer_normalization": "shot_type_aliases"
+    },
+    "loser_shot_type": {
+      "field": "loser_shot_type",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What type of shot did the losing player hit at the end of the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options_from_observed_fields": [
+        "loser_shot_type"
+      ],
+      "option_vocabulary_source": "Prescreen loser_shot_type only; resolve other from loser_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "optional_none_option": "none of the other options",
+      "optional_none_probability": 0.25,
+      "none_option_correct_probability": 0.0,
+      "answer_normalization": "shot_type_aliases"
+    },
+    "winner_shot_type_none": {
+      "field": "winner_shot_type",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What type of shot did the winning player hit to win the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "generation_probability": 0.15,
+      "options_from_observed_fields": [
+        "winner_shot_type"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen winner_shot_type only; resolve other from winner_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "optional_none_option": "none of the other options",
+      "force_none_correct": true,
+      "answer_normalization": "shot_type_aliases"
+    },
+    "loser_shot_type_none": {
+      "field": "loser_shot_type",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What type of shot did the losing player hit at the end of the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "generation_probability": 0.15,
+      "options_from_observed_fields": [
+        "loser_shot_type"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen loser_shot_type only; resolve other from loser_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "optional_none_option": "none of the other options",
+      "force_none_correct": true,
+      "answer_normalization": "shot_type_aliases"
+    },
+    "winner_hand_used": {
+      "field": "winner_hand_used",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What stroke side did the winning player use on the point-winning shot? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options": [
+        "forehand",
+        "backhand"
+      ],
+      "answer_normalization": "hand_used"
+    },
+    "loser_hand_used": {
+      "field": "loser_hand_used",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What stroke side did the losing player use on the final shot? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options": [
+        "forehand",
+        "backhand"
+      ],
+      "answer_normalization": "hand_used"
+    },
+    "winner_shot_trajectory": {
+      "field": "winner_shot_trajectory",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What was the winning shot's direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options_from_observed_fields": [
+        "winner_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Prescreen winner_shot_trajectory only; resolve other from winner_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "optional_none_option": "none of the other options",
+      "optional_none_probability": 0.25,
+      "none_option_correct_probability": 0.0,
+      "answer_normalization": "shot_trajectory"
+    },
+    "loser_shot_trajectory": {
+      "field": "loser_shot_trajectory",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What was the losing player's final-shot direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "options_from_observed_fields": [
+        "loser_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Prescreen loser_shot_trajectory only; resolve other from loser_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "optional_none_option": "none of the other options",
+      "optional_none_probability": 0.25,
+      "none_option_correct_probability": 0.0,
+      "answer_normalization": "shot_trajectory"
+    },
+    "winner_shot_trajectory_none": {
+      "field": "winner_shot_trajectory",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What was the winning shot's direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "generation_probability": 0.15,
+      "options_from_observed_fields": [
+        "winner_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen winner_shot_trajectory only; resolve other from winner_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "optional_none_option": "none of the other options",
+      "force_none_correct": true,
+      "answer_normalization": "shot_trajectory"
+    },
+    "loser_shot_trajectory_none": {
+      "field": "loser_shot_trajectory",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What was the losing player's final-shot direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "availability": "new_template",
+      "generation_probability": 0.15,
+      "options_from_observed_fields": [
+        "loser_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen loser_shot_trajectory only; resolve other from loser_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "optional_none_option": "none of the other options",
+      "force_none_correct": true,
+      "answer_normalization": "shot_trajectory"
+    },
+    "server_location": {
+      "field": "server_location",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "Was the server on the near or far side of the visible court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "availability": "new_template",
+      "options": [
+        "near-court",
+        "far-court"
+      ],
+      "answer_normalization": "lowercase",
+      "review_warning": "Both near-court and far-court values are well represented in the complete aggregated corpus."
+    },
+    "receiver_location": {
+      "field": "receiver_location",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "Was the receiver on the near or far side of the visible court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "availability": "new_template",
+      "options": [
+        "near-court",
+        "far-court"
+      ],
+      "answer_normalization": "lowercase",
+      "review_warning": "Both near-court and far-court values are well represented in the complete aggregated corpus."
+    },
+    "server_receiver_location": {
+      "field": "server_receiver_location",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which option correctly identifies whether the server and receiver are on the near or far side of the court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "availability": "new_template",
+      "derivation": "server_receiver_location",
+      "depends_on": [
+        "server_location",
+        "receiver_location"
+      ],
+      "options": [
+        "server near-court; receiver far-court",
+        "server far-court; receiver near-court",
+        "both near-court",
+        "both far-court"
+      ],
+      "review_warning": "Both server/receiver near-far assignments are represented in the complete aggregated corpus."
+    },
+    "loser_lateral_movement": {
+      "field": "loser_lateral_movement",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "What was the losing player's lateral movement? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "availability": "new_template",
+      "options": [
+        "left to right",
+        "right to left",
+        "no lateral movement"
+      ],
+      "answer_normalization": "lateral_movement",
+      "require_answer_in_options": true
+    },
+    "loser_depth_movement": {
+      "field": "loser_depth_movement",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How did the losing player move forward or backward? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "availability": "new_template",
+      "options": [
+        "forward",
+        "backward",
+        "no depth movement"
+      ],
+      "answer_normalization": "depth_movement",
+      "require_answer_in_options": true
+    },
+    "loser_combined_movement": {
+      "field": "loser_combined_movement",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which description best matches the losing player's movement? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "availability": "new_template",
+      "derivation": "combined_movement",
+      "depends_on": [
+        "loser_lateral_movement",
+        "loser_depth_movement"
+      ],
+      "options": [
+        "left to right; forward",
+        "left to right; backward",
+        "left to right; no depth movement",
+        "right to left; forward",
+        "right to left; backward",
+        "right to left; no depth movement",
+        "no lateral movement; forward",
+        "no lateral movement; backward",
+        "no lateral movement; no depth movement"
+      ],
+      "require_answer_in_options": true
+    },
+    "loser_point_ended": {
+      "field": "loser_point_ended",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How did the point end for the losing player?",
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Ball Outcome and Placement",
+      "availability": "new_template",
+      "options": [
+        "into the net",
+        "out",
+        "not contacted by the losing player",
+        "landed on the losing player's side of the court"
+      ],
+      "answer_normalization": "ball_outcome",
+      "require_answer_in_options": true
+    },
+    "server_winner": {
+      "field": "server_winner",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "Who served and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "availability": "generated",
+      "options": [
+        "<player1> served and <player1> won",
+        "<player1> served and <player2> won",
+        "<player2> served and <player1> won",
+        "<player2> served and <player2> won"
+      ],
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ]
+    },
+    "receiver_winner": {
+      "field": "receiver_winner",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "Who received the serve and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "availability": "generated",
+      "options": [
+        "<player1> received and <player1> won",
+        "<player1> received and <player2> won",
+        "<player2> received and <player1> won",
+        "<player2> received and <player2> won"
+      ],
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ]
+    },
+    "how_point_ended": {
+      "field": "how_point_ended",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How did this tennis point end?",
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "availability": "generated",
+      "answer_transform": "leading_outcome_label",
+      "options": [
+        "Ace",
+        "Double Fault",
+        "Winner",
+        "Forced Error",
+        "Unforced Error",
+        "Violation",
+        "Retirement/Default",
+        "Let"
+      ]
+    },
+    "winner_role": {
+      "field": "winner",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "Did the server or receiver win the point?",
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "availability": "new_template",
+      "options": [
+        "server",
+        "receiver"
+      ],
+      "answer_normalization": "lowercase"
+    },
+    "score_after": {
+      "field": "score_after",
+      "type": "freeform_with_distractors",
+      "option_space": "open",
+      "distractor_generation": "heuristic",
+      "question": "<score_before>. What was the score after this point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "availability": "generated",
+      "context_required": [
+        "<score_before>",
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "distractor_strategy": "tennis_score_state"
+    },
+    "num_serving_attempts_until_successful": {
+      "field": "num_serving_attempts_until_successful",
+      "type": "categorical",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How many serving attempts were made in this point?",
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "availability": "generated",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "num_shots_exchanged": {
+      "field": "num_shots_exchanged",
+      "type": "numeric_range",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How many shots were exchanged in this rally?",
+      "super_category": "Match Facts",
+      "fine_category": "Rally Structure",
+      "availability": "generated",
+      "ranges": [
+        {
+          "min": 0,
+          "max": 0,
+          "answer": "0 shots"
+        },
+        {
+          "min": 1,
+          "max": 1,
+          "answer": "1 shot"
+        },
+        {
+          "min": 2,
+          "max": 2,
+          "answer": "2 shots"
+        },
+        {
+          "min": 3,
+          "max": 3,
+          "answer": "3 shots"
+        },
+        {
+          "min": 4,
+          "max": 4,
+          "answer": "4 shots"
+        },
+        {
+          "min": 5,
+          "max": 5,
+          "answer": "5 shots"
+        },
+        {
+          "min": 6,
+          "max": 6,
+          "answer": "6 shots"
+        },
+        {
+          "min": 7,
+          "max": 7,
+          "answer": "7 shots"
+        },
+        {
+          "min": 8,
+          "max": 8,
+          "answer": "8 shots"
+        },
+        {
+          "min": 9,
+          "max": 9,
+          "answer": "9 shots"
+        },
+        {
+          "min": 10,
+          "max": 10,
+          "answer": "10 shots"
+        },
+        {
+          "min": 11,
+          "max": 20,
+          "answer": "11-20 shots (Long rally)"
+        },
+        {
+          "min": 21,
+          "max": 100,
+          "answer": "21+ shots (Extended rally)"
+        }
+      ],
+      "options": [
+        "0 shots",
+        "1 shot",
+        "2 shots",
+        "3 shots",
+        "4 shots",
+        "5 shots",
+        "6 shots",
+        "7 shots",
+        "8 shots",
+        "9 shots",
+        "10 shots",
+        "11-20 shots (Long rally)",
+        "21+ shots (Extended rally)"
+      ]
+    },
+    "rally_length_bucket": {
+      "field": "num_shots_exchanged",
+      "type": "numeric_range",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "question": "How long was this rally?",
+      "super_category": "Match Facts",
+      "fine_category": "Rally Structure",
+      "availability": "new_template",
+      "ranges": [
+        {
+          "min": 0,
+          "max": 0,
+          "answer": "Serve-only / no exchange (0 shots)"
+        },
+        {
+          "min": 1,
+          "max": 4,
+          "answer": "Short rally (1–4 shots)"
+        },
+        {
+          "min": 5,
+          "max": 10,
+          "answer": "Medium rally (5–10 shots)"
+        },
+        {
+          "min": 11,
+          "max": 20,
+          "answer": "Long rally (11–20 shots)"
+        },
+        {
+          "min": 21,
+          "max": 1000,
+          "answer": "Extended rally (21+ shots)"
+        }
+      ],
+      "options": [
+        "Serve-only / no exchange (0 shots)",
+        "Short rally (1–4 shots)",
+        "Medium rally (5–10 shots)",
+        "Long rally (11–20 shots)",
+        "Extended rally (21+ shots)"
+      ]
+    },
+    "score_transition": {
+      "field": "score_transition",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "The score before the point was <score_before>. Which option correctly identifies the point winner and the new score?",
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "availability": "new_template",
+      "derivation": "score_transition",
+      "depends_on": [
+        "score_before",
+        "score_after",
+        "winner",
+        "server",
+        "receiver"
+      ],
+      "context_required": [
+        "<score_before>",
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ]
+    },
+    "mcq_caption_action_mismatch": {
+      "field": "point_caption",
+      "type": "derived_categorical",
+      "option_space": "open",
+      "distractor_generation": "derived",
+      "question": "What happened in this point? Provide a detailed caption including the action of the players. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Action Consistency",
+      "availability": "new_template",
+      "derivation": "caption_action_mismatch",
+      "depends_on": [
+        "point_caption"
+      ],
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "action_fields": [
+        "winner_shot_type",
+        "winner_hand_used",
+        "winner_shot_trajectory",
+        "loser_shot_type",
+        "loser_hand_used",
+        "loser_shot_trajectory",
+        "loser_lateral_movement",
+        "loser_depth_movement"
+      ],
+      "minimum_non_null_action_fields": 1,
+      "distractor_strategy": "action_mismatch"
+    },
+    "serve_sequence_outcome": {
+      "field": "serve_sequence_outcome",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which serve sequence and point outcome correctly describe this point?",
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "availability": "new_template",
+      "derivation": "serve_sequence_outcome",
+      "depends_on": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "distractor_strategy": "serve_sequence_outcome"
+    },
+    "serve_rule_consistency": {
+      "field": "serve_rule_consistency",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which option is consistent with tennis rules and the video?",
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "availability": "new_template",
+      "derivation": "serve_rule_consistency",
+      "depends_on": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "distractor_strategy": "serve_rule_consistency",
+      "reasoning_note": "The model must apply serve rules: a successful second serve cannot be a double fault, and an ace or two faults ends the point immediately. Every distractor violates one of these rules, so this template tests rule reasoning but does not require the video."
+    },
+    "grounded_serve_rule_consistency": {
+      "field": "grounded_serve_rule_consistency",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which option is consistent with tennis rules and matches what happened in this point?",
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "availability": "new_template",
+      "derivation": "grounded_serve_rule_consistency",
+      "depends_on": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "distractor_strategy": "grounded_serve_rule_consistency",
+      "reasoning_note": "The model first applies serve rules to eliminate two contradictory options. Two valid tennis scenarios remain, so it must inspect the video to identify which serve sequence and outcome actually occurred."
+    },
+    "point_outcome_reasoning": {
+      "field": "point_outcome_reasoning",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Which option correctly explains why the server or receiver won the point?",
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "availability": "new_template",
+      "derivation": "point_outcome_reasoning",
+      "depends_on": [
+        "winner",
+        "how_point_ended"
+      ],
+      "distractor_strategy": "point_outcome_reasoning",
+      "reasoning_note": "The model must connect the ending mechanism to the winning role: an error loses the point, a winner or ace wins it, and a double fault awards it to the receiver. Rules remove two causal contradictions; the video distinguishes the two coherent explanations."
+    },
+    "player_effort_sound_present": {
+      "field": "audio_cues",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Is a player grunt or effort sound audible?",
+      "super_category": "Audio Understanding",
+      "fine_category": "Impact and Play Sounds",
+      "availability": "new_template",
+      "derivation": "audio_group_presence",
+      "audio_group": "Player effort",
+      "depends_on": [
+        "audio_cues"
+      ],
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    "court_movement_sound_present": {
+      "field": "audio_cues",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Are shoe squeaks audible during the point?",
+      "super_category": "Audio Understanding",
+      "fine_category": "Impact and Play Sounds",
+      "availability": "new_template",
+      "derivation": "audio_group_presence",
+      "audio_group": "Footwork",
+      "depends_on": [
+        "audio_cues"
+      ],
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    "crowd_reaction_present": {
+      "field": "audio_cues",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Is there an audible crowd reaction?",
+      "super_category": "Audio Understanding",
+      "fine_category": "Crowd and Official Cues",
+      "availability": "new_template",
+      "derivation": "audio_group_presence",
+      "audio_group": "Crowd",
+      "depends_on": [
+        "audio_cues"
+      ],
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    "official_call_present": {
+      "field": "audio_cues",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "Is an umpire or fault call audible?",
+      "super_category": "Audio Understanding",
+      "fine_category": "Crowd and Official Cues",
+      "availability": "new_template",
+      "derivation": "audio_group_presence",
+      "audio_group": "Official",
+      "depends_on": [
+        "audio_cues"
+      ],
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    "rules_knowledge_contextual": {
+      "field": "rules_knowledge_contextual",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "<rules_question_stem>",
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Rules Knowledge",
+      "availability": "new_template",
+      "derivation": "rules_knowledge_contextual",
+      "selection_rank": 0,
+      "hf_class": "rules_knowledge_contextual",
+      "depends_on": [],
+      "distractor_strategy": "rules_knowledge_contextual",
+      "reasoning_note": "Triggered by point annotations (serve outcome, score state, ball outcome, etc.). Tests general tennis-rules knowledge in a thematically related video context; the gold answer is the rule, not a video readout."
+    },
+    "rules_knowledge_contextual_secondary": {
+      "field": "rules_knowledge_contextual",
+      "type": "derived_categorical",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "question": "<rules_question_stem>",
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Rules Knowledge",
+      "availability": "new_template",
+      "derivation": "rules_knowledge_contextual",
+      "selection_rank": 1,
+      "hf_class": "rules_knowledge_contextual",
+      "depends_on": [],
+      "distractor_strategy": "rules_knowledge_contextual",
+      "reasoning_note": "Second matching rules-knowledge question for the same point when multiple triggers fire (capped by tennis_rules_trigger_map.max_per_point)."
+    }
+  },
+  "qa_templates": {
+    "point_caption": {
+      "field": "point_caption",
+      "type": "open_ended",
+      "option_space": "open",
+      "distractor_generation": "none",
+      "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration",
+      "availability": "generated",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ]
+    },
+    "how_point_ended_description": {
+      "field": "how_point_ended_description",
+      "type": "open_ended",
+      "option_space": "open",
+      "distractor_generation": "none",
+      "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting",
+      "availability": "generated",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ]
+    }
+  }
+}
