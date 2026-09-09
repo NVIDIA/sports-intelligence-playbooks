@@ -1,0 +1,22 @@
+{
+  "question_types": [
+    "server_winner",
+    "receiver_winner",
+    "how_point_ended",
+    "num_shots_exchanged",
+    "num_serving_attempts_until_successful",
+    "score_after",
+    "mcq_how_point_ended_description_mechanism_mismatch",
+    "mcq_how_point_ended_description_player_misattribution",
+    "mcq_how_point_ended_description_location_mismatch",
+    "mcq_how_point_ended_description_unsupported_embellishments",
+    "mcq_caption_mechanism_mismatch",
+    "mcq_caption_player_misattribution",
+    "mcq_caption_location_mismatch",
+    "mcq_caption_unsupported_embellishments",
+    "mcq_caption_action_mismatch",
+    "how_point_ended_description",
+    "point_caption",
+    "audio_cues"
+  ]
+}

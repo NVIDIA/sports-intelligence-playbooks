@@ -1,0 +1,923 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+
+    <title>SFT &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1a43867f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/training/sft';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LoRA" href="lora.html" />
+    <link rel="prev" title="Setup" href="setup.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Training</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Training</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">SFT</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sft">
+<h1>SFT<a class="headerlink" href="#sft" title="Link to this heading">#</a></h1>
+<p>Supervised fine-tuning (SFT) updates the language model weights and multimodal projection layers (vision and audio encoders often stay frozen). Use SFT when you need maximum adaptation capacity (~90–96% of parameters trainable vs. ~0.04–0.17% for LoRA; see <a class="reference internal" href="lora.html"><span class="doc">LoRA</span></a>) and can afford the higher compute and memory of full-parameter training and larger checkpoints (hundreds of GB per save vs. tens of MB for LoRA). Reference GPU memory and throughput numbers are in <a class="reference internal" href="lora.html#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> on the <a class="reference internal" href="lora.html"><span class="doc">LoRA</span></a> page.</p>
+<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings (Slurm, container, cache directory) live in <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; training hyperparameters live in the recipe YAML.</p>
+<p><strong>Runbooks (commands and smoke examples):</strong></p>
+<ul class="simple">
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">automodel/sft/SFT_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">megatron-bridge/sft/SFT_GUIDE.MD</a></p></li>
+</ul>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/TRAINING_ENV_VARS.MD">AutoModel SFT reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/TRAINING_ENV_VARS.MD">Megatron-Bridge SFT reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<section id="what-gets-trained">
+<h2>What Gets Trained<a class="headerlink" href="#what-gets-trained" title="Link to this heading">#</a></h2>
+<p>SFT often keeps vision and audio encoders frozen and trains the LLM plus multimodal projectors (the layers that map vision/sound features into the language model). Use <code class="code docutils literal notranslate"><span class="pre">freeze_config</span></code> in the recipe YAML (<code class="code docutils literal notranslate"><span class="pre">true</span></code> = frozen, <code class="code docutils literal notranslate"><span class="pre">false</span></code> = trainable).</p>
+<p class="rubric">AutoModel</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 36.0%" />
+<col style="width: 64.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Controls</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_video_embedder</span></code></p></td>
+<td><p>Video embedding layer; no additional effect when <code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code> is <code class="code docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower</span></code></p></td>
+<td><p>Vision encoder (RADIO)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_audio_tower</span></code></p></td>
+<td><p>Audio / sound encoder</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
+<td><p>MoE language model decoder</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There are no separate projector freeze flags; vision and audio projectors train when the LM is unfrozen.</p>
+<p class="rubric">Megatron-Bridge</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 36.0%" />
+<col style="width: 64.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Controls</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_language_model</span></code></p></td>
+<td><p>MoE language model decoder</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_model</span></code></p></td>
+<td><p>Vision encoder</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_projection</span></code></p></td>
+<td><p>Vision-to-LM projector</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_sound_encoder</span></code></p></td>
+<td><p>Audio / sound encoder</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">freeze_sound_projection</span></code></p></td>
+<td><p>Audio-to-LM projector</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Unfreezing encoders increases memory and risk of catastrophic forgetting; keeping encoders frozen is a good starting point.</p>
+</section>
+<section id="training-schedule-and-batching">
+<h2>Training Schedule and Batching<a class="headerlink" href="#training-schedule-and-batching" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 39.0%" />
+<col style="width: 39.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p><strong>AutoModel</strong> (<code class="code docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
+<th class="head"><p><strong>Megatron-Bridge</strong> (<code class="code docutils literal notranslate"><span class="pre">step_scheduler</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Global batch size</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">global_batch_size</span></code> — samples per optimizer step across all GPUs; with <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> sets gradient accumulation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Per-GPU microbatch</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">local_batch_size</span></code> — samples per microbatch per GPU; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code> when sequence packing is on</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span></code> — samples per microbatch per GPU; must be <code class="code docutils literal notranslate"><span class="pre">1</span></code> when sequence packing is on</p></td>
+</tr>
+<tr class="row-even"><td><p>Max steps</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> — hard stop; overrides epoch count</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> (<code class="code docutils literal notranslate"><span class="pre">max_iters</span></code> at runtime)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Validation</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">val_every_steps</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">val_every_iters</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Checkpoints</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">ckpt_every_steps</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">ckpt_every_iters</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Impact:</strong> Higher global batch size stabilizes MoE training but needs more GPUs for gradient accumulation. More GPUs increase data-parallel capacity. Fewer <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code> is fine for smoke tests; production runs typically use hundreds to thousands of steps with cosine decay aligned to <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>.</p>
+</section>
+<section id="optimizer-and-learning-rate">
+<h2>Optimizer and Learning Rate<a class="headerlink" href="#optimizer-and-learning-rate" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 39.0%" />
+<col style="width: 39.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p><strong>AutoModel</strong></p></th>
+<th class="head"><p><strong>Megatron-Bridge</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Optimizer</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer</span></code>: AdamW, <code class="code docutils literal notranslate"><span class="pre">lr</span></code>, <code class="code docutils literal notranslate"><span class="pre">weight_decay</span></code>, <code class="code docutils literal notranslate"><span class="pre">betas</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">optimizer</span></code>: Adam, <code class="code docutils literal notranslate"><span class="pre">lr</span></code>, <code class="code docutils literal notranslate"><span class="pre">weight_decay</span></code>; optional CPU offload (below)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Learning rate</p></td>
+<td><p>Default 5e-5 for full SFT</p></td>
+<td><p>Default 5e-5 for full SFT</p></td>
+</tr>
+<tr class="row-even"><td><p>LR schedule</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="code docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_warmup_steps</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_decay_steps</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">lr_scheduler</span></code>: <code class="code docutils literal notranslate"><span class="pre">cosine</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_warmup_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">lr_decay_iters</span></code>, <code class="code docutils literal notranslate"><span class="pre">min_lr</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Grad clip</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">clip_grad_norm.max_norm</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Memory savers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">distributed.strategy:</span> <span class="pre">fsdp2</span></code>, <code class="code docutils literal notranslate"><span class="pre">distributed.activation_checkpointing</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">distributed.use_megatron_fsdp</span></code>, <code class="code docutils literal notranslate"><span class="pre">precision.bf16_optimizer_states</span></code>, activation checkpointing via <code class="code docutils literal notranslate"><span class="pre">model.recompute_granularity</span></code>, <code class="code docutils literal notranslate"><span class="pre">model.fine_grained_activation_offloading</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer.optimizer_cpu_offload</span></code>, <code class="code docutils literal notranslate"><span class="pre">optimizer.use_precision_aware_optimizer</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Megatron-Bridge CPU offload</p>
+<p>Full SFT can run out of GPU memory even when model weights are sharded across TP/EP. CPU offload moves Adam optimizer state (momentum, variance, and related buffers) from GPU VRAM to host RAM so more room is left for activations and gradients. Tradeoffs: higher host memory use and some overhead when tensors move between GPU and CPU during the optimizer step.</p>
+<p>Recipe fields:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">optimizer_cpu_offload</span></code> — enable offload (<code class="code docutils literal notranslate"><span class="pre">true</span></code> / <code class="code docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">overlap_cpu_optimizer_d2h_h2d:</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">use_precision_aware_optimizer</span></code> — must be <code class="code docutils literal notranslate"><span class="pre">true</span></code> when offload is enabled</p></li>
+</ul>
+<p>DDP (non-FSDP) on a single 8-GPU node often requires CPU offload.</p>
+<p>Further reading:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/features/optimizer_cpu_offload.html">Megatron Core — Optimizer CPU Offload</a> — CPU offload guide</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/apidocs/core/core.optimizer.optimizer_config.html">Megatron Core OptimizerConfig</a> — offload recipe fields</p></li>
+</ul>
+<p class="rubric">Megatron-Bridge FSDP</p>
+<p>FSDP shards model parameters, gradients, and optimizer states across data-parallel ranks, lowering per-GPU memory use. This can allow lower TP/EP degrees to speed up training.</p>
+<p>Recipe fields:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">use_megatron_fsdp:</span> <span class="pre">true</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">precision.bf16_optimizer_states:</span> <span class="pre">true</span></code> — requires <code class="code docutils literal notranslate"><span class="pre">optimizer.use_precision_aware_optimizer:</span> <span class="pre">true</span></code></p></li>
+</ul>
+<p>Recommended environment:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pytorch_cuda_alloc_conf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expandable_segments:True</span>
+<span class="w">  </span><span class="nt">nccl_nvls_enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">torch_nccl_avoid_record_streams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">cuda_device_max_connections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+</pre></div>
+</div>
+<p>Further reading:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/training/megatron-fsdp.html">Megatron-Bridge — Megatron FSDP</a></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/features/megatron_fsdp.html">Megatron Core — Megatron FSDP</a></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/skills/nemo-mbridge-perf-megatron-fsdp/SKILL.html">Megatron-Bridge — Megatron FSDP performance skill</a></p></li>
+</ul>
+<p><strong>Impact:</strong> LR that is too high diverges MoE models quickly; too low underfits. Warmup (often ~10% of total steps) reduces early instability.</p>
+</section>
+<section id="distributed-parallelism">
+<h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
+<p>Distributed training has four dimensions of parallelism: <strong>TP</strong>, <strong>PP</strong>, <strong>EP</strong>, and <strong>CP</strong>. The current reference MoE recipes use <strong>TP1</strong> and <strong>EP8</strong>; keep <strong>PP</strong> and <strong>CP</strong> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Set supported degrees under <code class="code docutils literal notranslate"><span class="pre">distributed</span></code> in the recipe YAML (or via <code class="code docutils literal notranslate"><span class="pre">TP</span></code> and <code class="code docutils literal notranslate"><span class="pre">EP</span></code> env overrides on launch):</p>
+<ul class="simple">
+<li><p><strong>TP (tensor parallelism)</strong> — splits weight matrices within a layer across GPUs (e.g. attention and MLP shards).</p></li>
+<li><p><strong>EP (expert parallelism)</strong> — shards MoE expert networks across GPUs (required for the current reference model’s MoE decoder).</p></li>
+<li><p><strong>PP (pipeline parallelism)</strong> — splits the model depth-wise across pipeline stages. Not supported by the current reference recipes; keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>CP (context parallelism)</strong> — splits sequence length across GPUs for very long contexts. Not supported by the current reference recipes; keep <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 39.0%" />
+<col style="width: 39.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>AutoModel (<code class="code docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
+<th class="head"><p>Megatron-Bridge (<code class="code docutils literal notranslate"><span class="pre">distributed</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tp_size</span></code></p></td>
+<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for the current AutoModel recipes</p></td>
+<td><p>Tensor-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">1</span></code> for the current recipes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code></p></td>
+<td><p>Expert-parallel degree; <code class="code docutils literal notranslate"><span class="pre">8</span></code> on one 8-GPU node (uses DeepEP)</p></td>
+<td><p>Expert-parallel degree; use <code class="code docutils literal notranslate"><span class="pre">8</span></code> for the current recipes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">pp_size</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">cp_size</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Not supported by the current reference recipes; keep at <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Impact:</strong> Let <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">=</span> <span class="pre">nodes</span> <span class="pre">×</span> <span class="pre">GPUs_per_node</span></code>.</p>
+<p><strong>AutoModel</strong> (current reference recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be divisible by <code class="code docutils literal notranslate"><span class="pre">tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> must divide <code class="code docutils literal notranslate"><span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">pp_size</span></code>.</p></li>
+<li><p>Data-parallel degree: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
+</ul>
+<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → <code class="code docutils literal notranslate"><span class="pre">dp_size=8</span></code>, and <code class="code docutils literal notranslate"><span class="pre">8</span> <span class="pre">/</span> <span class="pre">1</span></code> is divisible by <code class="code docutils literal notranslate"><span class="pre">8</span></code>.</p>
+<p><strong>Megatron-Bridge</strong> (current reference recipes and training scripts use <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>):</p>
+<ul class="simple">
+<li><p>Attention-path data-parallel degree follows the standard Megatron rule: <code class="code docutils literal notranslate"><span class="pre">dp_size</span> <span class="pre">=</span> <span class="pre">world_size</span> <span class="pre">/</span> <span class="pre">(tp_size</span> <span class="pre">×</span> <span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">cp_size)</span></code>.</p></li>
+<li><p>As a minimum-GPU bound, <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> must be at least <code class="code docutils literal notranslate"><span class="pre">pp_size</span> <span class="pre">×</span> <span class="pre">max(tp_size</span> <span class="pre">×</span> <span class="pre">cp_size,</span> <span class="pre">ep_size)</span></code>.</p></li>
+</ul>
+<p>Example: 1 node × 8 GPUs, <code class="code docutils literal notranslate"><span class="pre">tp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size=1</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size=8</span></code> → minimum <code class="code docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">×</span> <span class="pre">max(1,</span> <span class="pre">8)</span> <span class="pre">=</span> <span class="pre">8</span></code>, which matches <code class="code docutils literal notranslate"><span class="pre">world_size=8</span></code>.</p>
+<p>Further reading:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/automodel/development/distributed-setup">NeMo AutoModel — Distributed Setup</a> — FSDP2 + expert parallelism</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/parallelisms.html">Megatron-Bridge — Parallelisms</a> — <code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">dp_size</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/parallelism-guide.html">Megatron Core — Parallelism Strategies</a> — TP, PP, CP, EP</p></li>
+</ul>
+<p>Changing parallelism after training changes the checkpoint layout, so keep <code class="code docutils literal notranslate"><span class="pre">MODEL_NAME</span></code> and topology consistent to resume.</p>
+</section>
+<section id="data-video-and-sequence-budget">
+<h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
+<p>Training data is <strong>JSONL</strong> (one JSON object per line) in <strong>HuggingFace Conversation</strong> format: a <code class="code docutils literal notranslate"><span class="pre">conversation</span></code> array of <code class="code docutils literal notranslate"><span class="pre">user</span></code> / <code class="code docutils literal notranslate"><span class="pre">assistant</span></code> turns with typed content (<code class="code docutils literal notranslate"><span class="pre">video</span></code>, <code class="code docutils literal notranslate"><span class="pre">text</span></code>, and optionally <code class="code docutils literal notranslate"><span class="pre">audio</span></code>). Rows may also include <code class="code docutils literal notranslate"><span class="pre">id</span></code> and <code class="code docutils literal notranslate"><span class="pre">class</span></code> metadata; <code class="code docutils literal notranslate"><span class="pre">class</span></code> is the question-type / template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>) and is used by eval tooling but is not required for training.</p>
+<p>Video (and audio) paths in the JSON are <strong>relative</strong> to <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> in the recipe YAML. Training resolves each file as <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> + the relative <code class="code docutils literal notranslate"><span class="pre">path</span></code> (normalized, no leading slash).</p>
+<p>Example line:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample-001"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"server_winner"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w"> </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"video"</span><span class="p">,</span><span class="w"> </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"match_id/segment.mp4"</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Who won this point?"</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span><span class="w"> </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Player A won."</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field is optional for training but recommended in curated datasets so eval can break down accuracy by question type.</p>
+<p>The following table summarizes recipe fields that control data loading, video sampling, and sequence budget.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 39.0%" />
+<col style="width: 39.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>AutoModel</p></th>
+<th class="head"><p>Megatron-Bridge</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Train / val JSONL</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">path_or_dataset</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code>, <code class="code docutils literal notranslate"><span class="pre">jsonl_format</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Subsample</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.sample_ratio</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset.sample_ratio</span></code> — fraction of JSONL for quick runs</p></td>
+</tr>
+<tr class="row-even"><td><p>Video frames</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset</span></code> / <code class="code docutils literal notranslate"><span class="pre">validation_dataset</span></code>: <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_sample_fps</span></code> — one of the main OOM levers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sequence length</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.pack_size</span></code> (packed) / <code class="code docutils literal notranslate"><span class="pre">dataloader.collate_fn.max_length</span></code> (non-packed)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.seq_length</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Sequence packing</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataloader.use_sequence_packing</span></code> + <code class="code docutils literal notranslate"><span class="pre">dataloader.packed_sequence.*</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">dataset.pack_sequences_in_batch</span></code> — requires <code class="code docutils literal notranslate"><span class="pre">micro_batch_size</span> <span class="pre">=</span> <span class="pre">1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Sequence packing</strong> improves throughput by fitting multiple short samples in one sequence; packed token count must exceed your longest sample (video + audio + text). See <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/datasets/overview">NeMo AutoModel — Datasets overview</a> (packed sequence support) and <a class="reference external" href="https://docs.nvidia.com/nemo/megatron-bridge/latest/training/packed-sequences.html">Megatron-Bridge — Packed sequences</a>.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/SFT_GUIDE.MD">AutoModel SFT guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">Megatron-Bridge SFT guide</a>.</p>
+</section>
+<section id="moe-backend-automodel-only">
+<h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="code docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
+</section>
+<section id="weights-biases">
+<h2>Weights &amp; Biases<a class="headerlink" href="#weights-biases" title="Link to this heading">#</a></h2>
+<p>Training metrics are logged via the <code class="code docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="code docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 78.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">mode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="code docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="code docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
+</tr>
+<tr class="row-even"><td><p>Both stacks</p></td>
+<td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
+<li><p>Edit recipe YAML: data paths, <code class="code docutils literal notranslate"><span class="pre">max_steps</span></code>, freeze flags, and memory knobs (frames, <code class="code docutils literal notranslate"><span class="pre">seq_length</span></code> / <code class="code docutils literal notranslate"><span class="pre">pack_size</span></code>).</p></li>
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="code docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="code docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
+<li><p><strong>Megatron-Bridge:</strong> HF→Meg conversion once, then the same interactive → sbatch flow.</p></li>
+</ol>
+<p>Smoke commands and CLI override tables are in the code-repo guides above.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="setup.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Setup</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lora.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LoRA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-gets-trained">What Gets Trained</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-schedule-and-batching">Training Schedule and Batching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-and-learning-rate">Optimizer and Learning Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-parallelism">Distributed Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-video-and-sequence-budget">Data, Video, and Sequence Budget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moe-backend-automodel-only">MoE Backend (AutoModel Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-biases">Weights &amp; Biases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 09, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

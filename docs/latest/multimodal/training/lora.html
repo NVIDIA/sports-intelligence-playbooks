@@ -1,0 +1,802 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+
+    <title>LoRA &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1a43867f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/training/lora';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Inference" href="../inference/index.html" />
+    <link rel="prev" title="SFT" href="sft.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Training</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sft.html">SFT</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Training</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">LoRA</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="lora">
+<h1>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h1>
+<p>LoRA (Low-Rank Adaptation) trains small adapter matrices injected into selected layers instead of updating all language-model weights. Use LoRA for faster iteration, smaller checkpoints, and lower optimizer memory while keeping the base model frozen.</p>
+<p>With the current reference recipes on a ~33B multimodal model, LoRA updates well under 1% of model weights. Checkpoints store adapter weights only, typically tens of MB per save, while full SFT on the same topology writes hundreds of GB per save. See <a class="reference internal" href="#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> for trainable-parameter, memory, and throughput comparisons.</p>
+<p><strong>Inference:</strong> LoRA checkpoints are not standalone models. You always need the frozen base checkpoint plus the adapter (HF <code class="code docutils literal notranslate"><span class="pre">peft</span></code> load for AutoModel; Megatron base + LoRA <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> for Bridge). On Megatron-Bridge you can alternatively merge adapters into the base with <code class="code docutils literal notranslate"><span class="pre">merge_lora.py</span></code> to produce a single deployable checkpoint (see <a class="reference internal" href="#lora-post-training"><span class="std std-ref">Post-Training (Megatron-Bridge Only)</span></a>).</p>
+<section id="sft-vs-lora-compute-and-checkpoint-size">
+<span id="sft-lora-compute-ref"></span><h2>SFT vs. LoRA (compute and checkpoint size)<a class="headerlink" href="#sft-vs-lora-compute-and-checkpoint-size" title="Link to this heading">#</a></h2>
+<p>The table below is an approximate SFT vs. LoRA comparison for the current reference model. Actual numbers depend on your recipe, sequence length, and hardware.</p>
+<p>GPU memory and throughput (tps/gpu) come from the <a class="reference external" href="https://docs.nvidia.com/nemo/automodel/recipes-e2e-examples/nemotron-omni">NeMo AutoModel reference recipe</a> (8 GPUs, CORD-V2 recipe, frozen vision/audio towers).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 36.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>SFT</p></th>
+<th class="head"><p>LoRA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPU memory per device (steady-state)</p></td>
+<td><p>~49 GiB (~1.6× LoRA)</p></td>
+<td><p>~30 GiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Throughput (tps/gpu)</p></td>
+<td><p>~2.4k–2.6k</p></td>
+<td><p>~2.5k–3.3k (comparable)</p></td>
+</tr>
+<tr class="row-even"><td><p>Checkpoint per <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> save</p></td>
+<td><p>hundreds of GB</p></td>
+<td><p>tens of MB (e.g. ~26 MB)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trainable parameters</p></td>
+<td><p>~90–96% (LLM + projectors; encoders frozen)</p></td>
+<td><p>~0.04% at rank 16 (~14M) / ~0.17% at rank 64 (~55M)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Trainable LoRA parameters scale linearly with <code class="code docutils literal notranslate"><span class="pre">peft.dim</span></code>; AutoModel and Megatron-Bridge train the same count at a given rank. Percentages are relative to ~33B total parameters; rank 64 figures come from the linked reference recipe.</p>
+<p>Step time is often similar between SFT and LoRA because throughput (tps/gpu) is in the same ballpark; the main SFT costs are higher per-GPU memory, optimizer state over far more trainable weights, and checkpoint I/O.</p>
+<p>Both stacks share the same high-level recipe layout under <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>. Cluster settings live in the relevant <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>; Slurm and container settings apply only to Slurm launch files. Training hyperparameters live in the recipe YAML.</p>
+<p><strong>Runbooks (commands, merge/export, smoke examples):</strong></p>
+<ul class="simple">
+<li><p><strong>AutoModel:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">automodel/lora/LORA_GUIDE.MD</a></p></li>
+<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a></p></li>
+</ul>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/TRAINING_ENV_VARS.MD">AutoModel LoRA reference</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/TRAINING_ENV_VARS.MD">Megatron-Bridge LoRA reference</a>.</p>
+<p>Megatron-Bridge also requires a Megatron-format base checkpoint: <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/hf_megatron_conversion/MODEL_CONVERSION.MD">HF→Megatron conversion</a>.</p>
+<p>Choose SFT or LoRA based on how much of the model you need to adapt and your operational constraints; see <a class="reference internal" href="#sft-lora-compute-ref"><span class="std std-ref">SFT vs. LoRA (compute and checkpoint size)</span></a> for memory, throughput, and checkpoint tradeoffs.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 36.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>SFT</p></th>
+<th class="head"><p>LoRA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Adaptation scope</p></td>
+<td><p>Full LLM weights + multimodal projectors</p></td>
+<td><p>Low-rank adapters on LM linear layers only</p></td>
+</tr>
+<tr class="row-odd"><td><p>Best for</p></td>
+<td><p>Maximum quality, production models</p></td>
+<td><p>Rapid experiments, resource-constrained runs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="what-gets-trained-target-modules-and-freeze">
+<h2>What Gets Trained (Target Modules and Freeze)<a class="headerlink" href="#what-gets-trained-target-modules-and-freeze" title="Link to this heading">#</a></h2>
+<p>Encoders often stay frozen; adapters attach to <strong>language-model</strong> linear layers.</p>
+<p class="rubric">AutoModel</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dim</span></code></p></td>
+<td><p>LoRA <strong>rank</strong>: inner dimension of the low-rank adapter (update approximated as <code class="code docutils literal notranslate"><span class="pre">ΔW</span> <span class="pre">=</span> <span class="pre">B·A</span></code>). Higher rank means more adapter capacity and trainable parameters. Default <strong>64</strong> in AutoModel recipes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
+<td><p>LoRA <strong>scaling</strong>: scales how strongly the adapter is applied (effective scale ≈ <code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span></code>). Default <strong>128</strong> in AutoModel recipes (<code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">dim</span> <span class="pre">=</span> <span class="pre">2</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">match_all_linear:</span> <span class="pre">false</span></code></p></td>
+<td><p>Do not attach to every linear layer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">exclude_modules</span></code></p></td>
+<td><p>Glob patterns skipping vision, audio, sound, <code class="code docutils literal notranslate"><span class="pre">lm_head</span></code>, projector (<code class="code docutils literal notranslate"><span class="pre">*mlp1*</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Freeze:</strong> same encoder freezes as SFT; base LM weights stay fixed while adapters train (<code class="code docutils literal notranslate"><span class="pre">freeze_language_model:</span> <span class="pre">false</span></code> allows adapter gradients through the LM stack).</p>
+<p class="rubric">Megatron-Bridge</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dim</span></code> / <code class="code docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
+<td><p>Same meaning as AutoModel (under <code class="code docutils literal notranslate"><span class="pre">peft</span></code>). Defaults <strong>64</strong> / <strong>128</strong>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_qkv</span></code></p></td>
+<td><p>Attention Q/K/V projections</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_proj</span></code></p></td>
+<td><p>Attention output projection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">in_proj</span></code> / <code class="code docutils literal notranslate"><span class="pre">out_proj</span></code></p></td>
+<td><p>Mamba / SSM-style blocks in the decoder (under <code class="code docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">linear_fc1</span></code> / <code class="code docutils literal notranslate"><span class="pre">linear_fc2</span></code></p></td>
+<td><p>Shared-expert MLP projections (under <code class="code docutils literal notranslate"><span class="pre">peft.target_modules</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Freeze defaults for LoRA: encoders and vision/sound projections stay frozen (<code class="code docutils literal notranslate"><span class="pre">freeze_vision_projection:</span> <span class="pre">true</span></code>, <code class="code docutils literal notranslate"><span class="pre">freeze_sound_projection:</span> <span class="pre">true</span></code>); only the LoRA adapters update the language model.</p>
+<p><strong>Impact:</strong> Broader target sets (higher rank, more modules) increase capacity and memory. Narrow targets train faster but may underfit complex sports QA. Excluding vision/audio modules prevents wasting capacity on frozen towers.</p>
+</section>
+<section id="training-schedule-and-batching">
+<h2>Training Schedule and Batching<a class="headerlink" href="#training-schedule-and-batching" title="Link to this heading">#</a></h2>
+<p>Same step scheduler fields as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a> (global batch size, per-GPU microbatch, max steps, validation, checkpoints). LoRA can often use a larger global batch size compared to SFT because the adapter state is smaller.</p>
+</section>
+<section id="optimizer-and-learning-rate">
+<h2>Optimizer and Learning Rate<a class="headerlink" href="#optimizer-and-learning-rate" title="Link to this heading">#</a></h2>
+<p>LoRA uses a <strong>higher learning rate</strong> than full SFT because only adapter parameters update. Optimizer type, weight decay, LR schedule, and grad clip follow the same recipe fields as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>; defaults differ only in LR:</p>
+<ul class="simple">
+<li><p><strong>AutoModel:</strong> <strong>5e-4</strong> (vs. 5e-5 for SFT)</p></li>
+<li><p><strong>Megatron-Bridge:</strong> <strong>5e-4</strong> (vs. 5e-5 for SFT)</p></li>
+</ul>
+<p><strong>Impact:</strong> If loss spikes, reduce LR or increase warmup. LoRA often tolerates 10–20× the SFT learning rate because the update space is low-rank. CPU optimizer offload (see <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>) is usually unnecessary for LoRA due to lower GPU memory usage.</p>
+</section>
+<section id="distributed-parallelism">
+<h2>Distributed Parallelism<a class="headerlink" href="#distributed-parallelism" title="Link to this heading">#</a></h2>
+<p>For both AutoModel and Megatron-Bridge, keep <code class="code docutils literal notranslate"><span class="pre">pp_size</span></code> and <code class="code docutils literal notranslate"><span class="pre">cp_size</span></code> at <code class="code docutils literal notranslate"><span class="pre">1</span></code>. Otherwise, use the same <code class="code docutils literal notranslate"><span class="pre">tp_size</span></code>, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code>, and <code class="code docutils literal notranslate"><span class="pre">world_size</span></code> rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>.</p>
+</section>
+<section id="data-video-and-sequence-budget">
+<h2>Data, Video, and Sequence Budget<a class="headerlink" href="#data-video-and-sequence-budget" title="Link to this heading">#</a></h2>
+<p>Same JSONL format, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code> resolution, dataset fields, and sequence-packing rules as <a class="reference internal" href="sft.html"><span class="doc">SFT</span></a>. LoRA recipes reuse those fields unchanged.</p>
+<p>Generate metadata for packed training with <code class="code docutils literal notranslate"><span class="pre">avlm/utils/build_video_metadata.py</span></code>; AutoModel uses train and validation metadata, while Megatron-Bridge uses train metadata only. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/lora/LORA_GUIDE.MD">AutoModel LoRA guide</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">Megatron-Bridge LoRA guide</a>.</p>
+</section>
+<section id="moe-backend-automodel-only">
+<h2>MoE Backend (AutoModel Only)<a class="headerlink" href="#moe-backend-automodel-only" title="Link to this heading">#</a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">model.backend.dispatcher:</span> <span class="pre">deepep</span></code> routes expert tokens across GPUs during forward/backward. Pre-Hopper GPUs (e.g. A100) need the matching DeepEP wheel installed at launch (see <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> Notes). Using deepep on pre-Hopper, <code class="code docutils literal notranslate"><span class="pre">ep_size</span></code> is limited to the number of GPUs per node (=8). Override with <code class="code docutils literal notranslate"><span class="pre">DISPATCHER=torch</span></code> only for debugging (slower).</p>
+</section>
+<section id="checkpointing">
+<h2>Checkpointing<a class="headerlink" href="#checkpointing" title="Link to this heading">#</a></h2>
+<p>Training writes adapter state rather than the full base model:</p>
+<ul class="simple">
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> plus small metadata under <code class="code docutils literal notranslate"><span class="pre">lora/slurm/outputs/&lt;MODEL_NAME&gt;/</span></code> (typically tens of MB per step save); <code class="code docutils literal notranslate"><span class="pre">save_consolidated:</span> <span class="pre">true</span></code> for HF-friendly layout</p></li>
+<li><p><strong>Megatron-Bridge:</strong> <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">true</span></code> by default; <code class="code docutils literal notranslate"><span class="pre">iter_*</span></code> Megatron <code class="code docutils literal notranslate"><span class="pre">.distcp</span></code> shards include optimizer state for resume. Set <code class="code docutils literal notranslate"><span class="pre">save_optim:</span> <span class="pre">false</span></code> for weights-only checkpoints.</p></li>
+</ul>
+<p>AutoModel loads the frozen base from <code class="code docutils literal notranslate"><span class="pre">model.pretrained_model_name_or_path</span></code>. Megatron-Bridge uses <code class="code docutils literal notranslate"><span class="pre">run.hf_model_id</span></code> for the model configuration and processor, and loads the frozen base weights from <code class="code docutils literal notranslate"><span class="pre">checkpoint.pretrained_checkpoint</span></code>. Adapter-only checkpoints cannot be loaded alone — pair them with the base, or merge (Bridge) before deployment.</p>
+</section>
+<section id="weights-biases">
+<h2>Weights &amp; Biases<a class="headerlink" href="#weights-biases" title="Link to this heading">#</a></h2>
+<p>Training metrics are logged via the <code class="code docutils literal notranslate"><span class="pre">wandb</span></code> section in the recipe YAML. Set <code class="code docutils literal notranslate"><span class="pre">entity</span></code> to your W&amp;B account.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 78.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">mode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">online</span></code> (needs <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code>), <code class="code docutils literal notranslate"><span class="pre">offline</span></code> (local logs), or <code class="code docutils literal notranslate"><span class="pre">disabled</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> / <code class="code docutils literal notranslate"><span class="pre">project</span></code> / <code class="code docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">entity</span></code> is your W&amp;B account; <code class="code docutils literal notranslate"><span class="pre">project</span></code> groups related runs; <code class="code docutils literal notranslate"><span class="pre">name</span></code> is the display label for this run</p></td>
+</tr>
+<tr class="row-even"><td><p>Both stacks</p></td>
+<td><p>Scripts fall back to <code class="code docutils literal notranslate"><span class="pre">offline</span></code> if <code class="code docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> is unset when mode is <code class="code docutils literal notranslate"><span class="pre">online</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="post-training-megatron-bridge-only">
+<span id="lora-post-training"></span><h2>Post-Training (Megatron-Bridge Only)<a class="headerlink" href="#post-training-megatron-bridge-only" title="Link to this heading">#</a></h2>
+<p>After LoRA training, export the adapter or merge it into a full Hugging Face checkpoint:</p>
+<ol class="arabic simple">
+<li><p><strong>Export an HF PEFT adapter</strong></p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/conversion/adapter/export_adapter.py">export_adapter.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_lora_fsdp.sh">repository example</a></p></li>
+</ul>
+</li>
+<li><p><strong>Merge adapters into a full HF checkpoint</strong></p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full.sh">repository example</a> using <a class="reference external" href="https://github.com/NVIDIA-NeMo/Megatron-Bridge/blob/nemotron_3_omni/examples/peft/merge_lora.py">merge_lora.py</a></p></li>
+<li><p><strong>FSDP:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/examples/convert_mbridge_lora_to_automodel_full_fsdp.sh">repository example</a></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Complete <a class="reference internal" href="setup.html"><span class="doc">Setup</span></a> (container, <code class="code docutils literal notranslate"><span class="pre">launch_local.yaml</span></code>, recipe YAML with your data paths).</p></li>
+<li><p>Pick a recipe under <code class="code docutils literal notranslate"><span class="pre">lora/configs/</span></code> via <code class="code docutils literal notranslate"><span class="pre">CONFIG_YAML_REL</span></code> or <code class="code docutils literal notranslate"><span class="pre">CONFIG_YAML=</span></code>; tune <code class="code docutils literal notranslate"><span class="pre">peft</span></code> rank/targets and <code class="code docutils literal notranslate"><span class="pre">optimizer.lr</span></code> if adapting a new task.</p></li>
+<li><p><strong>AutoModel:</strong> <code class="code docutils literal notranslate"><span class="pre">launch_interactive_session.sh</span></code> → <code class="code docutils literal notranslate"><span class="pre">train_interactive.sh</span></code>; then <code class="code docutils literal notranslate"><span class="pre">sbatch_starter.sh</span></code> for scale.</p></li>
+<li><p><strong>Megatron-Bridge:</strong> HF→Meg conversion once, then the same interactive → sbatch flow; use <code class="code docutils literal notranslate"><span class="pre">RESUME_CHECKPOINT=1</span></code> to continue.</p></li>
+</ol>
+<p>Smoke commands and CLI override tables are in the code-repo guides above.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sft.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">SFT</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../inference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Inference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sft-vs-lora-compute-and-checkpoint-size">SFT vs. LoRA (compute and checkpoint size)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-gets-trained-target-modules-and-freeze">What Gets Trained (Target Modules and Freeze)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-schedule-and-batching">Training Schedule and Batching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-and-learning-rate">Optimizer and Learning Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-parallelism">Distributed Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-video-and-sequence-budget">Data, Video, and Sequence Budget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moe-backend-automodel-only">MoE Backend (AutoModel Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpointing">Checkpointing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-biases">Weights &amp; Biases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#post-training-megatron-bridge-only">Post-Training (Megatron-Bridge Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 09, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

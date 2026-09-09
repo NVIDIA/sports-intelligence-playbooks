@@ -1,0 +1,169 @@
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+
+This product includes third-party software components. The notices below are
+provided in compliance with the terms of the respective licenses.
+
+NVIDIA-authored source code and published documentation in this repository are
+licensed under Apache-2.0. See the LICENSE file in the repository root.
+
+Version numbers below reflect pinned versions where this repository declares
+them (for example in avlm/data_prep_example/tennis/pyproject.toml). Other
+packages are supplied by the recommended NGC containers or resolved at pip
+install time; verify the license and version of your installed build.
+
+================================================================================
+Data preparation (avlm/data_prep_example/tennis/)
+================================================================================
+
+Used for optional LLM-assisted MCQ generation and the offline data-prep
+pipeline. Install via uv/pip in that directory (see README).
+
+  openai              2.45.0      Apache-2.0
+  python-dotenv       1.2.2       BSD-3-Clause
+  tqdm                (unpinned)  MPL-2.0 AND MIT (dual-licensed)
+
+Sources:
+  https://github.com/openai/openai-python
+  https://github.com/theskumar/python-dotenv
+  https://github.com/tqdm/tqdm
+
+================================================================================
+Evaluation (LLM judge and related scripts)
+================================================================================
+
+  openai              (see above)     Apache-2.0
+  PyYAML              (container/pip) MIT
+  tqdm                (see above)     MPL-2.0 AND MIT
+
+================================================================================
+Video and audio decoding — VLM gap-fill (runtime pip install)
+================================================================================
+
+The git release does not bundle codec binaries. AutoModel and Megatron-Bridge
+launch scripts may download and install the packages below via pip into a
+user-configurable cache directory (for example
+${CACHE_DIR}/automodel_container_pkgs or
+${CACHE_DIR}/megatron_bridge_container_pkgs) when they are missing from the
+NeMo container. Set SKIP_VLM_TRAINING_DEPS=1 or SKIP_VLM_INFERENCE_DEPS=1 to
+disable automatic installation.
+
+When no system ffmpeg executable is available, scripts may expose the FFmpeg
+binary shipped inside imageio-ffmpeg on PATH.
+
+  decord              (pip)           Apache-2.0
+  imageio-ffmpeg      (pip)           BSD-2-Clause
+  librosa             (pip)           ISC
+  audioread           (pip)           MIT
+  pooch               (pip)           BSD-3-Clause
+  lazy-loader         (pip)           BSD-3-Clause
+  soundfile           (optional pip)  BSD-3-Clause
+
+Sources:
+  https://github.com/dmlc/decord
+  https://github.com/imageio/imageio-ffmpeg
+  https://github.com/librosa/librosa
+  https://github.com/beetbox/audioread
+  https://github.com/fatiando/pooch
+  https://github.com/scientific-python/lazy_loader
+  https://github.com/bastibe/python-soundfile
+
+decord depends on FFmpeg/libav at runtime for video decoding.
+
+--------------------------------------------------------------------------------
+FFmpeg (via imageio-ffmpeg or system install)
+--------------------------------------------------------------------------------
+Purpose: Audio demux/decode from video containers; clip extraction in data prep
+         (build_sample_from_raw.py --extract-clips requires ffmpeg on PATH).
+License: FFmpeg is typically licensed under LGPL-2.1-or-later; some builds
+         include GPL-2.0-or-later components. License terms depend on the
+         specific binary/build.
+Source:  https://ffmpeg.org/
+
+Note: imageio-ffmpeg downloads and redistributes a prebuilt FFmpeg binary.
+      Review the license terms of the FFmpeg build used by your installed
+      imageio-ffmpeg version before redistribution or commercial use.
+
+================================================================================
+Optional components
+================================================================================
+
+  wandb               (optional)      MIT
+  nvidia-ml-py        (optional)      BSD
+
+Sources:
+  https://github.com/wandb/wandb
+  https://github.com/gpuopenanalytics/nvidia-ml-py
+
+================================================================================
+deep_ep (vendored wheels — wheels/deepep/)
+================================================================================
+
+Pre-built deep_ep wheels are checked into wheels/deepep/ and redistributed as
+compiled binaries (not on PyPI). Installed automatically on supported hardware
+when recipes use dispatcher: deepep. Build and install details:
+wheels/deepep/DEEPEP.MD. NVIDIA install/build scripts under wheels/deepep/ are
+Apache-2.0.
+
+Source: https://github.com/deepseek-ai/DeepEP
+
+MIT License
+
+Copyright (c) 2025 DeepSeek
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+NGC container baseline (not bundled in this repository)
+================================================================================
+
+Training and inference are designed to run in NVIDIA NeMo containers. These
+images supply the core Python stack and many dependencies below. Container
+images and their contents are subject to their own license terms on NGC:
+
+  nvcr.io/nvidia/nemo-automodel:26.06.00
+  nvcr.io/nvidia/nemo:26.06.00
+
+Representative components preinstalled or pulled in those environments:
+
+  torch               BSD-3-Clause (PyTorch)
+  transformers        Apache-2.0
+  nemo-automodel      Apache-2.0
+  safetensors         Apache-2.0
+  triton              MIT
+  megatron-core       Apache-2.0
+  megatron-bridge     Apache-2.0
+  transformer-engine  Apache-2.0
+  mamba-ssm           Apache-2.0
+  causal-conv1d       BSD-3-Clause
+  numpy               BSD-3-Clause
+  Pillow              HPND
+  PyYAML              MIT
+
+Review NGC image documentation and upstream project licenses for the complete
+dependency graph of your chosen container version.
+
+================================================================================
+FFmpeg / LGPL notice
+================================================================================
+
+If you use FFmpeg (whether installed on your system or obtained via
+imageio-ffmpeg), you are responsible for complying with FFmpeg's license terms.
+FFmpeg may be built with optional components under LGPL or GPL. Consult
+https://ffmpeg.org/legal.html and the documentation for your specific FFmpeg
+build to determine your obligations.

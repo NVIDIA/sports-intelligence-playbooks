@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 190" role="img" aria-label="Audio cue normalization used by four presence templates">
+  <rect width="860" height="190" fill="#f7f8fa"/>
+  <rect x="20" y="68" width="150" height="54" rx="9" fill="#173f5f"/>
+  <text x="95" y="100" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="14">audio_cues</text>
+  <g stroke="#9aa6b5" stroke-width="2">
+    <line x1="170" y1="95" x2="220" y2="30"/>
+    <line x1="170" y1="95" x2="220" y2="73"/>
+    <line x1="170" y1="95" x2="220" y2="116"/>
+    <line x1="170" y1="95" x2="220" y2="159"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="220" y="12" width="600" height="36" rx="7" fill="#e8f5f2" stroke="#2a9d8f"/>
+    <text x="236" y="35" fill="#176b5c" font-size="13" font-weight="700">Player effort — grunt, gasp</text>
+    <rect x="220" y="55" width="600" height="36" rx="7" fill="#e8f5f2" stroke="#2a9d8f"/>
+    <text x="236" y="78" fill="#176b5c" font-size="13" font-weight="700">Footwork — squeak</text>
+    <rect x="220" y="98" width="600" height="36" rx="7" fill="#e8f5f2" stroke="#2a9d8f"/>
+    <text x="236" y="121" fill="#176b5c" font-size="13" font-weight="700">Crowd — clap, cheer, murmur, chatter</text>
+    <rect x="220" y="141" width="600" height="36" rx="7" fill="#e8f5f2" stroke="#2a9d8f"/>
+    <text x="236" y="164" fill="#176b5c" font-size="13" font-weight="700">Official — umpire call, shout, fault call</text>
+  </g>
+</svg>

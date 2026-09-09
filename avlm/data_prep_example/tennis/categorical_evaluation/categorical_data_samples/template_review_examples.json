@@ -1,0 +1,4200 @@
+{
+  "config": "configs/generation/tennis_categorical_eval_config.json",
+  "purpose": "Template review using the latest generated categorical sample.",
+  "example_corpus": {
+    "source": "training_tennis_data_output/categorical_mcq_qa_sample",
+    "video_files": 4,
+    "conversations": 21258,
+    "fallback_source": "raw_tennis_data_input",
+    "fallback_video_files": 2,
+    "fallback_points": 20,
+    "note": "Generated examples are used for every available class."
+  },
+  "statistics_corpus": {
+    "source": "aggregated_data_complete",
+    "video_files": 252,
+    "points": 50732
+  },
+  "examples_per_template": 1,
+  "class_family_count": 33,
+  "template_count": 37,
+  "generated_template_count": 8,
+  "new_template_count": 29,
+  "template_count_note": "Winner/loser shot type and trajectory each have a sampled none-correct variant, producing 37 concrete templates from 33 class families.",
+  "aggregated_data_complete": {
+    "video_files": 252,
+    "points": 50732,
+    "eligible_template_point_pairs": 1526767,
+    "expected_data_points": 1452666
+  },
+  "templates": {
+    "winner_shot_type": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner_shot_type"
+      ],
+      "option_vocabulary_source": "Prescreen winner_shot_type only; resolve other from winner_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "question_template": "What type of shot did the winning player hit to win the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 14571,
+        "coverage_percent": 28.72,
+        "generation_probability": 1.0,
+        "expected_data_points": 14571,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "winner_shot_type": {
+            "total": 14571,
+            "unique_values": 42,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 5833,
+                "percent": 40.03
+              },
+              {
+                "value": "ace down the middle",
+                "count": 1789,
+                "percent": 12.28
+              },
+              {
+                "value": "volley",
+                "count": 1590,
+                "percent": 10.91
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 1288,
+                "percent": 8.84
+              },
+              {
+                "value": "wide ace",
+                "count": 1249,
+                "percent": 8.57
+              },
+              {
+                "value": "overhead smash",
+                "count": 763,
+                "percent": 5.24
+              },
+              {
+                "value": "passing shot",
+                "count": 652,
+                "percent": 4.47
+              },
+              {
+                "value": "ace",
+                "count": 502,
+                "percent": 3.45
+              },
+              {
+                "value": "drop shot",
+                "count": 448,
+                "percent": 3.07
+              },
+              {
+                "value": "slice",
+                "count": 179,
+                "percent": 1.23
+              }
+            ],
+            "other_value_count": 278,
+            "other_unique_values": 32,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerShotType_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What type of shot did the winning player hit to win the point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(B) flat groundstroke",
+          "options": [
+            "drop shot",
+            "flat groundstroke",
+            "slice",
+            "groundstroke with heavy topspin"
+          ]
+        }
+      ]
+    },
+    "loser_shot_type": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_shot_type"
+      ],
+      "option_vocabulary_source": "Prescreen loser_shot_type only; resolve other from loser_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "question_template": "What type of shot did the losing player hit at the end of the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 29539,
+        "coverage_percent": 58.23,
+        "generation_probability": 1.0,
+        "expected_data_points": 29539,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_shot_type": {
+            "total": 29539,
+            "unique_values": 71,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 18789,
+                "percent": 63.61
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 3252,
+                "percent": 11.01
+              },
+              {
+                "value": "lob",
+                "count": 2042,
+                "percent": 6.91
+              },
+              {
+                "value": "slice",
+                "count": 968,
+                "percent": 3.28
+              },
+              {
+                "value": "block shot",
+                "count": 805,
+                "percent": 2.73
+              },
+              {
+                "value": "volley",
+                "count": 781,
+                "percent": 2.64
+              },
+              {
+                "value": "wide serve",
+                "count": 692,
+                "percent": 2.34
+              },
+              {
+                "value": "half-volley",
+                "count": 667,
+                "percent": 2.26
+              },
+              {
+                "value": "serve down the middle",
+                "count": 525,
+                "percent": 1.78
+              },
+              {
+                "value": "kick serve",
+                "count": 207,
+                "percent": 0.7
+              }
+            ],
+            "other_value_count": 811,
+            "other_unique_values": 61,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserShotType_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "What type of shot did the losing player hit at the end of the point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(C) lob",
+          "options": [
+            "overhead serve",
+            "mishit shot",
+            "lob",
+            "passing shot"
+          ]
+        }
+      ]
+    },
+    "winner_shot_type_none": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner_shot_type"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen winner_shot_type only; resolve other from winner_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "question_template": "What type of shot did the winning player hit to win the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 14571,
+        "coverage_percent": 28.72,
+        "generation_probability": 0.15,
+        "expected_data_points": 2186,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 14571,
+          "unique_values": 1,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "none of the other options",
+              "count": 14571,
+              "percent": 100.0
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "winner_shot_type": {
+            "total": 14571,
+            "unique_values": 42,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 5833,
+                "percent": 40.03
+              },
+              {
+                "value": "ace down the middle",
+                "count": 1789,
+                "percent": 12.28
+              },
+              {
+                "value": "volley",
+                "count": 1590,
+                "percent": 10.91
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 1288,
+                "percent": 8.84
+              },
+              {
+                "value": "wide ace",
+                "count": 1249,
+                "percent": 8.57
+              },
+              {
+                "value": "overhead smash",
+                "count": 763,
+                "percent": 5.24
+              },
+              {
+                "value": "passing shot",
+                "count": 652,
+                "percent": 4.47
+              },
+              {
+                "value": "ace",
+                "count": 502,
+                "percent": 3.45
+              },
+              {
+                "value": "drop shot",
+                "count": 448,
+                "percent": 3.07
+              },
+              {
+                "value": "slice",
+                "count": 179,
+                "percent": 1.23
+              }
+            ],
+            "other_value_count": 278,
+            "other_unique_values": 32,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerShotTypeNone_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What type of shot did the winning player hit to win the point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(C) none of the other options",
+          "options": [
+            "wide ace",
+            "half-volley",
+            "none of the other options",
+            "passing shot"
+          ]
+        }
+      ]
+    },
+    "loser_shot_type_none": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_shot_type"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen loser_shot_type only; resolve other from loser_shot_type_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "question_template": "What type of shot did the losing player hit at the end of the point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 29539,
+        "coverage_percent": 58.23,
+        "generation_probability": 0.15,
+        "expected_data_points": 4431,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 29539,
+          "unique_values": 1,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "none of the other options",
+              "count": 29539,
+              "percent": 100.0
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "loser_shot_type": {
+            "total": 29539,
+            "unique_values": 71,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 18789,
+                "percent": 63.61
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 3252,
+                "percent": 11.01
+              },
+              {
+                "value": "lob",
+                "count": 2042,
+                "percent": 6.91
+              },
+              {
+                "value": "slice",
+                "count": 968,
+                "percent": 3.28
+              },
+              {
+                "value": "block shot",
+                "count": 805,
+                "percent": 2.73
+              },
+              {
+                "value": "volley",
+                "count": 781,
+                "percent": 2.64
+              },
+              {
+                "value": "wide serve",
+                "count": 692,
+                "percent": 2.34
+              },
+              {
+                "value": "half-volley",
+                "count": 667,
+                "percent": 2.26
+              },
+              {
+                "value": "serve down the middle",
+                "count": 525,
+                "percent": 1.78
+              },
+              {
+                "value": "kick serve",
+                "count": 207,
+                "percent": 0.7
+              }
+            ],
+            "other_value_count": 811,
+            "other_unique_values": 61,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserShotTypeNone_aab1aa52-d81e-4360-9bd2-fb7c29ab823d",
+          "question": "What type of shot did the losing player hit at the end of the point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) none of the other options",
+          "options": [
+            "none of the other options",
+            "kick serve",
+            "overhead smash",
+            "groundstroke with heavy topspin"
+          ]
+        }
+      ]
+    },
+    "winner_hand_used": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner_hand_used"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "What stroke side did the winning player use on the point-winning shot? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 14552,
+        "coverage_percent": 28.68,
+        "generation_probability": 1.0,
+        "expected_data_points": 14552,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "winner_hand_used": {
+            "total": 14552,
+            "unique_values": 12,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "forehand",
+                "count": 11056,
+                "percent": 75.98
+              },
+              {
+                "value": "backhand",
+                "count": 3457,
+                "percent": 23.76
+              },
+              {
+                "value": "double-handed backhand",
+                "count": 22,
+                "percent": 0.15
+              }
+            ],
+            "other_value_count": 17,
+            "other_unique_values": 9,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerHandUsed_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What stroke side did the winning player use on the point-winning shot? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) forehand",
+          "options": [
+            "forehand",
+            "backhand"
+          ]
+        }
+      ]
+    },
+    "loser_hand_used": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_hand_used"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "What stroke side did the losing player use on the final shot? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 29548,
+        "coverage_percent": 58.24,
+        "generation_probability": 1.0,
+        "expected_data_points": 29548,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_hand_used": {
+            "total": 29548,
+            "unique_values": 13,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "forehand",
+                "count": 16552,
+                "percent": 56.02
+              },
+              {
+                "value": "backhand",
+                "count": 12915,
+                "percent": 43.71
+              },
+              {
+                "value": "double-handed backhand",
+                "count": 65,
+                "percent": 0.22
+              }
+            ],
+            "other_value_count": 16,
+            "other_unique_values": 10,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserHandUsed_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "What stroke side did the losing player use on the final shot? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(B) forehand",
+          "options": [
+            "backhand",
+            "forehand"
+          ]
+        }
+      ]
+    },
+    "winner_shot_trajectory": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Prescreen winner_shot_trajectory only; resolve other from winner_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "question_template": "What was the winning shot's direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 14554,
+        "coverage_percent": 28.69,
+        "generation_probability": 1.0,
+        "expected_data_points": 14554,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "winner_shot_trajectory": {
+            "total": 14554,
+            "unique_values": 23,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 6373,
+                "percent": 43.79
+              },
+              {
+                "value": "down the line",
+                "count": 5495,
+                "percent": 37.76
+              },
+              {
+                "value": "down the middle",
+                "count": 2267,
+                "percent": 15.58
+              },
+              {
+                "value": "deuce court",
+                "count": 124,
+                "percent": 0.85
+              },
+              {
+                "value": "ad court",
+                "count": 112,
+                "percent": 0.77
+              },
+              {
+                "value": "no man's left",
+                "count": 80,
+                "percent": 0.55
+              },
+              {
+                "value": "no man's right",
+                "count": 79,
+                "percent": 0.54
+              }
+            ],
+            "other_value_count": 24,
+            "other_unique_values": 16,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerShotTrajectory_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What was the winning shot's direction? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) cross-court",
+          "options": [
+            "cross-court",
+            "no man's right",
+            "none of the other options",
+            "ad court"
+          ]
+        }
+      ]
+    },
+    "loser_shot_trajectory": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Prescreen loser_shot_trajectory only; resolve other from loser_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractor values observed at least 5 times. The raw resolved answer remains valid even below this threshold.",
+      "question_template": "What was the losing player's final-shot direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 28514,
+        "coverage_percent": 56.21,
+        "generation_probability": 1.0,
+        "expected_data_points": 28514,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_shot_trajectory": {
+            "total": 28514,
+            "unique_values": 93,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 11353,
+                "percent": 39.82
+              },
+              {
+                "value": "down the line",
+                "count": 9536,
+                "percent": 33.44
+              },
+              {
+                "value": "down the middle",
+                "count": 5568,
+                "percent": 19.53
+              },
+              {
+                "value": "ad court",
+                "count": 786,
+                "percent": 2.76
+              },
+              {
+                "value": "deuce court",
+                "count": 763,
+                "percent": 2.68
+              },
+              {
+                "value": "out of court",
+                "count": 155,
+                "percent": 0.54
+              },
+              {
+                "value": "no man's left",
+                "count": 122,
+                "percent": 0.43
+              },
+              {
+                "value": "no man's right",
+                "count": 107,
+                "percent": 0.38
+              }
+            ],
+            "other_value_count": 124,
+            "other_unique_values": 85,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserShotTrajectory_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "What was the losing player's final-shot direction? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) cross-court",
+          "options": [
+            "cross-court",
+            "out of court",
+            "down the line",
+            "none of the other options"
+          ]
+        }
+      ]
+    },
+    "winner_shot_trajectory_none": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen winner_shot_trajectory only; resolve other from winner_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "question_template": "What was the winning shot's direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 14554,
+        "coverage_percent": 28.69,
+        "generation_probability": 0.15,
+        "expected_data_points": 2183,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 14554,
+          "unique_values": 1,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "none of the other options",
+              "count": 14554,
+              "percent": 100.0
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "winner_shot_trajectory": {
+            "total": 14554,
+            "unique_values": 23,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 6373,
+                "percent": 43.79
+              },
+              {
+                "value": "down the line",
+                "count": 5495,
+                "percent": 37.76
+              },
+              {
+                "value": "down the middle",
+                "count": 2267,
+                "percent": 15.58
+              },
+              {
+                "value": "deuce court",
+                "count": 124,
+                "percent": 0.85
+              },
+              {
+                "value": "ad court",
+                "count": 112,
+                "percent": 0.77
+              },
+              {
+                "value": "no man's left",
+                "count": 80,
+                "percent": 0.55
+              },
+              {
+                "value": "no man's right",
+                "count": 79,
+                "percent": 0.54
+              }
+            ],
+            "other_value_count": 24,
+            "other_unique_values": 16,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerShotTrajectoryNone_c34fad05-5b3d-494c-baa0-12f87ffcabc5",
+          "question": "What was the winning shot's direction? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(D) none of the other options",
+          "options": [
+            "down the middle",
+            "deuce court",
+            "no man's left",
+            "none of the other options"
+          ]
+        }
+      ]
+    },
+    "loser_shot_trajectory_none": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Shot Mechanics",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_shot_trajectory"
+      ],
+      "option_vocabulary_source": "Sampled none-correct variant. Prescreen loser_shot_trajectory only; resolve other from loser_shot_trajectory_other; lowercase and canonicalize aliases; exclude unavailable values; and retain distractors observed at least 5 times. The raw resolved answer is intentionally omitted from the choices.",
+      "question_template": "What was the losing player's final-shot direction? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 28514,
+        "coverage_percent": 56.21,
+        "generation_probability": 0.15,
+        "expected_data_points": 4277,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 28514,
+          "unique_values": 1,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "none of the other options",
+              "count": 28514,
+              "percent": 100.0
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "loser_shot_trajectory": {
+            "total": 28514,
+            "unique_values": 93,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 11353,
+                "percent": 39.82
+              },
+              {
+                "value": "down the line",
+                "count": 9536,
+                "percent": 33.44
+              },
+              {
+                "value": "down the middle",
+                "count": 5568,
+                "percent": 19.53
+              },
+              {
+                "value": "ad court",
+                "count": 786,
+                "percent": 2.76
+              },
+              {
+                "value": "deuce court",
+                "count": 763,
+                "percent": 2.68
+              },
+              {
+                "value": "out of court",
+                "count": 155,
+                "percent": 0.54
+              },
+              {
+                "value": "no man's left",
+                "count": 122,
+                "percent": 0.43
+              },
+              {
+                "value": "no man's right",
+                "count": 107,
+                "percent": 0.38
+              }
+            ],
+            "other_value_count": 124,
+            "other_unique_values": 85,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserShotTrajectoryNone_29034802-c665-425d-ba23-80092d7a5839",
+          "question": "What was the losing player's final-shot direction? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(C) none of the other options",
+          "options": [
+            "down the line",
+            "ad court",
+            "none of the other options",
+            "no man's left"
+          ]
+        }
+      ]
+    },
+    "server_location": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "server_location"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Was the server on the near or far side of the visible court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": "Both near-court and far-court values are well represented in the complete aggregated corpus.",
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43871,
+        "coverage_percent": 86.48,
+        "generation_probability": 1.0,
+        "expected_data_points": 43871,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "server_location": {
+            "total": 43871,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "near-court",
+                "count": 23478,
+                "percent": 53.52
+              },
+              {
+                "value": "far-court",
+                "count": 20393,
+                "percent": 46.48
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServerLocation_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "Was the server on the near or far side of the visible court? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(B) far-court",
+          "options": [
+            "near-court",
+            "far-court"
+          ]
+        }
+      ]
+    },
+    "receiver_location": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "receiver_location"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Was the receiver on the near or far side of the visible court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": "Both near-court and far-court values are well represented in the complete aggregated corpus.",
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43865,
+        "coverage_percent": 86.46,
+        "generation_probability": 1.0,
+        "expected_data_points": 43865,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "receiver_location": {
+            "total": 43865,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "far-court",
+                "count": 22670,
+                "percent": 51.68
+              },
+              {
+                "value": "near-court",
+                "count": 21195,
+                "percent": 48.32
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ReceiverLocation_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "Was the receiver on the near or far side of the visible court? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(B) near-court",
+          "options": [
+            "far-court",
+            "near-court"
+          ]
+        }
+      ]
+    },
+    "server_receiver_location": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Court Positioning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "server_location",
+        "receiver_location"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which option correctly identifies whether the server and receiver are on the near or far side of the court? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": "Both server/receiver near-far assignments are represented in the complete aggregated corpus.",
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43864,
+        "coverage_percent": 86.46,
+        "generation_probability": 1.0,
+        "expected_data_points": 43864,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 43864,
+          "unique_values": 4,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "server near-court; receiver far-court",
+              "count": 22662,
+              "percent": 51.66
+            },
+            {
+              "value": "server far-court; receiver near-court",
+              "count": 20384,
+              "percent": 46.47
+            },
+            {
+              "value": "server near-court; receiver near-court",
+              "count": 810,
+              "percent": 1.85
+            }
+          ],
+          "other_value_count": 8,
+          "other_unique_values": 1
+        },
+        "source_field_distributions": {
+          "server_location": {
+            "total": 43864,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Near-court",
+                "count": 23472,
+                "percent": 53.51
+              },
+              {
+                "value": "Far-court",
+                "count": 20392,
+                "percent": 46.49
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "receiver_location": {
+            "total": 43864,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Far-court",
+                "count": 22670,
+                "percent": 51.68
+              },
+              {
+                "value": "Near-court",
+                "count": 21194,
+                "percent": 48.32
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServerReceiverLocation_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Which option correctly identifies whether the server and receiver are on the near or far side of the court? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(D) server far-court; receiver near-court",
+          "options": [
+            "server near-court; receiver far-court",
+            "both near-court",
+            "both far-court",
+            "server far-court; receiver near-court"
+          ]
+        }
+      ]
+    },
+    "loser_lateral_movement": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_lateral_movement"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "What was the losing player's lateral movement? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43745,
+        "coverage_percent": 86.23,
+        "generation_probability": 1.0,
+        "expected_data_points": 43745,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_lateral_movement": {
+            "total": 43745,
+            "unique_values": 3,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "right to left",
+                "count": 16282,
+                "percent": 37.22
+              },
+              {
+                "value": "left to right",
+                "count": 16225,
+                "percent": 37.09
+              },
+              {
+                "value": "no lateral movement",
+                "count": 11238,
+                "percent": 25.69
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserLateralMovement_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "What was the losing player's lateral movement? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(B) left to right",
+          "options": [
+            "no lateral movement",
+            "left to right",
+            "right to left"
+          ]
+        }
+      ]
+    },
+    "loser_depth_movement": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_depth_movement"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How did the losing player move forward or backward? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43971,
+        "coverage_percent": 86.67,
+        "generation_probability": 1.0,
+        "expected_data_points": 43971,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_depth_movement": {
+            "total": 43971,
+            "unique_values": 3,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "no depth movement",
+                "count": 35227,
+                "percent": 80.11
+              },
+              {
+                "value": "forward",
+                "count": 5415,
+                "percent": 12.31
+              },
+              {
+                "value": "backward",
+                "count": 3329,
+                "percent": 7.57
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserDepthMovement_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "How did the losing player move forward or backward? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) no depth movement",
+          "options": [
+            "no depth movement",
+            "backward",
+            "forward"
+          ]
+        }
+      ]
+    },
+    "loser_combined_movement": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Player Movement",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_lateral_movement",
+        "loser_depth_movement"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which description best matches the losing player's movement? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 43700,
+        "coverage_percent": 86.14,
+        "generation_probability": 1.0,
+        "expected_data_points": 43700,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 43700,
+          "unique_values": 9,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "right to left; no depth movement",
+              "count": 12897,
+              "percent": 29.51
+            },
+            {
+              "value": "left to right; no depth movement",
+              "count": 12828,
+              "percent": 29.35
+            },
+            {
+              "value": "no lateral movement; no depth movement",
+              "count": 9277,
+              "percent": 21.23
+            },
+            {
+              "value": "right to left; forward",
+              "count": 2032,
+              "percent": 4.65
+            },
+            {
+              "value": "left to right; forward",
+              "count": 2031,
+              "percent": 4.65
+            },
+            {
+              "value": "left to right; backward",
+              "count": 1345,
+              "percent": 3.08
+            },
+            {
+              "value": "right to left; backward",
+              "count": 1333,
+              "percent": 3.05
+            },
+            {
+              "value": "no lateral movement; forward",
+              "count": 1324,
+              "percent": 3.03
+            },
+            {
+              "value": "no lateral movement; backward",
+              "count": 633,
+              "percent": 1.45
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "loser_lateral_movement": {
+            "total": 43700,
+            "unique_values": 3,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "right to left",
+                "count": 16262,
+                "percent": 37.21
+              },
+              {
+                "value": "left to right",
+                "count": 16204,
+                "percent": 37.08
+              },
+              {
+                "value": "no lateral movement",
+                "count": 11234,
+                "percent": 25.71
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "loser_depth_movement": {
+            "total": 43700,
+            "unique_values": 3,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "no depth movement",
+                "count": 35002,
+                "percent": 80.1
+              },
+              {
+                "value": "forward",
+                "count": 5387,
+                "percent": 12.33
+              },
+              {
+                "value": "backward",
+                "count": 3311,
+                "percent": 7.58
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserCombinedMovement_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Which description best matches the losing player's movement? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) right to left; no depth movement",
+          "options": [
+            "right to left; no depth movement",
+            "left to right; forward",
+            "left to right; no depth movement",
+            "no lateral movement; no depth movement"
+          ]
+        }
+      ]
+    },
+    "loser_point_ended": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Ball Outcome and Placement",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "loser_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How did the point end for the losing player?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 42262,
+        "coverage_percent": 83.3,
+        "generation_probability": 1.0,
+        "expected_data_points": 42262,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "loser_point_ended": {
+            "total": 42262,
+            "unique_values": 4,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "out",
+                "count": 17014,
+                "percent": 40.26
+              },
+              {
+                "value": "not contacted by the losing player",
+                "count": 14465,
+                "percent": 34.23
+              },
+              {
+                "value": "into the net",
+                "count": 9799,
+                "percent": 23.19
+              },
+              {
+                "value": "landed on the losing player's side of the court",
+                "count": 984,
+                "percent": 2.33
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_LoserPointEnded_3d8f80d3-77fd-4d7a-ba97-9187f476d0fe",
+          "question": "How did the point end for the losing player?",
+          "answer": "(A) out",
+          "options": [
+            "out",
+            "not contacted by the losing player",
+            "landed on the losing player's side of the court",
+            "into the net"
+          ]
+        }
+      ]
+    },
+    "mcq_caption_action_mismatch": {
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Action Consistency",
+      "format": "mcq",
+      "option_space": "open",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "point_caption",
+        "winner_shot_type",
+        "winner_hand_used",
+        "winner_shot_trajectory",
+        "loser_shot_type",
+        "loser_hand_used",
+        "loser_shot_trajectory",
+        "loser_lateral_movement",
+        "loser_depth_movement"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "What happened in this point? Provide a detailed caption including the action of the players. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 44077,
+        "coverage_percent": 86.88,
+        "generation_probability": 1.0,
+        "expected_data_points": 44077,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 44077,
+          "unique_values": 43614,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [],
+          "other_value_count": 44077,
+          "other_unique_values": 43614
+        },
+        "source_field_distributions": {
+          "point_caption": {
+            "total": 44077,
+            "unique_values": 43521,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [],
+            "other_value_count": 44077,
+            "other_unique_values": 43521,
+            "missing_among_eligible": 0
+          },
+          "winner_shot_type": {
+            "total": 44077,
+            "unique_values": 42,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 5833,
+                "percent": 13.23
+              },
+              {
+                "value": "ace down the middle",
+                "count": 1789,
+                "percent": 4.06
+              },
+              {
+                "value": "volley",
+                "count": 1590,
+                "percent": 3.61
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 1288,
+                "percent": 2.92
+              },
+              {
+                "value": "wide ace",
+                "count": 1249,
+                "percent": 2.83
+              },
+              {
+                "value": "overhead smash",
+                "count": 763,
+                "percent": 1.73
+              },
+              {
+                "value": "passing shot",
+                "count": 652,
+                "percent": 1.48
+              },
+              {
+                "value": "ace",
+                "count": 502,
+                "percent": 1.14
+              },
+              {
+                "value": "drop shot",
+                "count": 448,
+                "percent": 1.02
+              },
+              {
+                "value": "slice",
+                "count": 179,
+                "percent": 0.41
+              }
+            ],
+            "other_value_count": 278,
+            "other_unique_values": 32,
+            "missing_among_eligible": 29506
+          },
+          "winner_hand_used": {
+            "total": 44077,
+            "unique_values": 12,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "forehand",
+                "count": 11056,
+                "percent": 25.08
+              },
+              {
+                "value": "backhand",
+                "count": 3457,
+                "percent": 7.84
+              }
+            ],
+            "other_value_count": 39,
+            "other_unique_values": 10,
+            "missing_among_eligible": 29525
+          },
+          "winner_shot_trajectory": {
+            "total": 44077,
+            "unique_values": 23,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 6373,
+                "percent": 14.46
+              },
+              {
+                "value": "down the line",
+                "count": 5495,
+                "percent": 12.47
+              },
+              {
+                "value": "down the middle",
+                "count": 2267,
+                "percent": 5.14
+              },
+              {
+                "value": "deuce court",
+                "count": 124,
+                "percent": 0.28
+              },
+              {
+                "value": "ad court",
+                "count": 112,
+                "percent": 0.25
+              },
+              {
+                "value": "no man's left",
+                "count": 80,
+                "percent": 0.18
+              },
+              {
+                "value": "no man's right",
+                "count": 79,
+                "percent": 0.18
+              }
+            ],
+            "other_value_count": 24,
+            "other_unique_values": 16,
+            "missing_among_eligible": 29523
+          },
+          "loser_shot_type": {
+            "total": 44077,
+            "unique_values": 71,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "flat groundstroke",
+                "count": 18789,
+                "percent": 42.63
+              },
+              {
+                "value": "groundstroke with heavy topspin",
+                "count": 3252,
+                "percent": 7.38
+              },
+              {
+                "value": "lob",
+                "count": 2042,
+                "percent": 4.63
+              },
+              {
+                "value": "slice",
+                "count": 968,
+                "percent": 2.2
+              },
+              {
+                "value": "block shot",
+                "count": 805,
+                "percent": 1.83
+              },
+              {
+                "value": "volley",
+                "count": 781,
+                "percent": 1.77
+              },
+              {
+                "value": "wide serve",
+                "count": 692,
+                "percent": 1.57
+              },
+              {
+                "value": "half-volley",
+                "count": 667,
+                "percent": 1.51
+              },
+              {
+                "value": "serve down the middle",
+                "count": 525,
+                "percent": 1.19
+              },
+              {
+                "value": "kick serve",
+                "count": 207,
+                "percent": 0.47
+              }
+            ],
+            "other_value_count": 811,
+            "other_unique_values": 61,
+            "missing_among_eligible": 14538
+          },
+          "loser_hand_used": {
+            "total": 44077,
+            "unique_values": 13,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "forehand",
+                "count": 16552,
+                "percent": 37.55
+              },
+              {
+                "value": "backhand",
+                "count": 12915,
+                "percent": 29.3
+              },
+              {
+                "value": "double-handed backhand",
+                "count": 65,
+                "percent": 0.15
+              }
+            ],
+            "other_value_count": 16,
+            "other_unique_values": 10,
+            "missing_among_eligible": 14529
+          },
+          "loser_shot_trajectory": {
+            "total": 44077,
+            "unique_values": 93,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "cross-court",
+                "count": 11353,
+                "percent": 25.76
+              },
+              {
+                "value": "down the line",
+                "count": 9536,
+                "percent": 21.63
+              },
+              {
+                "value": "down the middle",
+                "count": 5568,
+                "percent": 12.63
+              },
+              {
+                "value": "ad court",
+                "count": 786,
+                "percent": 1.78
+              },
+              {
+                "value": "deuce court",
+                "count": 763,
+                "percent": 1.73
+              },
+              {
+                "value": "out of court",
+                "count": 155,
+                "percent": 0.35
+              },
+              {
+                "value": "no man's left",
+                "count": 122,
+                "percent": 0.28
+              },
+              {
+                "value": "no man's right",
+                "count": 107,
+                "percent": 0.24
+              }
+            ],
+            "other_value_count": 124,
+            "other_unique_values": 85,
+            "missing_among_eligible": 15563
+          },
+          "loser_lateral_movement": {
+            "total": 44077,
+            "unique_values": 28,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "right to left",
+                "count": 16282,
+                "percent": 36.94
+              },
+              {
+                "value": "left to right",
+                "count": 16225,
+                "percent": 36.81
+              },
+              {
+                "value": "no lateral movement",
+                "count": 11238,
+                "percent": 25.5
+              },
+              {
+                "value": "adjustment steps",
+                "count": 102,
+                "percent": 0.23
+              }
+            ],
+            "other_value_count": 158,
+            "other_unique_values": 24,
+            "missing_among_eligible": 72
+          },
+          "loser_depth_movement": {
+            "total": 44077,
+            "unique_values": 9,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "no depth movement",
+                "count": 35227,
+                "percent": 79.92
+              },
+              {
+                "value": "forward",
+                "count": 5415,
+                "percent": 12.29
+              },
+              {
+                "value": "backward",
+                "count": 3329,
+                "percent": 7.55
+              }
+            ],
+            "other_value_count": 7,
+            "other_unique_values": 6,
+            "missing_among_eligible": 99
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_McqCaptionActionMismatch_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What happened in this point? Provide a detailed caption including the action of the players. (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(C) The rally starts with the first serve by J. Teichmann that lands in the deuce service court. V. Mboko returns it with a backhand shot, to which J. Teichmann hits a forehand shot that lands the ball into the ad court of V. Mboko. V. Mboko is unable to return the shot. It is a winner by J. Teichman, giving her a point. The winning player's stroke side was forehand.",
+          "options": [
+            "The rally starts with the first serve by J. Teichmann that lands in the deuce service court. V. Mboko returns it with a backhand shot, to which J. Teichmann hits a forehand shot that lands the ball into the ad court of V. Mboko. V. Mboko is unable to return the shot. It is a winner by J. Teichman, giving her a point. The winning player's stroke side was backhand.",
+            "The rally starts with the first serve by J. Teichmann that lands in the deuce service court. V. Mboko returns it with a backhand shot, to which J. Teichmann hits a forehand shot that lands the ball into the ad court of V. Mboko. V. Mboko is unable to return the shot. It is a winner by J. Teichman, giving her a point. The winning player's stroke side was double-handed backhand.",
+            "The rally starts with the first serve by J. Teichmann that lands in the deuce service court. V. Mboko returns it with a backhand shot, to which J. Teichmann hits a forehand shot that lands the ball into the ad court of V. Mboko. V. Mboko is unable to return the shot. It is a winner by J. Teichman, giving her a point. The winning player's stroke side was forehand."
+          ]
+        }
+      ]
+    },
+    "server_winner": {
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "server_winner"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Who served and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50650,
+        "coverage_percent": 99.84,
+        "generation_probability": 1.0,
+        "expected_data_points": 50650,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50650,
+          "unique_values": 689,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Rafael Nadal served and Rafael Nadal won",
+              "count": 1595,
+              "percent": 3.15
+            },
+            {
+              "value": "Novak Djokovic served and Novak Djokovic won",
+              "count": 1506,
+              "percent": 2.97
+            },
+            {
+              "value": "Roger Federer served and Roger Federer won",
+              "count": 1374,
+              "percent": 2.71
+            },
+            {
+              "value": "Jannik Sinner served and Jannik Sinner won",
+              "count": 1081,
+              "percent": 2.13
+            },
+            {
+              "value": "Serena Williams served and Serena Williams won",
+              "count": 783,
+              "percent": 1.55
+            },
+            {
+              "value": "Djokovic served and Djokovic won",
+              "count": 748,
+              "percent": 1.48
+            },
+            {
+              "value": "Alexander Zverev served and Alexander Zverev won",
+              "count": 697,
+              "percent": 1.38
+            },
+            {
+              "value": "Carlos Alcaraz served and Carlos Alcaraz won",
+              "count": 694,
+              "percent": 1.37
+            },
+            {
+              "value": "Ben Shelton served and Ben Shelton won",
+              "count": 596,
+              "percent": 1.18
+            },
+            {
+              "value": "Stefanos Tsitsipas served and Stefanos Tsitsipas won",
+              "count": 528,
+              "percent": 1.04
+            }
+          ],
+          "other_value_count": 41048,
+          "other_unique_values": 679
+        },
+        "source_field_distributions": {
+          "winner": {
+            "total": 50650,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Server",
+                "count": 30730,
+                "percent": 60.67
+              },
+              {
+                "value": "Receiver",
+                "count": 19920,
+                "percent": 39.33
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServerWinner_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Who served and who won this tennis point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(D) Jil Teichmann served and Jil Teichmann won",
+          "options": [
+            "Victoria Mboko served and Jil Teichmann won",
+            "Jil Teichmann served and Victoria Mboko won",
+            "Victoria Mboko served and Victoria Mboko won",
+            "Jil Teichmann served and Jil Teichmann won"
+          ]
+        }
+      ]
+    },
+    "receiver_winner": {
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "receiver_winner"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Who received the serve and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50650,
+        "coverage_percent": 99.84,
+        "generation_probability": 1.0,
+        "expected_data_points": 50650,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50650,
+          "unique_values": 690,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Rafael Nadal received and Rafael Nadal won",
+              "count": 1011,
+              "percent": 2.0
+            },
+            {
+              "value": "Novak Djokovic received and Novak Djokovic won",
+              "count": 999,
+              "percent": 1.97
+            },
+            {
+              "value": "Roger Federer received and Roger Federer won",
+              "count": 794,
+              "percent": 1.57
+            },
+            {
+              "value": "Jannik Sinner received and Jannik Sinner won",
+              "count": 741,
+              "percent": 1.46
+            },
+            {
+              "value": "Serena Williams received and Serena Williams won",
+              "count": 532,
+              "percent": 1.05
+            },
+            {
+              "value": "Carlos Alcaraz received and Carlos Alcaraz won",
+              "count": 515,
+              "percent": 1.02
+            },
+            {
+              "value": "Djokovic received and Djokovic won",
+              "count": 481,
+              "percent": 0.95
+            },
+            {
+              "value": "Novak Djokovic received and Rafael Nadal won",
+              "count": 452,
+              "percent": 0.89
+            },
+            {
+              "value": "Rafael Nadal received and Novak Djokovic won",
+              "count": 449,
+              "percent": 0.89
+            },
+            {
+              "value": "Alexander Zverev received and Alexander Zverev won",
+              "count": 441,
+              "percent": 0.87
+            }
+          ],
+          "other_value_count": 44235,
+          "other_unique_values": 680
+        },
+        "source_field_distributions": {
+          "winner": {
+            "total": 50650,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Server",
+                "count": 30730,
+                "percent": 60.67
+              },
+              {
+                "value": "Receiver",
+                "count": 19920,
+                "percent": 39.33
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ReceiverWinner_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "Who received the serve and who won this tennis point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(C) Victoria Mboko received and Victoria Mboko won",
+          "options": [
+            "Victoria Mboko received and Jil Teichmann won",
+            "Jil Teichmann received and Victoria Mboko won",
+            "Victoria Mboko received and Victoria Mboko won",
+            "Jil Teichmann received and Jil Teichmann won"
+          ]
+        }
+      ]
+    },
+    "how_point_ended": {
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "how_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How did this tennis point end?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50682,
+        "coverage_percent": 99.9,
+        "generation_probability": 1.0,
+        "expected_data_points": 50682,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50682,
+          "unique_values": 8,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Unforced Error",
+              "count": 26861,
+              "percent": 53.0
+            },
+            {
+              "value": "Winner",
+              "count": 12535,
+              "percent": 24.73
+            },
+            {
+              "value": "Forced Error",
+              "count": 5046,
+              "percent": 9.96
+            },
+            {
+              "value": "Ace",
+              "count": 3982,
+              "percent": 7.86
+            },
+            {
+              "value": "Double Fault",
+              "count": 1969,
+              "percent": 3.89
+            },
+            {
+              "value": "Point ended by review",
+              "count": 221,
+              "percent": 0.44
+            },
+            {
+              "value": "Violation",
+              "count": 61,
+              "percent": 0.12
+            }
+          ],
+          "other_value_count": 7,
+          "other_unique_values": 1
+        },
+        "source_field_distributions": {
+          "how_point_ended": {
+            "total": 50682,
+            "unique_values": 9,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+                "count": 26861,
+                "percent": 53.0
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+                "count": 11441,
+                "percent": 22.57
+              },
+              {
+                "value": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+                "count": 5046,
+                "percent": 9.96
+              },
+              {
+                "value": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+                "count": 3982,
+                "percent": 7.86
+              },
+              {
+                "value": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+                "count": 1969,
+                "percent": 3.89
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+                "count": 1094,
+                "percent": 2.16
+              },
+              {
+                "value": "Point ended by review",
+                "count": 221,
+                "percent": 0.44
+              },
+              {
+                "value": "Violation: Rule-based loss of point includes player touching net, ball touches player, double bounce, foot fault, etc.",
+                "count": 61,
+                "percent": 0.12
+              }
+            ],
+            "other_value_count": 7,
+            "other_unique_values": 1,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_PointEnd_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "How did this tennis point end?",
+          "answer": "(B) Winner",
+          "options": [
+            "Retirement/Default",
+            "Winner",
+            "Let",
+            "Ace"
+          ]
+        }
+      ]
+    },
+    "winner_role": {
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Did the server or receiver win the point?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50689,
+        "coverage_percent": 99.92,
+        "generation_probability": 1.0,
+        "expected_data_points": 50689,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "winner": {
+            "total": 50689,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "server",
+                "count": 30754,
+                "percent": 60.67
+              },
+              {
+                "value": "receiver",
+                "count": 19935,
+                "percent": 39.33
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_WinnerRole_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "Did the server or receiver win the point?",
+          "answer": "(A) receiver",
+          "options": [
+            "receiver",
+            "server"
+          ]
+        }
+      ]
+    },
+    "score_after": {
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "format": "mcq",
+      "option_space": "open",
+      "distractor_generation": "heuristic",
+      "implementation_type": "freeform_with_distractors",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "score_after"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "<score_before>. What was the score after this point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50724,
+        "coverage_percent": 99.98,
+        "generation_probability": 1.0,
+        "expected_data_points": 50724,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50724,
+          "unique_values": 47470,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [],
+          "other_value_count": 50724,
+          "other_unique_values": 47470
+        },
+        "source_field_distributions": {}
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ScoreAfter_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "J. Teichmann vs. V. Mboko:{0-0, 15-0}. What was the score after this point? (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "(A) J. Teichmann vs. V. Mboko:{0-0, 15-15}",
+          "options": [
+            "J. Teichmann vs. V. Mboko:{0-0, 15-15}",
+            "J. Teichmann vs. V. Mboko:{0-0, 40-0}",
+            "J. Teichmann vs. V. Mboko:{0-0, 30-0}",
+            "J. Teichmann vs. V. Mboko:{0-0, 15-0}"
+          ]
+        }
+      ]
+    },
+    "num_serving_attempts_until_successful": {
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "categorical",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_serving_attempts_until_successful"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How many serving attempts were made in this point?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50713,
+        "coverage_percent": 99.96,
+        "generation_probability": 1.0,
+        "expected_data_points": 50713,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "num_serving_attempts_until_successful": {
+            "total": 50713,
+            "unique_values": 6,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "1",
+                "count": 30455,
+                "percent": 60.05
+              },
+              {
+                "value": "2",
+                "count": 19323,
+                "percent": 38.1
+              },
+              {
+                "value": "3",
+                "count": 880,
+                "percent": 1.74
+              },
+              {
+                "value": "4",
+                "count": 49,
+                "percent": 0.1
+              }
+            ],
+            "other_value_count": 6,
+            "other_unique_values": 2,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServingAttempts_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "How many serving attempts were made in this point?",
+          "answer": "(A) 1",
+          "options": [
+            "1",
+            "4",
+            "2",
+            "3"
+          ]
+        }
+      ]
+    },
+    "num_shots_exchanged": {
+      "super_category": "Match Facts",
+      "fine_category": "Rally Structure",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "numeric_range",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_shots_exchanged"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How many shots were exchanged in this rally?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50713,
+        "coverage_percent": 99.96,
+        "generation_probability": 1.0,
+        "expected_data_points": 50713,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50713,
+          "unique_values": 13,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "3 shots",
+              "count": 8532,
+              "percent": 16.82
+            },
+            {
+              "value": "2 shots",
+              "count": 8425,
+              "percent": 16.61
+            },
+            {
+              "value": "4 shots",
+              "count": 6204,
+              "percent": 12.23
+            },
+            {
+              "value": "5 shots",
+              "count": 5154,
+              "percent": 10.16
+            },
+            {
+              "value": "11-20 shots (Long rally)",
+              "count": 4354,
+              "percent": 8.59
+            },
+            {
+              "value": "1 shot",
+              "count": 4019,
+              "percent": 7.92
+            },
+            {
+              "value": "6 shots",
+              "count": 3636,
+              "percent": 7.17
+            },
+            {
+              "value": "7 shots",
+              "count": 2941,
+              "percent": 5.8
+            },
+            {
+              "value": "8 shots",
+              "count": 2181,
+              "percent": 4.3
+            },
+            {
+              "value": "0 shots",
+              "count": 1987,
+              "percent": 3.92
+            }
+          ],
+          "other_value_count": 3280,
+          "other_unique_values": 3
+        },
+        "source_field_distributions": {
+          "num_shots_exchanged": {
+            "total": 50713,
+            "unique_values": 44,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "3",
+                "count": 8532,
+                "percent": 16.82
+              },
+              {
+                "value": "2",
+                "count": 8425,
+                "percent": 16.61
+              },
+              {
+                "value": "4",
+                "count": 6204,
+                "percent": 12.23
+              },
+              {
+                "value": "5",
+                "count": 5154,
+                "percent": 10.16
+              },
+              {
+                "value": "1",
+                "count": 4019,
+                "percent": 7.92
+              },
+              {
+                "value": "6",
+                "count": 3636,
+                "percent": 7.17
+              },
+              {
+                "value": "7",
+                "count": 2941,
+                "percent": 5.8
+              },
+              {
+                "value": "8",
+                "count": 2181,
+                "percent": 4.3
+              },
+              {
+                "value": "0",
+                "count": 1987,
+                "percent": 3.92
+              },
+              {
+                "value": "9",
+                "count": 1607,
+                "percent": 3.17
+              }
+            ],
+            "other_value_count": 6027,
+            "other_unique_values": 34,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_RallyLength_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "How many shots were exchanged in this rally?",
+          "answer": "(C) 3 shots",
+          "options": [
+            "21+ shots (Extended rally)",
+            "8 shots",
+            "3 shots",
+            "11-20 shots (Long rally)"
+          ]
+        }
+      ]
+    },
+    "rally_length_bucket": {
+      "super_category": "Match Facts",
+      "fine_category": "Rally Structure",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "fixed",
+      "implementation_type": "numeric_range",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_shots_exchanged"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "How long was this rally?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50713,
+        "coverage_percent": 99.96,
+        "generation_probability": 1.0,
+        "expected_data_points": 50713,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50713,
+          "unique_values": 5,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Short rally (1–4 shots)",
+              "count": 27180,
+              "percent": 53.6
+            },
+            {
+              "value": "Medium rally (5–10 shots)",
+              "count": 16796,
+              "percent": 33.12
+            },
+            {
+              "value": "Long rally (11–20 shots)",
+              "count": 4354,
+              "percent": 8.59
+            },
+            {
+              "value": "Serve-only / no exchange (0 shots)",
+              "count": 1987,
+              "percent": 3.92
+            },
+            {
+              "value": "Extended rally (21+ shots)",
+              "count": 396,
+              "percent": 0.78
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "num_shots_exchanged": {
+            "total": 50713,
+            "unique_values": 44,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "3",
+                "count": 8532,
+                "percent": 16.82
+              },
+              {
+                "value": "2",
+                "count": 8425,
+                "percent": 16.61
+              },
+              {
+                "value": "4",
+                "count": 6204,
+                "percent": 12.23
+              },
+              {
+                "value": "5",
+                "count": 5154,
+                "percent": 10.16
+              },
+              {
+                "value": "1",
+                "count": 4019,
+                "percent": 7.92
+              },
+              {
+                "value": "6",
+                "count": 3636,
+                "percent": 7.17
+              },
+              {
+                "value": "7",
+                "count": 2941,
+                "percent": 5.8
+              },
+              {
+                "value": "8",
+                "count": 2181,
+                "percent": 4.3
+              },
+              {
+                "value": "0",
+                "count": 1987,
+                "percent": 3.92
+              },
+              {
+                "value": "9",
+                "count": 1607,
+                "percent": 3.17
+              }
+            ],
+            "other_value_count": 6027,
+            "other_unique_values": 34,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_RallyLengthBucket_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "How long was this rally?",
+          "answer": "(C) Short rally (1–4 shots)",
+          "options": [
+            "Medium rally (5–10 shots)",
+            "Extended rally (21+ shots)",
+            "Short rally (1–4 shots)",
+            "Serve-only / no exchange (0 shots)"
+          ]
+        }
+      ]
+    },
+    "score_transition": {
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "score_before",
+        "score_after",
+        "winner",
+        "server",
+        "receiver"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "The score before the point was <score_before>. Which option correctly identifies the point winner and the new score?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50541,
+        "coverage_percent": 99.62,
+        "generation_probability": 1.0,
+        "expected_data_points": 50541,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50541,
+          "unique_values": 48230,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [],
+          "other_value_count": 50541,
+          "other_unique_values": 48230
+        },
+        "source_field_distributions": {
+          "winner": {
+            "total": 50541,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Server",
+                "count": 30673,
+                "percent": 60.69
+              },
+              {
+                "value": "Receiver",
+                "count": 19868,
+                "percent": 39.31
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ScoreTransition_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "The score before the point was J. Teichmann vs. V. Mboko:{0-0, 0-0}. Which option correctly identifies the point winner and the new score?",
+          "answer": "(B) Jil Teichmann(server)won the point; new score: J. Teichmann vs. V. Mboko:{0-0, 15-0}",
+          "options": [
+            "Victoria Mboko(receiver)won the point; new score: J. Teichmann vs. V. Mboko:{0-0, 15-0}",
+            "Jil Teichmann(server)won the point; new score: J. Teichmann vs. V. Mboko:{0-0, 15-0}",
+            "Jil Teichmann(receiver)won the point; new score: J. Teichmann vs. V. Mboko:{0-0, 15-0}",
+            "Jil Teichmann(server)won the point; new score: J. Teichmann vs. V. Mboko:{0-0, 0-15}"
+          ]
+        }
+      ]
+    },
+    "serve_sequence_outcome": {
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which serve sequence and point outcome correctly describe this point?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 49423,
+        "coverage_percent": 97.42,
+        "generation_probability": 1.0,
+        "expected_data_points": 49423,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 49423,
+          "unique_values": 9,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "First serve was successful; point outcome: Unforced Error",
+              "count": 15108,
+              "percent": 30.57
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Unforced Error",
+              "count": 11211,
+              "percent": 22.68
+            },
+            {
+              "value": "First serve was successful; point outcome: Winner",
+              "count": 7970,
+              "percent": 16.13
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Winner",
+              "count": 4366,
+              "percent": 8.83
+            },
+            {
+              "value": "First serve was an ace; point outcome: Ace",
+              "count": 3714,
+              "percent": 7.51
+            },
+            {
+              "value": "First serve was successful; point outcome: Forced Error",
+              "count": 3430,
+              "percent": 6.94
+            },
+            {
+              "value": "First and second serves were faults; point outcome: Double Fault",
+              "count": 1831,
+              "percent": 3.7
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Forced Error",
+              "count": 1540,
+              "percent": 3.12
+            },
+            {
+              "value": "First serve was a fault; second serve was an ace; point outcome: Ace",
+              "count": 253,
+              "percent": 0.51
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "num_serving_attempts_until_successful": {
+            "total": 49423,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "1",
+                "count": 30222,
+                "percent": 61.15
+              },
+              {
+                "value": "2",
+                "count": 19201,
+                "percent": 38.85
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "how_point_ended": {
+            "total": 49423,
+            "unique_values": 6,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+                "count": 26319,
+                "percent": 53.25
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+                "count": 11259,
+                "percent": 22.78
+              },
+              {
+                "value": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+                "count": 4970,
+                "percent": 10.06
+              },
+              {
+                "value": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+                "count": 3967,
+                "percent": 8.03
+              },
+              {
+                "value": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+                "count": 1831,
+                "percent": 3.7
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+                "count": 1077,
+                "percent": 2.18
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServeSequenceOutcome_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Which serve sequence and point outcome correctly describe this point?",
+          "answer": "(C) First serve was successful; point outcome: Winner",
+          "options": [
+            "First and second serves were faults; point outcome: Double Fault",
+            "First serve was a fault; second serve was an ace; point outcome: Ace",
+            "First serve was successful; point outcome: Winner",
+            "First serve was an ace; point outcome: Ace"
+          ]
+        }
+      ]
+    },
+    "serve_rule_consistency": {
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which option is consistent with tennis rules and the video?",
+      "reasoning_note": "The model must apply serve rules: a successful second serve cannot be a double fault, and an ace or two faults ends the point immediately. Every distractor violates one of these rules, so this template tests rule reasoning but does not require the video.",
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 49423,
+        "coverage_percent": 97.42,
+        "generation_probability": 1.0,
+        "expected_data_points": 49423,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 49423,
+          "unique_values": 9,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "First serve was successful; point outcome: Unforced Error",
+              "count": 15108,
+              "percent": 30.57
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Unforced Error",
+              "count": 11211,
+              "percent": 22.68
+            },
+            {
+              "value": "First serve was successful; point outcome: Winner",
+              "count": 7970,
+              "percent": 16.13
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Winner",
+              "count": 4366,
+              "percent": 8.83
+            },
+            {
+              "value": "First serve was an ace; point outcome: Ace",
+              "count": 3714,
+              "percent": 7.51
+            },
+            {
+              "value": "First serve was successful; point outcome: Forced Error",
+              "count": 3430,
+              "percent": 6.94
+            },
+            {
+              "value": "First and second serves were faults; point outcome: Double Fault",
+              "count": 1831,
+              "percent": 3.7
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Forced Error",
+              "count": 1540,
+              "percent": 3.12
+            },
+            {
+              "value": "First serve was a fault; second serve was an ace; point outcome: Ace",
+              "count": 253,
+              "percent": 0.51
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "num_serving_attempts_until_successful": {
+            "total": 49423,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "1",
+                "count": 30222,
+                "percent": 61.15
+              },
+              {
+                "value": "2",
+                "count": 19201,
+                "percent": 38.85
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "how_point_ended": {
+            "total": 49423,
+            "unique_values": 6,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+                "count": 26319,
+                "percent": 53.25
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+                "count": 11259,
+                "percent": 22.78
+              },
+              {
+                "value": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+                "count": 4970,
+                "percent": 10.06
+              },
+              {
+                "value": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+                "count": 3967,
+                "percent": 8.03
+              },
+              {
+                "value": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+                "count": 1831,
+                "percent": 3.7
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+                "count": 1077,
+                "percent": 2.18
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_ServeRuleConsistency_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "Which option is consistent with tennis rules and the video?",
+          "answer": "(A) First serve was successful; point outcome: Unforced Error",
+          "options": [
+            "First serve was successful; point outcome: Unforced Error",
+            "Both serves were faults, but the rally continued to Unforced Error",
+            "First serve was a fault, but the rally continued without a second serve",
+            "First serve was an ace, but the rally continued to Unforced Error"
+          ]
+        }
+      ]
+    },
+    "grounded_serve_rule_consistency": {
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "num_serving_attempts_until_successful",
+        "how_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which option is consistent with tennis rules and matches what happened in this point?",
+      "reasoning_note": "The model first applies serve rules to eliminate two contradictory options. Two valid tennis scenarios remain, so it must inspect the video to identify which serve sequence and outcome actually occurred.",
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 49423,
+        "coverage_percent": 97.42,
+        "generation_probability": 1.0,
+        "expected_data_points": 49423,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 49423,
+          "unique_values": 9,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "First serve was successful; point outcome: Unforced Error",
+              "count": 15108,
+              "percent": 30.57
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Unforced Error",
+              "count": 11211,
+              "percent": 22.68
+            },
+            {
+              "value": "First serve was successful; point outcome: Winner",
+              "count": 7970,
+              "percent": 16.13
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Winner",
+              "count": 4366,
+              "percent": 8.83
+            },
+            {
+              "value": "First serve was an ace; point outcome: Ace",
+              "count": 3714,
+              "percent": 7.51
+            },
+            {
+              "value": "First serve was successful; point outcome: Forced Error",
+              "count": 3430,
+              "percent": 6.94
+            },
+            {
+              "value": "First and second serves were faults; point outcome: Double Fault",
+              "count": 1831,
+              "percent": 3.7
+            },
+            {
+              "value": "First serve was a fault; second serve was successful; point outcome: Forced Error",
+              "count": 1540,
+              "percent": 3.12
+            },
+            {
+              "value": "First serve was a fault; second serve was an ace; point outcome: Ace",
+              "count": 253,
+              "percent": 0.51
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "num_serving_attempts_until_successful": {
+            "total": 49423,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "1",
+                "count": 30222,
+                "percent": 61.15
+              },
+              {
+                "value": "2",
+                "count": 19201,
+                "percent": 38.85
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "how_point_ended": {
+            "total": 49423,
+            "unique_values": 6,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+                "count": 26319,
+                "percent": 53.25
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+                "count": 11259,
+                "percent": 22.78
+              },
+              {
+                "value": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+                "count": 4970,
+                "percent": 10.06
+              },
+              {
+                "value": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+                "count": 3967,
+                "percent": 8.03
+              },
+              {
+                "value": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+                "count": 1831,
+                "percent": 3.7
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+                "count": 1077,
+                "percent": 2.18
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_GroundedServeRuleConsistency_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Which option is consistent with tennis rules and matches what happened in this point?",
+          "answer": "(A) First serve was successful; point outcome: Winner",
+          "options": [
+            "First serve was successful; point outcome: Winner",
+            "First serve was a fault, but the rally continued without a second serve",
+            "First serve was an ace; point outcome: Ace",
+            "First serve was an ace, but the rally continued to Winner"
+          ]
+        }
+      ]
+    },
+    "point_outcome_reasoning": {
+      "super_category": "Rules & Reasoning",
+      "fine_category": "Cross-field Reasoning",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "winner",
+        "how_point_ended"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Which option correctly explains why the server or receiver won the point?",
+      "reasoning_note": "The model must connect the ending mechanism to the winning role: an error loses the point, a winner or ace wins it, and a double fault awards it to the receiver. Rules remove two causal contradictions; the video distinguishes the two coherent explanations.",
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50351,
+        "coverage_percent": 99.25,
+        "generation_probability": 1.0,
+        "expected_data_points": 50351,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50351,
+          "unique_values": 8,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "receiver committed an unforced error, so server won the point",
+              "count": 15301,
+              "percent": 30.39
+            },
+            {
+              "value": "server committed an unforced error, so receiver won the point",
+              "count": 11546,
+              "percent": 22.93
+            },
+            {
+              "value": "server hit a point-ending winner and won the point",
+              "count": 7699,
+              "percent": 15.29
+            },
+            {
+              "value": "receiver hit a point-ending winner and won the point",
+              "count": 4830,
+              "percent": 9.59
+            },
+            {
+              "value": "server hit an ace and won the point immediately",
+              "count": 3978,
+              "percent": 7.9
+            },
+            {
+              "value": "server forced an error from receiver and won the point",
+              "count": 3568,
+              "percent": 7.09
+            },
+            {
+              "value": "server double-faulted, so receiver won the point",
+              "count": 1956,
+              "percent": 3.88
+            },
+            {
+              "value": "receiver forced an error from server and won the point",
+              "count": 1473,
+              "percent": 2.93
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "winner": {
+            "total": 50351,
+            "unique_values": 2,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Server",
+                "count": 30546,
+                "percent": 60.67
+              },
+              {
+                "value": "Receiver",
+                "count": 19805,
+                "percent": 39.33
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          },
+          "how_point_ended": {
+            "total": 50351,
+            "unique_values": 6,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+                "count": 26847,
+                "percent": 53.32
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+                "count": 11438,
+                "percent": 22.72
+              },
+              {
+                "value": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+                "count": 5041,
+                "percent": 10.01
+              },
+              {
+                "value": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+                "count": 3978,
+                "percent": 7.9
+              },
+              {
+                "value": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+                "count": 1956,
+                "percent": 3.88
+              },
+              {
+                "value": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+                "count": 1091,
+                "percent": 2.17
+              }
+            ],
+            "other_value_count": 0,
+            "other_unique_values": 0,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_PointOutcomeReasoning_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Which option correctly explains why the server or receiver won the point?",
+          "answer": "(B) server hit a point-ending winner and won the point",
+          "options": [
+            "receiver hit a point-ending winner and won the point",
+            "server hit a point-ending winner and won the point",
+            "server committed the point-ending error but still won the point",
+            "receiver hit the point-ending winner, but server won the point"
+          ]
+        }
+      ]
+    },
+    "player_effort_sound_present": {
+      "super_category": "Audio Understanding",
+      "fine_category": "Impact and Play Sounds",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "audio_cues"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Is a player grunt or effort sound audible?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50732,
+        "coverage_percent": 100.0,
+        "generation_probability": 1.0,
+        "expected_data_points": 50732,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50732,
+          "unique_values": 2,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Yes",
+              "count": 34364,
+              "percent": 67.74
+            },
+            {
+              "value": "No",
+              "count": 16368,
+              "percent": 32.26
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "audio_cues": {
+            "total": 50732,
+            "unique_values": 425,
+            "value_mode": "set",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "thwack",
+                "count": 47928,
+                "percent": 94.47
+              },
+              {
+                "value": "grunt",
+                "count": 32674,
+                "percent": 64.41
+              },
+              {
+                "value": "squeak",
+                "count": 28837,
+                "percent": 56.84
+              },
+              {
+                "value": "umpire's call",
+                "count": 16852,
+                "percent": 33.22
+              },
+              {
+                "value": "cheer",
+                "count": 13190,
+                "percent": 26.0
+              },
+              {
+                "value": "thud",
+                "count": 10287,
+                "percent": 20.28
+              },
+              {
+                "value": "thump",
+                "count": 8900,
+                "percent": 17.54
+              },
+              {
+                "value": "clap",
+                "count": 6712,
+                "percent": 13.23
+              },
+              {
+                "value": "pop",
+                "count": 5825,
+                "percent": 11.48
+              },
+              {
+                "value": "net hit",
+                "count": 4325,
+                "percent": 8.53
+              }
+            ],
+            "other_value_count": 39682,
+            "other_unique_values": 415,
+            "missing_among_eligible": 69
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_PlayerEffortSoundPresent_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "Is a player grunt or effort sound audible?",
+          "answer": "(B) Yes",
+          "options": [
+            "No",
+            "Yes"
+          ]
+        }
+      ]
+    },
+    "court_movement_sound_present": {
+      "super_category": "Audio Understanding",
+      "fine_category": "Impact and Play Sounds",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "audio_cues"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Are shoe squeaks audible during the point?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50732,
+        "coverage_percent": 100.0,
+        "generation_probability": 1.0,
+        "expected_data_points": 50732,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50732,
+          "unique_values": 2,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "Yes",
+              "count": 32966,
+              "percent": 64.98
+            },
+            {
+              "value": "No",
+              "count": 17766,
+              "percent": 35.02
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "audio_cues": {
+            "total": 50732,
+            "unique_values": 425,
+            "value_mode": "set",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "thwack",
+                "count": 47928,
+                "percent": 94.47
+              },
+              {
+                "value": "grunt",
+                "count": 32674,
+                "percent": 64.41
+              },
+              {
+                "value": "squeak",
+                "count": 28837,
+                "percent": 56.84
+              },
+              {
+                "value": "umpire's call",
+                "count": 16852,
+                "percent": 33.22
+              },
+              {
+                "value": "cheer",
+                "count": 13190,
+                "percent": 26.0
+              },
+              {
+                "value": "thud",
+                "count": 10287,
+                "percent": 20.28
+              },
+              {
+                "value": "thump",
+                "count": 8900,
+                "percent": 17.54
+              },
+              {
+                "value": "clap",
+                "count": 6712,
+                "percent": 13.23
+              },
+              {
+                "value": "pop",
+                "count": 5825,
+                "percent": 11.48
+              },
+              {
+                "value": "net hit",
+                "count": 4325,
+                "percent": 8.53
+              }
+            ],
+            "other_value_count": 39682,
+            "other_unique_values": 415,
+            "missing_among_eligible": 69
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_CourtMovementSoundPresent_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Are shoe squeaks audible during the point?",
+          "answer": "(B) No",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        }
+      ]
+    },
+    "crowd_reaction_present": {
+      "super_category": "Audio Understanding",
+      "fine_category": "Crowd and Official Cues",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "audio_cues"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Is there an audible crowd reaction?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50732,
+        "coverage_percent": 100.0,
+        "generation_probability": 1.0,
+        "expected_data_points": 50732,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50732,
+          "unique_values": 2,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "No",
+              "count": 33573,
+              "percent": 66.18
+            },
+            {
+              "value": "Yes",
+              "count": 17159,
+              "percent": 33.82
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "audio_cues": {
+            "total": 50732,
+            "unique_values": 425,
+            "value_mode": "set",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "thwack",
+                "count": 47928,
+                "percent": 94.47
+              },
+              {
+                "value": "grunt",
+                "count": 32674,
+                "percent": 64.41
+              },
+              {
+                "value": "squeak",
+                "count": 28837,
+                "percent": 56.84
+              },
+              {
+                "value": "umpire's call",
+                "count": 16852,
+                "percent": 33.22
+              },
+              {
+                "value": "cheer",
+                "count": 13190,
+                "percent": 26.0
+              },
+              {
+                "value": "thud",
+                "count": 10287,
+                "percent": 20.28
+              },
+              {
+                "value": "thump",
+                "count": 8900,
+                "percent": 17.54
+              },
+              {
+                "value": "clap",
+                "count": 6712,
+                "percent": 13.23
+              },
+              {
+                "value": "pop",
+                "count": 5825,
+                "percent": 11.48
+              },
+              {
+                "value": "net hit",
+                "count": 4325,
+                "percent": 8.53
+              }
+            ],
+            "other_value_count": 39682,
+            "other_unique_values": 415,
+            "missing_among_eligible": 69
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_CrowdReactionPresent_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Is there an audible crowd reaction?",
+          "answer": "(A) No",
+          "options": [
+            "No",
+            "Yes"
+          ]
+        }
+      ]
+    },
+    "official_call_present": {
+      "super_category": "Audio Understanding",
+      "fine_category": "Crowd and Official Cues",
+      "format": "mcq",
+      "option_space": "closed",
+      "distractor_generation": "derived",
+      "implementation_type": "derived_categorical",
+      "availability": "new_template",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "audio_cues"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Is an umpire or fault call audible?",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50732,
+        "coverage_percent": 100.0,
+        "generation_probability": 1.0,
+        "expected_data_points": 50732,
+        "answer_mirrors_single_source_field": false,
+        "answer_distribution": {
+          "total": 50732,
+          "unique_values": 2,
+          "value_mode": "single",
+          "min_percent": 0.1,
+          "values": [
+            {
+              "value": "No",
+              "count": 28322,
+              "percent": 55.83
+            },
+            {
+              "value": "Yes",
+              "count": 22410,
+              "percent": 44.17
+            }
+          ],
+          "other_value_count": 0,
+          "other_unique_values": 0
+        },
+        "source_field_distributions": {
+          "audio_cues": {
+            "total": 50732,
+            "unique_values": 425,
+            "value_mode": "set",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "thwack",
+                "count": 47928,
+                "percent": 94.47
+              },
+              {
+                "value": "grunt",
+                "count": 32674,
+                "percent": 64.41
+              },
+              {
+                "value": "squeak",
+                "count": 28837,
+                "percent": 56.84
+              },
+              {
+                "value": "umpire's call",
+                "count": 16852,
+                "percent": 33.22
+              },
+              {
+                "value": "cheer",
+                "count": 13190,
+                "percent": 26.0
+              },
+              {
+                "value": "thud",
+                "count": 10287,
+                "percent": 20.28
+              },
+              {
+                "value": "thump",
+                "count": 8900,
+                "percent": 17.54
+              },
+              {
+                "value": "clap",
+                "count": 6712,
+                "percent": 13.23
+              },
+              {
+                "value": "pop",
+                "count": 5825,
+                "percent": 11.48
+              },
+              {
+                "value": "net hit",
+                "count": 4325,
+                "percent": 8.53
+              }
+            ],
+            "other_value_count": 39682,
+            "other_unique_values": 415,
+            "missing_among_eligible": 69
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_OfficialCallPresent_d2757a9f-1b8a-458f-80ae-5faa3659b846",
+          "question": "Is an umpire or fault call audible?",
+          "answer": "(B) No",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        }
+      ]
+    },
+    "point_caption": {
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration",
+      "format": "qa",
+      "option_space": "open",
+      "distractor_generation": "none",
+      "implementation_type": "open_ended",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "point_caption"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50667,
+        "coverage_percent": 99.87,
+        "generation_probability": 1.0,
+        "expected_data_points": 50667,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "point_caption": {
+            "total": 50667,
+            "unique_values": 50081,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [],
+            "other_value_count": 50667,
+            "other_unique_values": 50081,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_Caption_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "What happened in this point? Provide a detailed caption. (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "The rally starts with the first serve by J. Teichmann that lands in the deuce service court. V. Mboko returns it with a backhand shot, to which J. Teichmann hits a forehand shot that lands the ball into the ad court of V. Mboko. V. Mboko is unable to return the shot. It is a winner by J. Teichman, giving her a point."
+        }
+      ]
+    },
+    "how_point_ended_description": {
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting",
+      "format": "qa",
+      "option_space": "open",
+      "distractor_generation": "none",
+      "implementation_type": "open_ended",
+      "availability": "generated",
+      "example_source": "latest generated categorical sample",
+      "source_fields": [
+        "how_point_ended_description"
+      ],
+      "option_vocabulary_source": [],
+      "question_template": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "reasoning_note": null,
+      "llm_question_prompt": null,
+      "review_warning": null,
+      "statistics": {
+        "corpus_points": 50732,
+        "eligible_points": 50666,
+        "coverage_percent": 99.87,
+        "generation_probability": 1.0,
+        "expected_data_points": 50666,
+        "answer_mirrors_single_source_field": true,
+        "answer_distribution": null,
+        "source_field_distributions": {
+          "how_point_ended_description": {
+            "total": 50666,
+            "unique_values": 16122,
+            "value_mode": "single",
+            "min_percent": 0.1,
+            "values": [
+              {
+                "value": "The point ended when Djokovic hit the ball into the net.",
+                "count": 368,
+                "percent": 0.73
+              },
+              {
+                "value": "The point ended when Federer hit the ball into the net.",
+                "count": 360,
+                "percent": 0.71
+              },
+              {
+                "value": "The point ended when Nadal hit the ball into the net.",
+                "count": 301,
+                "percent": 0.59
+              },
+              {
+                "value": "The point ended when Federer hit a winner.",
+                "count": 255,
+                "percent": 0.5
+              },
+              {
+                "value": "The point ended when Djokovic hit a winner.",
+                "count": 249,
+                "percent": 0.49
+              },
+              {
+                "value": "The point ended when Nadal hit a winner.",
+                "count": 225,
+                "percent": 0.44
+              },
+              {
+                "value": "The point ended when Alcaraz hit the ball into the net.",
+                "count": 211,
+                "percent": 0.42
+              },
+              {
+                "value": "The point ended when Sinner hit the ball into the net.",
+                "count": 186,
+                "percent": 0.37
+              },
+              {
+                "value": "The point ended when Nadal hit the ball out of bounds.",
+                "count": 175,
+                "percent": 0.35
+              },
+              {
+                "value": "The point ended when Alcaraz hit a winner.",
+                "count": 154,
+                "percent": 0.3
+              }
+            ],
+            "other_value_count": 48182,
+            "other_unique_values": 16112,
+            "missing_among_eligible": 0
+          }
+        }
+      },
+      "examples": [
+        {
+          "source_video": "9pHZXyxp8Jo",
+          "point_id": "9pHZXyxp8Jo_PointEndDescription_ead80da6-fe16-4008-967c-365f11608259",
+          "question": "Describe in detail how this point ended between Jil Teichmann and Victoria Mboko. (Jil Teichmann - \"Jil Teichmann\" is the player wearing a white cap, a black top, a black skirt, and white and tan shoes; Victoria Mboko - \"Victoria Mboko\" is the player wearing a white cap, white top, a green skirt, and white shoes.)",
+          "answer": "The point ended when J. Teichmann hit a winner."
+        }
+      ]
+    }
+  }
+}

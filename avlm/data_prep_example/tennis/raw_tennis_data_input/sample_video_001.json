@@ -1,0 +1,770 @@
+{
+  "metadata": {
+    "height": null,
+    "width": null,
+    "name": "sample_video_001_seg_01.json",
+    "status": "Completed_Passed_Audit"
+  },
+  "instances": [
+    {
+      "id": "6342b085-1013-4f67-8098-d72f3e094571",
+      "type": "input",
+      "createdAt": "2025-07-22T11:13:48.412Z",
+      "updatedAt": "2025-07-22T11:13:48.412Z",
+      "classId": 2105309,
+      "attributes": [
+        {
+          "groupId": 1196239,
+          "name": "sample_video_001",
+          "groupName": "value_video_id"
+        }
+      ],
+      "element_path": [
+        "video_id"
+      ],
+      "className": "video_id"
+    },
+    {
+      "id": "d93faee8-0f61-4378-ba2e-d35ba12ac368",
+      "type": "number",
+      "createdAt": "2025-07-22T11:13:48.414Z",
+      "updatedAt": "2025-07-22T11:13:55.477Z",
+      "classId": 2105311,
+      "attributes": [
+        {
+          "groupId": 1196241,
+          "name": 300,
+          "groupName": "value_video_duration"
+        }
+      ],
+      "element_path": [
+        "video_duration"
+      ],
+      "className": "video_duration"
+    },
+    {
+      "id": "716b7ecd-749f-4c79-a9b2-beccf926851d",
+      "type": "input",
+      "createdAt": "2025-07-22T11:13:48.412Z",
+      "updatedAt": "2025-07-22T11:13:48.412Z",
+      "classId": 2105312,
+      "attributes": [
+        {
+          "groupId": 1196242,
+          "name": "00:00:00",
+          "groupName": "value_original_segment_start"
+        }
+      ],
+      "element_path": [
+        "original_segment_start"
+      ],
+      "className": "original_segment_start"
+    },
+    {
+      "id": "d20ee5e5-c45d-4db0-8520-6de27695ceca",
+      "type": "input",
+      "createdAt": "2025-07-22T11:13:48.412Z",
+      "updatedAt": "2025-07-22T11:13:48.412Z",
+      "classId": 2105313,
+      "attributes": [
+        {
+          "groupId": 1196243,
+          "name": "00:05:00",
+          "groupName": "value_original_segment_end"
+        }
+      ],
+      "element_path": [
+        "original_segment_end"
+      ],
+      "className": "original_segment_end"
+    },
+    {
+      "id": "8228cd5a-8416-4a13-b384-c97ce094f48f",
+      "type": "input",
+      "createdAt": "2025-07-22T11:13:48.415Z",
+      "updatedAt": "2025-07-22T11:29:03.145Z",
+      "classId": 2105319,
+      "attributes": [
+        {
+          "groupId": 1196249,
+          "name": "Jack Draper",
+          "groupName": "value_player_1_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_name"
+      ],
+      "className": "player_1_name"
+    },
+    {
+      "id": "35bdedc2-b460-43d1-82c5-3db1384290c5",
+      "type": "textarea",
+      "createdAt": "2025-07-22T11:13:48.415Z",
+      "updatedAt": "2025-11-06T13:29:49.848Z",
+      "classId": 2105320,
+      "attributes": [
+        {
+          "groupId": 1196250,
+          "name": "\"Jack Draper\" is the player in the white t-shirt and white shorts. He is wearing a white cap and yellow shoes.",
+          "groupName": "value_player_1_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_description"
+      ],
+      "className": "player_1_description"
+    },
+    {
+      "id": "5ca827d6-3af1-41fd-a8fd-7291c79cecda",
+      "type": "input",
+      "createdAt": "2025-07-22T11:13:48.415Z",
+      "updatedAt": "2025-07-22T11:29:20.072Z",
+      "classId": 2105321,
+      "attributes": [
+        {
+          "groupId": 1196251,
+          "name": "Carlos Alcaraz",
+          "groupName": "value_player_2_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_name"
+      ],
+      "className": "player_2_name"
+    },
+    {
+      "id": "10035766-3b03-451b-8573-4c954f7c392a",
+      "type": "textarea",
+      "createdAt": "2025-07-22T11:13:48.415Z",
+      "updatedAt": "2025-07-22T12:20:42.833Z",
+      "classId": 2105322,
+      "attributes": [
+        {
+          "groupId": 1196252,
+          "name": "\"Carlos Alcaraz\" is the player in Gray and white t-shirt and gray pants. He is wearing yellow shoes and a white wrist band.",
+          "groupName": "value_player_2_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_description"
+      ],
+      "className": "player_2_description"
+    },
+    {
+      "id": "98727823-213d-4fe1-a28d-82df82e89871",
+      "type": "textarea",
+      "createdAt": "2025-07-22T11:13:48.415Z",
+      "updatedAt": "2025-07-23T02:36:59.816Z",
+      "classId": 2105323,
+      "attributes": [
+        {
+          "groupId": 1196253,
+          "name": "The video features a singles tennis match between Jack Draper and Carlos Alcaraz in an Australian open  match at Melbourne. Alcaraz wins the match with the scores of 7-5, 6-1. Alcaraz wins the first set of the match in a close points match  with a scores of 7-5.  Alcaraz, then completely dominates the second set of the match, winning the set with a score of 6-1. Draper tries hard but fails to get a proper comeback in the second set.  Alcaraz dominates the match with powerful serves.\n ",
+          "groupName": "value_general_context"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "general_context"
+      ],
+      "className": "general_context"
+    },
+    {
+      "id": "4415af45-b43f-49e0-abc3-887c2812a314",
+      "type": "webComponent",
+      "createdAt": "2025-07-22T11:13:48.416Z",
+      "updatedAt": "2025-11-10T06:46:03.991Z",
+      "classId": 2105332,
+      "attributes": [
+        {
+          "groupId": 1196262,
+          "name": [
+            {
+              "metadata": {},
+              "id": "6f7b9d82-1744-47a2-afb9-91507d3c8a90",
+              "start_time": 13.08,
+              "end_time": 19,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "1",
+              "num_shots_exchanged": "2",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 0-0}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-0, 0-15}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Draper hit the ball into his own court with a forehand shot.",
+              "point_caption": "Alcaraz delivers a well-placed serve, followed by Draper hitting the ball into his own court, conceding the point to Alcaraz. The crowd starts clapping after the point.",
+              "audio_cues": "Whacks, squeaks, grunt, claps.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke with heavy topsin",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "BH (backhand)",
+              "loser_point_ended": "net",
+              "loser_lateral_movement": "R2L (right to left)",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_13_19_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "05383090-97d0-4fcc-bd32-ca49c12df0f4",
+              "start_time": 44.4,
+              "end_time": 74.92,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "13",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 0-15}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-0, 15-15}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Alcaraz hit a backhand shot landing behind the baseline.",
+              "point_caption": "Alcaraz delivers a fault serve landing into the net, followed by a second serve. A long rally takes place between the players, ending with Alcaraz hitting the ball behind the baseline, conceding the point to Draper. The crowd starts cheering after the point.",
+              "audio_cues": "Whacks, claps, cheers, grunts, squeaks.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke with heavy topsin",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "BH (backhand)",
+              "loser_point_ended": "out",
+              "loser_lateral_movement": "R2L (right to left)",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_44_74_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "14c688d4-0081-4e33-b072-6a5f3d20c777",
+              "start_time": 103.23,
+              "end_time": 108.72,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "1",
+              "num_shots_exchanged": "3",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 15-15}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-0, 15-30}\"",
+              "how_point_ended": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+              "how_point_ended_description": "The point ended when Alcaraz hit a forehand winner shot to the right of the court.",
+              "point_caption": "Alcaraz delivers a well-placed serve followed by a short rally of 3 shots ending with Alcaraz hitting a clean winner shot to the right of the court. Alcaraz scores the point and the crowd starts cheering after the point.",
+              "audio_cues": "Whacks, squeaks, grunts, claps.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "groundstroke with heavy topspin",
+              "winner_shot_trajectory": "down the line",
+              "winner_hand_used": "FH (forehand)",
+              "loser_shot_type": "n/a",
+              "loser_shot_trajectory": "n/a",
+              "loser_hand_used": "n/a",
+              "loser_point_ended": "no contact by loser",
+              "loser_lateral_movement": "L2R (left to right)",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_103_108_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "1845ef3a-a003-4b73-a527-51dfd38f1f7f",
+              "start_time": 136.2,
+              "end_time": 151.68,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "2",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 15-30}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-0, 15-40}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Draper hit a forehand shot out of the court.",
+              "point_caption": "Alcaraz delivers a fault serve landing into the net, followed by a second serve. Draper returns the ball out of the court, conceding the point to Alcaraz. The crowd starts gasping after the point.",
+              "audio_cues": "Whacks, thumps, squeaks, gasps, grunts.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke with heavy topsin",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "out",
+              "loser_lateral_movement": "No lateral movement",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_136_151_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "16dc3cd6-92f9-420e-9c03-26308242b51e",
+              "start_time": 178.44,
+              "end_time": 194.72,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "0",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 15-40}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-0, 30-40}\"",
+              "how_point_ended": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+              "how_point_ended_description": "The point ended when Alcaraz committed a double fault.",
+              "point_caption": "Alcaraz delivers  a fault serve landing behind the serve line, followed by a second fault serve landing behind the serve line after touching the net. Alcaraz commits a double fault, conceding the point to draper.",
+              "audio_cues": "Umpire's call, whacks, squeaks.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke hit flat or very little spin",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "other",
+              "loser_point_ended_other": "Double fault",
+              "loser_lateral_movement": "No lateral movement",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_178_194_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "48628b7e-1fcb-402a-ade3-390eb8cb6c79",
+              "start_time": 218.08,
+              "end_time": 226.84,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "1",
+              "num_shots_exchanged": "4",
+              "score_before": "\"Draper vs. Alcaraz : {0-0, 30-40}\"",
+              "score_after": "\"Draper vs. Alcaraz : {0-1, 0-0}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Draper hit the ball into the net with a forehand shot.",
+              "point_caption": "Alcaraz delivers a well-placed serve, followed by a short rally of four shots ending with Draper hitting the ball into the net, conceding the point to Alcaraz. Alcaraz secures the first game point and the crowd starts cheering after the point.",
+              "audio_cues": "Whacks, squeaks, grunts, claps, cheers.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke hit flat or very little spin",
+              "loser_shot_trajectory": "down the middle",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "net",
+              "loser_lateral_movement": "L2R (left to right)",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_01_218_226_timeoffset_end_3.mp4"
+            }
+          ],
+          "groupName": "value_table"
+        }
+      ],
+      "element_path": [
+        "table"
+      ],
+      "className": "table"
+    },
+    {
+      "id": "034cfa43-c7d1-49dd-ac1f-70cd73060d28",
+      "type": "input",
+      "createdAt": "2025-07-23T03:17:58.198Z",
+      "updatedAt": "2025-07-23T03:17:58.198Z",
+      "classId": 2105309,
+      "attributes": [
+        {
+          "groupId": 1196239,
+          "name": "sample_video_001",
+          "groupName": "value_video_id"
+        }
+      ],
+      "element_path": [
+        "video_id"
+      ],
+      "className": "video_id"
+    },
+    {
+      "id": "21c169fe-be99-455f-b277-559a4470e655",
+      "type": "number",
+      "createdAt": "2025-07-23T03:17:58.200Z",
+      "updatedAt": "2025-07-23T03:18:04.644Z",
+      "classId": 2105311,
+      "attributes": [
+        {
+          "groupId": 1196241,
+          "name": 300,
+          "groupName": "value_video_duration"
+        }
+      ],
+      "element_path": [
+        "video_duration"
+      ],
+      "className": "video_duration"
+    },
+    {
+      "id": "bbaf2be7-b96b-47b4-b4d5-d9069e222b91",
+      "type": "input",
+      "createdAt": "2025-07-23T03:17:58.199Z",
+      "updatedAt": "2025-07-23T03:17:58.199Z",
+      "classId": 2105312,
+      "attributes": [
+        {
+          "groupId": 1196242,
+          "name": "00:05:00",
+          "groupName": "value_original_segment_start"
+        }
+      ],
+      "element_path": [
+        "original_segment_start"
+      ],
+      "className": "original_segment_start"
+    },
+    {
+      "id": "9f06aaf7-bff0-4cf0-916f-0acf68295b6d",
+      "type": "input",
+      "createdAt": "2025-07-23T03:17:58.199Z",
+      "updatedAt": "2025-07-23T03:17:58.199Z",
+      "classId": 2105313,
+      "attributes": [
+        {
+          "groupId": 1196243,
+          "name": "00:10:00",
+          "groupName": "value_original_segment_end"
+        }
+      ],
+      "element_path": [
+        "original_segment_end"
+      ],
+      "className": "original_segment_end"
+    },
+    {
+      "id": "b16d32ce-e380-4e02-8552-08be3252207b",
+      "type": "input",
+      "createdAt": "2025-07-23T03:17:58.200Z",
+      "updatedAt": "2025-07-23T03:17:58.200Z",
+      "classId": 2105319,
+      "attributes": [
+        {
+          "groupId": 1196249,
+          "name": "",
+          "groupName": "value_player_1_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_name"
+      ],
+      "className": "player_1_name"
+    },
+    {
+      "id": "3fae6c6b-e051-435b-b6af-3ed7f751799b",
+      "type": "textarea",
+      "createdAt": "2025-07-23T03:17:58.201Z",
+      "updatedAt": "2025-07-23T03:17:58.201Z",
+      "classId": 2105320,
+      "attributes": [
+        {
+          "groupId": 1196250,
+          "name": "",
+          "groupName": "value_player_1_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_description"
+      ],
+      "className": "player_1_description"
+    },
+    {
+      "id": "a3f96cb7-669b-449f-9b95-688941385e5b",
+      "type": "input",
+      "createdAt": "2025-07-23T03:17:58.201Z",
+      "updatedAt": "2025-07-23T03:17:58.201Z",
+      "classId": 2105321,
+      "attributes": [
+        {
+          "groupId": 1196251,
+          "name": "",
+          "groupName": "value_player_2_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_name"
+      ],
+      "className": "player_2_name"
+    },
+    {
+      "id": "8ef8f718-5b7f-4373-9953-5cd04afeb431",
+      "type": "textarea",
+      "createdAt": "2025-07-23T03:17:58.201Z",
+      "updatedAt": "2025-07-23T03:17:58.201Z",
+      "classId": 2105322,
+      "attributes": [
+        {
+          "groupId": 1196252,
+          "name": "",
+          "groupName": "value_player_2_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_description"
+      ],
+      "className": "player_2_description"
+    },
+    {
+      "id": "03c7fba8-02a5-4621-9542-234caa1abdba",
+      "type": "textarea",
+      "createdAt": "2025-07-23T03:17:58.201Z",
+      "updatedAt": "2025-07-23T03:17:58.201Z",
+      "classId": 2105323,
+      "attributes": [
+        {
+          "groupId": 1196253,
+          "name": "",
+          "groupName": "value_general_context"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "general_context"
+      ],
+      "className": "general_context"
+    },
+    {
+      "id": "c3fb7623-4711-4229-a8b0-b883957b5e82",
+      "type": "webComponent",
+      "createdAt": "2025-07-23T03:17:58.202Z",
+      "updatedAt": "2025-11-10T06:54:11.433Z",
+      "classId": 2105332,
+      "attributes": [
+        {
+          "groupId": 1196262,
+          "name": [
+            {
+              "metadata": {},
+              "id": "80a5e369-a340-4de5-acbd-adeaee6bd67e",
+              "start_time": 19.08,
+              "end_time": 33.72,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "2",
+              "score_before": "Draper vs. Alcaraz : {0-1, 15-0}",
+              "score_after": "Draper vs. Alcaraz : {0-1, 15-15}",
+              "how_point_ended": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned",
+              "how_point_ended_description": "The point ended when Alcaraz hit a forehand winner shot landing to the right of the court.",
+              "point_caption": "Draper delivers a fault serve landing behind the serve line, followed by a second serve. Alcaraz returns the second serve with a clean winner shot landing to the right of the court. The crowd starts cheering after the point.",
+              "audio_cues": "Fault call, squeaks, whacks, cheers.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "groundstroke with heavy topspin",
+              "winner_shot_trajectory": "down the line",
+              "winner_hand_used": "FH (forehand)",
+              "loser_shot_type": "n/a",
+              "loser_shot_trajectory": "n/a",
+              "loser_hand_used": "n/a",
+              "loser_point_ended": "no contact by loser",
+              "loser_lateral_movement": "L2R (left to right)",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_02_19_33_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "0c5b43d5-3992-4eea-ad01-1754ac7614fb",
+              "start_time": 50.64,
+              "end_time": 66.96,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "4",
+              "score_before": "Draper vs. Alcaraz : {0-1, 15-15}",
+              "score_after": "Draper vs. Alcaraz : {0-1, 30-15}",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Alcaraz hit a drop shot landing behind the baseline.",
+              "point_caption": "Draper delivers a fault serve landing beside the serve box, followed by a second serve. A short rally of four shots occur ending with Alcaraz hitting a drop shot landing behind the baseline, conceding the point to Draper.",
+              "audio_cues": "Fault call, Whacks, squeaks, gasps.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "volley",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "out",
+              "loser_lateral_movement": "L2R (left to right)",
+              "loser_depth_movement": "B2F (back to front)",
+              "video": "sample_video_001/sample_video_001_seg_02_50_66_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "9963da73-13fa-4bad-bcaa-8a0f2c7a7012",
+              "start_time": 84.4,
+              "end_time": 98.36,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "0",
+              "score_before": "Draper vs. Alcaraz : {0-1, 30-15}",
+              "score_after": "Draper vs. Alcaraz : {0-1, 30-30}",
+              "how_point_ended": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+              "how_point_ended_description": "The point ended when Draper committed a double fault.",
+              "point_caption": "Draper delivers a fault serve landing beside the serve box after touching the net, followed by a second fault serve landing  behind the serve line after touching the net. Draper commits a double fault and Alcaraz scores the point.",
+              "audio_cues": "Fault call, Whacks, thumps.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "down-the-middle serve",
+              "loser_shot_trajectory": "down the middle",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "other",
+              "loser_point_ended_other": "Double fault",
+              "loser_lateral_movement": "No lateral movement",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_02_84_98_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "ecb641ed-9a78-49d8-bf05-793ad04c46fc",
+              "start_time": 114.92,
+              "end_time": 144.84,
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": "2",
+              "num_shots_exchanged": "14",
+              "score_before": "Draper vs. Alcaraz : {0-1, 30-30}",
+              "score_after": "Draper vs. Alcaraz : {0-1, 40-30}",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Alcaraz hit a drop shot landing into the net.",
+              "point_caption": "Draper delivers a fault serve landing into the net, followed by a second serve. A long rally with cross- shots takes place between the two players ending with Alcaraz hitting the ball into the net, conceding the point to Draper. The crowd starts cheering after the point.",
+              "audio_cues": "Whacks, Thumps, squeaks, grunts, claps, cheers.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "comments_audit": "",
+              "qc_pass_fail": 1,
+              "server_location": "Near-court",
+              "receiver_location": "Far-court",
+              "winner_shot_type": "n/a",
+              "winner_shot_trajectory": "n/a",
+              "winner_hand_used": "n/a",
+              "loser_shot_type": "groundstroke hit flat or very little spin",
+              "loser_shot_trajectory": "cross court",
+              "loser_hand_used": "FH (forehand)",
+              "loser_point_ended": "net",
+              "loser_lateral_movement": "No lateral movement",
+              "loser_depth_movement": "No depth movement",
+              "video": "sample_video_001/sample_video_001_seg_02_114_144_timeoffset_end_3.mp4"
+            }
+          ],
+          "groupName": "value_table"
+        }
+      ],
+      "element_path": [
+        "table"
+      ],
+      "className": "table"
+    }
+  ]
+}

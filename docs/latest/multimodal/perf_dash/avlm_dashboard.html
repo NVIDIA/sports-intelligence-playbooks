@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVLM Fine-tuning Dashboard</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="avlm_data.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #ffffff;
+    --surface: #f5f5f5;
+    --border:  #dddddd;
+    --accent:  #76b900;
+    --text:    #212529;
+    --muted:   #6c757d;
+    --danger:  #dc3545;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "NVIDIA Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #app { display: flex; flex-direction: column; height: 100vh; }
+
+  /* ── Top bar ─────────────────────────────────── */
+  .topbar {
+    background: #1a1a1a;
+    padding: 0 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .topbar .logo   { color: var(--accent); font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
+  .topbar .sep    { color: #555; }
+  .topbar .title  { color: #ccc; font-size: 13px; }
+  .topbar .spacer { flex: 1; }
+  .topbar .stat   { color: #999; font-size: 12px; }
+  .topbar .stat span { color: #eee; font-weight: 600; }
+
+  /* ── View tabs ───────────────────────────────── */
+  .view-tabs {
+    background: var(--bg);
+    padding: 28px 24px 0;
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-shrink: 0;
+  }
+  .view-tabs-list {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 2px solid var(--border);
+  }
+  .view-tab {
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    user-select: none;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .view-tab:hover { color: var(--text); }
+  .view-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* ── Main layout ─────────────────────────────── */
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── Sidebar ─────────────────────────────────── */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 24px 20px 20px;
+    gap: 24px;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-section { display: flex; flex-direction: column; gap: 10px; }
+
+  .filter-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* Hardware checkboxes — like the NVIDIA GPU checkboxes */
+  .hw-checks { display: flex; flex-direction: column; gap: 8px; }
+  .hw-check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    padding: 3px 0;
+    user-select: none;
+  }
+  .hw-check-item input[type=checkbox] {
+    accent-color: var(--accent);
+    width: 15px; height: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .hw-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .hw-count { color: var(--muted); font-size: 13px; margin-left: auto; }
+
+  /* Custom multi-select dropdowns */
+  .ms-wrap { position: relative; }
+  .ms-trigger {
+    width: 100%;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: border-color 0.15s;
+  }
+  .ms-trigger:hover { border-color: #999; }
+  .ms-trigger.has-sel { border-color: var(--accent); }
+  .ms-trigger-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .ms-caret { font-size: 9px; color: var(--muted); transition: transform 0.15s; flex-shrink: 0; margin-left: 6px; }
+  .ms-caret.open { transform: rotate(180deg); }
+  .ms-badge {
+    background: var(--accent); color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 8px;
+    margin-right: 4px; flex-shrink: 0;
+  }
+  .ms-dropdown {
+    position: absolute; top: calc(100% + 3px); left: 0; right: 0;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+    z-index: 300; max-height: 220px; overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .ms-dropdown::-webkit-scrollbar { width: 4px; }
+  .ms-dropdown::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .ms-opt {
+    padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+    cursor: pointer; font-size: 14px; transition: background 0.1s;
+  }
+  .ms-opt:hover { background: var(--surface); }
+  .ms-opt input[type=checkbox] { accent-color: var(--accent); width: 14px; height: 14px; flex-shrink: 0; cursor: pointer; }
+  .ms-opt.all-opt { font-weight: 600; color: var(--accent); border-bottom: 1px solid var(--border); }
+
+  .clear-btn {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 4px;
+    text-align: center;
+  }
+  .clear-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+  /* ── Right content ───────────────────────────── */
+  .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; padding: 20px 20px 16px; }
+
+  /* Chart header */
+  .chart-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    margin-bottom: 16px;
+  }
+  .chart-title { font-size: 26px; font-weight: 700; color: var(--text); flex: 1; }
+
+  /* Segmented control (Chart / Table) */
+  .segmented {
+    display: inline-flex;
+    background: rgba(0,0,0,0.08);
+    border-radius: 6px;
+    padding: 3px;
+  }
+  .seg-item {
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s, box-shadow 0.15s;
+    user-select: none;
+  }
+  .seg-item.active { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+  .seg-item:not(.active):hover { background: rgba(255,255,255,0.5); }
+
+  /* Download button */
+  .download-btn {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .download-btn:hover { background: rgba(118,185,0,0.08); }
+  .dl-menu {
+    position: absolute; top: calc(100% + 4px); right: 0;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 300; min-width: 160px; overflow: hidden;
+  }
+  .dl-item { padding: 10px 14px; font-size: 13px; cursor: pointer; transition: background 0.1s; color: var(--text); }
+  .dl-item:hover { background: var(--surface); }
+
+  /* ── Chart card ──────────────────────────────── */
+  .chart-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--bg);         /* white card */
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .chart-wrap {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+    padding: 16px 16px 0;
+    background: var(--surface);   /* gray plot area */
+  }
+  #chart-svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* Chart legend (bottom, horizontal) */
+  .chart-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .legend-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+  }
+  .legend-line {
+    width: 24px; height: 3px; border-radius: 2px; flex-shrink: 0;
+  }
+  .legend-dot-sm {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0; border: 2px solid;
+  }
+
+  /* No data */
+  .no-data { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; pointer-events: none; }
+
+  /* ── Tooltip ─────────────────────────────────── */
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 1000;
+    background: #fff; border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    min-width: 260px; max-width: 320px; transition: opacity 0.1s;
+  }
+  .tooltip.hidden { opacity: 0; }
+  .tt-hw { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
+  .tt-params { display: flex; flex-wrap: wrap; gap: 3px 8px; padding: 8px 0; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .tt-param { font-size: 11px; color: var(--muted); }
+  .tt-param span { color: var(--text); font-weight: 500; }
+  .tt-table { width: 100%; border-collapse: collapse; }
+  .tt-table tr:not(:last-child) td { padding-bottom: 4px; }
+  .tt-table td:first-child { color: var(--muted); font-size: 11px; padding-right: 12px; }
+  .tt-table td:last-child { color: var(--text); font-size: 12px; font-weight: 600; text-align: right; }
+  .tt-status { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 700; margin-top: 8px; }
+  .status-passed  { background: rgba(118,185,0,0.15); color: #4a7a00; }
+  .status-oom     { background: rgba(220,53,69,0.12); color: var(--danger); }
+  .status-failed  { background: rgba(220,53,69,0.12); color: var(--danger); }
+  .status-skipped { background: rgba(108,117,125,0.12); color: var(--muted); }
+
+  /* ── Table (shared) ──────────────────────────── */
+  .table-wrap { overflow: auto; flex: 1; }
+  .table-wrap::-webkit-scrollbar { height: 6px; width: 6px; }
+  .table-wrap::-webkit-scrollbar-track { background: var(--surface); }
+  .table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .table-wrap::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+  .data-table th {
+    background: var(--surface); padding: 8px 14px; text-align: left;
+    color: var(--muted); font-weight: 700; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    position: sticky; top: 0; border-bottom: 1px solid var(--border);
+  }
+  .data-table th.sortable { cursor: pointer; user-select: none; }
+  .data-table th.sortable:hover { color: var(--text); }
+  .data-table th.sort-asc::after  { content: ' ▲'; font-size: 9px; }
+  .data-table th.sort-desc::after { content: ' ▼'; font-size: 9px; }
+  .data-table td { padding: 7px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+  .data-table tr:hover td { background: var(--surface); }
+  .data-table tr.row-sel td { background: rgba(118,185,0,0.07); }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .hw-chip { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
+  .cb-th { width: 38px; text-align: center !important; }
+  .cb-td { text-align: center; }
+  .cb-td input, .cb-th input { accent-color: var(--accent); cursor: pointer; }
+
+  /* ── Table view toolbar ──────────────────────── */
+  .table-toolbar {
+    padding: 10px 16px; display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0; border-bottom: 1px solid var(--border);
+  }
+  .tbl-info { font-size: 13px; color: var(--muted); }
+  .tbl-info span { color: var(--text); font-weight: 600; }
+  .sm-btn {
+    padding: 5px 12px; background: transparent; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--muted); font-size: 12px; cursor: pointer;
+  }
+  .sm-btn:hover { border-color: var(--danger); color: var(--danger); }
+  .sm-btn.acc { border-color: var(--accent); color: var(--accent); }
+  .sm-btn.acc:hover { background: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+<div id="app" @click="closeAll">
+
+  <!-- Tooltip -->
+  <div class="tooltip" :class="{hidden: !tooltip.visible}" :style="{left: tooltip.x+'px', top: tooltip.y+'px'}">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+      <span class="tt-hw" :style="hwStyle(tooltip.run?.Hardware_clean)">{{ tooltip.run?.Hardware_clean }}</span>
+    </div>
+    <div class="tt-params">
+      <span class="tt-param">Backend: <span>{{ tooltip.run?.Backend }}</span></span>
+      <span class="tt-param">Method: <span>{{ tooltip.run?.['Training Method'] }}</span></span>
+      <span class="tt-param">Sharding: <span>{{ tooltip.run?.Sharding }}</span></span>
+      <span class="tt-param">AC: <span>{{ tooltip.run?.['Activation Checkpointing'] }}</span></span>
+      <span class="tt-param">Loader: <span>{{ tooltip.run?.Loader }}</span></span>
+    </div>
+    <table class="tt-table">
+      <tr v-for="m in ALL_METRICS" :key="m">
+        <td>{{ m }}</td><td>{{ fmtMetric(tooltip.run?.[m], m) }}</td>
+      </tr>
+      <tr style="border-top:1px solid var(--border);"><td colspan="2" style="padding-top:4px;"></td></tr>
+      <tr><td>Cost per million tokens (relative)</td><td>{{ fmtCost(tooltip.run?.['Cost per million tokens (relative)']) }}</td></tr>
+    </table>
+    <div><span class="tt-status" :class="statusClass(tooltip.run?.['Run status'])">{{ tooltip.run?.['Run status'] }}</span></div>
+  </div>
+
+  <!-- View tabs -->
+  <div class="view-tabs" @click.stop>
+    <div class="view-tabs-list">
+      <div v-for="v in VIEWS" :key="v.id" class="view-tab" :class="{active: activeView===v.id}" @click="activeView=v.id">{{ v.label }}</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar" @click.stop>
+      <h2 class="sidebar-heading">Filters</h2>
+
+      <!-- Hardware: visible checkboxes with colored dots -->
+      <div class="filter-section">
+        <div class="filter-label">Hardware</div>
+        <div class="hw-checks">
+          <label v-for="opt in filterOptions['Hardware_clean']||[]" :key="opt" class="hw-check-item">
+            <input type="checkbox"
+              :checked="activeFilters['Hardware_clean'].includes(opt)"
+              @change="toggleFilter('Hardware_clean', opt)">
+            <span class="hw-dot" :style="{background: HW_COLORS[opt]||'#aaa'}"></span>
+            {{ opt }}
+            <span class="hw-count">({{ hwCount(opt) }})</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Other filters: multi-select dropdowns -->
+      <div v-for="col in DROPDOWN_COLS" :key="col" class="filter-section">
+        <div class="filter-label">{{ FILTER_LABELS[col] }}</div>
+        <div class="ms-wrap">
+          <div class="ms-trigger" :class="{'has-sel': activeFilters[col].length>0}" @click.stop="toggleDropdown(col)">
+            <span v-if="activeFilters[col].length>0" class="ms-badge">{{ activeFilters[col].length }}</span>
+            <span class="ms-trigger-text">{{ filterLabel(col) }}</span>
+            <span class="ms-caret" :class="{open: openDropdown===col}">▼</span>
+          </div>
+          <div class="ms-dropdown" v-if="openDropdown===col" @click.stop>
+            <div class="ms-opt all-opt" @click="toggleAll(col)">
+              <input type="checkbox" :checked="activeFilters[col].length===0" @change="toggleAll(col)"> All
+            </div>
+            <div v-for="opt in filterOptions[col]||[]" :key="opt" class="ms-opt" @click="toggleFilter(col,opt)">
+              <input type="checkbox" :checked="activeFilters[col].includes(opt)" @change.stop="toggleFilter(col,opt)"> {{ opt }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="clear-btn" @click.stop="clearAllFilters">Clear all filters</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content" @click.stop>
+
+      <!-- Header row -->
+      <div class="chart-header">
+        <span class="chart-title">{{ currentView?.label }}</span>
+        <div class="segmented" @click.stop>
+          <div class="seg-item" :class="{active: mode==='chart'}" @click="mode='chart'">Chart</div>
+          <div class="seg-item" :class="{active: mode==='table'}" @click="mode='table'">Table</div>
+        </div>
+        <div style="position:relative;" @click.stop>
+          <button class="download-btn" @click.stop="dlMenuOpen=!dlMenuOpen">
+            Download <span style="font-size:9px;">▼</span>
+          </button>
+          <div class="dl-menu" v-if="dlMenuOpen" @click.stop>
+            <div class="dl-item" @click="exportCSV(mode==='table' ? (tableSelected.size>0 ? tableSelectedRows : chartData) : chartData)">
+              Table (CSV)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart view -->
+      <div class="chart-card" v-if="mode==='chart'">
+        <div class="chart-wrap" ref="chartWrap">
+          <svg id="chart-svg" ref="svgEl"></svg>
+          <div class="no-data" v-if="plottableCount===0">No data — adjust filters</div>
+        </div>
+        <!-- Legend below chart -->
+        <div class="chart-legend" v-if="hwColors.length">
+          <div class="legend-row" v-for="hw in hwColors" :key="hw.name">
+            <svg width="40" height="16" style="flex-shrink:0;overflow:visible">
+              <line x1="0" y1="8" x2="40" y2="8" :stroke="hw.color" stroke-width="2.5" :stroke-dasharray="hw.dash||'none'"/>
+              <rect v-if="hw.shape==='square'" x="15" y="3" width="10" height="10" :fill="hw.color"/>
+              <polygon v-else-if="hw.shape==='triangle'" :points="`20,2 28,14 12,14`" :fill="hw.color"/>
+              <circle v-else cx="20" cy="8" r="5" :fill="hw.color"/>
+            </svg>
+            {{ hw.name }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Table view -->
+      <div class="chart-card" v-else style="flex-direction:column;">
+        <div class="table-toolbar">
+          <span class="tbl-info"><span>{{ tableSelected.size }}</span> of <span>{{ chartData.length }}</span> rows selected</span>
+          <button class="sm-btn" v-if="tableSelected.size>0" @click.stop="tableSelected=new Set()">Deselect all</button>
+          <div style="flex:1;"></div>
+          <button class="sm-btn acc" @click.stop="exportCSV(tableSelected.size>0?tableSelectedRows:chartData)">
+            Export {{ tableSelected.size>0 ? tableSelected.size+' rows' : 'all' }} CSV
+          </button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="cb-th">
+                  <input type="checkbox"
+                    :checked="chartData.length>0 && tableSelected.size===chartData.length"
+                    :indeterminate.prop="tableSelected.size>0 && tableSelected.size<chartData.length"
+                    @change="toggleSelectAll">
+                </th>
+                <th v-for="col in TABLE_COLS" :key="col" class="sortable"
+                  :class="{'sort-asc':sortCol===col&&sortDir==='asc','sort-desc':sortCol===col&&sortDir==='desc'}"
+                  @click="setSort(col)">{{ col==='Hardware_clean'?'Hardware':col }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in sortedData" :key="row['Run ID']"
+                :class="{'row-sel': tableSelected.has(row['Run ID'])}"
+                @click="toggleTableRow(row['Run ID'])" style="cursor:pointer;">
+                <td class="cb-td" @click.stop="toggleTableRow(row['Run ID'])">
+                  <input type="checkbox" :checked="tableSelected.has(row['Run ID'])" @change.stop="toggleTableRow(row['Run ID'])">
+                </td>
+                <td v-for="col in TABLE_COLS" :key="col">
+                  <template v-if="col==='Hardware_clean'"><span class="hw-chip" :style="hwStyle(row[col])">{{ row[col] }}</span></template>
+                  <template v-else-if="col==='Run status'"><span :class="statusClass(row[col])">{{ row[col] }}</span></template>
+                  <template v-else-if="col==='Cost per million tokens (relative)'"><span class="num">{{ fmtCost(row[col]) }}</span></template>
+                  <template v-else-if="ALL_METRICS.includes(col)"><span class="num">{{ fmtMetric(row[col],col) }}</span></template>
+                  <template v-else>{{ row[col] }}</template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, computed, watch, onMounted, nextTick } = Vue;
+
+createApp({
+  setup() {
+    const VIEWS = [
+      { id: 'cost',       label: 'Cost per Million Tokens vs. Step Time', xKey: 'Cost per million tokens (relative)', yKey: 'Step time (s)' },
+      { id: 'throughput', label: 'Tokens per second per GPU vs. Step Time',   xKey: 'Tokens/s/GPU', yKey: 'Step time (s)' },
+    ];
+
+    const ALL_METRICS = [
+      'Tokens/s', 'Tokens/s/GPU', 'Lifecycle active tokens/s',
+      'Step time (s)', 'Maximum GPU memory (MiB/GPU)',
+      'Mean GPU utilization (%)', 'Active tokens/GPU joule',
+    ];
+
+    const FILTER_COLS   = ['Hardware_clean','Backend','Training Method','Sharding','Activation Checkpointing','Loader'];
+    const DROPDOWN_COLS = ['Backend','Training Method','Sharding','Activation Checkpointing','Loader'];
+
+    const FILTER_LABELS = {
+      'Backend': 'Backend', 'Training Method': 'Training Method',
+      'Sharding': 'Sharding', 'Activation Checkpointing': 'Activation Checkpointing', 'Loader': 'Loader',
+    };
+
+    const TABLE_COLS = [
+      'Hardware_clean','Backend','Training Method','Sharding','Activation Checkpointing','Loader',
+      'Cost per million tokens (relative)','Tokens/s/GPU','Step time (s)',
+      'Tokens/s','Lifecycle active tokens/s',
+      'Maximum GPU memory (MiB/GPU)','Mean GPU utilization (%)','Active tokens/GPU joule','Run status',
+    ];
+
+    const HW_COLORS  = { 'A100':'#337a00','H100':'#76b900','B200':'#b2e639','B300':'#b2e639' };
+    const HW_SHAPES   = { 'A100':d3.symbolSquare,'H100':d3.symbolTriangle,'B200':d3.symbolCircle,'B300':d3.symbolCircle };
+    const HW_DASH     = { 'A100':'6,3','H100':null,'B200':null,'B300':'6,3' };
+    const HW_SHAPE_KEY= { 'A100':'square','H100':'triangle','B200':'circle','B300':'circle' };
+    const DEFAULT_HW_COLOR = '#6c757d';
+    const sym = (hw, size) => d3.symbol().type(HW_SHAPES[hw]||d3.symbolCircle).size(size)();
+
+    // State
+    const svgEl        = ref(null);
+    const chartWrap    = ref(null);
+    const activeView   = ref('cost');
+    const mode         = ref('chart');
+    const chartData    = ref([]);
+    const filterOptions = ref({});
+    const activeFilters = ref(Object.fromEntries(FILTER_COLS.map(c=>[c,[]])));
+    const openDropdown  = ref(null);
+    const dlMenuOpen    = ref(false);
+    const tableSelected = ref(new Set());
+    const tooltip       = ref({ visible:false, x:0, y:0, run:null });
+    const sortCol       = ref('');
+    const sortDir       = ref('asc');
+
+    const currentView = computed(() => VIEWS.find(v => v.id === activeView.value));
+
+    const hwColors = computed(() => {
+      const hws = [...new Set(chartData.value.map(d=>d.Hardware_clean))].filter(Boolean).sort();
+      return hws.map(name => ({ name, color: HW_COLORS[name]||DEFAULT_HW_COLOR, shape: HW_SHAPE_KEY[name]||'circle', dash: HW_DASH[name]||null }));
+    });
+
+    const plottableCount = computed(() => {
+      if (!currentView.value) return 0;
+      const { xKey, yKey } = currentView.value;
+      return chartData.value.filter(d => {
+        const xv=parseFloat(d[xKey]), yv=parseFloat(d[yKey]);
+        return !isNaN(xv) && xv>0 && !isNaN(yv) && yv>0;
+      }).length;
+    });
+
+    const tableSelectedRows = computed(() => chartData.value.filter(d=>tableSelected.value.has(d['Run ID'])));
+
+    const sortedData = computed(() => {
+      if (!sortCol.value) return chartData.value;
+      return [...chartData.value].sort((a,b) => {
+        const av=a[sortCol.value]??'', bv=b[sortCol.value]??'';
+        const an=parseFloat(av), bn=parseFloat(bv);
+        const cmp = !isNaN(an)&&!isNaN(bn) ? an-bn : String(av).localeCompare(String(bv));
+        return sortDir.value==='desc' ? -cmp : cmp;
+      });
+    });
+
+    function hwStyle(hw) {
+      const c = HW_COLORS[hw] || DEFAULT_HW_COLOR;
+      return { background: c+'20', color: c, border: `1px solid ${c}66` };
+    }
+
+    function hwCount(hw) {
+      return (window.AVLM_DATA||[]).filter(d=>d.Hardware_clean===hw && d['Run status']==='Passed').length;
+    }
+
+    function statusClass(s) {
+      if (!s) return '';
+      if (s==='Passed')   return 'status-passed';
+      if (s==='CUDA OOM') return 'status-oom';
+      if (s==='Failed')   return 'status-failed';
+      return 'status-skipped';
+    }
+
+    function fmtMetric(val, metric) {
+      if (val==null) return '—';
+      const n=parseFloat(val);
+      if (isNaN(n)||n<=0) return '—';
+      if (metric.includes('(s)'))   return n.toFixed(3)+' s';
+      if (metric.includes('(%)'))   return n.toFixed(1)+'%';
+      if (metric.includes('(MiB')) return n.toLocaleString(undefined,{maximumFractionDigits:0})+' MiB';
+      if (metric.includes('joule')) return n.toFixed(4);
+      return n.toLocaleString(undefined,{maximumFractionDigits:1});
+    }
+
+    function fmtCost(val) {
+      if (val==null||val==='') return '—';
+      const n=parseFloat(val);
+      if (isNaN(n)||n<=0) return '—';
+      return n.toFixed(2);
+    }
+
+    function exportCSV(rows) {
+      const header = TABLE_COLS.map(c=>c==='Hardware_clean'?'Hardware':c).join(',');
+      const body   = rows.map(row=>TABLE_COLS.map(c=>{
+        const s=String(row[c]??'');
+        return s.includes(',')||s.includes('"') ? `"${s.replace(/"/g,'""')}"` : s;
+      }).join(',')).join('\n');
+      const a = Object.assign(document.createElement('a'),{
+        href: URL.createObjectURL(new Blob([header+'\n'+body],{type:'text/csv'})),
+        download:'avlm_runs.csv'
+      });
+      a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    function toggleDropdown(col) { openDropdown.value = openDropdown.value===col ? null : col; }
+    function closeAll() { openDropdown.value=null; dlMenuOpen.value=false; tooltip.value.visible=false; }
+    function toggleFilter(col, val) {
+      const arr=activeFilters.value[col], i=arr.indexOf(val);
+      i===-1 ? arr.push(val) : arr.splice(i,1);
+    }
+    function toggleAll(col) { activeFilters.value[col]=[]; }
+    function filterLabel(col) {
+      const sel=activeFilters.value[col];
+      if (sel.length===0) return 'All';
+      if (sel.length<=2)  return sel.join(', ');
+      return sel.slice(0,2).join(', ')+' +'+(sel.length-2);
+    }
+    function clearAllFilters() { FILTER_COLS.forEach(c=>{activeFilters.value[c]=[];}); }
+
+    function setSort(col) {
+      if (sortCol.value===col) sortDir.value = sortDir.value==='asc'?'desc':'asc';
+      else { sortCol.value=col; sortDir.value='asc'; }
+    }
+    function toggleSelectAll() {
+      tableSelected.value = tableSelected.value.size===chartData.value.length
+        ? new Set() : new Set(chartData.value.map(d=>d['Run ID']));
+    }
+    function toggleTableRow(id) {
+      const s=new Set(tableSelected.value);
+      s.has(id)?s.delete(id):s.add(id);
+      tableSelected.value=s;
+    }
+
+    function fetchFilters() {
+      const all=window.AVLM_DATA||[];
+      FILTER_COLS.forEach(col=>{
+        filterOptions.value[col]=[...new Set(all.map(d=>d[col]))].filter(Boolean).sort();
+      });
+    }
+
+    function fetchData() {
+      let data=window.AVLM_DATA||[];
+      // Compute Cost per million tokens (relative) once — (Approximate cost / (Active tokens/s × Step time)) × 1e6, normalised to A100 minimum
+      const KEY='Cost per million tokens (relative)';
+      if (data.length && data[0][KEY]==null) {
+        const raw=d=>{ const c=parseFloat(d['Approximate cost']),t=parseFloat(d['Active tokens/s']),s=parseFloat(d['Step time (s)']); return (c>0&&t>0&&s>0)?c/(t*s)*1e6:null; };
+        const a100Raws=data.filter(d=>d.Hardware_clean==='A100').map(raw).filter(n=>n!=null);
+        const refVal=a100Raws.length?Math.min(...a100Raws):1;
+        data.forEach(d=>{ const r=raw(d); d[KEY]=r!=null?r/refVal:null; });
+      }
+      FILTER_COLS.forEach(col=>{
+        const sel=activeFilters.value[col];
+        if (sel.length>0) data=data.filter(d=>sel.includes(d[col]));
+      });
+      chartData.value=data;
+      tableSelected.value=new Set([...tableSelected.value].filter(r=>new Set(data.map(d=>d['Run ID'])).has(r)));
+    }
+
+    // ── D3 chart ───────────────────────────────────
+    let resizeObs=null;
+
+    function renderChart() {
+      if (!svgEl.value || mode.value!=='chart') return;
+      const view=currentView.value;
+      if (!view) return;
+      const { xKey, yKey }=view;
+
+      const container=svgEl.value.parentElement;
+      const W=container.clientWidth, H=container.clientHeight;
+      const margin={ top:20, right:20, bottom:72, left:80 };
+      const iW=W-margin.left-margin.right, iH=H-margin.top-margin.bottom;
+      if (iW<=0||iH<=0) return;
+
+      const plottable=chartData.value.filter(d=>{
+        const xv=parseFloat(d[xKey]), yv=parseFloat(d[yKey]);
+        return !isNaN(xv)&&xv>0&&!isNaN(yv)&&yv>0;
+      });
+
+      d3.select(svgEl.value).selectAll('*').remove();
+      if (!plottable.length) return;
+
+      const xExt=d3.extent(plottable,d=>+d[xKey]);
+      const yExt=d3.extent(plottable,d=>+d[yKey]);
+      const xPad=(xExt[1]-xExt[0])*0.08||xExt[0]*0.15||1;
+      const yPad=(yExt[1]-yExt[0])*0.08||yExt[0]*0.15||1;
+
+      const xScale=d3.scaleLinear().domain([Math.max(0,xExt[0]-xPad),xExt[1]+xPad]).range([0,iW]).nice();
+      const yScale=d3.scaleLinear().domain([Math.max(0,yExt[0]-yPad),yExt[1]+yPad]).range([iH,0]).nice();
+
+      const svg=d3.select(svgEl.value).attr('width',W).attr('height',H);
+      const g=svg.append('g').attr('transform',`translate(${margin.left},${margin.top})`);
+
+      // Grid
+      g.append('g').attr('class','gy')
+        .call(d3.axisLeft(yScale).tickSize(-iW).tickFormat('').ticks(6))
+        .selectAll('line').attr('stroke','#e8e8e8');
+      g.select('.gy .domain').remove();
+
+      g.append('g').attr('class','gx').attr('transform',`translate(0,${iH})`)
+        .call(d3.axisBottom(xScale).tickSize(-iH).tickFormat('').ticks(6))
+        .selectAll('line').attr('stroke','#e8e8e8');
+      g.select('.gx .domain').remove();
+
+      // Axes
+      const xFmt=xKey==='Cost per million tokens (relative)'?d3.format('.2f'):d3.format('.3s');
+      const yFmt=d=>d3.format('.3s')(d)+'s';
+
+      const xAxisG=g.append('g').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(xScale).ticks(6).tickFormat(xFmt));
+      xAxisG.selectAll('text').attr('fill','#6c757d').attr('font-size','12px');
+      xAxisG.selectAll('line').attr('stroke','#ddd');
+      xAxisG.select('.domain').attr('stroke','#ddd');
+
+      const yAxisG=g.append('g').call(d3.axisLeft(yScale).ticks(6).tickFormat(yFmt));
+      yAxisG.selectAll('text').attr('fill','#6c757d').attr('font-size','12px');
+      yAxisG.selectAll('line').attr('stroke','#ddd');
+      yAxisG.select('.domain').attr('stroke','#ddd');
+
+      // Axis labels
+      const xLabel=xKey==='Cost per million tokens (relative)'?'Cost per Million Tokens (relative) →':'Tokens/s/GPU →';
+      g.append('text').attr('x',iW/2).attr('y',iH+46)
+        .attr('text-anchor','middle').attr('fill','#6c757d').attr('font-size','13px').text(xLabel);
+      g.append('text').attr('transform','rotate(-90)').attr('x',-iH/2).attr('y',-62)
+        .attr('text-anchor','middle').attr('fill','#6c757d').attr('font-size','13px').text('← Step Time (s)');
+
+      // Lines per hardware group
+      const hwGroups=d3.group(plottable,d=>d.Hardware_clean);
+      const lineGen=d3.line()
+        .x(d=>xScale(+d[xKey])).y(d=>yScale(+d[yKey]))
+        .curve(d3.curveMonotoneX);
+
+      hwGroups.forEach((pts,hw)=>{
+        const passed=pts.filter(d=>d['Run status']==='Passed').sort((a,b)=>+a[xKey]-+b[xKey]);
+        if (passed.length<2) return;
+        const color=HW_COLORS[hw]||DEFAULT_HW_COLOR;
+        g.append('path').datum(passed)
+          .attr('fill','none').attr('stroke',color)
+          .attr('stroke-width',2.5).attr('opacity',0.9)
+          .attr('stroke-dasharray',HW_DASH[hw]||null)
+          .attr('d',lineGen);
+      });
+
+      // Markers (per-hardware shape)
+      g.selectAll('.dot').data(plottable,d=>d['Run ID'])
+        .enter().append('path').attr('class','dot')
+        .attr('transform',d=>`translate(${xScale(+d[xKey])},${yScale(+d[yKey])})`)
+        .attr('d',d=>sym(d.Hardware_clean,80))
+        .attr('fill',d=>d['Run status']==='Passed'?(HW_COLORS[d.Hardware_clean]||DEFAULT_HW_COLOR):'#fff')
+        .attr('stroke',d=>d['Run status']==='Passed'?(HW_COLORS[d.Hardware_clean]||DEFAULT_HW_COLOR):d['Run status']==='CUDA OOM'||d['Run status']==='Failed'?'#dc3545':'#aaa')
+        .attr('stroke-width',1.5)
+        .attr('opacity',d=>d['Run status']==='Skipped – dominated'?0.3:1)
+        .attr('cursor','default')
+        .on('mouseenter',function(ev,d){
+          d3.select(this).attr('d',sym(d.Hardware_clean,180));
+          tooltip.value={visible:true, x:ev.clientX+14, y:ev.clientY-10, run:d};
+        })
+        .on('mousemove',function(ev){
+          tooltip.value.x=Math.min(ev.clientX+14,window.innerWidth-340);
+          tooltip.value.y=Math.max(ev.clientY-10,10);
+        })
+        .on('mouseleave',function(ev,d){
+          d3.select(this).attr('d',sym(d.Hardware_clean,80));
+          tooltip.value.visible=false;
+        });
+    }
+
+    watch(activeFilters,()=>{ fetchData(); nextTick(renderChart); },{deep:true});
+    watch([activeView,mode],()=>{ nextTick(renderChart); });
+    watch(chartData,()=>{ nextTick(renderChart); });
+
+    onMounted(()=>{
+      fetchFilters(); fetchData(); nextTick(renderChart);
+      resizeObs=new ResizeObserver(()=>renderChart());
+      const el=document.querySelector('.main');
+      if (el) resizeObs.observe(el);
+    });
+
+    return {
+      VIEWS, ALL_METRICS, FILTER_COLS, DROPDOWN_COLS, FILTER_LABELS, TABLE_COLS, HW_COLORS,
+      svgEl, chartWrap, activeView, mode, chartData, filterOptions, activeFilters,
+      openDropdown, dlMenuOpen, tableSelected, tooltip, sortCol, sortDir,
+      hwColors, plottableCount, tableSelectedRows, sortedData,
+      toggleDropdown, closeAll, toggleFilter, toggleAll, filterLabel, clearAllFilters,
+      setSort, toggleSelectAll, toggleTableRow,
+      hwStyle, hwCount, statusClass, fmtMetric, fmtCost, exportCSV,
+    };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>
