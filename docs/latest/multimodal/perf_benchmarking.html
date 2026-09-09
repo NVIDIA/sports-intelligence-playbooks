@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=1a43867f" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2e653c1b" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -452,6 +452,72 @@ $1/hour; H100 and B200 are 1.7x and 3.5x the A100 price, respectively.</p>
 are absent when a better-performing recipe was available or when the model
 did not fit into GPU under that configuration.</p>
 </section>
+<section id="example-training-time">
+<h3>Example training time<a class="headerlink" href="#example-training-time" title="Link to this heading">#</a></h3>
+<p>The metrics above are per-step measurements. The following example converts them into
+wall-clock time, to show how long a complete fine-tuning run takes on a given
+hardware setup. Each run is split into jobs of 200 steps, so the estimated
+total time is the number of jobs needed to reach the expected step count
+multiplied by the average time per job.</p>
+<div class="pst-scrollable-table-container"><table class="perf-table table" id="training-compute-cost">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Training Period Example</span><a class="headerlink" href="#training-compute-cost" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Training Stack</p></th>
+<th class="head"><p>Compute</p></th>
+<th class="head"><p>Steps Per Job</p></th>
+<th class="head"><p>Average Time Per Job</p></th>
+<th class="head"><p>Expected Training Steps</p></th>
+<th class="head"><p>Estimated Total Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AutoModel</p></td>
+<td><p>8 nodes / 64 A100 80GB GPUs</p></td>
+<td><p>200</p></td>
+<td><p>3 hours</p></td>
+<td><p>3,000 – 5,000</p></td>
+<td><p>2 – 3 days</p></td>
+</tr>
+<tr class="row-odd"><td><p>Megatron-Bridge</p></td>
+<td><p>8 nodes / 64 A100 80GB GPUs</p></td>
+<td><p>200</p></td>
+<td><p>2 hours</p></td>
+<td><p>3,000 – 5,000</p></td>
+<td><p>1 – 2 days</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These estimates correspond to the tennis dataset below. Training time scales
+with the number of steps, so a smaller dataset or fewer epochs shortens the run
+proportionally.</p>
+<div class="pst-scrollable-table-container"><table class="perf-table table" id="tennis-dataset-splits">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">Tennis Dataset Size</span><a class="headerlink" href="#tennis-dataset-splits" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Split</p></th>
+<th class="head"><p>MCQ Pairs</p></th>
+<th class="head"><p>QA Pairs</p></th>
+<th class="head"><p>Total Pairs</p></th>
+<th class="head"><p>Unique Video Clips</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Training</p></td>
+<td><p>1,226,081</p></td>
+<td><p>86,048</p></td>
+<td><p>1,312,129</p></td>
+<td><p>43,084</p></td>
+</tr>
+<tr class="row-odd"><td><p>Validation</p></td>
+<td><p>64,401</p></td>
+<td><p>4,530</p></td>
+<td><p>68,931</p></td>
+<td><p>2,267</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 <section id="inference-performance">
 <h2>Inference Performance<a class="headerlink" href="#inference-performance" title="Link to this heading">#</a></h2>
@@ -558,6 +624,7 @@ These topology values are fixed for the table below.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nomenclature">Nomenclature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-performance">Fine-Tuning Performance</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best-observed-configurations">Best observed configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-training-time">Example training time</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-performance">Inference Performance</a></li>
