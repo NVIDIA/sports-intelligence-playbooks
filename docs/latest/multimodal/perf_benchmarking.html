@@ -11,7 +11,7 @@
 <meta content="1.0.0" name="docs-version" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
 
-    <title>Performance &#8212; Sports Intelligence Playbooks</title>
+    <title>Performance Benchmarking &#8212; Sports Intelligence Playbooks</title>
   
   
   
@@ -385,7 +385,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Performance</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Performance Benchmarking</span></li>
   </ul>
 </nav>
 </div>
@@ -402,197 +402,61 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="performance">
-<h1>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h1>
+  <section id="performance-benchmarking">
+<h1>Performance Benchmarking<a class="headerlink" href="#performance-benchmarking" title="Link to this heading">#</a></h1>
 <p>The following results compare fine-tuning and inference performance across
-NVIDIA GPU configurations for the Sports Intelligence Playbooks.</p>
-<p><strong>Model:</strong> <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a></p>
-<p><strong>Benchmark containers:</strong></p>
-<ul class="simple">
-<li><p><strong>NeMo AutoModel:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/-/containers/nemo-automodel/26.06.00">nvcr.io/nvidia/nemo-automodel:26.06.00</a></p></li>
-<li><p><strong>Megatron-Bridge:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/-/containers/nemo/26.06.00">nvcr.io/nvidia/nemo:26.06.00</a></p></li>
-</ul>
-<p>Fine-tuning and inference use the same container for a given stack.</p>
+different NVIDIA GPU configurations.</p>
+<p>Technical terms used on this page are defined first. For the performance
+results, start with the best observed configuration for your hardware, then use
+the metric tabs and filters to compare throughput, relative cost, and step time.</p>
 <section id="nomenclature">
 <h2>Nomenclature<a class="headerlink" href="#nomenclature" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>GBS:</strong> Global Batch Size</p></li>
 <li><p><strong>MBS:</strong> Micro Batch Size</p></li>
-<li><p><strong>Packed length:</strong> Maximum token capacity of each packed fine-tuning sample</p></li>
 <li><p><strong>TP:</strong> Tensor Parallel Size</p></li>
 <li><p><strong>PP:</strong> Pipeline Parallel Size</p></li>
 <li><p><strong>CP:</strong> Context Parallel Size</p></li>
 <li><p><strong>EP:</strong> Expert Parallel Size</p></li>
+<li><p><strong>ETP:</strong> Expert Tensor Parallel Size</p></li>
 <li><p><strong>DDP:</strong> Distributed Data Parallel</p></li>
-<li><p><strong>FSDP:</strong> Fully Sharded Data Parallel (FSDP2 in AutoModel)</p></li>
-<li><p><strong>AC:</strong> Activation Checkpointing</p></li>
+<li><p><strong>FSDP:</strong> Fully Sharded Data Parallel (FSDP2 in AutoModel and Megatron FSDP for mbridge)</p></li>
+<li><p><strong>AC:</strong> Activation Checkpointing (a memory-saving technique)</p></li>
+<li><p><strong>Packed length:</strong> Maximum tokens per packed fine-tuning sample</p></li>
 </ul>
 </section>
 <section id="fine-tuning-performance">
 <h2>Fine-Tuning Performance<a class="headerlink" href="#fine-tuning-performance" title="Link to this heading">#</a></h2>
 <p>Fine-tuning performance is reported using the following metrics:</p>
 <ul class="simple">
-<li><p><strong>Time per global step (s):</strong> Mean duration of the measured optimizer steps.</p></li>
-<li><p><strong>Steady active tokens/s/GPU:</strong> Steady active-token throughput divided by the
-number of GPUs.</p></li>
+<li><p><strong>Time per global step (s):</strong> Optimizer step mean duration to process one global batch size.</p></li>
+<li><p><strong>Tokens/s/GPU:</strong> Token throughput divided by the number of GPUs.</p></li>
 </ul>
-<section id="sft">
-<h3>SFT<a class="headerlink" href="#sft" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table-expandable table" id="sft-performance-results">
-<colgroup>
-<col style="width: 12.1%" />
-<col style="width: 6.1%" />
-<col style="width: 13.6%" />
-<col style="width: 9.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 13.6%" />
-<col style="width: 15.2%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>System <a class="footnote-reference brackets" href="#single-node" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></th>
-<th class="head"><p># GPUs</p></th>
-<th class="head"><p>Stack</p></th>
-<th class="head"><p>Sharding</p></th>
-<th class="head"><p>AC</p></th>
-<th class="head"><p>TP</p></th>
-<th class="head"><p>PP</p></th>
-<th class="head"><p>CP</p></th>
-<th class="head"><p>EP</p></th>
-<th class="head"><p>Time per global step (s)</p></th>
-<th class="head"><p>Steady active tokens/s/GPU</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>B200</p></td>
-<td><p>8</p></td>
-<td><p>Megatron-Bridge</p></td>
-<td><p>DDP</p></td>
-<td><p>On</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>33.06</p></td>
-<td><p>9,672.4</p></td>
-</tr>
-<tr class="row-odd"><td><p>H100</p></td>
-<td><p>8</p></td>
-<td><p>NeMo AutoModel</p></td>
-<td><p>FSDP</p></td>
-<td><p>On</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>67.04</p></td>
-<td><p>4,768.5</p></td>
-</tr>
-<tr class="row-even"><td><p>A100</p></td>
-<td><p>8</p></td>
-<td><p>NeMo AutoModel</p></td>
-<td><p>FSDP</p></td>
-<td><p>On</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>137.66</p></td>
-<td><p>2,322.3</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="lora">
-<h3>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table-expandable table" id="lora-performance-results">
-<colgroup>
-<col style="width: 12.1%" />
-<col style="width: 6.1%" />
-<col style="width: 13.6%" />
-<col style="width: 9.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 6.1%" />
-<col style="width: 13.6%" />
-<col style="width: 15.2%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>System <a class="footnote-reference brackets" href="#single-node" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></th>
-<th class="head"><p># GPUs</p></th>
-<th class="head"><p>Stack</p></th>
-<th class="head"><p>Sharding</p></th>
-<th class="head"><p>AC</p></th>
-<th class="head"><p>TP</p></th>
-<th class="head"><p>PP</p></th>
-<th class="head"><p>CP</p></th>
-<th class="head"><p>EP</p></th>
-<th class="head"><p>Time per global step (s)</p></th>
-<th class="head"><p>Steady active tokens/s/GPU</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>B200</p></td>
-<td><p>8</p></td>
-<td><p>Megatron-Bridge</p></td>
-<td><p>FSDP</p></td>
-<td><p>Off</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>34.28</p></td>
-<td><p>9,330.9</p></td>
-</tr>
-<tr class="row-odd"><td><p>H100</p></td>
-<td><p>8</p></td>
-<td><p>Megatron-Bridge</p></td>
-<td><p>DDP</p></td>
-<td><p>On</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>40.81</p></td>
-<td><p>7,836.7</p></td>
-</tr>
-<tr class="row-even"><td><p>A100</p></td>
-<td><p>8</p></td>
-<td><p>Megatron-Bridge</p></td>
-<td><p>DDP</p></td>
-<td><p>On</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>80.57</p></td>
-<td><p>3,969.3</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="single-node" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
-<p>System denotes a single compute node. B200, H100, and A100
-benchmarks use eight GPUs within that node.</p>
-</aside>
-</aside>
+<section id="best-observed-configurations">
+<h3>Best observed configurations<a class="headerlink" href="#best-observed-configurations" title="Link to this heading">#</a></h3>
+<p>All fine-tuning configurations were optimized for a single eight-GPU node.
+This does not mean we recommend only a single node for training.</p>
+<p>The chart compares the metrics corresponding to the best possible
+configuration for different GPUs, while the table tab shows the details for
+those configuration. The download tab includes performance metric details for
+all tested configurations.</p>
+<p><strong>Step Time</strong> is the mean duration for an optimizer step processing one
+global batch size of 128.</p>
+<iframe src="perf_dash/avlm_dashboard.html"
+        style="width:100%; height:840px; border:none; border-radius:6px;"
+        loading="lazy">
+</iframe><p>Relative cost per 1M tokens combines measured full-node throughput with an
+hourly eight-GPU price index. A100 is used as our reference baseline at
+$1/hour; H100 and B200 are 1.75 and 3.50 times the A100 price, respectively.</p>
+<p><strong>NOTE:</strong> Results are intended for <em>relative</em> comparison only. Configurations
+are absent when a better-performing recipe was available or when the model
+did not fit into GPU under that configuration.</p>
 </section>
 </section>
 <section id="inference-performance">
 <h2>Inference Performance<a class="headerlink" href="#inference-performance" title="Link to this heading">#</a></h2>
-<p>After fine-tuning, we run inference with the resulting SFT or LoRA model. SFT
-uses the full fine-tuned checkpoint, while LoRA applies the trained adapter to
-the base model.</p>
-<p>Inference performance is summarized using the following metrics:</p>
+<p>After fine-tuning, we run inference with the resulting model.
+Inference performance is summarized using the following metrics:</p>
 <ul class="simple">
 <li><p><strong>Requests/s:</strong> Number of completed real-video requests divided by the
 measured wall-clock time.</p></li>
@@ -600,24 +464,25 @@ measured wall-clock time.</p></li>
 media preprocessing through the completion of generation. Model loading and
 warm-up are excluded.</p></li>
 </ul>
+<p>The benchmark uses a fixed set of 64 requests and the reported results are
+averaged. Each request consists of one video clip (with audio), a text
+question/prompt, and the generated response, with average input text prompt
+length of 884 tokens (~9k tokens for all of the visual, audio, and text inputs)
+and output length of 24 tokens.</p>
+<p>All reported inference results use a single GPU with TP=1, EP=1, and ETP=1.
+These topology values are fixed for the table below.</p>
 <div class="pst-scrollable-table-container"><table class="table-expandable table" id="inference-performance-results">
 <colgroup>
-<col style="width: 16.0%" />
-<col style="width: 8.0%" />
-<col style="width: 18.0%" />
-<col style="width: 8.0%" />
-<col style="width: 8.0%" />
-<col style="width: 8.0%" />
-<col style="width: 14.0%" />
-<col style="width: 20.0%" />
+<col style="width: 18.8%" />
+<col style="width: 10.4%" />
+<col style="width: 22.9%" />
+<col style="width: 18.8%" />
+<col style="width: 29.2%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>System</p></th>
 <th class="head"><p># GPUs</p></th>
-<th class="head"><p>Stack</p></th>
-<th class="head"><p>TP</p></th>
-<th class="head"><p>EP</p></th>
-<th class="head"><p>ETP</p></th>
+<th class="head"><p>Recommended Stack</p></th>
 <th class="head"><p>Requests/s</p></th>
 <th class="head"><p>Mean E2E duration (s/request)</p></th>
 </tr>
@@ -626,28 +491,19 @@ warm-up are excluded.</p></li>
 <tr class="row-even"><td><p>DGX Spark</p></td>
 <td><p>1</p></td>
 <td><p>Megatron-Bridge</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
 <td><p>0.275</p></td>
 <td><p>3.63</p></td>
+</tr>
+<tr class="row-odd"><td><p>RTX PRO 6000</p></td>
+<td><p>1</p></td>
+<td><p>Megatron-Bridge</p></td>
+<td><p>0.323</p></td>
+<td><p>3.09</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="interactive-comparison">
-<h2>Interactive comparison<a class="headerlink" href="#interactive-comparison" title="Link to this heading">#</a></h2>
-<p>Interactive results across all fine-tuning runs.
-Hover over a bubble for parameters and metrics.</p>
-<p><strong>Relative cost</strong>: pricing ratios are derived from current VM prices across Cloud Service Providers; 8xA100 is set to 1.0 and all other configurations are relative to that.
-From there, we set the relative cost of running the least expensive workload on A100 to 1.0. All other runs are relative to that.</p>
-<p><strong>NOTE:</strong> estimates are based on short 13-iteration benchmark runs and are intended for <em>relative</em> comparison only.
-Actual fine-tuning runs typically take 1–3 days depending on model, data size, cluster size, and other parameters.</p>
-<iframe src="perf_dash/avlm_dashboard.html"
-        style="width:100%; height:840px; border:none; border-radius:6px;"
-        loading="lazy">
-</iframe></section>
 </section>
 
 
@@ -701,12 +557,10 @@ Actual fine-tuning runs typically take 1–3 days depending on model, data size,
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nomenclature">Nomenclature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-performance">Fine-Tuning Performance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sft">SFT</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best-observed-configurations">Best observed configurations</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-performance">Inference Performance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-comparison">Interactive comparison</a></li>
 </ul>
   </nav></div>
 
