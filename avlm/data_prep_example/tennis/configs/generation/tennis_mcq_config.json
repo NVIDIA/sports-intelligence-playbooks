@@ -1,0 +1,294 @@
+{
+  "question_templates": {
+    "server_winner": {
+      "field": "server_winner",
+      "type": "categorical",
+      "question": "Who served and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "options": [
+        "<player1> served and <player1> won",
+        "<player1> served and <player2> won",
+        "<player2> served and <player1> won",
+        "<player2> served and <player2> won"
+      ],
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome"
+    },
+    "receiver_winner": {
+      "field": "receiver_winner",
+      "type": "categorical",
+      "question": "Who received the serve and who won this tennis point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "options": [
+        "<player1> received and <player1> won",
+        "<player1> received and <player2> won",
+        "<player2> received and <player1> won",
+        "<player2> received and <player2> won"
+      ],
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome"
+    },
+    "how_point_ended": {
+      "field": "how_point_ended",
+      "type": "categorical",
+      "question": "How did this tennis point end?",
+      "options": [
+        "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+        "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+        "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+        "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+        "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+        "Violation: Rule-based loss of point includes player touching net, ball touches player, double bounce, foot fault, etc.",
+        "Retirement/Default: Player stops playing due to injury or penalty",
+        "Let: \"Point Replayed\", point doesn't end. For example when the ball clips the net on serve and lands in (replay the serve) or when there is external disturbance (crowd noise, ball on court)"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Point Roles and Outcome"
+    },
+    "num_shots_exchanged": {
+      "field": "num_shots_exchanged",
+      "type": "numeric_range",
+      "question": "How many shots were exchanged in this rally?",
+      "ranges": [
+        {
+          "min": 1,
+          "max": 1,
+          "answer": "1 shot"
+        },
+        {
+          "min": 2,
+          "max": 2,
+          "answer": "2 shots"
+        },
+        {
+          "min": 3,
+          "max": 3,
+          "answer": "3 shots"
+        },
+        {
+          "min": 4,
+          "max": 4,
+          "answer": "4 shots"
+        },
+        {
+          "min": 5,
+          "max": 5,
+          "answer": "5 shots"
+        },
+        {
+          "min": 6,
+          "max": 6,
+          "answer": "6 shots"
+        },
+        {
+          "min": 7,
+          "max": 7,
+          "answer": "7 shots"
+        },
+        {
+          "min": 8,
+          "max": 8,
+          "answer": "8 shots"
+        },
+        {
+          "min": 9,
+          "max": 9,
+          "answer": "9 shots"
+        },
+        {
+          "min": 10,
+          "max": 10,
+          "answer": "10 shots"
+        },
+        {
+          "min": 11,
+          "max": 20,
+          "answer": "11-20 shots (Long rally)"
+        },
+        {
+          "min": 21,
+          "max": 100,
+          "answer": "21+ shots (Extended rally)"
+        }
+      ],
+      "options": [
+        "1 shot",
+        "2 shots",
+        "3 shots",
+        "4 shots",
+        "5 shots",
+        "6 shots",
+        "7 shots",
+        "8 shots",
+        "9 shots",
+        "10 shots",
+        "11-20 shots (Long rally)",
+        "21+ shots (Extended rally)"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Rally Structure"
+    },
+    "num_serving_attempts_until_successful": {
+      "field": "num_serving_attempts_until_successful",
+      "type": "categorical",
+      "question": "How many serving attempts until successful?",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State"
+    },
+    "score_after": {
+      "field": "score_after",
+      "type": "freeform_with_distractors",
+      "question": "<score_before>. What was the score after this point? (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<score_before>",
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "super_category": "Match Facts",
+      "fine_category": "Score and Serve State"
+    },
+    "mcq_how_point_ended_description_mechanism_mismatch": {
+      "field": "how_point_ended_description",
+      "type": "llm_gen_distractor",
+      "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect descriptions by changing ONLY the mechanism of how the point ends while keeping the winner and player roles unchanged. Prioritize common confusions: net-cord dribbler winner vs into the net error, ball IN vs OUT calls ('clips/lands on the line' [in] vs 'out of bounds'), ace vs regular rally, double fault vs rally error, and serve let (point replay) vs point-ending rally or ace. Do NOT change which player wins or who commits the error; do NOT change location descriptors (left/right/center, doubles alley vs baseline/sideline); do NOT add unsupported details (serve count, stroke type, rally length, score). Maintain the original simple, direct sentence structure and use precise tennis terms ('net cord', 'into the net', 'on the line', 'in', 'out of bounds', 'past the baseline', 'beyond the singles sideline'). Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting"
+    },
+    "mcq_how_point_ended_description_player_misattribution": {
+      "field": "how_point_ended_description",
+      "type": "llm_gen_distractor",
+      "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect descriptions by swapping which player is credited (winner or error) and optionally mixing in EXACTLY ONE additional mismatch: either a mechanism tweak (net vs doubles alley, out vs past the baseline, ace vs rally, double fault vs rally) OR a location tweak (left/right/center, doubles alley vs outside baseline, singles sideline vs baseline). Do NOT change both mechanism and location, and do NOT add unsupported details (serve count, stroke type, rally length, score). Keep the same simple, direct style and precise tennis terminology. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting"
+    },
+    "mcq_how_point_ended_description_location_mismatch": {
+      "field": "how_point_ended_description",
+      "type": "llm_gen_distractor",
+      "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect descriptions by changing ONLY the ball placement/location while keeping the exact same mechanism (ace/winner/error/double-fault/etc.) and winner. Focus on common tennis location confusions that require precise visual judgment: 1) NET vs OUT BOUNDARIES: 'hits into the net' ↔ 'hits into doubles alley' ↔ 'hits long past baseline' ↔ 'hits wide of singles sideline', 2) LINE CALLS: 'lands on the line' (IN) ↔ 'lands just outside the line' (OUT) ↔ 'clips the line' ↔ 'barely misses the line', 3) COURT ZONES: 'doubles alley' ↔ 'past baseline' ↔ 'wide of sideline' ↔ 'beyond service line', 4) PRECISE BOUNDARIES: 'just inside the baseline' ↔ 'just past the baseline' ↔ 'on the sideline' ↔ 'wide of the sideline' ↔ 'clips the doubles alley' ↔ 'beyond the doubles alley'. Emphasize locations that are visually similar but have different rule implications (IN vs OUT). Use precise tennis court terminology for boundary calls. Examples: 'hits into the net' vs 'hits into doubles alley', 'lands on the baseline' vs 'lands just past the baseline', 'clips the sideline' vs 'just wide of the sideline'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting"
+    },
+    "mcq_how_point_ended_description_unsupported_embellishments": {
+      "field": "how_point_ended_description",
+      "type": "llm_gen_distractor",
+      "question": "Describe in detail how this point ended between <player1> and <player2>. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect descriptions by adding unsupported embellishments only, while keeping the actual outcome (winner, mechanism, and location/placement) unchanged. Allowed embellishments (if not in GT): cross-court/down-the-line/inside-out/inside-in direction, approach/net play mentions, serve type (kick/slice/flat), first/second serve, serve speed, exact rally shot count, score pressure (deuce/advantage), emotions/body language. Constraints: do NOT change who wins, the mechanism (ace/double fault/winner/forced/unforced/violation/let), or the placement (doubles alley vs baseline/sideline, left/right/center). Do not convert double fault into 'second serve in + rally'; do not rewrite net winner as cross-court winner; do not turn doubles alley into 'long past the baseline'. Use the original simple, direct style and precise court terms. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Ending Reporting"
+    },
+    "mcq_caption_mechanism_mismatch": {
+      "field": "point_caption",
+      "type": "llm_gen_distractor",
+      "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect captions by altering ONLY the mechanism of the point ending while keeping the winner and roles the same. Emphasize net vs doubles alley, out vs baseline, ace vs rally, double fault vs rally, and let (serve let, point replay) vs point-ending rally or ace confusions. Do not change the winner or introduce unsupported details. Use simple, direct language and precise tennis terminology. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration"
+    },
+    "mcq_caption_player_misattribution": {
+      "field": "point_caption",
+      "type": "llm_gen_distractor",
+      "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect captions by swapping player attribution (who hits the winner or who commits the error) and optionally mixing in EXACTLY ONE additional mismatch: either a mechanism tweak (net vs doubles alley, out vs baseline, ace vs rally, double fault vs rally) OR a location tweak (left/right/center, doubles alley vs outside baseline, singles sideline vs baseline). Do NOT change both mechanism and location, and avoid embellishments (serve count, stroke type, rally length, score). Maintain a simple, direct style with precise court terms. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration"
+    },
+    "mcq_caption_location_mismatch": {
+      "field": "point_caption",
+      "type": "llm_gen_distractor",
+      "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect captions by changing ONLY the ball placement/location while keeping the exact same mechanism (ace/winner/error/double-fault/etc.) and winner. Focus on common tennis location confusions that require precise visual judgment: 1) NET vs OUT BOUNDARIES: 'hits into the net' ↔ 'hits into doubles alley' ↔ 'hits long past baseline' ↔ 'hits wide of singles sideline', 2) LINE CALLS: 'lands on the line' (IN) ↔ 'lands just outside the line' (OUT) ↔ 'clips the line' ↔ 'barely misses the line', 3) COURT ZONES: 'doubles alley' ↔ 'past baseline' ↔ 'wide of sideline' ↔ 'beyond service line', 4) PRECISE BOUNDARIES: 'just inside the baseline' ↔ 'just past the baseline' ↔ 'on the sideline' ↔ 'wide of the sideline' ↔ 'clips the doubles alley' ↔ 'beyond the doubles alley'. Emphasize locations that are visually similar but have different rule implications (IN vs OUT). Use precise tennis court terminology for boundary calls. Examples: 'hits into the net' vs 'hits into doubles alley', 'lands on the baseline' vs 'lands just past the baseline', 'clips the sideline' vs 'just wide of the sideline'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration"
+    },
+    "mcq_caption_unsupported_embellishments": {
+      "field": "point_caption",
+      "type": "llm_gen_distractor",
+      "question": "What happened in this point? Provide a detailed caption. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect captions by adding unsupported details only, while keeping the winner, mechanism, and location/placement unchanged. Allowed embellishments (if not in GT): cross-court/down-the-line/inside-out/inside-in direction, approach/net play mentions, serve type (kick/slice/flat), first/second serve, serve speed, exact rally shot count, score context (deuce/advantage), emotions/body language. Constraints: do NOT change who wins, the mechanism (ace/double fault/winner/forced/unforced/violation/let), or the placement (doubles alley vs baseline/sideline, left/right/center). Do not convert double fault into 'second serve in + rally'; do not rewrite a net winner as cross-court winner; do not turn doubles alley into 'long past the baseline'. Keep the original concise style and precise court terminology. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Commentary & Reporting",
+      "fine_category": "Point Narration"
+    },
+    "mcq_caption_action_mismatch": {
+      "field": "point_caption",
+      "type": "llm_gen_distractor",
+      "question": "What happened in this point? Provide a detailed caption including the action of the players. (<player1> - <player1_description>, <player2> - <player2_description>)",
+      "context_required": [
+        "<player1>",
+        "<player2>",
+        "<player1_description>",
+        "<player2_description>"
+      ],
+      "llm_question_prompt": "Generate 3 plausible but incorrect captions by altering ONLY action/motion descriptors while keeping the winner, point-ending mechanism (ace/winner/forced/unforced/double fault/violation/let), and ball placement/location (left/right/center, doubles alley vs baseline/sideline) unchanged. Allowed action edits: movement direction (runs left/right/forward/back), on-the-run vs set feet, approaches vs stays back, recovery/split-step, charges the net vs holds baseline, chasing/sprinting/sliding/reaching, swing intent (slice vs drive), stroke hand/wing (forehand vs backhand; right-hand vs left-hand descriptors) without contradicting the actual outcome or placement. Do NOT change serve/receive roles, serve count, score, rally length, or add OCR-able details (speed, scoreboard). Maintain the original simple, direct sentence structure and precise tennis terms. Avoid generic options such as 'unforced error', 'net violation', 'defensive lob', 'lucky shot'. Keep each option concise (<= 120 characters).",
+      "super_category": "Fine-Grained Visual Recognition",
+      "fine_category": "Action Consistency"
+    }
+  }
+}

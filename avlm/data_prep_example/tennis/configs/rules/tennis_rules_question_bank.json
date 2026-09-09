@@ -1,0 +1,805 @@
+{
+  "description": "Point-level tennis-rules MCQ bank (canonical options + stem variants).",
+  "questions": [
+    {
+      "id": 1,
+      "name": "legal_serve_landing_location",
+      "title": "Legal serve landing location",
+      "question": "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+      "question_stems": [
+        "According to the rules of singles tennis, where must a legal serve land for the serve to be valid?",
+        "Under singles rules, which location makes a serve legal?",
+        "Where is a serve required to land in order to be valid in singles?",
+        "For a singles serve to count as good, where must the ball land?"
+      ],
+      "options": [
+        "In the service box diagonally opposite the server",
+        "Anywhere inside the opponent’s singles court",
+        "In either service box on the opponent’s side of the net",
+        "On or beyond the opponent’s baseline after the bounce"
+      ],
+      "correct_answer": "In the service box diagonally opposite the server",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 2,
+      "name": "first_serve_fault",
+      "title": "First-serve fault",
+      "question": "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+      "question_stems": [
+        "If the server commits a fault on the first serve, what is the correct continuation of the point?",
+        "After a fault on the first serve, what happens next on that point?",
+        "What is the ruling when the server faults the opening serve of a point?",
+        "The first serve is a fault. How does the point continue?"
+      ],
+      "options": [
+        "The server immediately loses the point",
+        "The server is awarded a second serve on the same point",
+        "The receiver may choose whether the point is replayed",
+        "The players change ends and the entire point is restarted"
+      ],
+      "correct_answer": "The server is awarded a second serve on the same point",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 3,
+      "name": "double_fault",
+      "title": "Double fault",
+      "question": "If the server faults on both the first serve and the second serve, what is the official result?",
+      "question_stems": [
+        "If the server faults on both the first serve and the second serve, what is the official result?",
+        "What is the result of consecutive faults on first and second serve?",
+        "When both serve attempts of a point are faults, who wins the point and why?",
+        "A first-serve fault is followed by a second-serve fault. What is the ruling?"
+      ],
+      "options": [
+        "The server is granted a third serve",
+        "The point is replayed from the beginning",
+        "The receiver is awarded the point (double fault)",
+        "The score remains unchanged and the server serves again on a later point"
+      ],
+      "correct_answer": "The receiver is awarded the point (double fault)",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 4,
+      "name": "let_serve_that_lands_in",
+      "title": "Let serve that lands in",
+      "question": "A serve touches the net and then lands in the correct service box. What is the correct ruling?",
+      "question_stems": [
+        "A serve touches the net and then lands in the correct service box. What is the correct ruling?",
+        "If a serve clips the net and still lands in the proper service box, what happens?",
+        "What is the call when a serve hits the net cord and then lands in?",
+        "A net-cord serve lands in the correct box. What is the official decision?"
+      ],
+      "options": [
+        "The server wins the point",
+        "The serve is counted as a fault",
+        "The receiver wins the point",
+        "The serve is a let, and that serve attempt is replayed"
+      ],
+      "correct_answer": "The serve is a let, and that serve attempt is replayed",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 5,
+      "name": "serve_that_touches_the_net_and_lands_out",
+      "title": "Serve that touches the net and lands out",
+      "question": "A serve touches the net and then lands outside the correct service box. What is the correct ruling?",
+      "question_stems": [
+        "A serve touches the net and then lands outside the correct service box. What is the correct ruling?",
+        "If a serve clips the net and then lands out of the service box, what is the call?",
+        "What is the ruling for a net-cord serve that fails to land in the correct box?",
+        "A serve hits the net and then misses the service box. How is it judged?"
+      ],
+      "options": [
+        "The serve is a fault",
+        "The serve is a let and must be replayed",
+        "The receiver automatically wins the point",
+        "The entire point is replayed regardless of the score"
+      ],
+      "correct_answer": "The serve is a fault",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 6,
+      "name": "definition_of_an_ace",
+      "title": "Definition of an ace",
+      "question": "Which of the following correctly defines an ace?",
+      "question_stems": [
+        "Which of the following correctly defines an ace?",
+        "What is the definition of an ace in tennis?",
+        "Which statement accurately describes an ace?",
+        "How is an ace correctly defined under tennis rules?"
+      ],
+      "options": [
+        "Any serve that the receiver touches but fails to return in court",
+        "A serve that lands in and is not touched by the receiver",
+        "A non-serve groundstroke that lands in and is not reached by the opponent",
+        "A second serve that lands in after a fault on the first serve"
+      ],
+      "correct_answer": "A serve that lands in and is not touched by the receiver",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 7,
+      "name": "ball_landing_on_a_line",
+      "title": "Ball landing on a line",
+      "question": "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+      "question_stems": [
+        "During a point, a shot lands on the singles sideline. Under the rules, how is the ball judged?",
+        "If a ball lands on the singles sideline during a point, is it in or out?",
+        "How do the rules treat a ball that touches the singles sideline?",
+        "A shot hits the singles sideline. What is the correct in/out ruling?"
+      ],
+      "options": [
+        "The ball is out, because the line is outside the court",
+        "The point is replayed as a let",
+        "The ball is in, because the line is part of the court",
+        "The ball is out unless confirmed otherwise by electronic line calling"
+      ],
+      "correct_answer": "The ball is in, because the line is part of the court",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 8,
+      "name": "double_bounce",
+      "title": "Double bounce",
+      "question": "If the ball bounces twice on a player’s side of the court before that player returns it, who wins the point?",
+      "question_stems": [
+        "If the ball bounces twice on a player’s side of the court before that player returns it, who wins the point?",
+        "Who wins the point when a player lets the ball bounce twice before returning it?",
+        "After a second bounce on one side, what is the ruling?",
+        "The ball bounces twice before being played. Who is awarded the point?"
+      ],
+      "options": [
+        "The player who allowed the second bounce",
+        "Neither player; the point is replayed as a let",
+        "The server, regardless of which player failed to play the ball",
+        "The opponent of the player who allowed the second bounce"
+      ],
+      "correct_answer": "The opponent of the player who allowed the second bounce",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 9,
+      "name": "touching_the_net_while_the_ball_is_in_play",
+      "title": "Touching the net while the ball is in play",
+      "question": "While the ball is in play, a player touches the net with the racket or body. What is the correct ruling?",
+      "question_stems": [
+        "While the ball is in play, a player touches the net with the racket or body. What is the correct ruling?",
+        "What happens if a player touches the net during a live point?",
+        "A player makes contact with the net while the ball is in play. What is the call?",
+        "Under the rules, what is the result of touching the net during a point?"
+      ],
+      "options": [
+        "The player who touched the net loses the point",
+        "Play continues unless the ball also touches the net",
+        "The point is automatically replayed as a let",
+        "The player receives a warning and the point is restarted"
+      ],
+      "correct_answer": "The player who touched the net loses the point",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 10,
+      "name": "ball_striking_a_player",
+      "title": "Ball striking a player",
+      "question": "During a rally, a legal shot strikes the opponent’s body before bouncing. What is the correct result?",
+      "question_stems": [
+        "During a rally, a legal shot strikes the opponent’s body before bouncing. What is the correct result?",
+        "If a legal shot hits the opponent before bouncing, who wins the point?",
+        "What is the ruling when a ball in play strikes a player before the bounce?",
+        "A shot hits the opponent’s body in mid-air. What is the official result?"
+      ],
+      "options": [
+        "The point is replayed as a let",
+        "The player who hit the shot wins the point",
+        "The player who was struck by the ball wins the point",
+        "Play continues after the ball falls to the court"
+      ],
+      "correct_answer": "The player who hit the shot wins the point",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 11,
+      "name": "foot_fault",
+      "title": "Foot fault",
+      "question": "Which of the following describes a foot fault on serve?",
+      "question_stems": [
+        "Which of the following describes a foot fault on serve?",
+        "What constitutes a foot fault when serving?",
+        "Which action is a foot fault under the serve rules?",
+        "How is a foot fault on serve correctly described?"
+      ],
+      "options": [
+        "The server swings and misses the ball entirely",
+        "The serve lands on the service line",
+        "The server’s foot touches the baseline, or the wrong side of the center mark, before contacting the ball",
+        "The receiver steps into the court before the serve is struck"
+      ],
+      "correct_answer": "The server’s foot touches the baseline, or the wrong side of the center mark, before contacting the ball",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 12,
+      "name": "serve_must_be_struck_before_bouncing",
+      "title": "Serve must be struck before bouncing",
+      "question": "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+      "question_stems": [
+        "May a server allow the tossed ball to bounce on the court and then hit it as a legal serve?",
+        "Is a bounce-serve legal if the tossed ball hits the court before contact?",
+        "Can the server let the toss bounce and still hit a legal serve?",
+        "Does tennis allow the serve to be struck after the tossed ball bounces?"
+      ],
+      "options": [
+        "Yes, provided the bounce is inside the baseline",
+        "Yes, but only on the second serve",
+        "Yes, if the receiver agrees before the point",
+        "No; the serve must be struck before the ball bounces"
+      ],
+      "correct_answer": "No; the serve must be struck before the ball bounces",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 13,
+      "name": "definition_of_a_winner",
+      "title": "Definition of a winner",
+      "question": "In standard point classification, which statement correctly defines a winner?",
+      "question_stems": [
+        "In standard point classification, which statement correctly defines a winner?",
+        "What correctly defines a winner in tennis point classification?",
+        "Which option is the correct definition of a winner?",
+        "How is a winner defined, as distinct from a serve ace?"
+      ],
+      "options": [
+        "A shot, other than the serve, that lands in and is not touched or cannot be returned by the opponent",
+        "Any point won by the server",
+        "Any error made by the opponent under pressure",
+        "A serve that the receiver touches but fails to put back in play"
+      ],
+      "correct_answer": "A shot, other than the serve, that lands in and is not touched or cannot be returned by the opponent",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 14,
+      "name": "net_cord_during_a_rally",
+      "title": "Net cord during a rally",
+      "question": "During a rally (after a legal serve), a shot clips the net and then lands in the opponent’s court. What is the correct ruling?",
+      "question_stems": [
+        "During a rally (after a legal serve), a shot clips the net and then lands in the opponent’s court. What is the correct ruling?",
+        "In a rally, a net-cord shot lands in. What happens?",
+        "After the serve, a ball ticks the net and falls in. What is the ruling?",
+        "Is a net-cord shot during a rally automatically a let if it lands in?"
+      ],
+      "options": [
+        "It is always a let and the point is replayed",
+        "The ball remains in play; if the opponent cannot return it, the hitter wins the point",
+        "The player who hit the shot automatically loses the point",
+        "The point is awarded to the receiver of the original serve"
+      ],
+      "correct_answer": "The ball remains in play; if the opponent cannot return it, the hitter wins the point",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 15,
+      "name": "shot_into_the_net_during_a_rally",
+      "title": "Shot into the net during a rally",
+      "question": "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+      "question_stems": [
+        "During a rally, a player hits the ball into the net and it does not pass into the opponent’s court. What is the result?",
+        "What is the result if a rally shot goes into the net and fails to cross?",
+        "A player puts the ball into the net during a rally. Who wins the point?",
+        "If a shot dies in the net and never reaches the other side, what is the ruling?"
+      ],
+      "options": [
+        "The point is replayed as a let",
+        "The opponent must play the next ball off the net",
+        "The player who hit the ball into the net loses the point",
+        "The server is awarded a second serve"
+      ],
+      "correct_answer": "The player who hit the ball into the net loses the point",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 16,
+      "name": "singles_court_boundaries",
+      "title": "Singles court boundaries",
+      "question": "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+      "question_stems": [
+        "In a singles point, a ball lands outside the singles sideline but inside the doubles sideline (in the alley). How is the ball judged?",
+        "In singles, is a ball landing in the doubles alley in or out?",
+        "A singles shot lands in the alley between singles and doubles sidelines. What is the call?",
+        "How are the doubles alleys treated for in/out judgments in singles?"
+      ],
+      "options": [
+        "In, because any lined area of the full court is playable",
+        "Let; the point must be replayed",
+        "In only if it was a serve",
+        "Out, because the doubles alleys are not in play in singles"
+      ],
+      "correct_answer": "Out, because the doubles alleys are not in play in singles",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 17,
+      "name": "serve_that_strikes_the_receiver_before_bouncing",
+      "title": "Serve that strikes the receiver before bouncing",
+      "question": "A legal serve strikes the receiver’s body before the ball bounces. What is the correct result?",
+      "question_stems": [
+        "A legal serve strikes the receiver’s body before the ball bounces. What is the correct result?",
+        "If a good serve hits the receiver before bouncing, who wins the point?",
+        "What is the ruling when a legal serve hits the receiver in the air?",
+        "A serve is good and strikes the receiver before the bounce. What happens?"
+      ],
+      "options": [
+        "The server wins the point",
+        "The point is replayed as a let",
+        "The receiver wins the point",
+        "The serve is counted as a fault"
+      ],
+      "correct_answer": "The server wins the point",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 18,
+      "name": "point_scoring_sequence_within_a_game",
+      "title": "Point scoring sequence within a game",
+      "question": "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+      "question_stems": [
+        "In standard tennis scoring, what is the correct order of point values within a game (before deuce)?",
+        "Before deuce, how do point values progress within a game?",
+        "What is the standard sequence of points in a tennis game prior to deuce?",
+        "Which sequence correctly lists Love, 15, 30, and 40 within a game?"
+      ],
+      "options": [
+        "0 (Love), 10, 20, 30, Game",
+        "0 (Love), 15, 30, 40, Game",
+        "0 (Love), 15, 30, 45, Game",
+        "0 (Love), 15, 30, Advantage, Game"
+      ],
+      "correct_answer": "0 (Love), 15, 30, 40, Game",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 19,
+      "name": "deuce",
+      "title": "Deuce",
+      "question": "If both players have won three points in a game (score 40–40), what is the score called?",
+      "question_stems": [
+        "If both players have won three points in a game (score 40–40), what is the score called?",
+        "What is the name of the score when both players are at 40 in a game?",
+        "When the game score reaches 40–40, what is that score called?",
+        "Both sides have three points in the game. What is the score termed?"
+      ],
+      "options": [
+        "Advantage server",
+        "Game point",
+        "Deuce",
+        "Match point"
+      ],
+      "correct_answer": "Deuce",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 20,
+      "name": "advantage_after_deuce",
+      "title": "Advantage after deuce",
+      "question": "From deuce, a player wins the next point. What is the score?",
+      "question_stems": [
+        "From deuce, a player wins the next point. What is the score?",
+        "After deuce, what is the score when one player wins the following point?",
+        "A player wins the point at deuce. What is the resulting score?",
+        "What score follows immediately after a point won from deuce?"
+      ],
+      "options": [
+        "Game for that player",
+        "40–30 for that player",
+        "The game returns to 30–30",
+        "Advantage for that player"
+      ],
+      "correct_answer": "Advantage for that player",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 21,
+      "name": "losing_advantage_back_to_deuce",
+      "title": "Losing advantage (back to deuce)",
+      "question": "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+      "question_stems": [
+        "The score is Advantage to Player A. Player B then wins the next point. What is the score?",
+        "From Advantage to Player A, Player B wins the point. What is the new score?",
+        "If the player without Advantage wins the next point, what happens to the score?",
+        "Advantage Player A is followed by a point for Player B. What is the score now?"
+      ],
+      "options": [
+        "Deuce",
+        "Game for Player B",
+        "Advantage Player B",
+        "40–30 to Player B"
+      ],
+      "correct_answer": "Deuce",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 22,
+      "name": "winning_from_advantage",
+      "title": "Winning from advantage",
+      "question": "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+      "question_stems": [
+        "The score is Advantage to Player A. Player A then wins the next point. What is the result?",
+        "From Advantage, the same player wins the next point. What is the result?",
+        "Player A holds Advantage and wins the following point. What happens?",
+        "What occurs when the player with Advantage wins the next point?"
+      ],
+      "options": [
+        "The score returns to deuce",
+        "Player A wins the game",
+        "Player A reaches 40–30",
+        "Player A is awarded a set point only"
+      ],
+      "correct_answer": "Player A wins the game",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 23,
+      "name": "meaning_of_love",
+      "title": "Meaning of “Love”",
+      "question": "In tennis scoring, what does “Love” mean?",
+      "question_stems": [
+        "In tennis scoring, what does “Love” mean?",
+        "What does the term Love represent in a tennis score?",
+        "In scoring terminology, Love corresponds to which value?",
+        "When a score is announced with Love, what does that indicate?"
+      ],
+      "options": [
+        "Advantage",
+        "Deuce",
+        "Zero points (or zero games)",
+        "Game point"
+      ],
+      "correct_answer": "Zero points (or zero games)",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 24,
+      "name": "break_point",
+      "title": "Break point",
+      "question": "Which situation correctly defines a break point?",
+      "question_stems": [
+        "Which situation correctly defines a break point?",
+        "What is a break point in tennis?",
+        "Which statement correctly describes a break point?",
+        "When is the receiver said to have a break point?"
+      ],
+      "options": [
+        "The server can win the game on the next point",
+        "Either player can win the set on the next point",
+        "The match must be decided by a tiebreak",
+        "The receiver can win the server’s service game on the next point"
+      ],
+      "correct_answer": "The receiver can win the server’s service game on the next point",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 25,
+      "name": "hold_vs_break",
+      "title": "Hold vs break",
+      "question": "What does it mean for a player to “hold serve”?",
+      "question_stems": [
+        "What does it mean for a player to “hold serve”?",
+        "Which statement correctly defines holding serve?",
+        "What is meant by a service hold?",
+        "When has a server successfully held serve?"
+      ],
+      "options": [
+        "The server wins their own service game",
+        "The receiver wins the server’s service game",
+        "The server saves a match point",
+        "The server hits an ace"
+      ],
+      "correct_answer": "The server wins their own service game",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 26,
+      "name": "forced_error_vs_unforced_error",
+      "title": "Forced error vs unforced error",
+      "question": "Which statement best distinguishes a forced error from an unforced error?",
+      "question_stems": [
+        "Which statement best distinguishes a forced error from an unforced error?",
+        "How do forced and unforced errors differ?",
+        "What is the key distinction between a forced error and an unforced error?",
+        "Which option correctly contrasts forced error vs unforced error?"
+      ],
+      "options": [
+        "A forced error always occurs on serve; an unforced error never does",
+        "A forced error is caused by opponent pressure; an unforced error is a routine mistake without significant pressure",
+        "A forced error ends in a let; an unforced error awards the point immediately",
+        "A forced error requires the ball to hit the net; an unforced error requires the ball to land long"
+      ],
+      "correct_answer": "A forced error is caused by opponent pressure; an unforced error is a routine mistake without significant pressure",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 27,
+      "name": "one_bounce_only_before_return",
+      "title": "One bounce only before return",
+      "question": "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+      "question_stems": [
+        "After the serve has been put in play, how many times may the ball bounce on a player’s side before that player must return it?",
+        "Once the point is in a rally, how many bounces are allowed before a return?",
+        "In a rally, what is the maximum number of bounces permitted before playing the ball?",
+        "After a legal serve, how many bounces may occur on one side before the ball must be returned?"
+      ],
+      "options": [
+        "Zero; the ball may never bounce",
+        "Two",
+        "One",
+        "As many as needed if the player stays behind the baseline"
+      ],
+      "correct_answer": "One",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 28,
+      "name": "racket_may_strike_the_ball_only_once",
+      "title": "Racket may strike the ball only once",
+      "question": "During a point, a player’s racket hits the ball twice in a continuous, intentional double-hit motion. What is the usual ruling under standard rules?",
+      "question_stems": [
+        "During a point, a player’s racket hits the ball twice in a continuous, intentional double-hit motion. What is the usual ruling under standard rules?",
+        "What is the ruling for an intentional continuous double hit during a point?",
+        "If a player deliberately double-hits the ball in one motion, what happens?",
+        "How do standard rules treat an intentional double hit with the racket?"
+      ],
+      "options": [
+        "The point continues without penalty",
+        "The point is replayed as a let",
+        "The opponent receives only a warning",
+        "The player who made the double hit loses the point"
+      ],
+      "correct_answer": "The player who made the double hit loses the point",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 29,
+      "name": "volley_definition_and_legality",
+      "title": "Volley definition and legality",
+      "question": "Which statement about a volley is correct?",
+      "question_stems": [
+        "Which statement about a volley is correct?",
+        "What correctly describes a volley in tennis?",
+        "Which option accurately defines a legal volley?",
+        "How is a volley correctly characterized under the rules of play?"
+      ],
+      "options": [
+        "A volley is a shot struck before the ball bounces and is legal during a rally",
+        "A volley is illegal in singles",
+        "A volley is allowed only on the second serve",
+        "A volley requires the ball to bounce once first"
+      ],
+      "correct_answer": "A volley is a shot struck before the ball bounces and is legal during a rally",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 30,
+      "name": "serving_from_the_correct_half",
+      "title": "Serving from the correct half",
+      "question": "At the start of a game, from which side of the center mark should the server begin the first point?",
+      "question_stems": [
+        "At the start of a game, from which side of the center mark should the server begin the first point?",
+        "Where must the server stand for the first point of a game?",
+        "For the opening point of a game, which court half does the server use?",
+        "At 0–0 in a game, from which side is the first serve delivered?"
+      ],
+      "options": [
+        "The ad court (left side from the server’s perspective)",
+        "The deuce court (right side from the server’s perspective)",
+        "Either side, chosen by the receiver",
+        "Either side, alternating randomly each point"
+      ],
+      "correct_answer": "The deuce court (right side from the server’s perspective)",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 31,
+      "name": "alternating_serve_sides_within_a_game",
+      "title": "Alternating serve sides within a game",
+      "question": "After the first point of a game, where does the server deliver the next serve?",
+      "question_stems": [
+        "After the first point of a game, where does the server deliver the next serve?",
+        "Within a game, how do serve sides change from point to point?",
+        "Following the first point, from which side is the next serve taken?",
+        "Do servers continue from the same side or alternate sides after each point?"
+      ],
+      "options": [
+        "From the same side as the previous point",
+        "From anywhere behind the baseline",
+        "From the opposite side of the center mark (alternating sides each point)",
+        "From the ad court only for the remainder of the game"
+      ],
+      "correct_answer": "From the opposite side of the center mark (alternating sides each point)",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 32,
+      "name": "receiver_hit_by_a_legal_return_before_bouncing",
+      "title": "Receiver hit by a legal return before bouncing",
+      "question": "During a rally, Player A hits a legal shot that strikes Player B before bouncing. Who wins the point?",
+      "question_stems": [
+        "During a rally, Player A hits a legal shot that strikes Player B before bouncing. Who wins the point?",
+        "If Player A’s legal rally shot hits Player B in the air, who wins?",
+        "A ball struck by Player A hits Player B before the bounce. What is the result?",
+        "Who is awarded the point when a legal return hits the opponent before bouncing?"
+      ],
+      "options": [
+        "Player B",
+        "Neither; it is a let",
+        "The original server of the game, always",
+        "Player A"
+      ],
+      "correct_answer": "Player A",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 33,
+      "name": "ball_goes_through_the_net",
+      "title": "Ball goes through the net",
+      "question": "If a ball passes through a hole in the net into the opponent’s court, what is the correct ruling?",
+      "question_stems": [
+        "If a ball passes through a hole in the net into the opponent’s court, what is the correct ruling?",
+        "What is the call when the ball goes through the net rather than over it?",
+        "A ball travels through an opening in the net. How is the point decided?",
+        "Under the rules, what happens if the ball passes through the net?"
+      ],
+      "options": [
+        "The point is a let and is replayed",
+        "The player who hit the ball wins the point",
+        "The opponent wins the point",
+        "Play continues as if the ball cleared the net normally"
+      ],
+      "correct_answer": "The point is a let and is replayed",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 34,
+      "name": "hindrance_external_disturbance_let",
+      "title": "Hindrance / external disturbance let",
+      "question": "A point is interrupted by a sudden external disturbance (for example, a ball rolling onto the court from another court). What is the usual ruling if neither player caused the interruption?",
+      "question_stems": [
+        "A point is interrupted by a sudden external disturbance (for example, a ball rolling onto the court from another court). What is the usual ruling if neither player caused the interruption?",
+        "If an outside ball rolls onto the court and interrupts play, what is the usual ruling?",
+        "When an external hindrance stops a point and neither player caused it, what happens?",
+        "What is the standard call for an unforeseen external disturbance during a point?"
+      ],
+      "options": [
+        "The player closer to the disturbance loses the point",
+        "The point is replayed as a let",
+        "The server is awarded the point",
+        "The receiver is awarded the point"
+      ],
+      "correct_answer": "The point is replayed as a let",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 35,
+      "name": "returning_after_a_legal_bounce",
+      "title": "Returning after a legal bounce",
+      "question": "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+      "question_stems": [
+        "Player A hits a shot that lands in Player B’s court. What may Player B legally do?",
+        "After a shot lands in the opponent’s court, what is a legal response?",
+        "A ball bounces once in Player B’s court. What is Player B allowed to do?",
+        "When the opponent’s shot lands in, how may the receiving player continue the point?"
+      ],
+      "options": [
+        "Let the ball bounce twice and still return it",
+        "Catch the ball with the hand and claim the point",
+        "Return the ball after at most one bounce",
+        "Claim a let because the ball landed near the line"
+      ],
+      "correct_answer": "Return the ball after at most one bounce",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 36,
+      "name": "service_box_lines_on_serve",
+      "title": "Service box lines on serve",
+      "question": "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+      "question_stems": [
+        "On serve, the ball lands on the center service line of the correct diagonal box. Is the serve good?",
+        "If a serve lands on the center service line of the proper box, is it in?",
+        "Does landing on the center service line count as a good serve?",
+        "A serve touches the center service line of the correct box. What is the ruling?"
+      ],
+      "options": [
+        "No; the center service line is out",
+        "No; only the service box interior counts",
+        "Only if it is a second serve",
+        "Yes; the line is part of the service box"
+      ],
+      "correct_answer": "Yes; the line is part of the service box",
+      "correct_letter_canonical": "D"
+    },
+    {
+      "id": 37,
+      "name": "game_point_for_the_server",
+      "title": "Game point for the server",
+      "question": "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+      "question_stems": [
+        "The score is 40–30 in favor of the server. What does the next point represent for the server?",
+        "At 40–30 for the server, what is the next point called for the server?",
+        "When the server leads 40–30, what is at stake on the following point?",
+        "Server 40–30: what does winning or contesting the next point mean for the server?"
+      ],
+      "options": [
+        "Game point (the server can win the game by winning the next point)",
+        "Break point",
+        "Deuce",
+        "Set point only if it is also 5–5 in the set"
+      ],
+      "correct_answer": "Game point (the server can win the game by winning the next point)",
+      "correct_letter_canonical": "A"
+    },
+    {
+      "id": 38,
+      "name": "meaning_of_a_break",
+      "title": "Meaning of a break",
+      "question": "What does it mean when the receiver “breaks” the server?",
+      "question_stems": [
+        "What does it mean when the receiver “breaks” the server?",
+        "Which statement correctly defines a service break?",
+        "When has the receiver broken the server’s serve?",
+        "What is meant by breaking serve?"
+      ],
+      "options": [
+        "The receiver hits an ace",
+        "The receiver wins the server’s service game",
+        "The receiver forces a let",
+        "The receiver wins a tiebreak point"
+      ],
+      "correct_answer": "The receiver wins the server’s service game",
+      "correct_letter_canonical": "B"
+    },
+    {
+      "id": 39,
+      "name": "ball_lands_beyond_the_baseline",
+      "title": "Ball lands beyond the baseline",
+      "question": "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+      "question_stems": [
+        "During a rally, a shot lands clearly beyond the opponent’s baseline. What is the result?",
+        "If a rally shot lands long past the baseline, what is the ruling?",
+        "A ball is hit beyond the opponent’s baseline. Who wins the point?",
+        "What happens when a shot lands clearly outside beyond the baseline?"
+      ],
+      "options": [
+        "The point is replayed",
+        "The hitter wins the point if the opponent does not reach it",
+        "The hitter loses the point (the ball is out)",
+        "The ball remains in play until it bounces twice"
+      ],
+      "correct_answer": "The hitter loses the point (the ball is out)",
+      "correct_letter_canonical": "C"
+    },
+    {
+      "id": 40,
+      "name": "no_ad_scoring_optional_format",
+      "title": "No-ad scoring (optional format)",
+      "question": "Under no-ad scoring, the game reaches deuce. How is the game decided?",
+      "question_stems": [
+        "Under no-ad scoring, the game reaches deuce. How is the game decided?",
+        "In no-ad scoring, what happens when the game is at deuce?",
+        "How does no-ad scoring resolve a deuce?",
+        "At deuce under no-ad rules, how is the game awarded?"
+      ],
+      "options": [
+        "Players continue until one leads by two points, as in standard scoring",
+        "The server automatically wins the game",
+        "The game is replayed from 0–0",
+        "The next point wins the game (receiver often chooses the side)"
+      ],
+      "correct_answer": "The next point wins the game (receiver often chooses the side)",
+      "correct_letter_canonical": "D"
+    }
+  ]
+}

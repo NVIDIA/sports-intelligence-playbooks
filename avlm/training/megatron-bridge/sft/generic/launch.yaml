@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Generic Megatron-Bridge SFT launch settings — TEMPLATE ONLY (not used at runtime).
+# Copy to launch_local.yaml in this directory and edit.
+
+CONFIG_YAML_REL: avlm/training/megatron-bridge/sft/configs/nemotron_omni_mbridge_sft_singlenode.yaml
+MODEL_NAME: nemotron_omni_mbridge_sft
+
+# GPU count: auto-detected from nvidia-smi / CUDA_VISIBLE_DEVICES at train time.
+# Optional override: NUM_GPUS=8 in this file, or NUM_GPUS=8 bash train_sft.sh
+
+# Writable cache root for Hugging Face, Bridge workspace, and extra container packages.
+CACHE_DIR: /path/to/cache  # REPLACE_ME with a writable cache directory.

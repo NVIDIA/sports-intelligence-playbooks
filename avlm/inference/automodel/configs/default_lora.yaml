@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# AutoModel LoRA inference settings — TEMPLATE ONLY (not used at runtime).
+# Copy to default_lora_local.yaml in this directory and edit, then point INFERENCE_CONFIG at the local file.
+
+# hf_model_path: base HF model used for processor / trust_remote_code staging
+# model_path: base model being adapted
+# adapter_path: LoRA adapter checkpoint
+
+inference_name: automodel_inference_lora
+
+data_path: /path/to/eval.jsonl  # REPLACE_ME with the HF conversation JSONL path.
+video_root: /path/to/videos  # REPLACE_ME with the directory containing the videos.
+base_output_dir: avlm/inference/outputs/
+
+model_name: nemotron_omni_hf
+model_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+adapter_path: /path/to/lora_adapter  # REPLACE_ME with the trained LoRA adapter checkpoint path.
+
+max_new_tokens: 256
+# Penalize repeated tokens (1.0 = off)
+# repetition_penalty: 1
+# Ban repeating n-grams of this size
+# no_repeat_ngram_size: 0
+video_fps: 2.0
+max_video_frames: 128
+
+# Transformers incorrectly stages only direct imports for local `trust_remote_code` models,
+# omitting transitive files such as configuration_radio.py from HF_MODULES_CACHE.
+# Use hf_model_path for model code while loading the converted config and weights from model_path.
+hf_model_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16

@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# HF ↔ Megatron full-model conversion settings — TEMPLATE ONLY (not used at runtime).
+# Copy over conversion_local.yaml in this directory to reset the tracked runtime configuration, then edit.
+# convert_interactive.sh reads conversion_local.yaml only. CACHE_DIR comes from launch_local.yaml.
+
+# Hub id (org/model) or absolute path to a local HF checkpoint.
+# For exports, this supplies the architecture, tokenizer, and processor; trained weights come from MEGATRON_CKPT_PATH.
+HF_MODEL_ID: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+
+# Choose one: HF_to_MEG, MEG_to_HF, HF_to_MEG_FSDP, or MEG_FSDP_to_HF.
+CONVERSION_DIRECTION: HF_to_MEG  # REPLACE_ME with the desired conversion direction.
+
+# Relative paths resolve under CACHE_DIR. Use a dedicated workspace because imports clear it by default.
+WORKSPACE: megatron_bridge_workspace
+MEGATRON_CKPT_PATH: megatron_bridge_workspace/models/nemotron-omni-megatron  # REPLACE_ME with the Megatron input or output checkpoint path.
+HF_EXPORT_PATH: megatron_bridge_workspace/models/nemotron-omni-hf-export  # REPLACE_ME with the HF export or standard-parity output path.
+
+# Clear WORKSPACE before HF_to_MEG or HF_to_MEG_FSDP. Export directions never clear it.
+CLEAN_WORKSPACE: 1
+
+# Optional standard-conversion parity check. FSDP directions skip this check.
+RUN_PARITY_CHECK: 0
+NPROC: 4
+TP: 2
+EP: 2
+ETP: 1
+PP: 1

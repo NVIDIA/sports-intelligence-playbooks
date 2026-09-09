@@ -1,0 +1,461 @@
+{
+  "metadata": {
+    "height": null,
+    "width": null,
+    "name": "sample_video_002_seg_1.json",
+    "status": "Completed_Passed_Audit"
+  },
+  "instances": [
+    {
+      "id": "ec0f44ba-9aeb-4144-a7d4-a0cb09afb780",
+      "type": "input",
+      "createdAt": "2025-06-30T03:55:53.585Z",
+      "updatedAt": "2025-06-30T03:55:53.585Z",
+      "classId": 2058162,
+      "attributes": [
+        {
+          "groupId": 1148815,
+          "name": "sample_video_002",
+          "groupName": "value_video_id"
+        }
+      ],
+      "element_path": [
+        "video_id"
+      ],
+      "className": "video_id"
+    },
+    {
+      "id": "699c7a2f-13c0-45ca-870b-fdac5a33efa6",
+      "type": "number",
+      "createdAt": "2025-06-30T03:55:53.587Z",
+      "updatedAt": "2025-06-30T03:56:11.911Z",
+      "classId": 2058161,
+      "attributes": [
+        {
+          "groupId": 1148814,
+          "name": 300.001814,
+          "groupName": "value_video_duration"
+        }
+      ],
+      "element_path": [
+        "video_duration"
+      ],
+      "className": "video_duration"
+    },
+    {
+      "id": "730f100f-a820-4452-a167-49f1af6bb118",
+      "type": "input",
+      "createdAt": "2025-08-14T07:39:17.937Z",
+      "updatedAt": "2025-08-14T07:39:17.937Z",
+      "classId": 2079842,
+      "attributes": [
+        {
+          "groupId": 1170376,
+          "name": "{{original_segment_start}}",
+          "groupName": "value_original_segment_start"
+        }
+      ],
+      "element_path": [
+        "original_segment_start"
+      ],
+      "className": "original_segment_start"
+    },
+    {
+      "id": "6d51a603-1c55-4170-9a5c-b91b63a344ff",
+      "type": "input",
+      "createdAt": "2025-08-14T07:39:17.937Z",
+      "updatedAt": "2025-08-14T07:39:17.937Z",
+      "classId": 2079841,
+      "attributes": [
+        {
+          "groupId": 1170375,
+          "name": "{{original_segment_end}}",
+          "groupName": "value_original_segment_end"
+        }
+      ],
+      "element_path": [
+        "original_segment_end"
+      ],
+      "className": "original_segment_end"
+    },
+    {
+      "id": "92c943ae-7a0b-4f10-83a5-00ee14daacbe",
+      "type": "input",
+      "createdAt": "2025-06-30T03:55:53.588Z",
+      "updatedAt": "2025-06-30T11:31:38.524Z",
+      "classId": 2061153,
+      "attributes": [
+        {
+          "groupId": 1152671,
+          "name": "Roger Federer",
+          "groupName": "value_player_1_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_name"
+      ],
+      "className": "player_1_name"
+    },
+    {
+      "id": "3e055e13-6186-483e-9841-59223eabcb43",
+      "type": "textarea",
+      "createdAt": "2025-06-30T03:55:53.588Z",
+      "updatedAt": "2025-06-30T11:34:35.273Z",
+      "classId": 2059693,
+      "attributes": [
+        {
+          "groupId": 1150788,
+          "name": "\"Roger Federer\" is the player in the white polo T-shirt and matching shorts. He has a white bandanna tied around his forehead and a white wristband on his right wrist. He is also wearing a pair of white shoes with white socks.",
+          "groupName": "value_player_1_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_1_description"
+      ],
+      "className": "player_1_description"
+    },
+    {
+      "id": "6d9d9b56-22ee-4460-b5e5-766cffdf68f7",
+      "type": "input",
+      "createdAt": "2025-06-30T03:55:53.588Z",
+      "updatedAt": "2025-06-30T11:31:28.151Z",
+      "classId": 2061152,
+      "attributes": [
+        {
+          "groupId": 1152670,
+          "name": "Julien Benneteau",
+          "groupName": "value_player_2_name"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_name"
+      ],
+      "className": "player_2_name"
+    },
+    {
+      "id": "5487717b-3a0b-45dd-be1b-0094b5d81593",
+      "type": "textarea",
+      "createdAt": "2025-06-30T03:55:53.588Z",
+      "updatedAt": "2025-06-30T11:34:29.711Z",
+      "classId": 2059692,
+      "attributes": [
+        {
+          "groupId": 1150787,
+          "name": "\"Julien Benneteau\" is the player in the white polo T-shirt with black accents and matching shorts. He has a white wristband on his right wrist and a white pair of shoes with black markings on them. He has a black ankle brace on his right foot as well.",
+          "groupName": "value_player_2_description"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "player_2_description"
+      ],
+      "className": "player_2_description"
+    },
+    {
+      "id": "642ad9c5-2034-46bd-bb12-630b7494e4ce",
+      "type": "textarea",
+      "createdAt": "2025-06-30T03:55:53.589Z",
+      "updatedAt": "2025-06-30T11:39:12.476Z",
+      "classId": 2061151,
+      "attributes": [
+        {
+          "groupId": 1152669,
+          "name": "This is a Gentleman's Singles match between Roger Federer and Julien Benneteau in the third round of the 2012 Wimbledon Championships. The match carries on for five sets, with Roger Federer ultimately winning the match. The players play two tiebreaker sets in the second and fourth sets to settle the score. The final score at the end of the match reads: 4-6, 6-7(3-7), 6-2, 7-6(8-6), 6-1.",
+          "groupName": "value_general_context"
+        }
+      ],
+      "element_path": [
+        "match_context",
+        0,
+        "general_context"
+      ],
+      "className": "general_context"
+    },
+    {
+      "id": "0ec3cdee-a1e1-4095-a336-15c77d7b870e",
+      "type": "webComponent",
+      "createdAt": "2025-06-30T03:55:53.591Z",
+      "updatedAt": "2025-07-08T18:04:10.261Z",
+      "classId": 2057440,
+      "attributes": [
+        {
+          "groupId": 1148138,
+          "name": [
+            {
+              "metadata": {},
+              "id": "288de13d-e34f-409b-8aa8-e189a4fe9335",
+              "start_time": 4.44,
+              "end_time": 18.16,
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 2,
+              "num_shots_exchanged": 3,
+              "score_before": "\"Federer vs. Benneteau: {0-0, 0-0}\"",
+              "score_after": "\"Federer vs. Benneteau: {0-0, 15-0}\"",
+              "how_point_ended": "Winner: When a shot (other than serve) lands in and isn’t touched or can’t be returned. Clean shot not returned (excluding net winners)",
+              "how_point_ended_description": "The point ended with a winner shot by Federer.",
+              "point_caption": "Federer is set to serve for the first game of the set. His first serve lands outside the service court, but he ultimately wins the point after a winner shot to the right side of the court.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Umpire's Call, Thwack, Clapping",
+              "video": "sample_video_002/sample_video_002_seg_1_4_18_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "28bb59c0-28af-4b40-9843-f8d92fc0ff54",
+              "start_time": 30.32,
+              "end_time": 45.2,
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 2,
+              "num_shots_exchanged": 2,
+              "score_before": "\"Federer vs. Benneteau: {0-0, 15-0}\"",
+              "score_after": "\"Federer vs. Benneteau: {0-0, 30-0}\"",
+              "how_point_ended": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+              "how_point_ended_description": "The point ended when Benneteau hit the ball into the doubles alley.",
+              "point_caption": "Federer's first serve lands outside the service court. The angle of his second serve pressures Benneteau to return it out of bounds.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Umpire's Call, Thwack",
+              "video": "sample_video_002/sample_video_002_seg_1_30_45_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "99ff234a-9f10-4f4e-a90a-522b9ed43dae",
+              "start_time": 55.36,
+              "end_time": 73.68,
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": 1,
+              "num_shots_exchanged": 11,
+              "score_before": "\"Federer vs. Benneteau: {0-0, 30-0}\"",
+              "score_after": "\"Federer vs. Benneteau: {0-0, 30-15}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Federer hit the ball past the baseline.",
+              "point_caption": "Benneteau wins his first point in the game. Federer catches up to Benneteau's drop shot, and though Benneteau was unprepared to receive his return, the ball landed outside the court, earning Benneteau the point.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Smack, Thwack, Gasps, Murmurs, Claps",
+              "video": "sample_video_002/sample_video_002_seg_1_55_73_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "9fbba744-80bf-4c12-b164-bbf7eefab625",
+              "start_time": 88.44,
+              "end_time": 98.48,
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 1,
+              "num_shots_exchanged": 4,
+              "score_before": "\"Federer vs. Benneteau: {0-0, 30-15}\"",
+              "score_after": "\"Federer vs. Benneteau: {0-0, 40-15}\"",
+              "how_point_ended": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+              "how_point_ended_description": "The point ended when Benneteau hit the ball into the net.",
+              "point_caption": "Federer's shot lands steeply to the right of the court, forcing Benneteau to lunge to receive it. He wins the point and reaches game point. The crowd applauds loudly.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Clapping, Thwack",
+              "video": "sample_video_002/sample_video_002_seg_1_88_98_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "5aea2baf-e324-45fa-90f0-9e7098ec25b6",
+              "start_time": 107.64,
+              "end_time": 127.4,
+              "server": "Player 1",
+              "receiver": "Player 2",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 2,
+              "num_shots_exchanged": 2,
+              "score_before": "\"Federer vs. Benneteau: {0-0, 40-15}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 0-0}\"",
+              "how_point_ended": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+              "how_point_ended_description": "The point ended when Benneteau's return shot fell short of the net.",
+              "point_caption": "Federer's first serve lands outside the service court. His second serve forces Benneteau to make contact awkwardly, letting the ball fall within his court. Federer wins the first game of the match.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Thwack, Umpire's Call, Clapping",
+              "video": "sample_video_002/sample_video_002_seg_1_107_127_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "85b5181e-98ca-4c47-a168-a7839cdcad44",
+              "start_time": 180.8,
+              "end_time": 186.88,
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 1,
+              "num_shots_exchanged": 1,
+              "score_before": "\"Federer vs. Benneteau: {1-0, 0-0}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 0-15}\"",
+              "how_point_ended": "Ace: is when the server scores in the first shot. The receiver didn’t touch the ball.",
+              "how_point_ended_description": "The point ended with a service ace by Benneteau.",
+              "point_caption": "Benneteau is set to serve for the second game. He wins the first point with a service ace along the center service line.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Thwack, Clapping, Cheering",
+              "video": "sample_video_002/sample_video_002_seg_1_180_186_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "b51a6ffc-ccb4-4c36-8ca5-2c72b6ebeaba",
+              "start_time": 198.16,
+              "end_time": 207.4,
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Server",
+              "num_serving_attempts_until_successful": 1,
+              "num_shots_exchanged": 2,
+              "score_before": "\"Federer vs. Benneteau: {1-0, 0-15}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 0-30}\"",
+              "how_point_ended": "Forced Error: error caused due to pressure from the opponent’s aggressive or well-placed shot. e.g., rushed forehand sent long after a powerful serve or wide angle. The opponent pressured into an error.",
+              "how_point_ended_description": "The point ended when Federer returned the ball into the doubles alley.",
+              "point_caption": "Benneteau's powerful serve forces Federer to return the ball out of bounds. The crowd applauds as Benneteau leads by two points.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Thwack, Chatter, Clapping, Umpire shout",
+              "video": "sample_video_002/sample_video_002_seg_1_198_207_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "0212953c-93dd-4c24-82a8-89708e7dff2a",
+              "start_time": 216,
+              "end_time": 231.36,
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": 2,
+              "num_shots_exchanged": 0,
+              "score_before": "\"Federer vs. Benneteau: {1-0, 0-30}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 15-30}\"",
+              "how_point_ended": "Double Fault: The server misses both first and second serves, resulting in an automatic point for the opponent.",
+              "how_point_ended_description": "The point ended with a double fault service by Benneteau.",
+              "point_caption": "Benneteau's first serve clips the net and falls outside the court, and his second attempt gets caught in the net. The crowd is quiet as Federer gains a point.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Thud, Umpire's Call",
+              "video": "sample_video_002/sample_video_002_seg_1_216_231_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "8759f33b-3a74-4524-b62a-6162405c67a3",
+              "start_time": 243.72,
+              "end_time": 252.6,
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": 1,
+              "num_shots_exchanged": 3,
+              "score_before": "\"Federer vs. Benneteau: {1-0, 15-30}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 30-30}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Benneteau hit the ball beyond the baseline.",
+              "point_caption": "Federer returns Benneteau's serve high across the net. Though Benneteau is in a position to receive the ball, his smash lands outside the baseline, earning Federer the point. The players are now tied at 30 each.",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "Benneteau did not hit the ball into the net, his overhand was long. ",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Smack, Umpire's Call, Gasps",
+              "video": "sample_video_002/sample_video_002_seg_1_243_252_timeoffset_end_3.mp4"
+            },
+            {
+              "metadata": {},
+              "id": "dddf691a-51a8-40b5-bfa2-4249abf5519c",
+              "start_time": 268.4,
+              "end_time": 285.92,
+              "server": "Player 2",
+              "receiver": "Player 1",
+              "winner": "Receiver",
+              "num_serving_attempts_until_successful": 2,
+              "num_shots_exchanged": 4,
+              "score_before": "\"Federer vs. Benneteau: {1-0, 30-30}\"",
+              "score_after": "\"Federer vs. Benneteau: {1-0, 30-40}\"",
+              "how_point_ended": "Unforced Error: player makes a mistake during the point without significant pressure such as hitting the ball outside of the court (long or wide) or into the net during a routine shot. Routine miss without pressure.",
+              "how_point_ended_description": "The point ended when Federer hit the ball into the net.",
+              "point_caption": "Benneteau reaches game point after Federer commits an unforced error on a routine shot. ",
+              "qc_feedback": "",
+              "rework_counter": 0,
+              "timestamp_correct": "Yes",
+              "audit_feedback": "",
+              "point_start_in_segment": "Yes",
+              "point_concluded_in_segment": "Yes",
+              "qc_pass_fail": 1,
+              "audit_pass_fail": 1,
+              "audio_cues": "Pop, Umpire's Shout, Thwack, Thud",
+              "video": "sample_video_002/sample_video_002_seg_1_268_285_timeoffset_end_3.mp4"
+            }
+          ],
+          "groupName": "value_table"
+        }
+      ],
+      "element_path": [
+        "table"
+      ],
+      "className": "table"
+    }
+  ]
+}

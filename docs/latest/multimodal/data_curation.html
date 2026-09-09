@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+
+    <title>Data Curation &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=1a43867f" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/data_curation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Training" href="training/index.html" />
+    <link rel="prev" title="Sports Intelligence Playbooks" href="../index.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Curation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training/lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="inference/index.html">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="perf_benchmarking.html">Performance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Data Curation</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-curation">
+<h1>Data Curation<a class="headerlink" href="#data-curation" title="Link to this heading">#</a></h1>
+<p>This section documents how to annotate sports video data and convert those annotations into training datasets for multimodal language models. It covers annotation guidelines, the data preparation pipeline, and where to find example code in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repository. The workflow below uses <strong>tennis</strong> as the worked example, but the same curation principles—structured event labels, dense captions, and template-driven Q&amp;A generation—apply to other sports with sport-specific schemas and templates.</p>
+<section id="example-tennis-annotation-guideline">
+<h2>Example Tennis Annotation Guideline<a class="headerlink" href="#example-tennis-annotation-guideline" title="Link to this heading">#</a></h2>
+<p>The <strong>tennis-specific</strong> guideline below uses the point as the core unit of annotation. It defines the information recorded for each point, including game context, outcomes, timestamps, and descriptive narratives needed for multimodal training.</p>
+<p><a class="reference external" href="../Tennis_Annotation_Guideline.pdf">Tennis Annotation Guideline (PDF)</a> — a step-by-step guide for point-by-point annotation of full tennis match videos, including game context, segment timestamps, and dense captions.</p>
+<p>Meaningful action in sports can be organized around points, plays, possessions, periods, laps, or rounds. Annotation design therefore starts by choosing an event unit that preserves enough visual, audio, and temporal context to support the questions a model should answer. Although fields and terminology differ by sport, strong datasets share the same foundation: precise event boundaries, structured facts, grounded descriptions, and consistent quality control.</p>
+</section>
+<section id="from-tennis-annotation-to-training-data">
+<h2>From Tennis Annotation to Training Data<a class="headerlink" href="#from-tennis-annotation-to-training-data" title="Link to this heading">#</a></h2>
+<p>After match videos are annotated following the guideline above, each match is exported as one JSON file per video (for example, <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/raw_tennis_data_input/sample_video_001.json">sample_video_001.json</a>). Those files list match metadata (player names, segment bounds) and a <code class="code docutils literal notranslate"><span class="pre">table</span></code> of point-level rows: server/receiver, winner, scores, how the point ended, play-by-play captions, audio cues, per-point clip paths, and related fields.</p>
+<p>The tennis data-prep pipeline below shows how to turn that structure into supervised (video, question, answer) examples suitable for model fine-tuning. The reference implementation lives in <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/tree/main/avlm/data_prep_example/tennis">avlm/data_prep_example/tennis/</a> in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repo. You can adapt the same pattern for other sports by defining sport-specific templates and configs.</p>
+<p>Each annotated point becomes many training rows: one row per question template.</p>
+<section id="pipeline-overview">
+<h3>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">#</a></h3>
+<p>The figure shows how source annotations and video clips become template-based QA/MCQ records, point-level splits, metadata-enriched and paraphrased evaluation data, and final training and evaluation JSONL.</p>
+<a class="reference internal image-reference" href="../_images/AVLM_Training_Eval_Data_Generation.png"><img alt="AVLM training and evaluation data generation" class="align-center" src="../_images/AVLM_Training_Eval_Data_Generation.png" style="width: 100%;" />
+</a>
+</section>
+<section id="what-the-generators-do">
+<h3>What the Generators Do<a class="headerlink" href="#what-the-generators-do" title="Link to this heading">#</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">generate_mcq_qa.py</span></code> handles the default templates, while <code class="code docutils literal notranslate"><span class="pre">generate_categorical_mcq_qa.py</span></code> handles categorical evaluation. Both walk every point in the raw JSON and apply <strong>named templates</strong> from <code class="code docutils literal notranslate"><span class="pre">configs/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_mcq_config.json</span></code> — multiple-choice questions (server/winner, score, rally length, how the point ended, …)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_qa_config.json</span></code> — open-ended QA (point caption, how the point ended, audio cues)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tennis_categorical_eval_config.json</span></code> — categorical MCQ/QA with evaluation metadata</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">question_types.json</span></code> — optional allow-list of template names (omit to generate all)</p></li>
+</ul>
+<p>Each template specifies which annotation <strong>field</strong> supplies the ground-truth answer, the <strong>question</strong> text (with placeholders such as <code class="code docutils literal notranslate"><span class="pre">&lt;player1&gt;</span></code> and <code class="code docutils literal notranslate"><span class="pre">&lt;score_before&gt;</span></code> filled from metadata), and a <strong>type</strong> that controls how options are built:</p>
+<ul class="simple">
+<li><p><strong>categorical</strong> — the template defines a fixed list of multiple-choice options in the config (for example, the four server/winner combinations, or the set of “how the point ended” categories). The generator reads the annotated field, picks the matching option as the correct answer, and presents the full predefined list as the MCQ choices.</p></li>
+<li><p><strong>numeric_range</strong> — the annotated field is a number (for example, <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>). The template maps numeric intervals to labeled answers (for example, 1 → “1 shot”, 2 → “2 shots”, 11–20 → “11–20 shots”). The generator finds which interval contains the annotated value and uses the corresponding label as the correct answer; the other interval labels are the distractors.</p></li>
+<li><p><strong>open_ended</strong> — assistant reply is the annotation field verbatim</p></li>
+<li><p><strong>llm_gen_distractor</strong> — MCQ where the correct option is still the annotated text, but three wrong options are written by an LLM (mcq_* templates only)</p></li>
+</ul>
+<p>For each point the generators: (1) resolve placeholders, (2) pick or derive the correct answer, (3) shuffle MCQ options, and (4) emit a HuggingFace <strong>conversation</strong> record with the point’s relative <code class="code docutils literal notranslate"><span class="pre">video</span></code> path, question/answer text, and a <code class="code docutils literal notranslate"><span class="pre">class</span></code> field set to the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>).</p>
+<p>Most templates are <strong>fully deterministic</strong> and need no LLM. Only the legacy <code class="code docutils literal notranslate"><span class="pre">mcq_*</span></code> distractor templates call an API (<code class="code docutils literal notranslate"><span class="pre">openai</span></code> + <code class="code docutils literal notranslate"><span class="pre">python-dotenv</span></code>; API key in a local <code class="code docutils literal notranslate"><span class="pre">dev_local.env</span></code>); the current categorical config requires no LLM.</p>
+</section>
+<section id="categorical-evaluation-mode">
+<h3>Categorical Evaluation Mode<a class="headerlink" href="#categorical-evaluation-mode" title="Link to this heading">#</a></h3>
+<p>Categorical mode generates 39 templates (37 MCQ and 2 QA) across visual recognition, commentary, match facts, rules/reasoning, and audio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>prepare_training_data_pipeline.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>categorical<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-dir<span class="w"> </span>raw_tennis_data_input<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>training_tennis_data_output/categorical<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--video-root<span class="w"> </span><span class="s2">""</span>
+</pre></div>
+</div>
+<p>It writes <code class="code docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="code docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="code docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
+</section>
+<section id="train-validation-test-splits">
+<h3>Train / Validation / Test Splits<a class="headerlink" href="#train-validation-test-splits" title="Link to this heading">#</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">split_dataset.py</span></code> assigns <strong>points</strong> (not individual questions) to splits so every Q&amp;A derived from the same point stays together:</p>
+<ul class="simple">
+<li><p><strong>train</strong> / <strong>validation</strong> — points from seen matches</p></li>
+<li><p><strong>test_seen_videos</strong> — held-out points from a seen match (generalization within a known game)</p></li>
+<li><p><strong>test_unseen_videos</strong> — points from a fully held-out match (generalization to new players/context)</p></li>
+</ul>
+<p>Point-level grouping also prevents leakage when the same annotation field is expressed through multiple templates: placing one version in training and another in evaluation could produce spuriously high accuracy for that field. More broadly, multiple forms of the same field are useful only when they test distinct capabilities; otherwise they are redundant and obscure what the measured accuracy represents.</p>
+</section>
+<section id="output-format">
+<h3>Output Format<a class="headerlink" href="#output-format" title="Link to this heading">#</a></h3>
+<p>Final artifacts are JSONL files under <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/</span></code>. Each line is one (video, question) pair. The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field carries the question-type / template name the row was generated from (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>); eval tooling uses it to route MCQ vs descriptive scoring (see <a class="reference internal" href="evaluation.html"><span class="doc">Evaluation</span></a>).</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample_video_001_ServerWinner_6f7b9d82-..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"server_winner"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"evaluation_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcq"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"super_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Match Facts"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fine_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Point Roles and Outcome"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">       </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"video"</span><span class="p">,</span><span class="w"> </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample_video_001/sample_video_001_seg_01_13_19_timeoffset_end_3.mp4"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Who served and who won...?\n(A) ...\n(B) ...\n(C) ...\n(D) ..."</span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(A) Carlos Alcaraz served and Carlos Alcaraz won"</span><span class="p">}]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Open-ended QA rows omit the <code class="code docutils literal notranslate"><span class="pre">(A)/(B)/...</span></code> options; the assistant message is the annotation field directly.</p>
+<p>For <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> and <code class="code docutils literal notranslate"><span class="pre">receiver_winner</span></code> templates, MCQ options list all four server/receiver × winner player-name combinations (for example <code class="code docutils literal notranslate"><span class="pre">Jack</span> <span class="pre">Draper</span> <span class="pre">served</span> <span class="pre">and</span> <span class="pre">Carlos</span> <span class="pre">Alcaraz</span> <span class="pre">won</span></code>), and the correct answer names both participants explicitly.</p>
+</section>
+<section id="question-templates-summary">
+<h3>Question Templates (Summary)<a class="headerlink" href="#question-templates-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Templates</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deterministic MCQ</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">receiver_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, <code class="code docutils literal notranslate"><span class="pre">num_serving_attempts_until_successful</span></code>, <code class="code docutils literal notranslate"><span class="pre">score_after</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>LLM MCQ (<code class="code docutils literal notranslate"><span class="pre">mcq_*</span></code>)</p></td>
+<td><p>Distractor variants on <code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code> and <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>: generic rewrites, mechanism mismatch, player misattribution, location mismatch, unsupported embellishments, action mismatch</p></td>
+</tr>
+<tr class="row-even"><td><p>Open-ended QA</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="code docutils literal notranslate"><span class="pre">audio_cues</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Full examples are listed in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/TEMPLATE_EXAMPLES.MD">default template examples</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/categorical_data_samples/TEMPLATE_EXAMPLES_CATEGORICAL.MD">categorical template examples</a>.</p>
+</section>
+<section id="example-code-and-documentation">
+<h3>Example Code and Documentation<a class="headerlink" href="#example-code-and-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>README (start here):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/README.md">avlm/data_prep_example/tennis/README.md</a></p></li>
+<li><p><strong>End-to-end runner:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/prepare_training_data_pipeline.py">prepare_training_data_pipeline.py</a></p></li>
+<li><p><strong>MCQ/QA generation:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/generate_mcq_qa.py">generate_mcq_qa.py</a></p></li>
+<li><p><strong>Point-level splits:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/split_dataset.py">split_dataset.py</a></p></li>
+<li><p><strong>Templates:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/tree/main/avlm/data_prep_example/tennis/configs">configs/</a></p></li>
+</ul>
+<p>The example ships with <strong>sample annotation JSON for two matches (20 points)</strong> under <code class="code docutils literal notranslate"><span class="pre">raw_tennis_data_input/</span></code>. Training video files are not bundled — only the annotation JSON and generated JSONL.</p>
+</section>
+<section id="quick-start">
+<h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
+<p>From the tennis example directory in a clone of <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>avlm/data_prep_example/tennis
+uv<span class="w"> </span>sync<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+python<span class="w"> </span>prepare_training_data_pipeline.py
+</pre></div>
+</div>
+<p>The pipeline writes its output to <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/</span></code>; the final train, validation, and test splits are in <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/*.jsonl</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sports Intelligence Playbooks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="training/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Training</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-tennis-annotation-guideline">Example Tennis Annotation Guideline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-tennis-annotation-to-training-data">From Tennis Annotation to Training Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-overview">Pipeline Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-generators-do">What the Generators Do</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-evaluation-mode">Categorical Evaluation Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-validation-test-splits">Train / Validation / Test Splits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-format">Output Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-templates-summary">Question Templates (Summary)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code-and-documentation">Example Code and Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 09, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

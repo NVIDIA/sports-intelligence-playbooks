@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+
+    <title>Inference &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1a43867f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/inference/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Evaluation" href="../evaluation.html" />
+    <link rel="prev" title="LoRA" href="../training/lora.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/video_chunking.html">Video Chunking Impact</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Inference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="inference">
+<h1>Inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h1>
+<p>After fine-tuning, we run inference to generate predictions and evaluate model quality. Keep the video preprocessing and text prompt style/template consistent with training: frame rate (<code class="code docutils literal notranslate"><span class="pre">video_fps</span></code>) and resolution settings affect how much spatial and temporal detail the model sees, and mismatches in preprocessing or prompting can shift results on fine-grained sports QA.</p>
+<p>This section covers distributed inference (interactive and <code class="code docutils literal notranslate"><span class="pre">sbatch</span></code>) for the <a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">reference base model used by the current examples</a> and checkpoints from our training stacks. Use the backend that matches how the checkpoint was produced: <strong>NeMo AutoModel</strong> for Hugging Face weights (base, SFT, or LoRA), or <strong>Megatron-Bridge</strong> for Megatron-format.</p>
+<p><strong>Runbook (commands and smoke examples):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a>.</p>
+<p><strong>Environment variables and overrides:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/INFERENCE_ENV_VARS.MD">inference environment reference</a>.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>Inference code lives in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">Sports Intelligence Playbooks</a> repo at <code class="code docutils literal notranslate"><span class="pre">avlm/inference/</span></code> (shared driver: <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code>). Clone the repo, <code class="code docutils literal notranslate"><span class="pre">cd</span></code> to its root, and run all launch commands from there.</p>
+<section id="containers">
+<h3>Containers<a class="headerlink" href="#containers" title="Link to this heading">#</a></h3>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> in each backend’s <code class="code docutils literal notranslate"><span class="pre">slurm/launch_local.yaml</span></code> (copy from <code class="code docutils literal notranslate"><span class="pre">launch.yaml</span></code>).</p>
+<ul class="simple">
+<li><p><strong>AutoModel inference:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo-automodel/26.06">nemo-automodel:26.06</a></p></li>
+<li><p><strong>Megatron-Bridge inference:</strong> <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo/26.06">nemo:26.06</a></p></li>
+</ul>
+<p>On Slurm with <strong>enroot</strong>, convert the NGC image once to <code class="code docutils literal notranslate"><span class="pre">.sqsh</span></code> (see <a class="reference internal" href="../training/setup.html"><span class="doc">Setup</span></a>). Point <code class="code docutils literal notranslate"><span class="pre">CONTAINER_IMAGE</span></code> at the resulting path.</p>
+</section>
+<section id="two-backends-pick-one">
+<h3>Two Backends (Pick One)<a class="headerlink" href="#two-backends-pick-one" title="Link to this heading">#</a></h3>
+<p>Pick one of the following based on the framework you used for training.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 39.0%" />
+<col style="width: 39.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>NeMo AutoModel</strong> (HF)</p></th>
+<th class="head"><p><strong>Megatron-Bridge</strong> (Megatron)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Checkpoint</p></td>
+<td><p>HF base, full SFT weights, or LoRA adapter + base</p></td>
+<td><p>Bridge DDP (non-FSDP) or FSDP SFT checkpoint, or base checkpoint + LoRA adapter</p></td>
+</tr>
+<tr class="row-odd"><td><p>Container</p></td>
+<td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo-automodel/26.06">nemo-automodel:26.06</a></p></td>
+<td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo/26.06">nemo:26.06</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Launcher path</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/automodel/slurm/</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">avlm/inference/megatron-bridge/slurm/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Example configs</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code>, <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_sft.yaml</span></code>, <code class="code docutils literal notranslate"><span class="pre">default_sft_fsdp.yaml</span></code>, <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code>, <code class="code docutils literal notranslate"><span class="pre">default_lora_fsdp.yaml</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="shared-layout">
+<h3>Shared Layout<a class="headerlink" href="#shared-layout" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>common/run_inference.py</strong> — JSONL inference driver (both backends)</p></li>
+<li><p><strong>common/models/</strong> — backend-specific model loaders</p></li>
+<li><p><strong>common/utils/_inference_lib.sh</strong> — CLI/env overrides for launch scripts</p></li>
+<li><p><strong>Per-backend configs/ + slurm/</strong> — launch_local.yaml, interactive + sbatch launchers</p></li>
+</ul>
+<p><strong>Outputs:</strong> <code class="code docutils literal notranslate"><span class="pre">avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/</span></code>
+<strong>Logs (batch):</strong> <code class="code docutils literal notranslate"><span class="pre">avlm/inference/logs/&lt;INFERENCE_NAME&gt;_&lt;timestamp&gt;/</span></code></p>
+</section>
+</section>
+<section id="automodel-inference">
+<h2>AutoModel Inference<a class="headerlink" href="#automodel-inference" title="Link to this heading">#</a></h2>
+<p>HF-format inference via <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="code docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_hf</span></code>. Supports the HF base model, full SFT checkpoints, and LoRA adapters.</p>
+<ul class="simple">
+<li><p><strong>Full SFT / base:</strong> <code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_sft.yaml</span></code></p></li>
+<li><p><strong>LoRA:</strong> <code class="code docutils literal notranslate"><span class="pre">automodel/configs/default_lora.yaml</span></code></p></li>
+</ul>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">model_path</span></code> to the base or SFT checkpoint. For LoRA, set <code class="code docutils literal notranslate"><span class="pre">model_path</span></code> to the base model and <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> to the adapter checkpoint. See the inference runbook above for interactive, batch, smoke, and override commands.</p>
+</section>
+<section id="megatron-bridge-inference">
+<h2>Megatron-Bridge Inference<a class="headerlink" href="#megatron-bridge-inference" title="Link to this heading">#</a></h2>
+<p>Inference over Megatron-Bridge DDP (non-FSDP) or FSDP checkpoints. SFT checkpoints and base checkpoint + LoRA adapter pairs are supported directly. <code class="code docutils literal notranslate"><span class="pre">megatron-bridge/entrypoint.py</span></code> applies the Bridge AVLM overlay, then calls <code class="code docutils literal notranslate"><span class="pre">common/run_inference.py</span></code> with <code class="code docutils literal notranslate"><span class="pre">model_name:</span> <span class="pre">nemotron_omni_mbridge</span></code>.</p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> <code class="code docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_sft.yaml</span></code> and <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code></p></li>
+<li><p><strong>FSDP:</strong> <code class="code docutils literal notranslate"><span class="pre">megatron-bridge/configs/default_sft_fsdp.yaml</span></code> and <code class="code docutils literal notranslate"><span class="pre">default_lora_fsdp.yaml</span></code></p></li>
+</ul>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">model_path</span></code> to the base or SFT checkpoint. For LoRA, also set <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> to the adapter checkpoint. Optional: <code class="code docutils literal notranslate"><span class="pre">MEGATRON_BRIDGE_GIT_BOOTSTRAP=1</span></code> when not using <code class="code docutils literal notranslate"><span class="pre">/opt/Megatron-Bridge</span></code> from the container. See the inference runbook above for launch commands.</p>
+</section>
+<section id="inference-config-reference">
+<h2>Inference Config Reference<a class="headerlink" href="#inference-config-reference" title="Link to this heading">#</a></h2>
+<section id="shared-fields-both-backends">
+<h3>Shared Fields (Both Backends)<a class="headerlink" href="#shared-fields-both-backends" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">inference_name</span></code></p></td>
+<td><p>Output subdirectory name under <code class="code docutils literal notranslate"><span class="pre">base_output_dir</span></code>; also used as the Slurm job name</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">data_path</span></code></p></td>
+<td><p>Eval JSONL (HF conversation format)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">video_root</span></code></p></td>
+<td><p>Root directory prepended to relative video paths in each JSONL row</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">base_output_dir</span></code></p></td>
+<td><p>Parent directory for outputs (default <code class="code docutils literal notranslate"><span class="pre">avlm/inference/outputs/</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">max_new_tokens</span></code></p></td>
+<td><p>Maximum tokens generated per sample</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">video_fps</span></code></p></td>
+<td><p>Frame sampling rate when decoding video clips</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code></p></td>
+<td><p>Maximum frames passed to the vision encoder per clip. Sampling first targets <code class="code docutils literal notranslate"><span class="pre">video_fps</span></code> (roughly clip duration × fps frames); if that count exceeds this cap, frames are reduced to <code class="code docutils literal notranslate"><span class="pre">max_video_frames</span></code> by <strong>uniform subsampling</strong> (evenly spaced indices across the clip)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">resize</span></code></p></td>
+<td><p>For AutoModel and Megatron-Bridge, when <code class="code docutils literal notranslate"><span class="pre">true</span></code>, <strong>preprocess</strong> decoded video frames by resizing each frame (as an image) to 512×512 <strong>before</strong> it is passed to the vision encoder. This is an input-image resize only; it does not change how the encoder itself is configured.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cli-environment-overrides">
+<h3>CLI / Environment Overrides<a class="headerlink" href="#cli-environment-overrides" title="Link to this heading">#</a></h3>
+<p>These are applied on top of the inference YAML (see <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">avlm/inference/README.md</a> for examples).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Override</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">INFERENCE_CONFIG</span></code></p></td>
+<td><p>Path to the inference YAML</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code></p></td>
+<td><p>Output subdirectory name (overrides <code class="code docutils literal notranslate"><span class="pre">inference_name</span></code> in the YAML)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">DATA_PATH</span></code></p></td>
+<td><p>Eval JSONL path</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">MODEL_PATH</span></code></p></td>
+<td><p>Checkpoint path (overrides <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">ADAPTER_PATH</span></code></p></td>
+<td><p>LoRA adapter checkpoint path (AutoModel or Megatron-Bridge)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">BASE_OUTPUT_DIR</span></code></p></td>
+<td><p>Parent output directory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES</span></code></p></td>
+<td><p>Limit inference to the first N JSONL rows (useful for smokes)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">MAX_INFERENCE_SAMPLES_SEED</span></code></p></td>
+<td><p>Randomly sample the limited rows using this seed; without it, the first N rows are used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">IS_FSDP</span></code></p></td>
+<td><p>Override <code class="code docutils literal notranslate"><span class="pre">is_fsdp</span></code> for Megatron-Bridge inference</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">FSDP_SHARDING_STRATEGY</span></code></p></td>
+<td><p>Override <code class="code docutils literal notranslate"><span class="pre">fsdp_sharding_strategy</span></code> for Megatron-Bridge inference</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">RESUME=1</span></code></p></td>
+<td><p>Continue a partially written run from <code class="code docutils literal notranslate"><span class="pre">rank_results/</span></code>; use the same config, <code class="code docutils literal notranslate"><span class="pre">INFERENCE_NAME</span></code>, and number of ranks as the original job</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="automodel-fields">
+<h3>AutoModel Fields<a class="headerlink" href="#automodel-fields" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_hf</span></code> for the current reference HF checkpoint</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
+<td><p>HF model id or local path to base or full SFT weights; for LoRA, this must be the <strong>base</strong> model</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">hf_model_path</span></code></p></td>
+<td><p>Base HF model used for model code and configuration staging</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code></p></td>
+<td><p>Directory with <code class="code docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code>; providing it enables LoRA inference</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="megatron-bridge-fields">
+<h3>Megatron-Bridge Fields<a class="headerlink" href="#megatron-bridge-fields" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_name</span></code></p></td>
+<td><p>Must be <code class="code docutils literal notranslate"><span class="pre">nemotron_omni_mbridge</span></code> for the current reference Megatron-Bridge checkpoint</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">hf_model_path</span></code></p></td>
+<td><p>HF model id used for the processor/tokenizer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
+<td><p>Base or SFT checkpoint directory in DDP (non-FSDP) or FSDP (<code class="code docutils literal notranslate"><span class="pre">fsdp_dtensor</span></code>) format</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code></p></td>
+<td><p>LoRA adapter checkpoint used with the base checkpoint in <code class="code docutils literal notranslate"><span class="pre">model_path</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">is_fsdp</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">true</span></code> for an FSDP checkpoint; <code class="code docutils literal notranslate"><span class="pre">false</span></code> for DDP (non-FSDP)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">fsdp_sharding_strategy</span></code></p></td>
+<td><p>FSDP inference sharding strategy: <code class="code docutils literal notranslate"><span class="pre">no_shard</span></code> or <code class="code docutils literal notranslate"><span class="pre">optim_grads_params</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code></p></td>
+<td><p>Tensor parallelism for the inference topology</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">expert_model_parallel_size</span></code></p></td>
+<td><p>Expert parallelism (EP); shards MoE experts across the inference topology</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">expert_tensor_parallel_size</span></code></p></td>
+<td><p>Expert tensor parallelism (ETP); shards each expert’s weights across GPUs, separate from <code class="code docutils literal notranslate"><span class="pre">tensor_model_parallel_size</span></code>. Usually <code class="code docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pipeline parallelism and context parallelism are fixed at <code class="code docutils literal notranslate"><span class="pre">1</span></code> for Megatron-Bridge inference.</p>
+</section>
+</section>
+<section id="lora-inference-adapter-only-weights">
+<h2>LoRA Inference (Adapter-Only Weights)<a class="headerlink" href="#lora-inference-adapter-only-weights" title="Link to this heading">#</a></h2>
+<p>LoRA training saves <strong>adapter weights only</strong> — not a full copy of the 30B base model. Inference therefore always needs the <strong>base model</strong> plus the adapter, or a <strong>merged</strong> checkpoint produced offline.</p>
+<section id="automodel">
+<h3>AutoModel<a class="headerlink" href="#automodel" title="Link to this heading">#</a></h3>
+<p>Use <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> with:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">model_path</span></code> — HF base model (for example <code class="code docutils literal notranslate"><span class="pre">nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</span></code>). Do <strong>not</strong> point this at a consolidated SFT checkpoint.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> — training output directory containing <code class="code docutils literal notranslate"><span class="pre">adapter_config.json</span></code> and <code class="code docutils literal notranslate"><span class="pre">adapter_model.safetensors</span></code> (often under <code class="code docutils literal notranslate"><span class="pre">.../checkpoints_.../epoch_*_step_*</span></code> or a <code class="code docutils literal notranslate"><span class="pre">model/</span></code> subfolder)</p></li>
+</ul>
+<p>At load time the driver reads the LoRA matrices, maps wrapper layer names to the HF model, and <strong>adds the low-rank delta directly into the base weight tensors</strong> in memory. You do not need to merge adapters to disk before inference, but you do need the base model weights available locally or on HuggingFace Hub.</p>
+</section>
+<section id="megatron-bridge">
+<h3>Megatron-Bridge<a class="headerlink" href="#megatron-bridge" title="Link to this heading">#</a></h3>
+<p>Megatron-Bridge loads LoRA adapters directly with their base checkpoint:</p>
+<ul class="simple">
+<li><p><strong>DDP (non-FSDP):</strong> use <code class="code docutils literal notranslate"><span class="pre">default_lora.yaml</span></code> with the base checkpoint in <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>, the adapter checkpoint in <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code>, and <code class="code docutils literal notranslate"><span class="pre">is_fsdp:</span> <span class="pre">false</span></code>.</p></li>
+<li><p><strong>FSDP:</strong> use <code class="code docutils literal notranslate"><span class="pre">default_lora_fsdp.yaml</span></code> with the FSDP base checkpoint in <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>, the FSDP adapter checkpoint in <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code>, and <code class="code docutils literal notranslate"><span class="pre">is_fsdp:</span> <span class="pre">true</span></code>.</p></li>
+</ul>
+<p>Merging or exporting the adapter remains optional; see <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/megatron-bridge/lora/LORA_GUIDE.MD">megatron-bridge/lora/LORA_GUIDE.MD</a> for those workflows.</p>
+</section>
+</section>
+<section id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.jsonl
+avlm/inference/outputs/&lt;INFERENCE_NAME&gt;/predictions.json
+</pre></div>
+</div>
+<p>Multi-GPU runs also write per-rank scratch files under <code class="code docutils literal notranslate"><span class="pre">rank_results/</span></code> until all ranks finish and rank 0 merges.</p>
+<p>For MCQ scoring and LLM-judge evaluation of these predictions, see <a class="reference internal" href="../evaluation.html"><span class="doc">Evaluation</span></a>.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Complete <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md#setup">Setup in the inference runbook</a> for the selected backend.</p></li>
+<li><p>Select the matching SFT or LoRA runtime config and set <code class="code docutils literal notranslate"><span class="pre">inference_name</span></code>, <code class="code docutils literal notranslate"><span class="pre">data_path</span></code>, <code class="code docutils literal notranslate"><span class="pre">video_root</span></code>, and <code class="code docutils literal notranslate"><span class="pre">model_path</span></code>; set <code class="code docutils literal notranslate"><span class="pre">adapter_path</span></code> for LoRA. For Megatron-Bridge, select DDP (non-FSDP) or FSDP to match the checkpoint.</p></li>
+<li><p>Run a small interactive smoke test, then submit a batch run after it passes.</p></li>
+</ol>
+<p>Copy, launch, smoke, batch, resume, and override commands are in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/inference/README.md">inference runbook</a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../training/lora.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LoRA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../evaluation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Evaluation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#containers">Containers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-backends-pick-one">Two Backends (Pick One)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-layout">Shared Layout</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automodel-inference">AutoModel Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#megatron-bridge-inference">Megatron-Bridge Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-config-reference">Inference Config Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-fields-both-backends">Shared Fields (Both Backends)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-environment-overrides">CLI / Environment Overrides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automodel-fields">AutoModel Fields</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megatron-bridge-fields">Megatron-Bridge Fields</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-inference-adapter-only-weights">LoRA Inference (Adapter-Only Weights)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automodel">AutoModel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#megatron-bridge">Megatron-Bridge</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 09, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
