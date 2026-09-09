@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>Performance &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -636,6 +636,18 @@ warm-up are excluded.</p></li>
 </table>
 </div>
 </section>
+<section id="interactive-comparison">
+<h2>Interactive comparison<a class="headerlink" href="#interactive-comparison" title="Link to this heading">#</a></h2>
+<p>Interactive results across all fine-tuning runs.
+Hover over a bubble for parameters and metrics.</p>
+<p><strong>Relative cost</strong>: pricing ratios are derived from current VM prices across Cloud Service Providers; 8xA100 is set to 1.0 and all other configurations are relative to that.
+From there, we set the relative cost of running the least expensive workload on A100 to 1.0. All other runs are relative to that.</p>
+<p><strong>NOTE:</strong> estimates are based on short 13-iteration benchmark runs and are intended for <em>relative</em> comparison only.
+Actual fine-tuning runs typically take 1–3 days depending on model, data size, cluster size, and other parameters.</p>
+<iframe src="perf_dash/avlm_dashboard.html"
+        style="width:100%; height:840px; border:none; border-radius:6px;"
+        loading="lazy">
+</iframe></section>
 </section>
 
 
@@ -694,6 +706,7 @@ warm-up are excluded.</p></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-performance">Inference Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-comparison">Interactive comparison</a></li>
 </ul>
   </nav></div>
 
@@ -783,7 +796,7 @@ warm-up are excluded.</p></li>
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 06, 2026.
+  Last updated on Sep 09, 2026.
   <br/>
 </p></div>
       

@@ -29,3 +29,6 @@ documentation/.mypy_cache/
 documentation/.pytest_cache/
 documentation/docs-server.log
 .production-publish.*/
+
+## Mac Junk
+.DS_Store

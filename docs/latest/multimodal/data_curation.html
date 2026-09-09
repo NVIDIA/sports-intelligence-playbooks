@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>Data Curation &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -448,7 +448,7 @@
 <span class="w">  </span>--mode<span class="w"> </span>categorical<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--input-dir<span class="w"> </span>raw_tennis_data_input<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--output-dir<span class="w"> </span>training_tennis_data_output/categorical<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--video-root<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span>--video-root<span class="w"> </span><span class="s2">""</span>
 </pre></div>
 </div>
 <p>It writes <code class="code docutils literal notranslate"><span class="pre">generated/</span></code>, <code class="code docutils literal notranslate"><span class="pre">with_metadata/</span></code>, and the recommended <code class="code docutils literal notranslate"><span class="pre">with_metadata_paraphrased/</span></code> output. Metadata adds point-level annotations needed for open-ended evaluation, while split-specific paraphrasing tests whether evaluation performance generalizes beyond memorized MCQ wording. Rules questions are annotation-triggered and capped at two per point. See the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD">categorical taxonomy</a> and <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/tennis/categorical_evaluation/tennis_rules_trigger_map.md">rules trigger map</a>.</p>
@@ -467,22 +467,22 @@
 <h3>Output Format<a class="headerlink" href="#output-format" title="Link to this heading">#</a></h3>
 <p>Final artifacts are JSONL files under <code class="code docutils literal notranslate"><span class="pre">training_tennis_data_output/data_splits_hf/</span></code>. Each line is one (video, question) pair. The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field carries the question-type / template name the row was generated from (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>); eval tooling uses it to route MCQ vs descriptive scoring (see <a class="reference internal" href="evaluation.html"><span class="doc">Evaluation</span></a>).</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_video_001_ServerWinner_6f7b9d82-...&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;server_winner&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;evaluation_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcq&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;super_category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Match Facts&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fine_category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point Roles and Outcome&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;conversation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample_video_001_ServerWinner_6f7b9d82-..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"server_winner"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"evaluation_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcq"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"super_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Match Facts"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fine_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Point Roles and Outcome"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">       </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_video_001/sample_video_001_seg_01_13_19_timeoffset_end_3.mp4&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Who served and who won...?\n(A) ...\n(B) ...\n(C) ...\n(D) ...&quot;</span><span class="p">}</span>
+<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">       </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"video"</span><span class="p">,</span><span class="w"> </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample_video_001/sample_video_001_seg_01_13_19_timeoffset_end_3.mp4"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Who served and who won...?\n(A) ...\n(B) ...\n(C) ...\n(D) ..."</span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;(A) Carlos Alcaraz served and Carlos Alcaraz won&quot;</span><span class="p">}]</span>
+<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(A) Carlos Alcaraz served and Carlos Alcaraz won"</span><span class="p">}]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -692,7 +692,7 @@ python<span class="w"> </span>prepare_training_data_pipeline.py
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 06, 2026.
+  Last updated on Sep 09, 2026.
   <br/>
 </p></div>
       

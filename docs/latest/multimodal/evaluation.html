@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Sports Intelligence Playbooks" name="project-name" />
 <meta content="1.0.0" name="docs-version" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
 
     <title>Evaluation &#8212; Sports Intelligence Playbooks</title>
   
@@ -76,7 +76,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 06, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 09, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -512,20 +512,20 @@ contradictions from ambiguous metadata fields. Treat unambiguous player aliases
 as the same player (for example, Amritraj and Riske-Amritraj) when the
 conversation or gt makes the mapping clear. For first serve/double fault/ace
 serve-related claims, use metadata fields like
-&#39;num_serving_attempts_until_successful&#39; as supporting context, but do not use
+'num_serving_attempts_until_successful' as supporting context, but do not use
 that field to penalize a fault/let/then-successful-serve sequence when gt and
 pred agree on that sequence and metadata does not explicitly state a different
 complete serve sequence. If the prediction adds a specific point-ending
 category (like Ace, Double Fault, Winner, etc) that is not mentioned in the gt,
 do NOT penalize unless this addition is directly contradicted by the metadata.
-If metadata supports or is consistent with the pred&#39;s extra detail, do not
+If metadata supports or is consistent with the pred's extra detail, do not
 treat it as a hallucination. However, if pred adds a point-ending type that is
 directly contradicted by metadata, penalize accordingly.
 
 If no metadata is provided, score purely on pred vs gt and be strict about
 extra unsupported details.
 
-IMPORTANT: Respond only with valid JSON. The &quot;score&quot; field must be an integer
+IMPORTANT: Respond only with valid JSON. The "score" field must be an integer
 from 1 to 10, where 10 is best, never 0.
 
 **Ground Truth**
@@ -544,16 +544,16 @@ REPLACE_METADATA
 - Primary: Similarity to gt (semantic and factual)
 - Secondary: Consistency with metadata when present; penalize claims directly
   contradicted by available metadata
-- **MCQ / single-letter answers**: If gt is of the form &quot;(A) ...&quot;, &quot;(B) ...&quot;,
-  &quot;(C) ...&quot;, &quot;(D) ...&quot; and pred is only the letter (e.g. &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;)
-  or &quot;A.&quot; / &quot;The answer is A.&quot;, treat as a **full match (score 10 ** when the
-  letter matches the gt choice. Do not penalize for missing the full &quot;(X) ...&quot;
+- **MCQ / single-letter answers**: If gt is of the form "(A) ...", "(B) ...",
+  "(C) ...", "(D) ..." and pred is only the letter (e.g. "A", "B", "C", "D")
+  or "A." / "The answer is A.", treat as a **full match (score 10 ** when the
+  letter matches the gt choice. Do not penalize for missing the full "(X) ..."
   text.
 - Treat unambiguous player aliases as equivalent, including
-  surname/full-name/hyphenated variants such as &quot;Amritraj&quot; and
-  &quot;Riske-Amritraj&quot;
+  surname/full-name/hyphenated variants such as "Amritraj" and
+  "Riske-Amritraj"
 - For serve/double fault/ace claims, check metadata fields like
-  &#39;num_serving_attempts_until_successful&#39; as supporting context; do not let that
+  'num_serving_attempts_until_successful' as supporting context; do not let that
   field override matching gt/pred fault/let/then-successful-serve descriptions
   unless metadata explicitly gives a different complete serve sequence
 - If pred adds a point-ending type (Ace, Double Fault, etc) not in gt, check
@@ -573,11 +573,11 @@ REPLACE_METADATA
 
 Respond ONLY with a JSON object of the form:
 {
-  &quot;score&quot;: &lt;1-10&gt;,
-  &quot;reasoning&quot;: &quot;&lt;brief, precise justification&gt;&quot;,
-  &quot;strengths&quot;: [&quot;&lt;strength 1&gt;&quot;, &quot;&lt;strength 2&gt;&quot;],
-  &quot;weaknesses&quot;: [&quot;&lt;weakness 1&gt;&quot;, &quot;&lt;weakness 2&gt;&quot;],
-  &quot;metadata_alignment&quot;: &quot;&lt;note on consistency with metadata&gt;&quot;
+  "score": &lt;1-10&gt;,
+  "reasoning": "&lt;brief, precise justification&gt;",
+  "strengths": ["&lt;strength 1&gt;", "&lt;strength 2&gt;"],
+  "weaknesses": ["&lt;weakness 1&gt;", "&lt;weakness 2&gt;"],
+  "metadata_alignment": "&lt;note on consistency with metadata&gt;"
 }
 </pre></div>
 </div>
@@ -835,7 +835,7 @@ bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pip
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Sep 06, 2026.
+  Last updated on Sep 09, 2026.
   <br/>
 </p></div>
       
