@@ -168,6 +168,68 @@ body.modal-open #pst-back-to-top {
     }
 }
 
+/* Performance page data tables: green header, zebra body, optional totals row. */
+:root {
+    --si-perf-table-header-bg: #1f6f4a;
+    --si-perf-table-zebra-bg: #eef3f0;
+}
+
+html[data-theme="dark"] {
+    --si-perf-table-header-bg: #14563a;
+    --si-perf-table-zebra-bg: rgba(118, 185, 0, 0.07);
+}
+
+.bd-article table.perf-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.bd-article table.perf-table > caption {
+    caption-side: top;
+    text-align: left;
+    padding: 0 0 0.5rem;
+    color: var(--pst-color-heading);
+    font-size: 1rem;
+    font-weight: var(--pst-font-weight-heading);
+}
+
+.bd-article table.perf-table thead th {
+    background-color: var(--si-perf-table-header-bg);
+    color: #ffffff;
+    font-weight: 700;
+    border-bottom: none;
+    vertical-align: bottom;
+}
+
+.bd-article table.perf-table th,
+.bd-article table.perf-table td {
+    padding: 0.4rem 0.65rem;
+}
+
+.bd-article table.perf-table tbody td {
+    white-space: nowrap;
+}
+
+.bd-article table.perf-table tbody tr:nth-child(odd) {
+    background-color: var(--pst-color-background);
+}
+
+.bd-article table.perf-table tbody tr:nth-child(even) {
+    background-color: var(--si-perf-table-zebra-bg);
+}
+
+/* These tables fit the content width, so suppress the horizontal scrollbar.
+   Narrow viewports keep the theme's scrolling behavior. */
+@media (min-width: 992px) {
+    .bd-article .pst-scrollable-table-container:has(> table.perf-table) {
+        overflow-x: visible;
+    }
+}
+
 /* Use more horizontal space for diagrams and other wide content. */
 @media (min-width: 1200px) {
     .bd-page-width {
