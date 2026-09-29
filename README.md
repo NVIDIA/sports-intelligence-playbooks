@@ -20,7 +20,7 @@ Public recipes cover generic fine-tuning; these playbooks are a sports-focused m
 **Docs:** [Sports Intelligence documentation](https://nvidia.github.io/sports-intelligence-playbooks/)
 
 ![Tennis demo preview (0:30–0:41, 12 fps)](assets/tennis_demo_video/tennis_demo_preview.gif)
-Full-length video demo on [HuggingFace](https://huggingface.co/nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis) tennis checkpoint.
+See the full-length video demo on our tennis checkpoint [HuggingFace](https://huggingface.co/nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis) repo.
 
 The playbooks cover one full AVLM round—from collecting and annotating multimodal sports data, through train/eval preparation, SFT/LoRA training, inference, and evaluation, with deployment as the next step. The repository layout below maps each stage to concrete scripts and guides; the two training stacks are interchangeable options for the training and inference steps.
 
