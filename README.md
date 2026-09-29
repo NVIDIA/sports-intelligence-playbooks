@@ -19,6 +19,9 @@ Public recipes cover generic fine-tuning; these playbooks are a sports-focused m
 
 **Docs:** [Sports Intelligence documentation](https://nvidia.github.io/sports-intelligence-playbooks/)
 
+Tennis Demo
+![](assets/tennis_demo_video/tennis_demo.mp4)
+
 The playbooks cover one full AVLM round—from collecting and annotating multimodal sports data, through train/eval preparation, SFT/LoRA training, inference, and evaluation, with deployment as the next step. The repository layout below maps each stage to concrete scripts and guides; the two training stacks are interchangeable options for the training and inference steps.
 
 ![AVLM Training Lifecycle](assets/AVLM_training_lifecycle.png)
