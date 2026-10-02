@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Serve settings. Copy this file to vllm_server_params_local.yaml and edit the copy.
+# vllm_server.sh loads that copy when it is present.
+
+# Either a consolidated checkpoint directory, or a Hugging Face model name
+# (https://huggingface.co/nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis).
+# ${REPO_ROOT} expands when the config is loaded.
+model_path: nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis
+
+# Extra-package venv, pip cache, and serve compile/temp dirs (serve_runtime/*). Exported CACHE_DIR overrides.
+cache_dir: ${REPO_ROOT}/.cache
+
+served_model_name: nemotron_3_nano_omni
+
+vllm_port: 12500
+# GPUs used by one model copy. Keep this at 1 for eight separate copies.
+tensor_parallel_size: 1
+# Eight full copies, one per GPU. Requests stay on vllm_port; vLLM load-balances them.
+# Visible GPUs must equal data_parallel_size * tensor_parallel_size.
+# max_num_seqs is per copy.
+data_parallel_size: 8
+pin_serve_gpus: true
+cuda_visible_devices: "0,1,2,3,4,5,6,7"
+# One copy on GPU 0:
+# tensor_parallel_size: 1
+# data_parallel_size: 1
+# cuda_visible_devices: "0"
+# One copy split across 8 GPUs:
+# tensor_parallel_size: 8
+# data_parallel_size: 1
+# cuda_visible_devices: "0,1,2,3,4,5,6,7"
+max_model_len: 131072
+max_num_seqs: 4
+# API admission: max unfinished (waiting + running) cluster-wide before HTTP 503 (see README).
+# data_parallel_size × max_num_seqs × 2 ≈ 32 on GPU + 32 in scheduler wait ≈ 64 here.
+max_num_queued_reqs: 64
+
+num_frames: 128
+fps: 2
+video_backend: hub_checkpoint
+video_pruning_rate: 0.0
+vllm_dtype: bfloat16
+vllm_enforce_eager: false
+
+# When true, the server starts with reasoning_parser.
+enable_reasoning: false
+reasoning_parser: nemotron_v3
+
+# Defaults for example clients (OpenAI request fields). Caption script forces stream=0.
+max_tokens: 512
+stream: false
