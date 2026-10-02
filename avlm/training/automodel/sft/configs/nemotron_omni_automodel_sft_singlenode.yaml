@@ -54,6 +54,15 @@ processor:
   # If you choose a non-default resolution, consider adjusting max_length, pack_size,
   # and collate_max_length accordingly.
 
+  # Video temporal patching: uncomment one option to match the base model.
+  # This controls the number of sampled frames grouped into each temporal patch.
+  # video_temporal_patch_dim: 2  # Nemotron Omni default; two frames per patch.
+  # video_temporal_patch_dim: 1  # One frame per patch; requires a compatible base model.
+  # The base model's weights and config must support the selected temporal dimension.
+  # For Nemotron Omni with dim 1, first preprocess the base checkpoint with
+  # avlm/utils/fold_video_temporal.py and point both model and processor
+  # pretrained_model_name_or_path to the folded checkpoint.
+
 checkpoint:
   enabled: true
   # Used when running the recipe directly; launch scripts override this path.

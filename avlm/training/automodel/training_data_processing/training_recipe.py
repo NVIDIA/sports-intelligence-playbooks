@@ -305,6 +305,24 @@ def _finalize_val_dataloader(dataloader: Any, *, num_replicas: int, rank: int) -
     )
 
 
+def apply_never_grad_param_freeze_patch() -> None:
+    """Freeze the unused RADIO patch embedder before optimizer construction."""
+    if getattr(finetune_mod.build_model, "_avlm_never_grad_freeze", False):
+        return
+    orig_build_model = finetune_mod.build_model
+
+    def build_model_freezing_never_grad(*args, **kwargs):
+        model = orig_build_model(*args, **kwargs)
+        # The unused embedder receives no gradients and has no optimizer state to restore.
+        for name, param in model.named_parameters():
+            if name == "vision_model.radio_model.model.patch_generator.embedder.weight":
+                param.requires_grad = False
+        return model
+
+    build_model_freezing_never_grad._avlm_never_grad_freeze = True
+    finetune_mod.build_model = build_model_freezing_never_grad
+
+
 class FinetuneRecipeForVLM(_FinetuneRecipeForVLM):
     """VLM finetune recipe; optional neat packing via ``dataloader.use_sequence_packing``."""
 
@@ -337,6 +355,31 @@ class FinetuneRecipeForVLM(_FinetuneRecipeForVLM):
             merged = dict(cfg_ps)
         merged.update(deepcopy(self._validation_packed_sequence_overrides))
         return ConfigNode(merged)
+
+    def load_checkpoint(self, restore_from=None):
+        """Release checkpoint-loading buffers and initialize CUDA communicators."""
+        import gc
+
+        super().load_checkpoint(restore_from)
+        if not torch.cuda.is_available():
+            return
+        gc.collect()
+        torch.cuda.empty_cache()
+        if torch.distributed.is_initialized():
+            # Initialize communicators before gradient clipping reaches peak memory use.
+            from torch.distributed.tensor import DTensor
+
+            meshes = []
+            for model_part in self.model_parts:
+                for param in model_part.parameters():
+                    if isinstance(param, DTensor) and param.device_mesh not in meshes:
+                        meshes.append(param.device_mesh)
+            warm = torch.ones(1, device="cuda")
+            torch.distributed.all_reduce(warm)
+            for mesh in meshes:
+                for dim in range(mesh.ndim):
+                    torch.distributed.all_reduce(warm.clone(), group=mesh.get_group(mesh_dim=dim))
+            torch.cuda.synchronize()
 
     def _forward_backward_step(self, idx, batch, **kwargs):
         """Release the CPU collated batch after each grad-accum microbatch."""
@@ -412,6 +455,7 @@ class FinetuneRecipeForVLM(_FinetuneRecipeForVLM):
 
         register_interactive_sigint_handler()
         _apply_wandb_mode(self.cfg)
+        apply_never_grad_param_freeze_patch()
         packing_enabled = sequence_packing_enabled(self.cfg) and packed_sequence_pack_size(self.cfg) > 0
         if packing_enabled:
             from avlm.training.automodel.training_data_processing.packing import apply_video_sound_packing_patches

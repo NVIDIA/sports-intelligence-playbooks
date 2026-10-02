@@ -32,14 +32,17 @@ _pack_video_sample_fps: float | None = None
 _REFERENCE_VIDEO_TARGET_NUM_PATCHES = 1024
 _DEFAULT_TOKENS_PER_VIDEO_FRAME = 135
 _pack_tokens_per_video_frame: int = _DEFAULT_TOKENS_PER_VIDEO_FRAME
+_pack_video_temporal_patch_size: int = 2
 
 
 def _tokens_per_video_frame(cfg_processor) -> int:
-    """Token cost implied by ``processor.video_target_num_patches``: 512 -> 68, 1024 -> 135, 2048 -> 270."""
+    """Scale the video token budget by spatial and temporal patch size."""
+    # The reference budget uses two frames per temporal patch.
+    temporal = cfg_processor.get("video_temporal_patch_dim", 2) if cfg_processor is not None else 2
     target = cfg_processor.get("video_target_num_patches") if cfg_processor is not None else None
     if not target:
-        return _DEFAULT_TOKENS_PER_VIDEO_FRAME
-    return math.ceil(_DEFAULT_TOKENS_PER_VIDEO_FRAME * int(target) / _REFERENCE_VIDEO_TARGET_NUM_PATCHES)
+        return math.ceil(_DEFAULT_TOKENS_PER_VIDEO_FRAME * 2 / temporal)
+    return math.ceil(_DEFAULT_TOKENS_PER_VIDEO_FRAME * int(target) * 2 / (_REFERENCE_VIDEO_TARGET_NUM_PATCHES * temporal))
 
 
 @lru_cache(maxsize=None)
@@ -192,6 +195,7 @@ def _patch_build_dataloader() -> None:
 def _build_dataloader_with_video_sound_pretokenize(original, cfg_ds, cfg_processor, *args: Any, **kwargs: Any):
     """Swap in :class:`VideoSoundPreTokenizedDatasetWrapper` for the pretokenize step only."""
     global _pack_video_max_frames, _pack_video_sample_fps, _pack_tokens_per_video_frame
+    global _pack_video_temporal_patch_size
 
     import nemo_automodel.components.datasets.vlm.datasets as vlm_datasets
     from avlm.training.automodel.training_data_processing.pretokenize import (
@@ -207,6 +211,9 @@ def _build_dataloader_with_video_sound_pretokenize(original, cfg_ds, cfg_process
     _pack_video_max_frames = max_video_frames
     _pack_video_sample_fps = video_sample_fps
     _pack_tokens_per_video_frame = _tokens_per_video_frame(cfg_processor)
+    _pack_video_temporal_patch_size = (
+        int(cfg_processor.get("video_temporal_patch_dim", 2)) if cfg_processor is not None else 2
+    )
 
     class _VideoSoundPretokenizedWrapper(VideoSoundPreTokenizedDatasetWrapper):
         def __init__(
@@ -256,7 +263,6 @@ def _patch_video_sound_packing() -> None:
     # call time since this patch runs before build_dataloader sets it.
     # audio is budgeted separately at 256 per frame
     _SOUND_TOKEN_BUDGET = 256
-    _VIDEO_TEMPORAL_PATCH_SIZE = 2
 
     def _video_path(example: dict) -> str | None:
         audio_video_path = example.get("audio_video_path")
@@ -456,7 +462,7 @@ def _patch_video_sound_packing() -> None:
             if pixels is not None and pixels.shape[0] > 0:
                 # Preserve per-video tubelet boundaries before concatenation. The model
                 # normally pads each standalone odd-length video by repeating its last frame.
-                pad_frames = (-pixels.shape[0]) % _VIDEO_TEMPORAL_PATCH_SIZE
+                pad_frames = (-pixels.shape[0]) % _pack_video_temporal_patch_size
                 if pad_frames:
                     sample = dict(sample)
                     padding = pixels[-1:].expand(pad_frames, *pixels.shape[1:])
