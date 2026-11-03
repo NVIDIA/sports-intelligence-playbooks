@@ -102,6 +102,10 @@ resolve_inference_job_name() {
 
   if [[ -z "${inference_name}" && -n "${inference_config}" ]]; then
     [[ "${inference_config}" == /* ]] || inference_config="${AVLM_BASE_REPO_ROOT:-${REPO_ROOT}}/${inference_config}"
+    if [[ ! -f "${inference_config}" ]]; then
+      echo "error: INFERENCE_CONFIG not found: ${inference_config}" >&2
+      return 2
+    fi
     inference_name="$(python3 - "${inference_config}" <<'PY'
 import sys
 import yaml

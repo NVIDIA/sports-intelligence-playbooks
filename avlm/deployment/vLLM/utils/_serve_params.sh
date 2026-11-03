@@ -28,11 +28,14 @@ _SERVE_PARAM_KEYS=(
   VLLM_VIDEO_BACKEND
   VIDEO_PRUNING_RATE
   VLLM_DTYPE
+  VLLM_QUANTIZATION
   VLLM_ENFORCE_EAGER
   VLLM_ATTENTION_BACKEND
   VLLM_KV_CACHE_DTYPE
+  VLLM_KV_CACHE_MEMORY
   VLLM_COMPILATION_CONFIG
   VLLM_MOE_BACKEND
+  VLLM_LINEAR_BACKEND
   VLLM_ENABLE_CHUNKED_PREFILL
   VLLM_ASYNC_SCHEDULING
   VLLM_ENABLE_FLASHINFER_AUTOTUNE
@@ -49,13 +52,7 @@ _expand_repo_root_in_var() {
 
 _default_serve_config_path() {
   local deploy_root="$1"
-  local local_cfg="${deploy_root}/configs/vllm_server_params_local.yaml"
-  local template_cfg="${deploy_root}/configs/vllm_server_params.yaml"
-  if [[ -f "${local_cfg}" ]]; then
-    printf '%s\n' "${local_cfg}"
-  else
-    printf '%s\n' "${template_cfg}"
-  fi
+  printf '%s\n' "${deploy_root}/configs/vllm_server_params.yaml"
 }
 
 source_serve_params() {
@@ -100,11 +97,14 @@ source_serve_params() {
     VLLM_VIDEO_BACKEND=video_backend \
     VIDEO_PRUNING_RATE=video_pruning_rate \
     VLLM_DTYPE=vllm_dtype \
+    VLLM_QUANTIZATION=vllm_quantization \
     VLLM_ENFORCE_EAGER=vllm_enforce_eager \
     VLLM_ATTENTION_BACKEND=vllm_attention_backend \
     VLLM_KV_CACHE_DTYPE=vllm_kv_cache_dtype \
+    VLLM_KV_CACHE_MEMORY=vllm_kv_cache_memory \
     VLLM_COMPILATION_CONFIG=vllm_compilation_config \
     VLLM_MOE_BACKEND=vllm_moe_backend \
+    VLLM_LINEAR_BACKEND=vllm_linear_backend \
     VLLM_ENABLE_CHUNKED_PREFILL=vllm_enable_chunked_prefill \
     VLLM_ASYNC_SCHEDULING=vllm_async_scheduling \
     VLLM_ENABLE_FLASHINFER_AUTOTUNE=vllm_enable_flashinfer_autotune \
@@ -295,7 +295,7 @@ vllm_resolve_serve_python() {
         return 0
       fi
       echo "[ERROR] VLLM_EXTRA_PIP_SPEC is set but ${extra_py} is missing." >&2
-      echo "[ERROR] Create it with: VLLM_INSTALL_EXTRA=1 bash avlm/deployment/vLLM/vllm_server.sh start" >&2
+      echo "[ERROR] Create it with: bash avlm/deployment/vLLM/vllm_server.sh start" >&2
       return 1
     fi
     if [[ -n "${PYTHON:-}" && "${PYTHON}" != "python" && -x "${PYTHON}" && "${PYTHON}" != *"/vllm_serve_venv/"* && "${PYTHON}" != *"/vllm_extra_venv/"* ]]; then
@@ -335,7 +335,7 @@ vllm_resolve_serve_python() {
       fi
     done
     echo "[ERROR] vLLM venv Python is not executable here: ${candidates[0]}" >&2
-    echo "[ERROR] Start inside the NGC vLLM container (see avlm/deployment/vLLM/README.md), then: VLLM_INSTALL_EXTRA=1 bash avlm/deployment/vLLM/vllm_server.sh start" >&2
+    echo "[ERROR] Start inside the GPU container: bash avlm/deployment/vLLM/slurm/interactive/launch_interactive_session.sh" >&2
     return 1
   fi
   if command -v python3 >/dev/null 2>&1; then

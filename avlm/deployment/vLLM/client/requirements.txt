@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Minimal Python deps for vLLM HTTP clients (install on the machine that runs the client,
+# not necessarily the GPU server). Python 3.8+ supported.
+#
+# System tools (not installed via pip):
+#   - bash, curl  — chat_video_completion.sh health checks and HTTP
+#
+# Covers:
+#   - client/chat_video_completion.sh  (PyYAML loads configs/vllm_server_params.yaml via avlm/utils)
+#   - client/chat_video_with_audio_completion.py  (bundled ffmpeg for AAC-in-MP4 → WAV)
+#
+#   pip install -r avlm/deployment/vLLM/client/requirements.txt
+#
+# imageio-ffmpeg 0.6.0 wheels require Python 3.10+; 0.5.1 is used on 3.8/3.9 (e.g. some compute nodes).
+# vllm_server.sh start (VLLM_INSTALL_EXTRA=1) pip-installs decord, then this file, into cache_dir/vllm_extra_venv.
+# Editing this file changes the venv stamp; the next start re-runs pip when the file hash changes.
+
+imageio-ffmpeg==0.6.0; python_version >= "3.10"
+imageio-ffmpeg==0.5.1; python_version < "3.10"
+PyYAML==6.0.3

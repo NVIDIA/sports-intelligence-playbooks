@@ -7,6 +7,8 @@
 import os
 import base64
 import mimetypes
+import tempfile
+from contextlib import contextmanager
 from PIL import Image
 import io
 from transformers.video_utils import VideoMetadata
@@ -112,13 +114,55 @@ def sample_video_frames_to_data_urls(video_path_local, fps=1, nframe=0, nframe_m
     return frame_urls, metadata
 
 
+@contextmanager
+def local_video_path(path_or_url):
+    """Yield a filesystem path for local ``.mp4`` files or ``data:video/mp4`` URLs.
+
+    HTTP(S) URLs and other non-video inputs yield ``None``. Temporary files are removed
+    when the context exits. Batch JSONL inference only uses local paths under ``video_root``.
+    """
+    val = str(path_or_url or "")
+    low = val.lower()
+
+    if low.startswith("data:"):
+        if not low.startswith("data:video/mp4"):
+            yield None
+            return
+        _, _, b64part = val.partition(",")
+        if not b64part:
+            yield None
+            return
+        tmp = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
+        try:
+            tmp.write(base64.b64decode(b64part))
+            tmp.flush()
+            tmp.close()
+            yield tmp.name
+        finally:
+            try:
+                os.unlink(tmp.name)
+            except OSError:
+                pass
+        return
+
+    if os.path.exists(val):
+        mime, _ = mimetypes.guess_type(val)
+        if mime == "video/mp4" or (mime is None and val.lower().endswith(".mp4")):
+            yield val
+            return
+
+    yield None
+
+
 def maybe_path_or_url_to_data_urls(path_or_url, fps=1, nframe=0, nframe_max=-1,
                                    include_metadata=True):
     """
-    Convert a path or URL to data URLs, handling videos, images, and remote files.
+    Convert a local path or ``data:`` URL to frame data URLs (images or sampled video).
+
+    HTTP(S) video URLs are not downloaded; the input is returned unchanged with no metadata.
     
     Args:
-        path_or_url: Path or URL to the media file
+        path_or_url: Local filesystem path or data URL
         fps: Target frames per second for video sampling (if > 0, uses fps-based sampling)
         nframe: Number of frames to sample from video (used if fps <= 0)
         nframe_max: Maximum number of frames to sample
@@ -130,57 +174,32 @@ def maybe_path_or_url_to_data_urls(path_or_url, fps=1, nframe=0, nframe_max=-1,
     """
     val = str(path_or_url or "")
     low = val.lower()
-    
-    # Handle data URLs
-    if low.startswith("data:"):
-        if low.startswith("data:video/mp4"):
-            header, _, b64part = val.partition(",")
-            if not b64part:
-                return [val], None
-            import tempfile
-            tmp = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
-            try:
-                tmp.write(base64.b64decode(b64part))
-                tmp.flush(); tmp.close()
-                return sample_video_frames_to_data_urls(tmp.name, fps=fps, nframe=nframe, nframe_max=nframe_max,
-                                                        include_metadata=include_metadata)
-            finally:
-                try:
-                    os.unlink(tmp.name)
-                except Exception:
-                    pass
-        return [val], None
 
-    # Remote URL
     if low.startswith("http://") or low.startswith("https://"):
-        if low.endswith(".mp4"):
-            try:
-                import tempfile, urllib.request
-                with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmpf:
-                    urllib.request.urlretrieve(val, tmpf.name)
-                    local_path = tmpf.name
-                result = sample_video_frames_to_data_urls(local_path, fps=fps, nframe=nframe, nframe_max=nframe_max,
-                                                          include_metadata=include_metadata)
-                try:
-                    os.unlink(local_path)
-                except Exception:
-                    pass
-                return result
-            except Exception:
-                return [val], None
+        raise ValueError(
+            "Remote HTTP(S) media URLs are not supported for batch inference. "
+            "Use a local .mp4 path (JSONL paths are resolved under video_root)."
+        )
+
+    if low.startswith("data:") and not low.startswith("data:video/mp4"):
         return [val], None
 
-    # Local path
+    with local_video_path(path_or_url) as local:
+        if local is not None:
+            return sample_video_frames_to_data_urls(
+                local,
+                fps=fps,
+                nframe=nframe,
+                nframe_max=nframe_max,
+                include_metadata=include_metadata,
+            )
+
     if os.path.exists(val):
         mime, _ = mimetypes.guess_type(val)
         if mime and mime.startswith("image/"):
             with open(val, "rb") as f:
                 b64 = base64.b64encode(f.read()).decode("utf-8")
             return [f"data:{mime};base64,{b64}"], None
-        if mime == "video/mp4" or (mime is None and val.endswith(".mp4")):
-            return sample_video_frames_to_data_urls(val, fps=fps, nframe=nframe, nframe_max=nframe_max,
-                                                    include_metadata=include_metadata)
-        # Fallback: treat as binary image
         with open(val, "rb") as f:
             b64 = base64.b64encode(f.read()).decode("utf-8")
         return [f"data:image/jpeg;base64,{b64}"], None

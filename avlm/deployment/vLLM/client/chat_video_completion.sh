@@ -8,6 +8,7 @@
 #     every MCQ, then the tennis demo caption (temperature=0 top_p=1 top_k=1)
 #   VLLM_CHAT_PRESET=mcq|caption|all
 #   VLLM_CHAT_MESSAGE='Custom question' bash ...
+#   VLLM_CHAT_REPETITION_PENALTY=1.05  — optional; helps open-ended captions (omit for strict greedy MCQs)
 set -euo pipefail
 
 _VLLM_MCQ_LABELS=()
@@ -97,6 +98,8 @@ fi
 }
 
 BASE_URL="${VLLM_BASE_URL:-http://127.0.0.1:${VLLM_PORT:-12500}}"
+BASE_URL="${BASE_URL%/}"
+BASE_URL="${BASE_URL%/v1}"  # accept the OpenAI-style base URL too
 if ! curl -sf "${BASE_URL}/health" >/dev/null; then
   echo "error: vLLM not healthy at ${BASE_URL} — run: bash avlm/deployment/vLLM/vllm_server.sh start" >&2
   exit 1
@@ -110,6 +113,8 @@ STREAM="${VLLM_CHAT_STREAM:-0}"
 VLLM_CHAT_TEMPERATURE="${VLLM_CHAT_TEMPERATURE:-0}"
 VLLM_CHAT_TOP_P="${VLLM_CHAT_TOP_P:-1}"
 VLLM_CHAT_TOP_K="${VLLM_CHAT_TOP_K:-1}"
+# vLLM sampling (HuggingFace-style). Unset = omit from request (pure greedy MCQs).
+VLLM_CHAT_REPETITION_PENALTY="${VLLM_CHAT_REPETITION_PENALTY:-}"
 # Set to 1 only for MP4s with a vLLM-compatible audio track (demo clip is video-only).
 VLLM_CHAT_USE_AUDIO_IN_VIDEO="${VLLM_CHAT_USE_AUDIO_IN_VIDEO:-0}"
 
@@ -128,6 +133,7 @@ _vllm_build_payload() {
   VIDEO_PATH="${VIDEO}" MESSAGE="${message}" MODEL="${MODEL}" MAX_TOKENS="${max_tokens}" \
     STREAM="${STREAM}" ENABLE_THINKING="${ENABLE_THINKING}" \
     TEMPERATURE="${VLLM_CHAT_TEMPERATURE}" TOP_P="${VLLM_CHAT_TOP_P}" TOP_K="${VLLM_CHAT_TOP_K}" \
+    REPETITION_PENALTY="${VLLM_CHAT_REPETITION_PENALTY}" \
     USE_AUDIO_IN_VIDEO="${VLLM_CHAT_USE_AUDIO_IN_VIDEO}" python3 <<'PY'
 import json
 import os
@@ -145,6 +151,7 @@ enable_thinking = truthy(os.environ["ENABLE_THINKING"])
 temperature = float(os.environ["TEMPERATURE"])
 top_p = float(os.environ["TOP_P"])
 top_k = int(os.environ["TOP_K"])
+rep_penalty_raw = os.environ.get("REPETITION_PENALTY", "").strip()
 use_audio = truthy(os.environ["USE_AUDIO_IN_VIDEO"])
 # Hub / video_inference.py: one user string "<video>" + question (no newline). Nemotron
 # chat_template.jinja inserts "<video>\\n" before text when only video_url + plain text are
@@ -171,6 +178,8 @@ payload = {
     "top_p": top_p,
     "top_k": top_k,
 }
+if rep_penalty_raw:
+    payload["repetition_penalty"] = float(rep_penalty_raw)
 if stream:
     payload["stream"] = True
 print(json.dumps(payload))
@@ -221,8 +230,19 @@ else:
     if obj.get("error"):
         print("error:", obj["error"], file=sys.stderr)
         sys.exit(1)
-    msg = (obj.get("choices") or [{}])[0].get("message") or {}
+    choice = (obj.get("choices") or [{}])[0]
+    msg = choice.get("message") or {}
     text = (msg.get("content") or "").strip()
+    if not text:
+        rc = msg.get("reasoning_content")
+        if isinstance(rc, str) and rc.strip():
+            text = rc.strip()
+    if not text:
+        print(
+            "warn: empty message.content and reasoning_content "
+            f"(finish_reason={choice.get('finish_reason')!r}, message keys={list(msg.keys())})",
+            file=sys.stderr,
+        )
 
 print(text)
 PY

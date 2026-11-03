@@ -49,9 +49,13 @@ Two training stacks:
   </thead>
   <tbody>
     <tr>
-      <td><b>Data prep</b></td>
-      <td><a href="avlm/data_prep_example/tennis/README.md">QA / MCQ generation</a></td>
+      <td rowspan="2"><b>Data prep</b></td>
+      <td><a href="avlm/data_prep_example/tennis/README.md">Tennis QA / MCQ generation</a></td>
       <td><code>avlm/data_prep_example/tennis/</code></td>
+    </tr>
+    <tr>
+      <td><a href="avlm/data_prep_example/basketball/README.md">Basketball (BARD) QA / MCQ generation</a></td>
+      <td><code>avlm/data_prep_example/basketball/</code></td>
     </tr>
     <tr>
       <td rowspan="6"><b>Training</b></td>
@@ -77,6 +81,11 @@ Two training stacks:
     <tr>
       <td><a href="avlm/training/hyperparam_search/README.MD">Hyperparameter search</a></td>
       <td><code>avlm/training/hyperparam_search/</code></td>
+    </tr>
+    <tr>
+      <td><b>Quantization</b></td>
+      <td><a href="avlm/quantization/README.md">Nemotron-3-Nano-Omni FP8 / NVFP4 PTQ</a></td>
+      <td><code>avlm/quantization/ptq/nemotron_3_nano_omni/modelopt/</code></td>
     </tr>
     <tr>
       <td rowspan="2"><b>Inference</b></td>
@@ -157,7 +166,7 @@ SFT and LoRA dirs share the same shape: `configs/` (recipe YAML), `generic/` (tr
 
 Codec binaries are not included in this release. Training, inference, and data-prep workflows may install decode dependencies via pip when they are missing from the NeMo container, including:
 
-- **decord** — video frame decoding
+- **decord** (x86_64) / **decord2** (Linux aarch64, same `import decord`) — video frame decoding
 - **imageio-ffmpeg** — prebuilt **FFmpeg** when system FFmpeg is not available
 - **librosa** — audio decoding (with audioread fallbacks)
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
-<meta content="1.0.0" name="docs-version" />
+<meta content="1.5.0" name="docs-version" />
 
     <title>Evaluation &#8212; Sports Intelligence Playbooks</title>
   
@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2e653c1b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f2778d" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -48,7 +48,7 @@
 
 
     <script rel="preload" src="../_static/modal-table.js"></script>
-    <script src="../_static/documentation_options.js?v=a12e3537"></script>
+    <script src="../_static/documentation_options.js?v=f8f0f945"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -58,7 +58,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.5.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -69,14 +69,14 @@
 
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Performance Benchmarking" href="perf_benchmarking.html" />
+    <link rel="next" title="Learnings" href="learnings.html" />
     <link rel="prev" title="Inference" href="inference/index.html" />
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 02, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 03, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -339,14 +339,29 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="inference/index.html">Inference</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="perf_benchmarking.html">Performance</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="learnings/video_chunking.html">Video Chunking Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learnings/vision_encoder_and_fine_grained_perception.html">Vision Encoder Impact</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sports/index.html">Reference Sports</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="sports/tennis.html">Tennis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sports/basketball.html">Basketball</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="published_checkpoints.html">Published Checkpoints</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="runtime_optimization/index.html">Runtime Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="runtime_optimization/quantization.html">Quantization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="deployment/index.html">Deployment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment/vllm.html">vLLM serving</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="perf_benchmarking.html">Performance</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -424,7 +439,7 @@
 <li><p><code class="code docutils literal notranslate"><span class="pre">mcq</span></code> — scored locally by letter matching; no external API calls</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">open_ended</span></code> — scored by an LLM judge; requires a judge API key</p></li>
 </ul>
-<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field stores the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>). Set both fields during data preparation when defining templates (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>). MCQ answers use <code class="code docutils literal notranslate"><span class="pre">(A)</span> <span class="pre">...</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span> <span class="pre">...</span></code>; open-ended templates use free-text ground truth.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">class</span></code> field stores the template name (for example <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code> or <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>). Set both fields during data preparation when defining templates (see <a class="reference internal" href="data_curation.html"><span class="doc">Data Curation</span></a>). Most MCQ rows use <code class="code docutils literal notranslate"><span class="pre">(A)</span> <span class="pre">...</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span> <span class="pre">...</span></code>; a template may add a fifth choice <code class="code docutils literal notranslate"><span class="pre">(E)</span> <span class="pre">...</span></code> when its generator defines one. Open-ended templates use free-text ground truth.</p>
 <section id="tennis-reference-classes">
 <h3>Tennis reference classes<a class="headerlink" href="#tennis-reference-classes" title="Link to this heading">#</a></h3>
 <p>Tennis MCQ classes include match facts such as <code class="code docutils literal notranslate"><span class="pre">score_after</span></code>, <code class="code docutils literal notranslate"><span class="pre">server_winner</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended</span></code>, and <code class="code docutils literal notranslate"><span class="pre">num_shots_exchanged</span></code>, plus categorical visual and reasoning classes. Open-ended classes include <code class="code docutils literal notranslate"><span class="pre">point_caption</span></code>, <code class="code docutils literal notranslate"><span class="pre">how_point_ended_description</span></code>, and <code class="code docutils literal notranslate"><span class="pre">audio_cues</span></code>. Categorical rows also carry <code class="code docutils literal notranslate"><span class="pre">super_category</span></code> and <code class="code docutils literal notranslate"><span class="pre">fine_category</span></code> labels for breakdowns across visual recognition, commentary, match facts, rules/reasoning, and audio. See <code class="code docutils literal notranslate"><span class="pre">avlm/data_prep_example/tennis/categorical_evaluation/CATEGORICAL_EVAL.MD</span></code> for the current taxonomy.</p>
@@ -435,7 +450,7 @@
 <p>The MCQ scorer reads inference predictions and compares each model answer to the annotated correct letter. The headline metric is the <strong>percentage of correct answers</strong>.</p>
 <section id="answer-format">
 <h3>Answer format<a class="headerlink" href="#answer-format" title="Link to this heading">#</a></h3>
-<p>Answers must start with <code class="code docutils literal notranslate"><span class="pre">(A)</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span></code>; optional Markdown bold is accepted. The scorer extracts the leading letter from model output and ground truth. Malformed reference answers are skipped with a warning. Unparseable model outputs count as <code class="code docutils literal notranslate"><span class="pre">num_parse_failed</span></code> and remain in the denominator, lowering accuracy.</p>
+<p>Answers must start with a leading choice letter, usually <code class="code docutils literal notranslate"><span class="pre">(A)</span></code> through <code class="code docutils literal notranslate"><span class="pre">(D)</span></code>; <code class="code docutils literal notranslate"><span class="pre">(E)</span></code> is accepted when the ground truth includes a fifth option. Optional Markdown bold is accepted. The scorer extracts the leading letter from model output and ground truth. Malformed reference answers are skipped with a warning. Unparseable model outputs count as <code class="code docutils literal notranslate"><span class="pre">num_parse_failed</span></code> and remain in the denominator, lowering accuracy.</p>
 </section>
 <section id="results">
 <h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
@@ -582,6 +597,7 @@ Respond ONLY with a JSON object of the form:
 </pre></div>
 </div>
 <p>The tennis examples in the prompt (serve attempts, point-ending categories) illustrate how metadata cross-check works; adapt <code class="code docutils literal notranslate"><span class="pre">prompt.py</span></code> and the config <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> for other sports.</p>
+<p>For a basketball example, with its own <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code> and no event metadata, see the <a class="reference internal" href="sports/basketball.html"><span class="doc">Basketball</span></a> page.</p>
 </section>
 <section id="judge-configuration">
 <h3>Judge configuration<a class="headerlink" href="#judge-configuration" title="Link to this heading">#</a></h3>
@@ -692,11 +708,11 @@ bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pip
       </div>
     </a>
     <a class="right-next"
-       href="perf_benchmarking.html"
+       href="learnings.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Performance Benchmarking</p>
+        <p class="prev-next-title">Learnings</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -835,7 +851,7 @@ bash<span class="w"> </span>avlm/inference/common/scripts/run_inference_eval_pip
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Oct 02, 2026.
+  Last updated on Nov 03, 2026.
   <br/>
 </p></div>
       

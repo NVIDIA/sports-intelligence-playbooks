@@ -265,7 +265,14 @@ lora_init_launch() {
   export CLUSTER_PARAMS
   # shellcheck source=../../../../utils/_source_params.sh
   source "${_mode_dir}/../../../../utils/_source_params.sh"
-  training_cli_commit_env_overrides "${_mode_dir}" "${SBATCH_CLI_OVERRIDE_KEYS[@]}" "${SBATCH_ENV_ONLY_KEYS[@]}"
+  if [[ "${_launch_kind}" == "interactive" ]]; then
+    # Capture command-prefix overrides (MODEL_NAME=foo bash train_interactive.sh) before
+    # dropping inherited exports from the long-lived interactive shell.
+    training_cli_commit_env_overrides "${_mode_dir}" "${SBATCH_CLI_OVERRIDE_KEYS[@]}" "${SBATCH_ENV_ONLY_KEYS[@]}"
+    unset MODEL_NAME CONFIG_YAML CONFIG_YAML_REL OUTPUT CHECKPOINT_DIR WANDB_DIR CKPT_LAYOUT_TAG
+  else
+    training_cli_commit_env_overrides "${_mode_dir}" "${SBATCH_CLI_OVERRIDE_KEYS[@]}" "${SBATCH_ENV_ONLY_KEYS[@]}"
+  fi
   source_cluster_params "${_mode_dir}"
 
   training_require_config_path

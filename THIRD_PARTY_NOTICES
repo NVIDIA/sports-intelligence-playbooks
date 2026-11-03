@@ -12,11 +12,13 @@ packages are supplied by the recommended NGC containers or resolved at pip
 install time; verify the license and version of your installed build.
 
 ================================================================================
-Data preparation (avlm/data_prep_example/tennis/)
+Data preparation (avlm/data_prep_example/{tennis,basketball}/)
 ================================================================================
 
-Used for optional LLM-assisted MCQ generation and the offline data-prep
+Tennis: used for optional LLM-assisted MCQ generation and the offline data-prep
 pipeline. Install via uv/pip in that directory (see README).
+Basketball: standard library only; its media probe uses decord (see the video
+and audio decoding section below).
 
   openai              2.45.0      Apache-2.0
   python-dotenv       1.2.2       BSD-3-Clause
@@ -68,6 +70,10 @@ Sources:
   https://github.com/bastibe/python-soundfile
 
 decord depends on FFmpeg/libav at runtime for video decoding.
+
+On Linux aarch64 (e.g. DGX Spark), launch scripts may install the PyPI package
+decord2 instead of decord; it exposes the same `decord` Python module and
+ships prebuilt aarch64 wheels (Apache-2.0; https://github.com/johnnynunez/decord2).
 
 --------------------------------------------------------------------------------
 FFmpeg (via imageio-ffmpeg or system install)

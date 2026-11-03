@@ -8,6 +8,10 @@
 #
 # shellcheck shell=bash
 
+_VLLM_ENV_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../../../utils/_decord_pip.sh
+source "${_VLLM_ENV_DIR}/../../../utils/_decord_pip.sh"
+
 _vllm_base_python() {
   if [[ -n "${PYTHON:-}" && -x "${PYTHON}" && "${INSIDE_VLLM_DEPLOY_SESSION:-0}" != "1" ]]; then
     printf '%s\n' "${PYTHON}"
@@ -38,8 +42,7 @@ _vllm_spec_imports_ok() {
   local py="$1" spec="$2" token name
   # shellcheck disable=SC2086
   for token in ${spec}; do
-    name="${token%%[=<>!~]*}"
-    name="${name//-/_}"
+    name="$(avlm_pip_spec_token_import_name "${token}")"
     [[ -n "${name}" ]] || continue
     if ! "${py}" -c "import ${name}" >/dev/null 2>&1; then
       return 1
@@ -51,7 +54,7 @@ _vllm_spec_imports_ok() {
 # Later starts reuse the venv created by VLLM_INSTALL_EXTRA=1.
 _vllm_reuse_extra_venv() {
   [[ -n "${VLLM_EXTRA_PIP_SPEC:-}" ]] && return 0
-  local venv_dir py stamp spec
+  local venv_dir py stamp
   if [[ -n "${VLLM_EXTRA_VENV_DIR:-}" ]]; then
     venv_dir="${VLLM_EXTRA_VENV_DIR}"
   elif [[ -n "${CACHE_DIR:-}" ]]; then
@@ -63,32 +66,28 @@ _vllm_reuse_extra_venv() {
   [[ -x "${py}" ]] || return 0
   stamp="${venv_dir}/.vllm_extra_pip_spec"
   if [[ -f "${stamp}" ]]; then
-    spec="$(<"${stamp}")"
-  else
-    spec="decord==0.6.0"
+    export VLLM_EXTRA_VENV_DIR="${venv_dir}"
+    export PYTHON="${py}"
+    echo "[vllm-env] reusing extra venv ${py}" >&2
   fi
-  [[ -n "${spec}" ]] || return 0
-  export VLLM_EXTRA_VENV_DIR="${venv_dir}"
-  export VLLM_EXTRA_PIP_SPEC="${spec}"
-  echo "[vllm-env] reusing extra venv ${py}" >&2
 }
 
-# Used by vllm_server.sh start when VLLM_INSTALL_EXTRA=1.
-# Skips the venv when the image Python can already import the extra packages.
+# Used on every vllm_server.sh start unless VLLM_INSTALL_EXTRA=0.
+# No pip when the image Python or an existing slim venv already imports the extras.
 _vllm_install_missing_extras() {
-  local py spec
+  local py spec venv_dir
   py="$(_vllm_container_python)"
   [[ -n "${py}" && -x "${py}" ]] || {
     echo "[vllm-env] error: container Python not found" >&2
     return 1
   }
-  spec="${VLLM_EXTRA_PIP_SPEC:-decord==0.6.0}"
-  if _vllm_spec_imports_ok "${py}" "${spec}"; then
-    echo "[vllm-env] extra packages already importable from ${py}" >&2
-    unset VLLM_EXTRA_PIP_SPEC
-    return 0
+  if [[ -n "${VLLM_EXTRA_PIP_SPEC:-}" ]]; then
+    spec="${VLLM_EXTRA_PIP_SPEC}"
+    if _vllm_spec_imports_ok "${py}" "${spec}"; then
+      echo "[vllm-env] extra packages already importable from ${py}" >&2
+      return 0
+    fi
   fi
-  export VLLM_EXTRA_PIP_SPEC="${spec}"
   if [[ -z "${VLLM_EXTRA_VENV_DIR:-}" ]]; then
     if [[ -n "${CACHE_DIR:-}" ]]; then
       export VLLM_EXTRA_VENV_DIR="${CACHE_DIR}/vllm_extra_venv"
@@ -101,10 +100,19 @@ _vllm_install_missing_extras() {
 }
 
 _vllm_ensure_extra_venv() {
-  local spec="${VLLM_EXTRA_PIP_SPEC:-}"
-  [[ -n "${spec}" ]] || return 0
+  local spec="${VLLM_EXTRA_PIP_SPEC:-$(avlm_decord_pip_spec)}"
+  local req="" stamp_body="${spec}" venv_dir base_py py stamp
 
-  local venv_dir base_py py stamp
+  if [[ -z "${VLLM_EXTRA_PIP_SPEC:-}" ]]; then
+    : "${REPO_ROOT:?REPO_ROOT must be set}"
+    req="${REPO_ROOT}/avlm/deployment/vLLM/client/requirements.txt"
+    [[ -f "${req}" ]] || {
+      echo "[vllm-env] error: client requirements not found: ${req}" >&2
+      return 1
+    }
+    stamp_body="${spec}"$'\n'"requirements-sha256:$(sha256sum "${req}" | awk '{print $1}')"
+  fi
+
   venv_dir="${VLLM_EXTRA_VENV_DIR:-}"
   if [[ -z "${venv_dir}" ]]; then
     : "${CACHE_DIR:?Set CACHE_DIR or VLLM_EXTRA_VENV_DIR before installing extra packages}"
@@ -121,13 +129,20 @@ _vllm_ensure_extra_venv() {
     "${base_py}" -m venv --system-site-packages "${venv_dir}"
   fi
   py="${venv_dir}/bin/python"
-  if [[ -f "${stamp}" && "$(cat "${stamp}")" == "${spec}" ]]; then
-    echo "[vllm-env] slim venv ok (cached): ${venv_dir} (${spec})" >&2
+  if [[ -f "${stamp}" && "$(cat "${stamp}")" == "${stamp_body}" ]]; then
+    echo "[vllm-env] slim venv ok (cached): ${venv_dir}" >&2
   else
-    echo "[vllm-env] installing extra packages into ${venv_dir}: ${spec}" >&2
+    if [[ -n "${req}" ]]; then
+      echo "[vllm-env] installing extra packages into ${venv_dir}: ${spec} + ${req}" >&2
+    else
+      echo "[vllm-env] installing extra packages into ${venv_dir}: ${spec}" >&2
+    fi
     # shellcheck disable=SC2086
-    "${py}" -m pip install ${spec}
-    printf '%s\n' "${spec}" > "${stamp}"
+    "${py}" -m pip install ${spec} || return 1
+    if [[ -n "${req}" ]]; then
+      "${py}" -m pip install -r "${req}" || return 1
+    fi
+    printf '%s\n' "${stamp_body}" > "${stamp}"
   fi
   export VLLM_EXTRA_VENV_DIR="${venv_dir}"
   export PYTHON="${py}"

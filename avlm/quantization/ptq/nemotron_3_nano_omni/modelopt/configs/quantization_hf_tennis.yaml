@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Hugging Face PTQ for a sports SFT checkpoint.
+# Active settings calibrate on the public image-text set nemotron_vlm_dataset_v2.
+# Uncomment the JSONL block to calibrate on your own video. Scales from samples
+# closer to the clips you serve can fit a little better; the difference is usually small.
+#
+# quantize.sh reads this file by default.
+#   bash avlm/quantization/ptq/nemotron_3_nano_omni/modelopt/quantize.sh hf QUANT_FORMAT=fp8
+
+# Scratch root for downloads and, when QUANT_USE_CONTAINER_PKGS is 0, the quant venv.
+CACHE_DIR: ${REPO_ROOT}/.cache
+
+# Checkpoint to quantize. A Hub id is stored under ${WORKSPACE}/base/<repo-name-lowercase>/.
+# Or set an absolute or @repo/ consolidated SFT directory instead.
+HF_MODEL_ID: nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis
+# HF_MODEL_ID: "@repo/model_checkpoints/automodel/sft/checkpoints_n8_tp1_pp1_ep8/epoch_1_step_2599/model/consolidated"
+
+# hf: load with Transformers, calibrate, and export a Hugging Face quant checkpoint.
+QUANT_BACKEND: hf
+
+# 1: NeMo container Python plus a small overlay. 0: build CACHE_DIR/venv_quant.
+QUANT_USE_CONTAINER_PKGS: 1
+
+# Model Optimizer tree. BOOTSTRAP=1 clones GIT_REF into MODELOPT_ROOT when quantize.py is missing.
+MODELOPT_ROOT: Model-Optimizer
+MODELOPT_GIT_BOOTSTRAP: 1
+MODELOPT_GIT_REF: main
+
+# fp8 → fp8_fp8_kv. nvfp4 → nvfp4_fp8_mixed_fp8_kv.
+# Set QUANTIZE_CONFIG only to override that preset name. Command-line QUANT_FORMAT= overrides this value.
+QUANT_FORMAT: fp8
+# QUANTIZE_CONFIG:
+
+# Calibration sample count. MoE needs at least 32. Forwards use batch size 1.
+NUM_SAMPLES: 512
+
+# Names the export: ${WORKSPACE}/models/${QUANT_RUN_LABEL}-${QUANT_FORMAT}-hf.
+# This label is the Hub-calibration run. When you uncomment the JSONL block,
+# switch to a label for that run (the commented example has no sport name).
+QUANT_RUN_LABEL: nemotron-3-nano-omni-sft-hubcalib
+# QUANT_RUN_LABEL: nemotron-3-nano-omni-sft
+
+# EVS video-token pruning during calibration and in the exported config.
+# 0 keeps every token. An SFT config.json may ship 0.7, so this is set explicitly.
+VIDEO_PRUNING_RATE: 0
+
+# Run root. "@repo/..." is under the repo (quote the @). A relative path is under CACHE_DIR.
+WORKSPACE: "@repo/quantization_workspace"
+
+# Optional video JSONL. Uncomment to calibrate on your own clips.
+# CALIB_DATA_ROOT is the JSONL root. VIDEO_ROOT is the directory those rows' video
+# paths are relative to. Build the subset once, then run quantize.sh:
+#   python avlm/quantization/ptq/nemotron_3_nano_omni/modelopt/lib/vlm_calib.py
+# CALIB_DATA_ROOT: /path/to/jsonl_root
+# VIDEO_ROOT: /path/to/videos
+# CALIB_JSONL: "@repo/quantization_workspace/datasets/calib_512.jsonl"
+# CALIB_JSONL_SOURCES:
+#   - "${CALIB_DATA_ROOT}/train.jsonl"
+#   - "${CALIB_DATA_ROOT}/validation.jsonl"
+# CALIB_VIDEO_FPS: 2
+# CALIB_MAX_VIDEO_FRAMES: 128

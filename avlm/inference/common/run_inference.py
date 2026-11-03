@@ -125,6 +125,21 @@ def load_config(config_path):
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
+
+def _repo_root():
+    # avlm/inference/common/run_inference.py -> repo root
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+
+
+def _resolve_local_path(path):
+    """Turn repo-relative checkpoint/dataset paths into absolute paths for HF local load."""
+    if not path or not isinstance(path, str) or os.path.isabs(path):
+        return path
+    candidate = os.path.join(_repo_root(), path)
+    if os.path.exists(candidate):
+        return os.path.abspath(candidate)
+    return path
+
 def parse_bool(value):
     value = value.strip().lower()
     if value in {"1", "true", "yes", "on"}:
@@ -134,22 +149,46 @@ def parse_bool(value):
     raise argparse.ArgumentTypeError(f"expected a boolean value, got {value!r}")
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--config", required=True)
-    parser.add_argument("--inference-name", default=None)
-    parser.add_argument("--base-output-dir", default=None)
-    parser.add_argument("--data-path", default=None)
-    parser.add_argument("--model-path", default=None)
-    parser.add_argument("--adapter-path", default=None)
-    parser.add_argument("--is-fsdp", type=parse_bool, default=None)
+    parser = argparse.ArgumentParser(
+        description="Run batch video inference over a JSONL dataset and write "
+        "<base_output_dir>/<inference_name>/predictions.jsonl. Usually started by "
+        "the Slurm launchers under avlm/inference/<backend>/slurm/ (see avlm/inference/README.md).",
+    )
+    parser.add_argument("--config", required=True, help="Inference config YAML (a copied default_*_local.yaml).")
+    parser.add_argument("--inference-name", default=None, help="Override config inference_name (output subdirectory).")
+    parser.add_argument("--base-output-dir", default=None, help="Override config base_output_dir.")
+    parser.add_argument("--data-path", default=None, help="Override config data_path (JSONL dataset).")
+    parser.add_argument("--model-path", default=None, help="Override config model_path (base or SFT checkpoint).")
+    parser.add_argument("--adapter-path", default=None, help="Override config adapter_path (LoRA adapter checkpoint).")
+    parser.add_argument(
+        "--is-fsdp",
+        type=parse_bool,
+        default=None,
+        help="Override config is_fsdp (Megatron-Bridge fsdp_dtensor checkpoint); boolean-like value.",
+    )
     parser.add_argument(
         "--fsdp-sharding-strategy",
         choices=("optim_grads_params", "no_shard"),
         default=None,
+        help="Override config fsdp_sharding_strategy (Megatron-Bridge FSDP only).",
     )
-    parser.add_argument("--max-inference-samples", type=int, default=None)
-    parser.add_argument("--max-inference-samples-seed", type=int, default=-1)
-    parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--max-inference-samples",
+        type=int,
+        default=None,
+        help="Run only N dataset records (default: all).",
+    )
+    parser.add_argument(
+        "--max-inference-samples-seed",
+        type=int,
+        default=-1,
+        help="Seed for randomly choosing the N records; -1 takes the first N (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Skip records already saved in rank_results/ by an interrupted run with the same settings.",
+    )
 
     args = parser.parse_args()
 
@@ -182,6 +221,10 @@ def main():
 
     if args.fsdp_sharding_strategy is not None:
         cfg["fsdp_sharding_strategy"] = args.fsdp_sharding_strategy
+
+    for key in ("data_path", "video_root", "model_path", "adapter_path"):
+        if key in cfg and cfg[key]:
+            cfg[key] = _resolve_local_path(cfg[key])
 
     _init_dist()
     rank, world_size = _rank_world_size()

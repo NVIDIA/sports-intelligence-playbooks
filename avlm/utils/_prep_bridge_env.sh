@@ -8,6 +8,8 @@
 # shellcheck shell=bash
 
 _MB_COMMON_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_decord_pip.sh
+source "${_MB_COMMON_DIR}/_decord_pip.sh"
 
 _MEGATRON_BRIDGE_GIT_URL="https://github.com/NVIDIA-NeMo/Megatron-Bridge.git"
 # Pin matches nemo:26.06 (/opt/Megatron-Bridge @ fcbb6031).
@@ -18,7 +20,7 @@ _MEGATRON_BRIDGE_CONTAINER_ROOT_DEFAULT="/opt/Megatron-Bridge"
 
 # Keys accepted by Megatron-Bridge conversion launchers.
 MB_BRIDGE_CLI_OVERRIDE_KEYS=(
-  MODEL_NAME GPUS_PER_NODE NUM_GPUS NPROC_PER_NODE MEGATRON_BRIDGE_ROOT HF_MODEL_ID RECIPE CONFIG_YAML_REL
+  MODEL_NAME GPUS_PER_NODE NUM_GPUS NPROC_PER_NODE MEGATRON_BRIDGE_ROOT HF_MODEL_ID RECIPE CONFIG_YAML CONFIG_YAML_REL
   CONVERSION_DIRECTION MEGATRON_CKPT_PATH HF_EXPORT_PATH WORKSPACE RUN_PARITY_CHECK CLEAN_WORKSPACE NPROC ETP
   CONVERSION_TORCH_DTYPE CONVERSION_DEVICE_MAP CONVERSION_EXPORT_NO_PROGRESS CONVERSION_EXPORT_STRICT
   CHECK_OUTPUT_DIR CHECK_MEGATRON_SAVE_PATH CHECK_MEGATRON_LOAD_PATH
@@ -53,6 +55,35 @@ MB_BRIDGE_CLI_OVERRIDE_KEYS=(
   INFERENCE_VALIDATION_NUM_NODES INFERENCE_VALIDATION_GPUS_PER_NODE INFERENCE_VALIDATION_NPROC_PER_NODE
   VLM_SCORER_CONFIG
 )
+
+# PTQ CLI KEY=val whitelist (quantize.sh). Most settings live in configs/quantization_*.yaml.
+# HF path: only keys people commonly override on the command line; paths derive from WORKSPACE.
+MB_QUANT_CLI_OVERRIDE_KEYS=(
+  GPUS_PER_NODE CACHE_DIR WORKSPACE
+  HF_MODEL_ID HF_MODEL_LOCAL_DIR
+  QUANTIZATION_PARAMS QUANT_FORMAT QUANTIZE_CONFIG NUM_SAMPLES QUANT_RUN_LABEL QUANT_DATASETS_DIR
+  MODELOPT_ROOT MODELOPT_GIT_REF MODELOPT_GIT_BOOTSTRAP
+  QUANT_USE_CONTAINER_PKGS QUANT_CONTAINER_PYTHON VENV_DIR
+)
+# Extra KEY=val names for a Megatron-Bridge quant backend. quantize.sh hf does not use these.
+MB_QUANT_MEGATRON_BRIDGE_CLI_OVERRIDE_KEYS=(
+  QUANT_RECIPE QUANT_CFG QUANTIZE_STEP RUN_EXPORT TRUST_REMOTE_CODE
+  CALIB_DATASET_NAME CALIB_NUM_SAMPLES CALIB_BATCH_SIZE SEQ_LENGTH COMPRESS SKIP_GENERATE
+  TP_SIZE PP_SIZE EP_SIZE CP_SIZE EXPORT_PP_SIZE
+  QUANT_WORK_DIR HF_QUANT_EXPORT_PATH MEGATRON_QUANT_PATH
+)
+
+# recipe: hf | megatron_bridge | both (union — for mb_init_launch … quantization)
+mb_quant_cli_commit_overrides() {
+  local mode_dir="$1" recipe="${2:-hf}"
+  local -a keys=()
+  keys=("${MB_QUANT_CLI_OVERRIDE_KEYS[@]}")
+  case "${recipe}" in
+    megatron_bridge|mb|megatron-bridge) keys+=("${MB_QUANT_MEGATRON_BRIDGE_CLI_OVERRIDE_KEYS[@]}") ;;
+    both) keys+=("${MB_QUANT_MEGATRON_BRIDGE_CLI_OVERRIDE_KEYS[@]}") ;;
+  esac
+  training_cli_commit_env_overrides "${mode_dir}" "${keys[@]}"
+}
 
 mb_log_section() {
   echo "[mb-bridge] ============================================================" >&2
@@ -373,14 +404,21 @@ mb_init_launch() {
   source "${_MB_COMMON_DIR}/_source_params.sh"
   if [[ "${_load_conversion}" == "conversion" ]]; then
     training_cli_commit_env_overrides "${_mode_dir}" "${MB_BRIDGE_CLI_OVERRIDE_KEYS[@]}"
+  elif [[ "${_load_conversion}" == "quantization" ]]; then
+    mb_quant_cli_commit_overrides "${_mode_dir}" both
   elif [[ "${_launch_kind}" == "local" ]]; then
     training_cli_commit_env_overrides "${_mode_dir}" "${GENERIC_CLI_OVERRIDE_KEYS[@]}"
   else
     training_cli_commit_env_overrides "${_mode_dir}" "${SBATCH_CLI_OVERRIDE_KEYS[@]}" "${SBATCH_ENV_ONLY_KEYS[@]}"
   fi
+  if [[ "${_launch_kind}" == "interactive" ]]; then
+    unset MODEL_NAME CONFIG_YAML CONFIG_YAML_REL OUTPUT CHECKPOINT_DIR WANDB_DIR TENSORBOARD_DIR CKPT_LAYOUT_TAG
+  fi
   source_cluster_params "${_mode_dir}"
   if [[ "${_load_conversion}" == "conversion" ]]; then
     source_conversion_params "${_mode_dir}"
+  elif [[ "${_load_conversion}" == "quantization" ]]; then
+    source_quantization_params "${_mode_dir}"
   fi
   resolve_avlm_repo_roots_from_mode_dir "${_mode_dir}"
 
@@ -666,7 +704,7 @@ mb_ensure_container_extra_deps() {
   local _spec _pkg _mod _missing=()
   [[ -x "${_py}" ]] || { echo "error: container python not found: ${_py}" >&2; return 1; }
   mkdir -p "${_target}"
-  for _spec in "decord:decord" "imageio-ffmpeg:imageio_ffmpeg"; do
+  for _spec in "$(avlm_decord_pip_pkg_unpinned):$(avlm_decord_import_module)" "imageio-ffmpeg:imageio_ffmpeg"; do
     _pkg="${_spec%%:*}"; _mod="${_spec#*:}"
     PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}" 2>/dev/null || _missing+=("${_pkg}")
   done

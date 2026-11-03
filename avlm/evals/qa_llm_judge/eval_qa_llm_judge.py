@@ -51,8 +51,14 @@ def parse_results(judge_predictions):
     return results_dict
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--inference-dir", required=True)
+    parser = argparse.ArgumentParser(
+        description="Aggregate LLM judge scores; writes <inference-dir>/llm_judge/llm_judge_results.json"
+    )
+    parser.add_argument(
+        "--inference-dir",
+        required=True,
+        help="Inference output directory containing llm_judge/llm_judge_predictions.json",
+    )
     args = parser.parse_args()
 
     return args
