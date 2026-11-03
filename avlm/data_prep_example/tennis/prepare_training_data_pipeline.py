@@ -38,6 +38,7 @@ Categorical mode (``--mode categorical``)::
 
 Usage:
     python prepare_training_data_pipeline.py
+    python prepare_training_data_pipeline.py --offline
     python prepare_training_data_pipeline.py --keep
     python prepare_training_data_pipeline.py --question-types-config configs/generation/question_types.json
     python prepare_training_data_pipeline.py --mode categorical --offline
@@ -52,12 +53,15 @@ from __future__ import annotations
 
 import argparse
 import glob
+import json
 import os
 import shutil
+import sys
 from pathlib import Path
 
 import split_dataset
 from generate_mcq_qa import ConfigDrivenMCQGenerator, load_question_types
+from llm_helper import get_distractor_fallback_count, missing_api_key_var
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -129,10 +133,38 @@ def copy_split_jsonl(src_dir: str | Path, dst_dir: str | Path) -> list[Path]:
     return copied
 
 
+def llm_question_types(config_path: str, question_types: list[str] | None) -> list[str]:
+    """Return the selected ``llm_gen_distractor`` template names (these call an LLM)."""
+    with open(config_path, encoding="utf-8") as f:
+        templates = json.load(f).get("question_templates", {})
+    return sorted(
+        name
+        for name, tmpl in templates.items()
+        if tmpl.get("type") == "llm_gen_distractor"
+        and (question_types is None or name in question_types)
+    )
+
+
+def require_llm_key(llm_types: list[str]) -> None:
+    """Exit 2 before any output is cleaned if LLM templates are selected without a key."""
+    key_var = missing_api_key_var() if llm_types else ""
+    if key_var:
+        print(
+            f"error: {len(llm_types)} selected templates generate LLM distractors "
+            f"(llm_gen_distractor) but {key_var} is not set. Rerun with --offline "
+            "to skip them (recommended: LLM-generated distractors are not used for "
+            "training), or set NVIDIA_API_KEY (or LLM_API_PROVIDER=openai and "
+            "OPENAI_API_KEY) in avlm/data_prep_example/tennis/dev_local.env.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+
+
 def stage_generate_legacy(
     input_dir: str,
     per_video_dir: str,
     question_types: list[str] | None = None,
+    offline: bool = False,
 ) -> None:
     print("\n" + "=" * 70)
     print("STAGE 1/3: Generate MCQ + open-ended QA (legacy configs)")
@@ -145,6 +177,8 @@ def stage_generate_legacy(
         print("  Generating all question types defined in MCQ/QA configs")
     else:
         print(f"  Generating {len(question_types)} question types from config")
+    if offline:
+        print("  Offline mode: skipping llm_gen_distractor templates")
     generator = ConfigDrivenMCQGenerator(
         mcq_config_file=MCQ_CONFIG,
         qa_config_file=QA_CONFIG,
@@ -152,6 +186,7 @@ def stage_generate_legacy(
         api_rate_limit=0.0,
         enable_progress_bar=False,
         question_types=question_types,
+        offline=offline,
     )
     generator.process_data(input_dir, per_video_dir)
 
@@ -340,7 +375,7 @@ def main() -> None:
     parser.add_argument(
         "--offline",
         action="store_true",
-        help="Categorical mode only: skip llm_gen_distractor templates (no API calls)",
+        help="Skip llm_gen_distractor templates (no API calls)",
     )
     parser.add_argument(
         "--max-workers",
@@ -389,6 +424,9 @@ def main() -> None:
     question_types = None
     if args.question_types_config:
         question_types = load_question_types(args.question_types_config)
+    if not args.offline:
+        config = MCQ_CONFIG if args.mode == "legacy" else CATEGORICAL_CONFIG
+        require_llm_key(llm_question_types(config, question_types))
 
     if args.mode == "legacy":
         per_video_dir = LEGACY_PER_VIDEO_DIR
@@ -420,8 +458,6 @@ def main() -> None:
     production_ratios = n_inputs >= 20
 
     if args.mode == "legacy":
-        if args.offline:
-            print("Note: --offline applies only to --mode categorical; ignored for legacy.")
         if args.skip_serve_rule_paraphrase:
             print(
                 "Note: --skip-serve-rule-paraphrase applies only to "
@@ -431,6 +467,7 @@ def main() -> None:
             input_dir=input_dir,
             per_video_dir=per_video_dir,
             question_types=question_types,
+            offline=args.offline,
         )
         stage_split(
             per_video_dir,
@@ -454,6 +491,14 @@ def main() -> None:
         print(f"Per-video conversations:")
         print(f"  {per_video_dir}")
         print("=" * 70)
+        fallbacks = get_distractor_fallback_count()
+        if fallbacks:
+            print(
+                f"warning: {fallbacks} mcq_* questions use fixed generic distractors "
+                "because the LLM call failed (see 'Error generating LLM distractors' "
+                "above). Check the API key in dev_local.env, or rerun with "
+                "--offline for LLM-free output."
+            )
         return
 
     # --- Categorical: three named stage directories ---

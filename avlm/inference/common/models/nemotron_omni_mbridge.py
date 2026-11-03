@@ -14,13 +14,22 @@ from megatron.core.pipeline_parallel.schedules import get_forward_backward_func
 from transformers import AutoProcessor
 
 from megatron.bridge import AutoBridge
-from megatron.bridge.models.nemotron_omni.nemotron_omni_utils import compute_mel_features, load_audio
+from megatron.bridge.models.nemotron_omni.nemotron_omni_utils import compute_mel_features
 from megatron.bridge.models.nemotron_vl.nemotron_vl_utils import adjust_image_tokens
 from megatron.bridge.peft.utils import create_peft, create_peft_hook, load_peft_adapter_checkpoint
 from megatron.bridge.training.utils.checkpoint_utils import read_run_config
 
 from avlm.inference.common.models import InferenceDistribution, InferenceModel
-from avlm.inference.common.utils.video_io import maybe_path_or_url_to_data_urls, pil_image_from_base64
+from avlm.inference.common.utils.video_io import (
+    local_video_path,
+    maybe_path_or_url_to_data_urls,
+    pil_image_from_base64,
+    sample_video_frames_to_data_urls,
+)
+from avlm.training.automodel.training_data_processing.video_sound_utils import (
+    load_audio_from_video,
+    video_has_audio_stream,
+)
 
 
 _PATCH_DIM = 16
@@ -271,70 +280,82 @@ def _prepare_sample(
     include_video_metadata,
     resize,
 ):
-    image_urls, video_metadata = maybe_path_or_url_to_data_urls(
-        video_path,
-        fps=max(0, int(video_fps)),
-        nframe_max=int(max_video_frames),
-    )
-    frames = [pil_image_from_base64(image_url) for image_url in image_urls]
+    with local_video_path(video_path) as local_video:
+        if local_video is not None:
+            image_urls, video_metadata = sample_video_frames_to_data_urls(
+                local_video,
+                fps=max(0, int(video_fps)),
+                nframe_max=int(max_video_frames),
+            )
+        else:
+            image_urls, video_metadata = maybe_path_or_url_to_data_urls(
+                video_path,
+                fps=max(0, int(video_fps)),
+                nframe_max=int(max_video_frames),
+            )
+        frames = [pil_image_from_base64(image_url) for image_url in image_urls]
 
-    if resize:
-        frames = [
+        if resize:
+            frames = [
                 frame.convert("RGB").resize((512, 512))
                 for frame in frames
             ]
 
-    messages = [{"role": "user", "content": f"{media_tok}{question}"}]
-    prompt = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True,
-        enable_thinking=reasoning,
-    )
+        use_audio = False
+        waveform = None
+        if include_audio and local_video is not None and video_has_audio_stream(local_video):
+            waveform = load_audio_from_video(local_video, target_sr=_AUDIO_SAMPLE_RATE)
+            use_audio = waveform is not None and waveform.size > 0
 
-    processor_kwargs = {
-        "text": [prompt],
-        "videos": frames,
-        "return_tensors": "pt",
-        "do_sample_frames": False,
-    }
-    if include_video_metadata:
-        processor_kwargs["videos_kwargs"] = {"video_metadata": video_metadata}
-    
-    if include_audio:
-        waveform = load_audio(video_path, target_sr=_AUDIO_SAMPLE_RATE)
-        if waveform is None:
-            raise ValueError(f'No waveform detected: {video_path}')
-        processor_kwargs["audio"] = [waveform]
-        processor_kwargs["audio_kwargs"] = {"sampling_rate": _AUDIO_SAMPLE_RATE}
-    
-    processor_output = processor(**processor_kwargs)
-
-    input_ids = processor_output["input_ids"]
-
-    img_start_id = tokenizer.convert_tokens_to_ids("<img>")
-    img_end_id = tokenizer.convert_tokens_to_ids("</img>")
-    visual_groups = int((input_ids == img_start_id).sum().item())
-    input_ids = adjust_image_tokens(
-        input_ids,
-        torch.ones(visual_groups, dtype=torch.long),
-        img_start_id,
-        img_end_id,
-    )
-
-    processed_pixels = processor_output["pixel_values_videos"]
-    packed_pixels, imgs_sizes = _patchify_video(processed_pixels, _PATCH_DIM)
-    num_frames = torch.tensor([len(processed_pixels)], dtype=torch.long)
-
-    sound_clips = sound_length = None
-    if include_audio:
-        sound_clips = compute_mel_features(
-            waveform,
-            sampling_rate=_AUDIO_SAMPLE_RATE,
-            num_mel_bins=_NUM_MEL_BINS,
+        prompt_media = media_tok if use_audio else processor.video_token
+        messages = [{"role": "user", "content": f"{prompt_media}{question}"}]
+        prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=reasoning,
         )
-        sound_length = torch.tensor([sound_clips.shape[0]], dtype=torch.long)
-        sound_clips = sound_clips.unsqueeze(0).bfloat16()
+
+        processor_kwargs = {
+            "text": [prompt],
+            "videos": frames,
+            "return_tensors": "pt",
+            "do_sample_frames": False,
+        }
+        if include_video_metadata:
+            processor_kwargs["videos_kwargs"] = {"video_metadata": video_metadata}
+
+        if use_audio:
+            processor_kwargs["audio"] = [waveform]
+            processor_kwargs["audio_kwargs"] = {"sampling_rate": _AUDIO_SAMPLE_RATE}
+
+        processor_output = processor(**processor_kwargs)
+
+        input_ids = processor_output["input_ids"]
+
+        img_start_id = tokenizer.convert_tokens_to_ids("<img>")
+        img_end_id = tokenizer.convert_tokens_to_ids("</img>")
+        visual_groups = int((input_ids == img_start_id).sum().item())
+        input_ids = adjust_image_tokens(
+            input_ids,
+            torch.ones(visual_groups, dtype=torch.long),
+            img_start_id,
+            img_end_id,
+        )
+
+        processed_pixels = processor_output["pixel_values_videos"]
+        packed_pixels, imgs_sizes = _patchify_video(processed_pixels, _PATCH_DIM)
+        num_frames = torch.tensor([len(processed_pixels)], dtype=torch.long)
+
+        sound_clips = sound_length = None
+        if use_audio:
+            sound_clips = compute_mel_features(
+                waveform,
+                sampling_rate=_AUDIO_SAMPLE_RATE,
+                num_mel_bins=_NUM_MEL_BINS,
+            )
+            sound_length = torch.tensor([sound_clips.shape[0]], dtype=torch.long)
+            sound_clips = sound_clips.unsqueeze(0).bfloat16()
 
     return {
         "input_ids": input_ids,

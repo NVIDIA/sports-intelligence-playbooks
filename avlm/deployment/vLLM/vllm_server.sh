@@ -19,7 +19,7 @@ source "${DEPLOY_ROOT}/utils/_serve_params.sh"
 # the keys it defines; the rest stay unset. MODEL_PATH, port, and TP still
 # honor an explicit environment override.
 unset VLLM_ATTENTION_BACKEND VLLM_USE_DEEP_GEMM VLLM_MOE_USE_DEEP_GEMM \
-  VLLM_KV_CACHE_DTYPE VLLM_COMPILATION_CONFIG VLLM_MOE_BACKEND \
+  VLLM_KV_CACHE_DTYPE VLLM_COMPILATION_CONFIG VLLM_MOE_BACKEND VLLM_LINEAR_BACKEND \
   VLLM_ENABLE_CHUNKED_PREFILL VLLM_ASYNC_SCHEDULING VLLM_ENABLE_FLASHINFER_AUTOTUNE \
   VLLM_DISABLE_COMPILE_CACHE VLLM_ENFORCE_EAGER CUBLAS_WORKSPACE_CONFIG
 source_serve_params "${DEPLOY_ROOT}" "${REPO_ROOT}"
@@ -27,7 +27,8 @@ vllm_guess_cache_dir "${REPO_ROOT}"
 if [[ "${1:-}" == "start" ]]; then
   # shellcheck source=utils/_vllm_env.sh
   source "${DEPLOY_ROOT}/utils/_vllm_env.sh"
-  if _vllm_truthy "${VLLM_INSTALL_EXTRA:-0}"; then
+  # Default on: decord + client/requirements.txt (or VLLM_EXTRA_PIP_SPEC); no-op when importable or cached in vllm_extra_venv.
+  if _vllm_truthy "${VLLM_INSTALL_EXTRA:-1}"; then
     _vllm_install_missing_extras || exit 1
   else
     _vllm_reuse_extra_venv
@@ -55,11 +56,14 @@ VIDEO_PRUNING_RATE="${VIDEO_PRUNING_RATE:-0.0}"
 VLLM_ENABLE_REASONING="${VLLM_ENABLE_REASONING:-0}"
 VLLM_REASONING_PARSER="${VLLM_REASONING_PARSER:-nemotron_v3}"
 VLLM_DTYPE="${VLLM_DTYPE:-auto}"
+VLLM_QUANTIZATION="${VLLM_QUANTIZATION:-}"
 VLLM_ENFORCE_EAGER="${VLLM_ENFORCE_EAGER:-0}"
 VLLM_ATTENTION_BACKEND="${VLLM_ATTENTION_BACKEND:-}"
 VLLM_KV_CACHE_DTYPE="${VLLM_KV_CACHE_DTYPE:-}"
+VLLM_KV_CACHE_MEMORY="${VLLM_KV_CACHE_MEMORY:-}"
 VLLM_COMPILATION_CONFIG="${VLLM_COMPILATION_CONFIG:-}"
 VLLM_MOE_BACKEND="${VLLM_MOE_BACKEND:-}"
+VLLM_LINEAR_BACKEND="${VLLM_LINEAR_BACKEND:-}"
 VLLM_ENABLE_CHUNKED_PREFILL="${VLLM_ENABLE_CHUNKED_PREFILL:-}"
 VLLM_ASYNC_SCHEDULING="${VLLM_ASYNC_SCHEDULING:-}"
 VLLM_ENABLE_FLASHINFER_AUTOTUNE="${VLLM_ENABLE_FLASHINFER_AUTOTUNE:-}"
@@ -74,7 +78,8 @@ _vllm_truthy() {
 usage() {
   echo "Usage: $0 {start|stop|status}" >&2
   echo "  start  — launch vLLM server in background" >&2
-  echo "  VLLM_INSTALL_EXTRA=1 start — if decord (or VLLM_EXTRA_PIP_SPEC) is missing from the image, install it into a separate venv and serve with that" >&2
+  echo "  start — by default installs decord then pip install -r client/requirements.txt into cache_dir/vllm_extra_venv" >&2
+  echo "  VLLM_INSTALL_EXTRA=0 start — skip extra-package setup (text-only / you manage PYTHON)" >&2
   echo "  stop   — stop tracked server, vLLM workers, and free serve ports" >&2
   echo "  status — print server health" >&2
 }
@@ -130,11 +135,15 @@ _cmd_start() {
   _vllm_truthy "${VLLM_ENFORCE_EAGER}" && eager_flag=yes
   local attn_info="${VLLM_ATTENTION_BACKEND:-auto}"
   local kv_info="${VLLM_KV_CACHE_DTYPE:-auto}"
+  local kv_mem_info=auto
+  [[ -n "${VLLM_KV_CACHE_MEMORY}" ]] && kv_mem_info="${VLLM_KV_CACHE_MEMORY}"
   local moe_info="${VLLM_MOE_BACKEND:-auto}"
+  local linear_info="${VLLM_LINEAR_BACKEND:-auto}"
   local compile_info="${VLLM_COMPILATION_CONFIG:-default}"
+  local quant_info="${VLLM_QUANTIZATION:-none}"
   local queued_reqs_info=off
   [[ -n "${MAX_NUM_QUEUED_REQS}" ]] && queued_reqs_info="${MAX_NUM_QUEUED_REQS}"
-  echo "[INFO] Starting vLLM server: model=${MODEL_PATH} tp=${TP_SIZE} dp=${DP_SIZE} port=${VLLM_PORT} max_num_queued_reqs=${queued_reqs_info} dtype=${VLLM_DTYPE} enforce_eager=${eager_flag} attention_backend=${attn_info} kv_cache_dtype=${kv_info} moe_backend=${moe_info} compilation_config=${compile_info} reasoning=${reasoning_flag} video_backend=${VLLM_VIDEO_BACKEND} gpus=${gpu_info}"
+  echo "[INFO] Starting vLLM server: model=${MODEL_PATH} tp=${TP_SIZE} dp=${DP_SIZE} port=${VLLM_PORT} max_num_queued_reqs=${queued_reqs_info} dtype=${VLLM_DTYPE} quantization=${quant_info} enforce_eager=${eager_flag} attention_backend=${attn_info} kv_cache_dtype=${kv_info} kv_cache_memory=${kv_mem_info} moe_backend=${moe_info} linear_backend=${linear_info} compilation_config=${compile_info} reasoning=${reasoning_flag} video_backend=${VLLM_VIDEO_BACKEND} gpus=${gpu_info}"
 
   local -a serve_args=(
     --model "${MODEL_PATH}"
@@ -166,17 +175,26 @@ _cmd_start() {
   if _vllm_truthy "${VLLM_ENFORCE_EAGER}"; then
     serve_args+=(--enforce-eager)
   fi
+  if [[ -n "${VLLM_QUANTIZATION}" ]]; then
+    serve_args+=(--quantization "${VLLM_QUANTIZATION}")
+  fi
   if [[ -n "${VLLM_ATTENTION_BACKEND}" ]]; then
     serve_args+=(--attention-backend "${VLLM_ATTENTION_BACKEND}")
   fi
   if [[ -n "${VLLM_KV_CACHE_DTYPE}" ]]; then
     serve_args+=(--kv-cache-dtype "${VLLM_KV_CACHE_DTYPE}")
   fi
+  if [[ -n "${VLLM_KV_CACHE_MEMORY}" ]]; then
+    serve_args+=(--kv-cache-memory "${VLLM_KV_CACHE_MEMORY}")
+  fi
   if [[ -n "${VLLM_COMPILATION_CONFIG}" ]]; then
     serve_args+=(--compilation-config "${VLLM_COMPILATION_CONFIG}")
   fi
   if [[ -n "${VLLM_MOE_BACKEND}" ]]; then
     serve_args+=(--moe-backend "${VLLM_MOE_BACKEND}")
+  fi
+  if [[ -n "${VLLM_LINEAR_BACKEND}" ]]; then
+    serve_args+=(--linear-backend "${VLLM_LINEAR_BACKEND}")
   fi
   if [[ -n "${VLLM_ENABLE_CHUNKED_PREFILL}" ]]; then
     if _vllm_truthy "${VLLM_ENABLE_CHUNKED_PREFILL}"; then

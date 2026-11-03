@@ -11,6 +11,8 @@
 # shellcheck shell=bash
 
 _AVLM_UTILS_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_decord_pip.sh
+source "${_AVLM_UTILS_DIR}/_decord_pip.sh"
 
 # Override precedence: (1) command line, (2) YAML, (3) inherited shell (~/.bashrc).
 if [[ -z "${_AVLM_PARAMS_LOADED:-}" ]]; then
@@ -199,7 +201,7 @@ apply_yaml_exports_preserving_cli() {
 # Keys read from launch_local.yaml that sbatch_starter accepts as CLI overrides.
 # Keep in sync with test_cli_overrides.sh expectations.
 SBATCH_CLI_OVERRIDE_KEYS=(
-  num_nodes MODEL_NAME CONFIG_YAML_REL GPUS_PER_NODE NPROC_PER_NODE MAX_STEPS PACK_SIZE SEQ_LENGTH
+  num_nodes MODEL_NAME CONFIG_YAML CONFIG_YAML_REL GPUS_PER_NODE NPROC_PER_NODE MAX_STEPS PACK_SIZE SEQ_LENGTH
   CACHE_DIR AUTOMODEL_CODE_ROOT
   partition use_exclusive SLURM_ACCOUNTS SLURM_ACCOUNT_RACE SLURM_TIME_LIMIT CHECKPOINT_DIR
   EXIT_MINS_BEFORE_LIMIT
@@ -226,7 +228,7 @@ SBATCH_ENV_ONLY_KEYS=(
 )
 
 GENERIC_CLI_OVERRIDE_KEYS=(
-  MODEL_NAME CONFIG_YAML_REL NUM_GPUS NPROC_PER_NODE MAX_STEPS PACK_SIZE SEQ_LENGTH
+  MODEL_NAME CONFIG_YAML CONFIG_YAML_REL NUM_GPUS NPROC_PER_NODE MAX_STEPS PACK_SIZE SEQ_LENGTH
   CACHE_DIR AUTOMODEL_CODE_ROOT
   SLURM_TIME_LIMIT GLOBAL_BATCH_SIZE DISPATCHER VAL_SAMPLE_RATIO VAL_MAX_PACKS
   GC_EVERY_STEPS CKPT_EVERY_STEPS VAL_EVERY_STEPS WANDB_NAME WANDB_MODE
@@ -351,6 +353,41 @@ _pick_conversion_params_file() {
   return 1
 }
 
+_pick_quantization_params_file() {
+  local d="$1" f
+  if [[ -n "${QUANTIZATION_PARAMS:-}" ]]; then
+    for f in "${QUANTIZATION_PARAMS}" "${d}/${QUANTIZATION_PARAMS}" "${d}/configs/${QUANTIZATION_PARAMS}"; do
+      if [[ -f "${f}" ]]; then
+        printf '%s\n' "${f}"
+        return 0
+      fi
+    done
+    echo "error: QUANTIZATION_PARAMS not found: ${QUANTIZATION_PARAMS}" >&2
+    return 1
+  fi
+  if [[ -f "${d}/configs/quantization_hf_tennis.yaml" ]]; then
+    echo "warn: QUANTIZATION_PARAMS unset; defaulting to configs/quantization_hf_tennis.yaml (prefer quantize.sh hf)" >&2
+    printf '%s\n' "${d}/configs/quantization_hf_tennis.yaml"
+    return 0
+  fi
+  if [[ -f "${d}/configs/quantization_hf.yaml" ]]; then
+    echo "warn: QUANTIZATION_PARAMS unset; defaulting to configs/quantization_hf.yaml (prefer quantize.sh hf)" >&2
+    printf '%s\n' "${d}/configs/quantization_hf.yaml"
+    return 0
+  fi
+  if [[ -f "${d}/quantization_hf.yaml" ]]; then
+    echo "warn: using ${d}/quantization_hf.yaml — move to configs/quantization_hf.yaml" >&2
+    printf '%s\n' "${d}/quantization_hf.yaml"
+    return 0
+  fi
+  if [[ -f "${d}/quantization.yaml" ]]; then
+    echo "warn: using deprecated ${d}/quantization.yaml — use configs/quantization_hf.yaml" >&2
+    printf '%s\n' "${d}/quantization.yaml"
+    return 0
+  fi
+  return 1
+}
+
 _export_yaml_params() {
   local f="$1" _py yaml_exports
   [[ "${f}" == *.yaml || "${f}" == *.yml ]] || {
@@ -375,6 +412,16 @@ source_conversion_params() {
     return 1
   }
   echo "info: conversion params from ${f}" >&2
+  _export_yaml_params "${f}"
+}
+
+source_quantization_params() {
+  local mode_dir="$1" f
+  f="$(_pick_quantization_params_file "${mode_dir}")" || {
+    echo "error: missing quant params YAML under ${mode_dir} (run quantize.sh hf or set QUANTIZATION_PARAMS)" >&2
+    return 1
+  }
+  echo "info: quantization params from ${f}" >&2
   _export_yaml_params "${f}"
 }
 
@@ -664,7 +711,7 @@ ensure_vlm_training_deps() {
   fi
   : "${CACHE_DIR:?CACHE_DIR must be set for VLM extra deps}"
 
-  local _py _target _spec _pkg _mod _missing=()
+  local _py _target _spec _pkg _mod _ver _missing=() _decord_pkg
   if [[ -n "${PYTHON:-}" && -x "${PYTHON}" ]]; then
     _py="${PYTHON}"
   elif [[ -x /opt/venv/bin/python3 ]]; then
@@ -676,19 +723,25 @@ ensure_vlm_training_deps() {
 
   automodel_prepend_extra_pkgs_pythonpath
   _target="$(automodel_container_extra_pkgs_dir)"
+  _decord_pkg="$(avlm_decord_pip_pkg_unpinned)"
 
   for _spec in \
-    "decord:decord" \
+    "${_decord_pkg}:$(avlm_decord_import_module)" \
     "imageio-ffmpeg:imageio_ffmpeg" \
-    "librosa:librosa" \
+    "librosa==0.11.0:librosa" \
     "audioread:audioread" \
     "pooch:pooch" \
     "lazy-loader:lazy_loader"; do
     _pkg="${_spec%%:*}"
     _mod="${_spec##*:}"
     if PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}" 2>/dev/null; then
-      echo "[vlm-deps] ${_pkg} ok ($(PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}; print(getattr(${_mod}, '__version__', 'unknown'))" 2>/dev/null || echo unknown))" >&2
-      continue
+      _ver="$(PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}; print(getattr(${_mod}, '__version__', 'unknown'))" 2>/dev/null || echo unknown)"
+      # A pinned spec (pkg==X) only counts as installed at exactly version X.
+      if [[ "${_pkg}" != *==* || "${_ver}" == "${_pkg##*==}" ]]; then
+        echo "[vlm-deps] ${_pkg} ok (${_ver})" >&2
+        continue
+      fi
+      echo "[vlm-deps] ${_mod} ${_ver} found, ${_pkg} required; reinstalling" >&2
     fi
     _missing+=("${_pkg}")
   done
@@ -1113,7 +1166,7 @@ ensure_inference_vlm_deps() {
   fi
   : "${CACHE_DIR:?CACHE_DIR must be set for VLM extra deps}"
 
-  local _py _target _spec _pkg _mod _missing=()
+  local _py _target _spec _pkg _mod _ver _missing=() _decord_pkg
   _py="$(_inference_vlm_python)"
   [[ -x "${_py}" ]] || { echo "[vlm-deps] error: python not found" >&2; return 1; }
 
@@ -1123,19 +1176,25 @@ ensure_inference_vlm_deps() {
     *":${_target}:"*) ;;
     *) export PYTHONPATH="${_target}${PYTHONPATH:+:${PYTHONPATH}}" ;;
   esac
+  _decord_pkg="$(avlm_decord_pip_pkg_unpinned)"
 
   for _spec in \
-    "decord:decord" \
+    "${_decord_pkg}:$(avlm_decord_import_module)" \
     "imageio-ffmpeg:imageio_ffmpeg" \
-    "librosa:librosa" \
+    "librosa==0.11.0:librosa" \
     "audioread:audioread" \
     "pooch:pooch" \
     "lazy-loader:lazy_loader"; do
     _pkg="${_spec%%:*}"
     _mod="${_spec##*:}"
     if PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}" 2>/dev/null; then
-      echo "[vlm-deps] ${_pkg} ok" >&2
-      continue
+      _ver="$(PYTHONPATH="${_target}:${PYTHONPATH:-}" "${_py}" -c "import ${_mod}; print(getattr(${_mod}, '__version__', 'unknown'))" 2>/dev/null || echo unknown)"
+      # A pinned spec (pkg==X) only counts as installed at exactly version X.
+      if [[ "${_pkg}" != *==* || "${_ver}" == "${_pkg##*==}" ]]; then
+        echo "[vlm-deps] ${_pkg} ok" >&2
+        continue
+      fi
+      echo "[vlm-deps] ${_mod} ${_ver} found, ${_pkg} required; reinstalling" >&2
     fi
     _missing+=("${_pkg}")
   done

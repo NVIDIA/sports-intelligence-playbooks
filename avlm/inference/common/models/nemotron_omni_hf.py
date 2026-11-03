@@ -18,8 +18,13 @@ from transformers import (AutoConfig,
 
 from avlm.inference.common.models import InferenceModel
 from avlm.inference.common.utils.video_io import (
+    local_video_path,
     maybe_path_or_url_to_data_urls,
     pil_image_from_base64,
+    sample_video_frames_to_data_urls,
+)
+from avlm.training.automodel.training_data_processing.video_sound_utils import (
+    video_has_audio_stream,
 )
 
 PROCESSOR_METADATA_KEYS = ("num_patches", "num_tokens", "imgs_sizes")
@@ -212,46 +217,59 @@ class NemotronOmniHF(InferenceModel):
                 **kwargs,
                 ):
 
-        image_urls, video_metadata = maybe_path_or_url_to_data_urls(
-            video_path,
-            fps=max(0, int(video_fps)),
-            nframe_max=int(max_video_frames),
-        )
-        frames = [pil_image_from_base64(image_url) for image_url in image_urls]
+        with local_video_path(video_path) as local_video:
+            if local_video is not None:
+                image_urls, video_metadata = sample_video_frames_to_data_urls(
+                    local_video,
+                    fps=max(0, int(video_fps)),
+                    nframe_max=int(max_video_frames),
+                )
+            else:
+                image_urls, video_metadata = maybe_path_or_url_to_data_urls(
+                    video_path,
+                    fps=max(0, int(video_fps)),
+                    nframe_max=int(max_video_frames),
+                )
+            frames = [pil_image_from_base64(image_url) for image_url in image_urls]
 
-        if self.resize:
-            frames = [
-                frame.convert("RGB").resize((512, 512))
-                for frame in frames
+            if self.resize:
+                frames = [
+                    frame.convert("RGB").resize((512, 512))
+                    for frame in frames
+                ]
+
+            use_audio = (
+                self.include_audio
+                and local_video is not None
+                and video_has_audio_stream(local_video)
+            )
+            media_tok = self.media_tok if use_audio else self.processor.video_token
+            messages = [
+                {"role": "user", "content": f"{media_tok}{question}"},
             ]
-        
-        messages = [
-            #{"role": "system", "content": "Answer the questions."},
-            {"role": "user", "content": f"{self.media_tok}{question}"},
-        ]
-        
-        prompt = self.tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=self.reasoning,
-        )
 
-        processor_kwargs = {
-            'text': [prompt],
-            'videos': frames,
-            'return_tensors': 'pt',
-            'do_sample_frames': False,
-        }
+            prompt = self.tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=self.reasoning,
+            )
 
-        if self.include_video_metadata:
-            processor_kwargs['videos_kwargs'] = {'video_metadata': video_metadata}
+            processor_kwargs = {
+                "text": [prompt],
+                "videos": frames,
+                "return_tensors": "pt",
+                "do_sample_frames": False,
+            }
 
-        if self.include_audio:
-            processor_kwargs['audio'] = [video_path]
-            processor_kwargs['audio_kwargs'] = {"sampling_rate": audio_sampling_rate}
+            if self.include_video_metadata:
+                processor_kwargs["videos_kwargs"] = {"video_metadata": video_metadata}
 
-        inputs = self.processor(**processor_kwargs)
+            if use_audio:
+                processor_kwargs["audio"] = [local_video]
+                processor_kwargs["audio_kwargs"] = {"sampling_rate": audio_sampling_rate}
+
+            inputs = self.processor(**processor_kwargs)
 
         for k in PROCESSOR_METADATA_KEYS:
             inputs.pop(k, None)
@@ -276,9 +294,6 @@ class NemotronOmniHF(InferenceModel):
                 **inputs,
                 **generate_kwargs,
             )
-
-        # if not isinstance(generated_ids, torch.Tensor):
-        #     generated_ids = generated_ids.sequences
 
         generated_ids_trimmed = [
             out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs['input_ids'], generated_ids)

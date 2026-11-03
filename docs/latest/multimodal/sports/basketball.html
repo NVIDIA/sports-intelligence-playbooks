@@ -1,0 +1,672 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Sports Intelligence Playbooks" name="project-name" />
+<meta content="1.5.0" name="docs-version" />
+
+    <title>Basketball &#8212; Sports Intelligence Playbooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f2778d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js?v=f8f0f945"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'multimodal/sports/basketball';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.5.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Published Checkpoints" href="../published_checkpoints.html" />
+    <link rel="prev" title="Tennis" href="tennis.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 03, 2026"/>
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Sports Intelligence Playbooks - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Sports Intelligence Playbooks - Home"/>
+  
+  
+    <p class="title logo__title">Sports Intelligence Playbooks</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Multimodal Language Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data_curation.html">Data Curation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../training/index.html">Training</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../training/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/sft.html">SFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../training/lora.html">LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference/index.html">Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation.html">Evaluation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/video_chunking.html">Video Chunking Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learnings/vision_encoder_and_fine_grained_perception.html">Vision Encoder Impact</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Reference Sports</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tennis.html">Tennis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Basketball</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../published_checkpoints.html">Published Checkpoints</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../runtime_optimization/index.html">Runtime Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../runtime_optimization/quantization.html">Quantization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../deployment/index.html">Deployment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/vllm.html">vLLM serving</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf_benchmarking.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../licenses.html">Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Reference Sports</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Basketball</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="basketball">
+<h1>Basketball<a class="headerlink" href="#basketball" title="Link to this heading">#</a></h1>
+<p>Basketball is a reference sport for these playbooks. This page is a reproduction reference for Nemotron-3-Nano-Omni fine-tuned on BARD: it answers the question types below on short basketball broadcast clips, with Hugging Face weights on <a class="reference internal" href="../published_checkpoints.html"><span class="doc">Published Checkpoints</span></a>. The walkthrough covers dataset, data preparation, training, and evaluation, with basketball-specific settings on top of the generic configs in the <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks">code repo</a>.</p>
+<section id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://huggingface.co/datasets/GabrieleGiudici/BARD">BARD</a> is a public basketball dataset of 14,676 labelled broadcast basketball clips from 60 games. Clips are cut on play-by-play boundaries. Each clip carries an ordered list of action labels, with the acting player’s jersey number and colour, the action, its result, and the assister, plus a caption that states every action in the clip, one sentence per action. The complete dataset (about 324 GB) is required for data preparation.</p>
+</section>
+<section id="data-preparation">
+<h2>Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<p>The example follows the generic pipeline in <a class="reference internal" href="../data_curation.html"><span class="doc">Data Curation</span></a>. The data generator applies the applicable templates (from 14 MCQ and 2 open-ended templates) to every clip and results in 175,193 data points from 14,676 clips.</p>
+<p>Splits are assigned such that every row from the same clip stays together. We get the following splits:</p>
+<ul class="simple">
+<li><p><strong>train</strong> / <strong>validation</strong> — clips from games used for training; validation is a held-out slice of rows from those clips</p></li>
+<li><p><strong>test-seen</strong> — held-out <strong>clips</strong> from games that also appear in train (new clip, same games)</p></li>
+<li><p><strong>test-unseen</strong> — <strong>nine whole games</strong> never used in train, validation, or test-seen</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>avlm/data_prep_example/basketball
+python<span class="w"> </span>prepare_training_data_pipeline.py
+<span class="c1"># output: training_basketball_data_output/bard_cat_&lt;split&gt;.jsonl</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>README (start here):</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/basketball/README.md">avlm/data_prep_example/basketball/README.md</a></p></li>
+<li><p><strong>Question taxonomy:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/basketball/categorical_evaluation/CATEGORICAL_EVAL.MD">CATEGORICAL_EVAL.MD</a>, the 16 templates with their super and fine categories, per-class ground truth, and data-quality gates</p></li>
+<li><p><strong>Per-class examples and baselines:</strong> <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/data_prep_example/basketball/categorical_evaluation/TEMPLATE_EXAMPLES_CATEGORICAL.MD">TEMPLATE_EXAMPLES_CATEGORICAL.MD</a></p></li>
+</ul>
+</section>
+<section id="training">
+<h2>Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h2>
+<p>Training is full SFT with NeMo AutoModel. Start from the generic <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/training/automodel/sft/configs/nemotron_omni_automodel_sft_multinode.yaml">multinode SFT config</a> and change the settings below.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 66.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Base checkpoint</p></td>
+<td><p><a class="reference external" href="https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16">nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16</a></p>
+<p>Perform a one-time preprocessing step by running <a class="reference external" href="https://github.com/NVIDIA/sports-intelligence-playbooks/blob/main/avlm/utils/fold_video_temporal.py">avlm/utils/fold_video_temporal.py</a> on the base checkpoint to disable temporal merge in the vision encoder so that each frame is encoded on its own.</p>
+<p>Set <code class="code docutils literal notranslate"><span class="pre">pretrained_model_name_or_path</span></code> to point to the prepared base checkpoint and set <code class="code docutils literal notranslate"><span class="pre">video_temporal_patch_dim:</span> <span class="pre">1</span></code> and <code class="code docutils literal notranslate"><span class="pre">video_target_num_patches:</span> <span class="pre">4096</span></code></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Vision encoder</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">freeze_vision_tower:</span> <span class="pre">false</span></code> and <code class="code docutils literal notranslate"><span class="pre">freeze_embeddings:</span> <span class="pre">true</span></code>. The audio encoder stays frozen and the language model stays trainable similar to the generic config</p></td>
+</tr>
+<tr class="row-even"><td><p>Frame sampling</p></td>
+<td><p>2 fps, up to 32 frames. Per-frame encoding doubles the tokens per frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sequence packing</p></td>
+<td><p>pack size 40,960, packing ratio 0.85</p></td>
+</tr>
+<tr class="row-even"><td><p>Data</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">bard_cat_train.jsonl</span></code> and <code class="code docutils literal notranslate"><span class="pre">bard_cat_val.jsonl</span></code> from the data preparation step</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Everything else stays as in the generic config. The released model was trained for 2,000 steps on 8 nodes (each node with 8xA100 80 GB GPUs).</p>
+<ul class="simple">
+<li><p><strong>Launch and setup:</strong> <a class="reference internal" href="../training/sft.html"><span class="doc">SFT</span></a></p></li>
+</ul>
+</section>
+<section id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h2>
+<p>Run inference using the AutoModel stack, followed by two scorers. MCQ accuracy is reported per class using regex and for open-ended Q&amp;A (clip caption and player action description) we use LLM judge using the following prompt. Inference uses the generic AutoModel SFT config with two changes. Frames are capped at 32 to match training and we used <code class="code docutils literal notranslate"><span class="pre">max_new_tokens:</span> <span class="pre">512</span></code> to allow generating the full caption.</p>
+<p><strong>MCQ scorer.</strong> The shared MCQ scorer in <a class="reference internal" href="../evaluation.html"><span class="doc">Evaluation</span></a> is used as is.</p>
+<p><strong>LLM judge.</strong> The judge is used with two basketball modifications. In the VLM config <code class="code docutils literal notranslate"><span class="pre">avlm/evals/qa_llm_judge/vlm_configs/default.yaml</span></code>, set <code class="code docutils literal notranslate"><span class="pre">metadata_mode:</span> <span class="pre">omit</span></code>, and use the following prompt. We did not build a metadata field for basketball, while attaching the clip’s full annotation as metadata is an option to give the judge context to credit an answer that is correct but describes a different aspect of the clip than the reference. The full prompt the judge receives is shown below. The first paragraph is the shared default and the rest is the basketball <code class="code docutils literal notranslate"><span class="pre">system_prompt</span></code>.</p>
+<p><strong>System message</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>You are an expert VLM evaluator. Provide accurate, fair, and detailed scoring
+based on the given criteria.
+
+You are also an expert basketball analyst scoring answers about short basketball broadcast clips.
+Two answer shapes occur. (1) clip_caption: the ground truth lists every logged action in
+the fixed format "A player with jersey number &lt;n&gt; and jersey_color &lt;colour&gt; made a
+&lt;action&gt; which result was made/miss and was assisted by other player with jersey number
+&lt;n&gt;" (result clause only for shots, assist clause only for assisted made shots; actions
+are 2PT Shot, 3PT Shot, Free Throw, Rebound, Foul, Turnover, Steal, Block, Violation).
+Score factual agreement per action record: jersey number, jersey colour, action type,
+made/miss result, and assist attribution all matter; missing or invented action records
+are severe errors; wording and line order differences alone are not. (2)
+player_action_description: the ground truth is a single sentence about one addressed
+player; score whether the prediction attributes the SAME action (and made/miss outcome,
+when stated) to the SAME player (jersey colour + number); extra correct detail is
+harmless, a wrong player, wrong action, or wrong outcome is a failure. Do not reward
+fluency.
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tennis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tennis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../published_checkpoints.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Published Checkpoints</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 03, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

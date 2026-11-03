@@ -4,6 +4,7 @@
 import argparse
 import os
 import re
+import sys
 import warnings
 
 from avlm.inference.common.utils.json_io import load_jsonl, write_json
@@ -32,8 +33,14 @@ def parse_results(num_infer_failed,
     return results_dict
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--inference-dir", required=True)
+    parser = argparse.ArgumentParser(
+        description="Score MCQ predictions; writes <inference-dir>/mcq/mcq_results.json"
+    )
+    parser.add_argument(
+        "--inference-dir",
+        required=True,
+        help="Inference output directory containing predictions.jsonl",
+    )
     args = parser.parse_args()
 
     return args
@@ -117,6 +124,14 @@ def main():
 
     results_path = os.path.join(mcq_dir, 'mcq_results.json')
     write_json(results_path, results_dict)
+
+    if results_dict['total_mcq_questions'] == 0:
+        sys.exit(
+            f"error: 0 MCQ rows scored in {pred_path}: no row has "
+            "evaluation_type 'mcq' with a '(X) ...' ground truth. Regenerate "
+            "the dataset with evaluation_type, or skip the mcq stage for "
+            "open-ended-only data."
+        )
 
 if __name__ == "__main__":
     main()

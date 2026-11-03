@@ -18,10 +18,12 @@ hoists ``dataloader.packed_sequence`` before training when packing is enabled.
 
 from __future__ import annotations
 
+import inspect
 import logging
 import math
 import os
 import time
+from contextvars import ContextVar
 from copy import deepcopy
 from typing import Any, Iterator
 
@@ -305,14 +307,87 @@ def _finalize_val_dataloader(dataloader: Any, *, num_replicas: int, rank: int) -
     )
 
 
+_MAMBA_KERNEL_NAME = "mamba_split_conv1d_scan_combined"
+_MAMBA_PATCHED = "_avlm_mamba_out_proj_lora"
+_MAMBA_OUT_PROJ: ContextVar[torch.nn.Module | None] = ContextVar(
+    "avlm_mamba_out_proj_lora", default=None
+)
+
+
+def _has_lora(module: torch.nn.Module | None) -> bool:
+    return module is not None and hasattr(module, "lora_A") and hasattr(module, "lora_B")
+
+
+def _call_mamba_without_out_proj(kernel, args, kwargs):
+    """Run the fused Mamba kernel without its output projection."""
+    try:
+        bound = inspect.signature(kernel).bind(*args, **kwargs)
+    except (TypeError, ValueError):
+        bound = None
+    if bound is not None and "outproj_weight" in bound.signature.parameters:
+        if bound.arguments.get("outproj_weight") is None:
+            return kernel(*args, **kwargs), False
+        bound.arguments["outproj_weight"] = None
+        bound.arguments["outproj_bias"] = None
+        return kernel(*bound.args, **bound.kwargs), True
+    if kwargs.get("outproj_weight") is None:
+        return kernel(*args, **kwargs), False
+    kwargs = dict(kwargs)
+    kwargs["outproj_weight"] = None
+    kwargs["outproj_bias"] = None
+    return kernel(*args, **kwargs), True
+
+
+def _enable_mamba_out_proj_lora(_model: torch.nn.Module) -> int:
+    """Make fused Mamba training call an attached ``out_proj`` LoRA adapter."""
+    from mamba_ssm.ops.triton import ssd_combined
+    from nemo_automodel.components.models.nemotron_v3.layers import NemotronV3Mamba2Mixer
+
+    forward = NemotronV3Mamba2Mixer.forward
+    if getattr(forward, _MAMBA_PATCHED, False):
+        return 1
+    kernel = getattr(ssd_combined, _MAMBA_KERNEL_NAME, None)
+    if not callable(kernel) or _MAMBA_KERNEL_NAME not in forward.__code__.co_names:
+        return 0
+
+    def kernel_without_out_proj(*args, **kwargs):
+        out_proj = _MAMBA_OUT_PROJ.get()
+        if out_proj is None:
+            return kernel(*args, **kwargs)
+        result, stripped = _call_mamba_without_out_proj(kernel, args, kwargs)
+        return out_proj(result) if stripped else result
+
+    def forward_with_out_proj_lora(self, *args, **kwargs):
+        out_proj = getattr(self, "out_proj", None)
+        if not _has_lora(out_proj):
+            return forward(self, *args, **kwargs)
+        token = _MAMBA_OUT_PROJ.set(out_proj)
+        try:
+            return forward(self, *args, **kwargs)
+        finally:
+            _MAMBA_OUT_PROJ.reset(token)
+
+    setattr(kernel_without_out_proj, _MAMBA_PATCHED, True)
+    ssd_combined.mamba_split_conv1d_scan_combined = kernel_without_out_proj
+    setattr(forward_with_out_proj_lora, _MAMBA_PATCHED, True)
+    NemotronV3Mamba2Mixer.forward = forward_with_out_proj_lora
+    logger.info("Enabled Mamba out_proj LoRA path.")
+    return 1
+
+
 def apply_never_grad_param_freeze_patch() -> None:
     """Freeze the unused RADIO patch embedder before optimizer construction."""
-    if getattr(finetune_mod.build_model, "_avlm_never_grad_freeze", False):
+    setup_globals = _FinetuneRecipeForVLM.setup.__globals__
+    if getattr(setup_globals["build_model"], "_avlm_never_grad_freeze", False):
         return
-    orig_build_model = finetune_mod.build_model
+    orig_build_model = setup_globals["build_model"]
 
     def build_model_freezing_never_grad(*args, **kwargs):
         model = orig_build_model(*args, **kwargs)
+        enabled = _enable_mamba_out_proj_lora(model)
+        peft = kwargs.get("cfg_peft", args[2] if len(args) > 2 else None)
+        if peft is not None and "*mixer.out_proj*" not in peft.exclude_modules and not enabled:
+            raise RuntimeError("Mamba out_proj LoRA was requested but its training path was not enabled")
         # The unused embedder receives no gradients and has no optimizer state to restore.
         for name, param in model.named_parameters():
             if name == "vision_model.radio_model.model.patch_generator.embedder.weight":
@@ -320,7 +395,7 @@ def apply_never_grad_param_freeze_patch() -> None:
         return model
 
     build_model_freezing_never_grad._avlm_never_grad_freeze = True
-    finetune_mod.build_model = build_model_freezing_never_grad
+    setup_globals["build_model"] = build_model_freezing_never_grad
 
 
 class FinetuneRecipeForVLM(_FinetuneRecipeForVLM):

@@ -99,7 +99,9 @@ def video_sound_collate_fn(
         audio_path = ex.pop("audio_video_path", None)
         if audio_path and ex.get("audio") is None:
             try:
-                ex["audio"] = load_audio_from_video(audio_path, target_sr=target_sr)
+                wav = load_audio_from_video(audio_path, target_sr=target_sr)
+                if wav is not None:
+                    ex["audio"] = wav
             except Exception:
                 logger.exception("Failed to load audio from %s", audio_path)
                 raise

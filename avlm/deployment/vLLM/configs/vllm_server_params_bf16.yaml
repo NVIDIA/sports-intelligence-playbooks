@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# BF16 tennis / baseline. Swap model_path; MODEL_PATH env overrides YAML.
+#
+#   SERVE_CONFIG=avlm/deployment/vLLM/configs/vllm_server_params_bf16.yaml \
+#     bash avlm/deployment/vLLM/vllm_server.sh start
+# Client: VLLM_CHAT_MODEL=nemotron_3_nano_omni_bf16
+
+# model_path: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+# Hub published tennis SFT
+# model_path: nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis
+model_path: ${REPO_ROOT}/model_checkpoints/automodel/sft/checkpoints_n8_tp1_pp1_ep8/epoch_1_step_2599/model/consolidated
+
+cache_dir: ${REPO_ROOT}/.cache
+
+served_model_name: nemotron_3_nano_omni_bf16
+
+vllm_port: 12500
+tensor_parallel_size: 1
+data_parallel_size: 1
+pin_serve_gpus: true
+cuda_visible_devices: "0"
+
+max_model_len: 32768
+max_num_seqs: 4
+max_num_queued_reqs: 8
+vllm_kv_cache_memory: 8589934592
+
+num_frames: 128
+fps: 2
+video_backend: hub_checkpoint
+video_pruning_rate: 0.0
+
+vllm_dtype: bfloat16
+vllm_enforce_eager: false
+vllm_moe_backend: triton
+
+enable_reasoning: false
+reasoning_parser: nemotron_v3
+
+max_tokens: 512
+stream: false

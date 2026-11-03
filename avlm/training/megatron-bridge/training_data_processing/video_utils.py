@@ -29,8 +29,44 @@ def _ffmpeg_exe() -> str | None:
         return None
 
 
-def _load_audio_from_path(path: str, target_sr: int = 16000) -> np.ndarray:
+def video_has_audio_stream(video_path: str) -> bool:
+    """Return True when ``video_path`` contains at least one audio stream."""
+    ffprobe = shutil.which("ffprobe")
+    if ffprobe:
+        proc = subprocess.run(
+            [
+                ffprobe,
+                "-v",
+                "error",
+                "-select_streams",
+                "a",
+                "-show_entries",
+                "stream=index",
+                "-of",
+                "csv=p=0",
+                video_path,
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode == 0:
+            return bool(proc.stdout.strip())
+    ffmpeg = _ffmpeg_exe()
+    if not ffmpeg:
+        return False
+    probe = subprocess.run(
+        [ffmpeg, "-hide_banner", "-i", video_path],
+        capture_output=True,
+        text=True,
+    )
+    stderr = probe.stderr or ""
+    return any(line.strip().startswith("Stream") and " Audio:" in line for line in stderr.splitlines())
+
+
+def _load_audio_from_path(path: str, target_sr: int = 16000) -> np.ndarray | None:
     """Load mono audio at ``target_sr``; video containers via ffmpeg, else Bridge ``load_audio``."""
+    if not video_has_audio_stream(path):
+        return None
     if os.path.splitext(path)[1].lower() in _FFMPEG_SUFFIXES and (ffmpeg := _ffmpeg_exe()):
         try:
             import soundfile as sf
@@ -121,5 +157,7 @@ def prepare_collate_example(
     )
     if audio_path and ex.get("audio") is None and ex.get("audio_path") is None:
         target_sr = 16000
-        ex["audio"] = (_load_audio_from_path(audio_path, target_sr=target_sr), target_sr)
+        wav = _load_audio_from_path(audio_path, target_sr=target_sr)
+        if wav is not None:
+            ex["audio"] = (wav, target_sr)
     return ex

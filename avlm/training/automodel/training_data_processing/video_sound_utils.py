@@ -31,15 +31,56 @@ def _ffmpeg_exe() -> str | None:
 
 def video_path_from_content_item(item: dict[str, Any]) -> str | None:
     """Return a string video path from HF ``content`` items (``video`` or ``path`` key)."""
-    for key in ("video", "path"):
-        val = item.get(key)
-        if isinstance(val, str) and val.strip():
-            return val.strip()
+    val = item.get("video")
+    if isinstance(val, str) and val.strip():
+        return val.strip()
+    # Decoded frames live under ``video`` as a list; do not fall back to relative ``path``.
+    if val is not None:
+        return None
+    val = item.get("path")
+    if isinstance(val, str) and val.strip():
+        return val.strip()
     return None
 
 
-def load_audio_from_video(video_path: str, target_sr: int = 16000) -> np.ndarray:
-    """Decode mono float32 audio from an MP4 (or other ffmpeg-supported) file."""
+def video_has_audio_stream(video_path: str) -> bool:
+    """Return True when ``video_path`` contains at least one audio stream."""
+    ffprobe = shutil.which("ffprobe")
+    if ffprobe:
+        proc = subprocess.run(
+            [
+                ffprobe,
+                "-v",
+                "error",
+                "-select_streams",
+                "a",
+                "-show_entries",
+                "stream=index",
+                "-of",
+                "csv=p=0",
+                video_path,
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode == 0:
+            return bool(proc.stdout.strip())
+    ffmpeg = _ffmpeg_exe()
+    if not ffmpeg:
+        return False
+    probe = subprocess.run(
+        [ffmpeg, "-hide_banner", "-i", video_path],
+        capture_output=True,
+        text=True,
+    )
+    stderr = probe.stderr or ""
+    return any(line.strip().startswith("Stream") and " Audio:" in line for line in stderr.splitlines())
+
+
+def load_audio_from_video(video_path: str, target_sr: int = 16000) -> np.ndarray | None:
+    """Decode mono float32 audio from a video container, or ``None`` if there is no audio track."""
+    if not video_has_audio_stream(video_path):
+        return None
     if os.path.splitext(video_path)[1].lower() in _FFMPEG_SUFFIXES and (ffmpeg := _ffmpeg_exe()):
         try:
             proc = subprocess.run(
@@ -64,7 +105,7 @@ def load_audio_from_video(video_path: str, target_sr: int = 16000) -> np.ndarray
                 check=True,
             )
             if not proc.stdout:
-                return np.zeros(0, dtype=np.float32)
+                return None
             pcm = np.frombuffer(proc.stdout, dtype=np.int16)
             return (pcm.astype(np.float32) / 32768.0).copy()
         except (OSError, subprocess.CalledProcessError):
@@ -73,7 +114,8 @@ def load_audio_from_video(video_path: str, target_sr: int = 16000) -> np.ndarray
     import librosa
 
     wav, _ = librosa.load(video_path, sr=target_sr, mono=True)
-    return np.asarray(wav, dtype=np.float32)
+    wav = np.asarray(wav, dtype=np.float32)
+    return wav if wav.size else None
 
 
 def inject_sound_token_into_example(example: dict[str, Any], processor) -> dict[str, Any]:

@@ -42,7 +42,7 @@ from dataclasses import dataclass, field
 from tqdm import tqdm
 
 # Import LLM helper functions
-from llm_helper import generate_tennis_mcq_with_llm
+from llm_helper import generate_tennis_mcq_with_llm, get_distractor_fallback_count
 
 # Configure logging - set to WARNING to reduce API call logs
 logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -498,7 +498,8 @@ class ConfigDrivenMCQGenerator:
                  max_workers: int = 4, api_rate_limit: float = 1.0,
                  enable_progress_bar: bool = True,
                  question_types: Optional[List[str]] = None,
-                 video_root: Optional[str] = None):
+                 video_root: Optional[str] = None,
+                 offline: bool = False):
         """
         Initialize MCQ and QA generator with configuration files.
 
@@ -513,6 +514,7 @@ class ConfigDrivenMCQGenerator:
                 template defined in the MCQ and QA config files is generated.
             video_root: Directory used to resolve relative point clip paths.
                 When set, points whose resolved clip is missing/empty are skipped.
+            offline: Skip ``llm_gen_distractor`` templates (no API calls).
         """
         mcq_config = self.load_config(mcq_config_file) if mcq_config_file else {}
         qa_config = self.load_config(qa_config_file) if qa_config_file else {}
@@ -534,6 +536,11 @@ class ConfigDrivenMCQGenerator:
                 logging.info(f"Not generating {len(skipped)} question types: {sorted(skipped)}")
 
         self.question_templates = self._filter_templates(all_mcq, allowed)
+        if offline:
+            self.question_templates = {
+                name: tmpl for name, tmpl in self.question_templates.items()
+                if tmpl.get('type') != 'llm_gen_distractor'
+            }
         self.qa_templates = self._filter_templates(all_qa, allowed)
         self.video_root = os.path.abspath(video_root) if video_root else None
         
@@ -674,12 +681,17 @@ class ConfigDrivenMCQGenerator:
     
     def get_api_statistics(self) -> Dict[str, Any]:
         """Get API call statistics."""
+        # Calls that fell back to fixed generic distractors returned normally
+        # but are not LLM successes.
+        fallback_calls = get_distractor_fallback_count()
+        successful_calls = self._successful_calls - fallback_calls
         return {
             "total_calls": self._api_call_count,
-            "successful_calls": self._successful_calls,
+            "successful_calls": successful_calls,
+            "fallback_calls": fallback_calls,
             "failed_calls": self._failed_calls,
             "retry_attempts": self._retry_attempts,
-            "success_rate": self._successful_calls / max(self._api_call_count, 1) * 100,
+            "success_rate": successful_calls / max(self._api_call_count, 1) * 100,
             "total_api_time": self._total_api_time,
             "average_call_time": self._total_api_time / max(self._successful_calls, 1)
         }
@@ -1981,6 +1993,7 @@ class ConfigDrivenMCQGenerator:
         print("=" * 50)
         print(f"Total API calls: {stats['total_calls']}")
         print(f"Successful calls: {stats['successful_calls']}")
+        print(f"Fallback calls (fixed generic distractors): {stats['fallback_calls']}")
         print(f"Failed calls: {stats['failed_calls']}")
         print(f"Retry attempts: {stats['retry_attempts']}")
         print(f"Success rate: {stats['success_rate']:.1f}%")

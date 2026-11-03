@@ -60,7 +60,7 @@ class HfMcoreNemotronOmniTaskEncoder(NemotronOmniTaskEncoder):
             return 0
         return int(pad_id) if pad_id is not None else 0
 
-    def _processor_conversation(self, conversation):
+    def _processor_conversation(self, conversation, *, include_audio: bool):
         video_token = getattr(self.processor, "video_token", "<video>")
         audio_token = getattr(self.processor, "audio_token", "<so_embedding>")
         video_count = 0
@@ -73,8 +73,8 @@ class HfMcoreNemotronOmniTaskEncoder(NemotronOmniTaskEncoder):
                 if item_type == "video":
                     video_count += 1
                     parts.append(video_token)
-                    # parts.append(audio_token)
-                    parts.append(f"\n{audio_token}\n")
+                    if include_audio:
+                        parts.append(f"\n{audio_token}\n")
                 elif item_type == "text":
                     parts.append(str(item.get("text", "")))
             converted.append({"role": turn["role"], "content": "".join(parts)})
@@ -90,11 +90,15 @@ class HfMcoreNemotronOmniTaskEncoder(NemotronOmniTaskEncoder):
                 frame.convert("RGB").resize((512, 512))
                 for frame in video_frames
             ]
-        waveform = sample.audio.detach().cpu().numpy()
-        waveform = np.asarray(waveform, dtype=np.float32).reshape(-1)
+        audio_tensor = getattr(sample, "audio", None)
+        has_audio = audio_tensor is not None
+        waveform = None
+        if has_audio:
+            waveform = audio_tensor.detach().cpu().numpy()
+            waveform = np.asarray(waveform, dtype=np.float32).reshape(-1)
 
         conversation = cook_chatml_sample(sample.conversation)
-        text_conversation = self._processor_conversation(conversation)
+        text_conversation = self._processor_conversation(conversation, include_audio=has_audio)
         prompt = self._tokenizer.apply_chat_template(
             text_conversation,
             tokenize=False,
@@ -111,14 +115,16 @@ class HfMcoreNemotronOmniTaskEncoder(NemotronOmniTaskEncoder):
             frames_indices=frame_indices,
         )
 
-        processor_output = self.processor(
-            text=[prompt],
-            videos=video_frames,
-            audio=[waveform],
-            videos_kwargs={"video_metadata": metadata},
-            return_tensors="pt",
-            do_sample_frames=False,
-        )
+        processor_kwargs = {
+            "text": [prompt],
+            "videos": video_frames,
+            "videos_kwargs": {"video_metadata": metadata},
+            "return_tensors": "pt",
+            "do_sample_frames": False,
+        }
+        if has_audio:
+            processor_kwargs["audio"] = [waveform]
+        processor_output = self.processor(**processor_kwargs)
 
         input_ids = processor_output["input_ids"]
         input_ids_np = input_ids[0].detach().cpu().numpy()
@@ -180,12 +186,15 @@ class HfMcoreNemotronOmniTaskEncoder(NemotronOmniTaskEncoder):
                 self.seq_length,
             )
 
-        sound_clips = compute_mel_features(
-            waveform,
-            sampling_rate=16000,
-            num_mel_bins=self.num_mel_bins,
-        )
-        sound_length = torch.tensor(sound_clips.shape[0], dtype=torch.long)
+        sound_clips = None
+        sound_length = None
+        if has_audio:
+            sound_clips = compute_mel_features(
+                waveform,
+                sampling_rate=16000,
+                num_mel_bins=self.num_mel_bins,
+            )
+            sound_length = torch.tensor(sound_clips.shape[0], dtype=torch.long)
 
         return NemotronOmniTaskSample(
             __key__=sample.__key__,

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" role="img" aria-label="Basketball understanding hierarchy with four non-overlapping super categories">
+  <rect width="1000" height="440" fill="#f7f8fa"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L10 5 L0 10 z" fill="#9aa6b5"/>
+    </marker>
+  </defs>
+  <rect x="20" y="192" width="155" height="60" rx="10" fill="#173f5f"/>
+  <text x="97" y="217" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="14">Basketball</text>
+  <text x="97" y="237" text-anchor="middle" fill="white" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="14">Understanding</text>
+  <g stroke="#9aa6b5" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M175 222 C220 222, 214 60, 260 60"/>
+    <path d="M175 222 C220 222, 214 170, 260 170"/>
+    <path d="M175 222 C220 222, 214 270, 260 270"/>
+    <path d="M175 222 C220 222, 214 385, 260 385"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">
+    <rect x="260" y="35" width="220" height="50" rx="9" fill="#eaf2f8" stroke="#20639b"/>
+    <text x="370" y="56" fill="#173f5f">Fine-Grained Visual</text><text x="370" y="73" fill="#173f5f">Recognition</text>
+    <rect x="260" y="145" width="220" height="50" rx="9" fill="#f1edfa" stroke="#6f5aa8"/>
+    <text x="370" y="166" fill="#554180">Match Structure &amp;</text><text x="370" y="183" fill="#554180">Reasoning</text>
+    <rect x="260" y="245" width="220" height="50" rx="9" fill="#fff5e3" stroke="#e9a23b"/>
+    <text x="370" y="275" fill="#855b11">Player Identification</text>
+    <rect x="260" y="360" width="220" height="50" rx="9" fill="#faedf0" stroke="#b44c65"/>
+    <text x="370" y="390" fill="#8b3048">Commentary &amp; Reporting</text>
+  </g>
+  <g stroke="#b7c0cc" stroke-width="1.5" fill="none">
+    <path d="M480 60 H510 V8 H534"/><path d="M510 60 V34 H534"/><path d="M510 60 H534"/><path d="M510 60 V86 H534"/><path d="M510 60 V112 H534"/>
+    <path d="M480 170 H510 V162 H534"/><path d="M510 170 V192 H534"/>
+    <path d="M480 270 H510 V247 H534"/><path d="M510 270 V277 H534"/><path d="M510 270 V307 H534"/>
+    <path d="M480 385 H510 V377 H534"/><path d="M510 385 V407 H534"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#34435a">
+    <text x="540" y="12"><tspan font-weight="700">Action attribution</tspan><tspan fill="#5d687c"> &#8212; what the named player does</tspan></text>
+    <text x="540" y="38"><tspan font-weight="700">Shot mechanics</tspan><tspan fill="#5d687c"> &#8212; two-pointer, three-pointer or free throw</tspan></text>
+    <text x="540" y="64"><tspan font-weight="700">Shot outcome</tspan><tspan fill="#5d687c"> &#8212; made, missed or blocked</tspan></text>
+    <text x="540" y="90"><tspan font-weight="700">Play construction</tspan><tspan fill="#5d687c"> &#8212; assisted vs unassisted basket</tspan></text>
+    <text x="540" y="116"><tspan font-weight="700">Rebounding</tspan><tspan fill="#5d687c"> &#8212; offensive or defensive board</tspan></text>
+    <text x="540" y="166"><tspan font-weight="700">Possession outcome</tspan><tspan fill="#5d687c"> &#8212; how a no-shot possession ends</tspan></text>
+    <text x="540" y="196"><tspan font-weight="700">Play structure</tspan><tspan fill="#5d687c"> &#8212; temporal order of the actions</tspan></text>
+    <text x="540" y="251"><tspan font-weight="700">Player identification</tspan><tspan fill="#5d687c"> &#8212; jersey number of the actor</tspan></text>
+    <text x="540" y="281"><tspan font-weight="700">Team attribution</tspan><tspan fill="#5d687c"> &#8212; jersey colour of the actor</tspan></text>
+    <text x="540" y="311"><tspan font-weight="700">Play construction</tspan><tspan fill="#5d687c"> &#8212; which teammate assisted</tspan></text>
+    <text x="540" y="381"><tspan font-weight="700">Structured reporting</tspan><tspan fill="#5d687c"> &#8212; BARD-format action caption</tspan></text>
+    <text x="540" y="411"><tspan font-weight="700">Action attribution</tspan><tspan fill="#5d687c"> &#8212; one-player free-text description</tspan></text>
+  </g>
+</svg>

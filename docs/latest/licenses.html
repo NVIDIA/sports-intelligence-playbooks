@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Sports Intelligence Playbooks" name="project-name" />
-<meta content="1.0.0" name="docs-version" />
+<meta content="1.5.0" name="docs-version" />
 
     <title>Licenses &#8212; Sports Intelligence Playbooks</title>
   
@@ -35,7 +35,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=2e653c1b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=51f2778d" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -48,7 +48,7 @@
 
 
     <script rel="preload" src="_static/modal-table.js"></script>
-    <script src="_static/documentation_options.js?v=a12e3537"></script>
+    <script src="_static/documentation_options.js?v=f8f0f945"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -58,7 +58,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.5.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -69,13 +69,13 @@
 
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Prefer Event-Based Video Chunking" href="multimodal/learnings/video_chunking.html" />
+    <link rel="prev" title="Performance Benchmarking" href="multimodal/perf_benchmarking.html" />
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 02, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 03, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -338,14 +338,29 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="multimodal/inference/index.html">Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multimodal/evaluation.html">Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="multimodal/perf_benchmarking.html">Performance</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/learnings.html">Learnings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/dataset_size_and_boundary_sensitivity.html">Data Size Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/effective_input_resolution.html">Frame Resolution Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/training_data_and_prediction_bias.html">Training Data Bias Impact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/video_chunking.html">Video Chunking Impact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/learnings/vision_encoder_and_fine_grained_perception.html">Vision Encoder Impact</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/sports/index.html">Reference Sports</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/sports/tennis.html">Tennis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/sports/basketball.html">Basketball</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/published_checkpoints.html">Published Checkpoints</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/runtime_optimization/index.html">Runtime Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/runtime_optimization/quantization.html">Quantization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multimodal/deployment/index.html">Deployment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimodal/deployment/vllm.html">vLLM serving</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="multimodal/perf_benchmarking.html">Performance</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current nav bd-sidenav">
@@ -431,12 +446,12 @@ in <a class="reference external" href="https://github.com/NVIDIA/sports-intellig
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="multimodal/learnings/video_chunking.html"
+       href="multimodal/perf_benchmarking.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Prefer Event-Based Video Chunking</p>
+        <p class="prev-next-title">Performance Benchmarking</p>
       </div>
     </a>
 </div>
@@ -552,7 +567,7 @@ in <a class="reference external" href="https://github.com/NVIDIA/sports-intellig
 </div>
       
         <div class="footer-item"><p class="last-updated">
-  Last updated on Oct 02, 2026.
+  Last updated on Nov 03, 2026.
   <br/>
 </p></div>
       

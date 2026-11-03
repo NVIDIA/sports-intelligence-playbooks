@@ -3,6 +3,7 @@
 
 import json
 import os
+import threading
 import time
 import re
 
@@ -28,6 +29,17 @@ _load_env_files()
 # example, which never calls the LLM). The client is only built when an
 # LLM-backed function is actually invoked.
 _client = None
+
+# Distractor calls that failed (e.g. no API key) and fell back to fixed generic
+# distractors. Callers report it so a fallback is never counted as a success.
+_distractor_fallbacks = 0
+_fallback_lock = threading.Lock()
+
+
+def get_distractor_fallback_count() -> int:
+    """Return how many MCQs received fixed generic distractors after an LLM failure."""
+    return _distractor_fallbacks
+
 
 # GPT-5.2 on each provider (model slugs differ by endpoint).
 OPENAI_API_BASE_URL = "https://api.openai.com/v1"
@@ -67,6 +79,14 @@ def _llm_settings() -> dict:
 def get_default_model() -> str:
     """Return the model name for the configured provider."""
     return _llm_settings()["model"]
+
+
+def missing_api_key_var() -> str:
+    """Return the API-key variable the configured provider needs if it is unset, else ''."""
+    settings = _llm_settings()
+    if settings["api_key"]:
+        return ""
+    return "OPENAI_API_KEY" if settings["provider"] == "openai" else "NVIDIA_API_KEY"
 
 
 def get_client():
@@ -361,6 +381,9 @@ def generate_tennis_distractors_from_llm(metadata: dict, correct_answer: str, pr
         return [x for x in distractors if x and x.strip()][:3]
     
     except Exception as e:
+        global _distractor_fallbacks
+        with _fallback_lock:
+            _distractor_fallbacks += 1
         print(f"Error generating LLM distractors: {e}")
         # Return generic distractors as fallback
         return [

@@ -49,6 +49,7 @@ peft:
     - "*sound*"
     - "*lm_head*"
     - "*mlp1*"
+    - "*mixer.out_proj*"
   dim: 64
   alpha: 128
   use_triton: true

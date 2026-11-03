@@ -113,14 +113,16 @@ body.modal-open #pst-back-to-top {
 .bd-article #small-training-datasets-amplify-boundary-sensitivity > h1,
 .bd-article #effective-resolution-s-impact-on-prediction-accuracy > h1,
 .bd-article #training-data-bias-shapes-prediction-bias > h1,
-.bd-article #prefer-event-based-video-chunking > h1 {
+.bd-article #prefer-event-based-video-chunking > h1,
+.bd-article #adapt-the-vision-encoder-for-fine-grained-perception > h1 {
     font-size: 1.75rem;
 }
 
 .bd-article #small-training-datasets-amplify-boundary-sensitivity h2,
 .bd-article #effective-resolution-s-impact-on-prediction-accuracy h2,
 .bd-article #training-data-bias-shapes-prediction-bias h2,
-.bd-article #prefer-event-based-video-chunking h2 {
+.bd-article #prefer-event-based-video-chunking h2,
+.bd-article #adapt-the-vision-encoder-for-fine-grained-perception h2 {
     font-size: 1.5rem;
 }
 
@@ -128,6 +130,17 @@ body.modal-open #pst-back-to-top {
 .bd-article .learning-page-figure figcaption .caption-number,
 .bd-article .learning-page-figure figcaption .caption-text {
     color: var(--pst-color-text-base);
+    font-size: 1rem;
+    line-height: 1.55;
+}
+
+.bd-article .learning-page-figure figcaption {
+    margin-top: 0.35rem;
+}
+
+.bd-article .learning-page-figure > img,
+.bd-article .learning-page-figure img {
+    margin-bottom: 0;
 }
 
 .bd-article .learning-page-figure figcaption .caption-number {

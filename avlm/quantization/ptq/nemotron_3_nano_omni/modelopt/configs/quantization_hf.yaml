@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Hugging Face PTQ for the public reasoning BF16 checkpoint.
+# quantize.sh hf reads this file. QUANT_FORMAT=nvfp4 on the command line overrides QUANT_FORMAT.
+
+# Scratch root for downloads and, when QUANT_USE_CONTAINER_PKGS is 0, the quant venv.
+CACHE_DIR: ${REPO_ROOT}/.cache
+
+# Hub id (org/model) or an absolute consolidated/ directory.
+# A Hub id is stored under ${WORKSPACE}/base/<repo-name-lowercase>/ and downloaded
+# when HF_MODEL_AUTO_DOWNLOAD is 1 (the default).
+HF_MODEL_ID: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+# Optional directory for that Hub id, instead of the default under WORKSPACE/base/.
+# HF_MODEL_LOCAL_DIR: "@repo/quantization_workspace/base/nemotron-3-nano-omni-reasoning-bf16"
+# HF_MODEL_AUTO_DOWNLOAD: 1
+
+# hf: load with Transformers, calibrate, and export a Hugging Face quant checkpoint.
+QUANT_BACKEND: hf
+
+# 1: NeMo container Python plus a small overlay. 0: build CACHE_DIR/venv_quant.
+QUANT_USE_CONTAINER_PKGS: 1
+
+# Model Optimizer tree. BOOTSTRAP=1 clones GIT_REF into MODELOPT_ROOT when quantize.py is missing.
+MODELOPT_ROOT: Model-Optimizer
+MODELOPT_GIT_BOOTSTRAP: 1
+MODELOPT_GIT_REF: main
+
+# fp8 → fp8_fp8_kv. nvfp4 → nvfp4_fp8_mixed_fp8_kv.
+# Set QUANTIZE_CONFIG only to override that preset name.
+QUANT_FORMAT: fp8
+# QUANTIZE_CONFIG:
+
+# Calibration forwards (batch size 1) on nemotron_vlm_dataset_v2.
+# MoE needs at least 32 samples; 512 is the usual count. Shards download under ${WORKSPACE}/datasets/hub/.
+NUM_SAMPLES: 512
+# EVS video-token pruning during calibration. Omit to keep the code default of 0 (off).
+# VIDEO_PRUNING_RATE: 0
+# Where calibration shards are stored. Absolute, @repo/..., or relative to CACHE_DIR.
+# QUANT_DATASETS_DIR: "@repo/quantization_workspace/datasets"
+
+# Run root. "@repo/..." is under the repo (quote the @). A relative path is under CACHE_DIR.
+WORKSPACE: "@repo/quantization_workspace"
+
+# Names the export: ${WORKSPACE}/models/${QUANT_RUN_LABEL}-${QUANT_FORMAT}-hf
+# and the work dir ${WORKSPACE}/quant_runs/${QUANT_RUN_LABEL}-${QUANT_FORMAT}.
+QUANT_RUN_LABEL: nemotron-3-nano-omni-reasoning

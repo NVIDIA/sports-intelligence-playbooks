@@ -8,6 +8,7 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
+import os
 import random
 from typing import Any, Sequence
 
@@ -151,9 +152,15 @@ def _decode_videos_in_example(
         for item in content:
             if item.get("type") != "video":
                 continue
+            if isinstance(item.get("video"), list):
+                continue
             vid = video_path_from_content_item(item)
             if vid is None:
                 continue
+            if not os.path.isabs(vid):
+                abs_from_example = example.get("audio_video_path")
+                if isinstance(abs_from_example, str) and os.path.isfile(abs_from_example):
+                    vid = abs_from_example
             vr = decord.VideoReader(vid)
             total = len(vr)
             video_fps = vr.get_avg_fps()
@@ -295,7 +302,8 @@ class VideoSoundPreTokenizedDatasetWrapper(PreTokenizedDatasetWrapper):
                 if path := example.get("audio_video_path"):
                     target_sr = getattr(self.processor, "audio_sampling_rate", 16000)
                     audio_waveform = load_audio_from_video(path, target_sr=target_sr)
-                    example["audio"] = audio_waveform
+                    if audio_waveform is not None:
+                        example["audio"] = audio_waveform
 
                 inject_sound_token_into_example(example, self.processor)
                 conversation = example["conversation"]
