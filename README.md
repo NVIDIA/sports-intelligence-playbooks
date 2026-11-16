@@ -58,13 +58,17 @@ Two training stacks:
       <td><code>avlm/data_prep_example/basketball/</code></td>
     </tr>
     <tr>
-      <td rowspan="6"><b>Training</b></td>
+      <td rowspan="7"><b>Training</b></td>
       <td><a href="avlm/training/automodel/sft/SFT_GUIDE.MD">AutoModel SFT</a></td>
       <td><code>avlm/training/automodel/sft/</code> (<code>generic/</code> + <code>slurm/</code>)</td>
     </tr>
     <tr>
       <td><a href="avlm/training/automodel/lora/LORA_GUIDE.MD">AutoModel LoRA</a></td>
       <td><code>avlm/training/automodel/lora/</code> (<code>generic/</code> + <code>slurm/</code>)</td>
+    </tr>
+    <tr>
+      <td><a href="avlm/training/automodel/lora/export/EXPORT.MD">AutoModel LoRA export (BF16 merge, FP8)</a></td>
+      <td><code>avlm/training/automodel/lora/export/</code></td>
     </tr>
     <tr>
       <td><a href="avlm/training/megatron-bridge/sft/SFT_GUIDE.MD">Megatron-Bridge SFT</a></td>

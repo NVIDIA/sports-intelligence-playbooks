@@ -117,7 +117,7 @@ Edit `configs/vllm_server_params.yaml` (tennis Hub vs consolidated `model_path` 
 
 `model_path` is either a consolidated checkpoint directory or a Hugging Face model name. `${REPO_ROOT}` expands when the file is loaded. The file you copy starts from `nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis`.
 
-For a LoRA (AutoModel or Megatron-Bridge), merge the adapter into the base weights first, then set `model_path` to that consolidated directory (HF format; vLLM serves Hugging Face format only). For Megatron-Bridge, see the `lora/examples/convert_mbridge_lora_to_automodel_full*.sh` scripts.
+For a LoRA (AutoModel or Megatron-Bridge), merge the adapter into the base weights first, then set `model_path` to that consolidated directory (HF format; vLLM serves Hugging Face format only). For AutoModel, see [`avlm/training/automodel/lora/export/EXPORT.MD`](../../training/automodel/lora/export/EXPORT.MD) (BF16 merge, and FP8 without re-calibration). For Megatron-Bridge, see the `lora/examples/convert_mbridge_lora_to_automodel_full*.sh` scripts.
 
 | Parameter | Purpose |
 | --- | --- |
