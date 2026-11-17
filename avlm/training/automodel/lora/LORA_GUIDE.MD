@@ -29,6 +29,7 @@ Run all commands from the **repo root**.
 2. **Choose and edit the recipe** pointed to by `CONFIG_YAML_REL` in the training `launch_local.yaml`:
 
    - `nemotron_omni_automodel_lora_singlenode.yaml` — single-node debugging with up to 32 video frames, an 8,192-token limit, and sequence packing disabled
+   - `nemotron_omni_automodel_lora_single_gpu.yaml` — one GPU, no expert parallelism (`ep_size: 1`, torch dispatcher), 32 frames, 8,192 tokens, packing disabled; see [Single-GPU training](#single-gpu-training)
    - `nemotron_omni_automodel_lora_multinode.yaml` — multinode training with up to 128 video frames, a 21,504-token limit, and sequence packing enabled
 
    If you move a recipe, update `CONFIG_YAML_REL` in the training `launch_local.yaml` to its new repo-relative path.
@@ -108,6 +109,28 @@ Single-node training when GPUs are already available in `nemo-automodel:26.06` �
 MAX_STEPS=2 WANDB_MODE=offline MODEL_NAME=nemotron_omni_lora_generic_smoke \
   bash avlm/training/automodel/lora/generic/train_lora.sh
 ```
+
+## Single-GPU training
+
+One GPU with at least 96 GB (validated on an RTX PRO 6000; 64 frames or 12,288 tokens run
+out of memory there) trains the LoRA on small datasets with the generic launcher and the
+single-GPU recipe. The recipe sets `ep_size: 1` and `dispatcher: torch`, so no DeepEP
+wheel is installed, and global batch 8 runs as 8 gradient-accumulation steps.
+
+```bash
+# lora/generic/launch_local.yaml:
+#   CONFIG_YAML_REL: avlm/training/automodel/lora/configs/nemotron_omni_automodel_lora_single_gpu.yaml
+#   NUM_GPUS: 1
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=disabled MODEL_NAME=my_lora_1gpu \
+  bash avlm/training/automodel/lora/generic/train_lora.sh
+```
+
+The generic launcher sizes the visible-device check to the resolved GPU count, so
+`SKIP_CUDA_DEVICE_CHECK` is not needed. `expandable_segments` avoids allocator
+fragmentation at the 32-frame / 8,192-token limit.
+
+With `lr_decay_steps` equal to `max_steps` (100 in the recipe), the cosine schedule reaches
+`min_lr` at the last step; scale both together with `ckpt_every_steps` for longer runs.
 
 ## Slurm training
 
@@ -191,6 +214,12 @@ The launcher code comes from the selected commit, while the absolute configurati
 |--------|----------|
 | Slurm | Adapter checkpoints: `avlm/training/automodel/lora/slurm/outputs/<MODEL_NAME>/checkpoints_<layout>/`. Batch logs: `avlm/training/automodel/lora/slurm/logs/<MODEL_NAME>_<timestamp>/`. |
 | Generic | Adapter checkpoints: `avlm/training/automodel/lora/generic/outputs/<MODEL_NAME>/checkpoints_<layout>/`. |
+
+## Export for serving
+
+vLLM serves Hugging Face checkpoints only. To merge the adapter into the BF16 base, or to
+carry it into the ModelOpt FP8 checkpoint without re-calibrating, see
+[`export/EXPORT.MD`](export/EXPORT.MD).
 
 ## Optional: inference validation
 

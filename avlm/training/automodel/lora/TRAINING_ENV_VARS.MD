@@ -130,7 +130,7 @@ Inference validation overrides apply to Slurm batch training.
 | `SKIP_VLM_TRAINING_DEPS` | `0` | Skip VLM runtime dependency installation |
 | `AUTOMODEL_EXTRA_PKGS_DIR` | Under `CACHE_DIR` | Directory for runtime dependencies missing from the container |
 | `TRAIN_KEEP_CLUSTER_TMPDIR` | `0` | Preserve cluster temporary-directory variables |
-| `REQUIRE_CUDA_DEVICES` | `8` | Minimum visible CUDA devices |
+| `REQUIRE_CUDA_DEVICES` | `8` (Slurm); resolved GPU count (generic) | Minimum visible CUDA devices |
 | `SKIP_CUDA_DEVICE_CHECK` | `0` | Skip the visible-device check |
 | `AVLM_VERBOSE_OMNI_LOGS` | `0` | Set `1` to retain verbose Nemotron Omni logs |
 | `INFERENCE_VALIDATION_POLL_SECONDS` | `60` | Checkpoint polling interval |
