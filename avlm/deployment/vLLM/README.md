@@ -117,7 +117,7 @@ Edit `configs/vllm_server_params.yaml` (tennis Hub vs consolidated `model_path` 
 
 `model_path` is either a consolidated checkpoint directory or a Hugging Face model name. `${REPO_ROOT}` expands when the file is loaded. The file you copy starts from `nvidia/NVIDIA-NemotronLabs-AI-for-Media-Sports-Tennis`.
 
-For a LoRA (AutoModel or Megatron-Bridge), merge the adapter into the base weights first, then set `model_path` to that consolidated directory (HF format; vLLM serves Hugging Face format only). For Megatron-Bridge, see the `lora/examples/convert_mbridge_lora_to_automodel_full*.sh` scripts.
+For a LoRA (AutoModel or Megatron-Bridge), merge the adapter into the base weights first, then set `model_path` to that consolidated directory (HF format; vLLM serves Hugging Face format only). For AutoModel, see [`avlm/training/automodel/lora/export/EXPORT.MD`](../../training/automodel/lora/export/EXPORT.MD) (BF16 merge, and FP8 without re-calibration). For Megatron-Bridge, see the `lora/examples/convert_mbridge_lora_to_automodel_full*.sh` scripts.
 
 | Parameter | Purpose |
 | --- | --- |
@@ -146,3 +146,23 @@ For a LoRA (AutoModel or Megatron-Bridge), merge the adapter into the base weigh
 | `stream` | When true, clients receive a token stream |
 
 `data_parallel_size` times `tensor_parallel_size` is the number of GPUs the server needs. With `pin_serve_gpus: true`, the server uses only `cuda_visible_devices`. An environment variable set before `vllm_server.sh` overrides the YAML for `MODEL_PATH`, the port, the tensor-parallel size, the data-parallel size, and `VLLM_MAX_NUM_QUEUED_REQS`. Restart after editing the YAML.
+
+## Serve a Cosmos3 LoRA adapter
+
+vLLM serves a PEFT LoRA for [Cosmos3](https://huggingface.co/nvidia/Cosmos3-Nano) next to the base model, so one engine answers both base and adapted requests, routed by the `model` name. The adapter directory PEFT writes is not usable as is: PEFT names modules after the transformers model tree (`base_model.model.model.language_model.layers.<n>...`), while vLLM's Cosmos3 implementation resolves adapter keys against its flat decoder layout (`layers.<n>...`). vLLM loads such an adapter without an error and silently runs the base model. Flatten the key names first:
+
+```bash
+python avlm/deployment/vLLM/utils/flatten_cosmos3_lora_adapter.py \
+  --adapter /path/to/adapter --out /path/to/adapter_flat
+```
+
+The script accepts language-model-only adapters (the layout the Cosmos3 LoRA recipe produces) and rejects keys under the vision tower or projector. It applies to `nvidia/Cosmos3-Nano` only and refuses adapters of other base classes: `nvidia/Cosmos3-Edge` has a different decoder layout and its vLLM model class does not implement LoRA (`Cosmos3EdgeForConditionalGeneration does not support LoRA yet`; checked on v0.26.0, v0.27.0 and main as of November 2026), so an Edge adapter is used through transformers + PEFT instead. `vllm_server.sh` is tied to the Nemotron Omni video loader, so start Cosmos3-Nano with `vllm serve` directly (verified with `vllm/vllm-openai:v0.26.0`):
+
+```bash
+vllm serve nvidia/Cosmos3-Nano --served-model-name base --trust-remote-code \
+  --max-model-len 32768 --limit-mm-per-prompt '{"image":64}' \
+  --enable-lora --max-loras 1 --max-lora-rank 64 \
+  --lora-modules my_adapter=/path/to/adapter_flat
+```
+
+`--max-lora-rank` must be at least the adapter's `r`. Send requests with `"model": "my_adapter"` to use the adapter and `"model": "base"` for the base model; `/v1/models` lists both once the server is ready. Frames go in as `image_url` items (JPEG data URLs or `file://` paths), in time order, followed by the question, matching how the adapter was trained.
