@@ -164,6 +164,9 @@ lora_generic_train() {
 
   # slurm/ path keeps _train_env repo-root resolution compatible with training_utils.
   _TRAIN_SCRIPT_DIR="$(cd -- "${_LORA_GENERIC_LIB_DIR}/../slurm" && pwd)"
+  # Generic runs train on the GPUs resolved above, so the device check expects that
+  # count rather than the Slurm default of a full 8-GPU node.
+  export REQUIRE_CUDA_DEVICES="${REQUIRE_CUDA_DEVICES:-${NPROC_PER_NODE}}"
   # shellcheck source=../../../../utils/_train_env.sh
   source "${_AVLM_UTILS_DIR}/_train_env.sh"
 

@@ -9,3 +9,5 @@ Supported models:
 - [Nemotron-3-Nano-Omni](ptq/nemotron_3_nano_omni/)
 
 Run commands from the repo root.
+
+A LoRA merged into an already-quantized FP8 checkpoint does not need a new calibration: see [AutoModel LoRA export](../training/automodel/lora/export/EXPORT.MD) for re-quantizing only the adapted weights.
